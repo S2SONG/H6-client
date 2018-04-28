@@ -16,6 +16,7 @@ import {TermsModal} from "../../ui/TermsModal";
 import {SignUpMajor} from "../../ui/SignUpMajor";
 import {SignUpDatePicker} from "../../ui/SignUpDatePicker";
 import Toast, {DURATION} from 'react-native-easy-toast';
+import {validation} from "../../../utils/validations";
 
 const labels = ["가입동의","기본정보","부가정보"];
 const customStyles = {
@@ -62,7 +63,7 @@ class SignInScreen extends React.Component {
             secondVisible: false,
             userId: undefined,
             userPw: undefined,
-            userRePw: undefined,
+            userRePw: '',
             userNickName: undefined,
             email: undefined,
             major: undefined,
@@ -71,7 +72,22 @@ class SignInScreen extends React.Component {
             connectedMajor: undefined,
             admissionYear: undefined,
             checkIdNo: 0,
-            checkIdLabel:'',
+            checkIdLabel: '',
+            checkIdClient:false,
+            checkIdServer:false,
+            checkNickNameNo: 0,
+            checkNickNameLabel: '',
+            checkNickNameClient:false,
+            checkNickNameServer:false,
+            checkEmailNo:0,
+            checkEmailLabel:'',
+            checkEmailClient:false,
+            checkEmailServer:false,
+            checkPasswordNo:0,
+            checkPasswordLabel:'',
+            checkPassRe:0,
+            checkPassReLabel:'',
+            passCheck:false
         }
     }
 
@@ -196,35 +212,103 @@ class SignInScreen extends React.Component {
     };
 
     handleStateUserId = (userId) => {
-        if (0 < userId.length && userId.length < 6) {
-            this.setState({checkIdNo:1, checkIdLabel:'아이디는 6자 이상이여야 합니다.'});
+        if (validation.checkIdLength(userId)) {
+            this.setState({checkIdClient:true, checkIdNo:0, checkIdLabel:''});
         } else {
-            this.setState({checkIdNo:0, checkIdLabel:''});
+            this.setState({checkIdClient:false, checkIdNo:1, checkIdLabel:'아이디는 6자 이상이여야 합니다.'});
         }
         this.setState({userId});
     };
     handleCheckUserId = async () => {
       const {SignIn} = this.props;
-      const result = await SignIn.checkUserId(this.state.userId);
-      if(result){
-          this.setState({checkIdNo:2, checkIdLabel:'사용가능한 아이디 입니다.'});
-      }else{
-          this.setState({checkIdNo:1, checkIdLabel:'사용불가능한 아이디 입니다.'});
+      if(this.state.checkIdClient && this.state.userId.length > 0) {
+          const result = await SignIn.checkUserId(this.state.userId);
+          if (result) {
+              this.setState({checkIdServer:true, checkIdNo: 2, checkIdLabel: '사용가능한 아이디 입니다.'});
+          } else {
+              this.setState({checkIdServer:false, checkIdNo: 1, checkIdLabel: '사용불가능한 아이디 입니다.'});
+          }
+      } else {
+          this.setState({checkIdServer: false});
       }
+    };
+
+    handleStateUserNickName = (userNickName) => {
+        if(validation.checkNickNameLength(userNickName)){
+            this.setState({checkNickNameClient:true, checkNickNameNo:0, checkNickNameLabel: ''});
+        }else{
+            this.setState({checkNickNameClient:false, checkNickNameNo:1, checkNickNameLabel: '닉네임은 한글자 이상이여야 합니다.'});
+        }
+        this.setState({userNickName});
+    };
+    handleCheckUserNickName = async () => {
+      const {SignIn} = this.props;
+      if(this.state.checkNickNameClient && this.state.userNickName.length > 0) {
+          const result = await SignIn.checkUserNickName(this.state.userNickName);
+          if (result) {
+              this.setState({checkNickNameServer:true, checkNickNameNo: 2, checkNickNameLabel: '사용가능한 닉네임 입니다.'});
+          } else {
+              this.setState({checkNickNameServer:false, checkNickNameNo: 1, checkNickNameLabel: '사용불가능한 닉네임 입니다.'});
+          }
+      } else {
+          this.setState({checkNickNameServer: false});
+      }
+    };
+
+
+    handleStateUserEmail = (email) => {
+        if(validation.checkEmail(email)){
+            this.setState({checkEmailClient:true, checkEmailNo: 0, checkEmailLabel: ''});
+        }else{
+            this.setState({checkEmailClient:false, checkEmailNo: 1, checkEmailLabel: '이메일 형식이 아닙니다.'});
+        }
+        this.setState({email});
+    };
+
+    handleCheckUserEmail = async () => {
+        const {SignIn} = this.props;
+        if(this.state.checkEmailClient && this.state.email.length > 0) {
+            const result = await SignIn.checkUserEmail(this.state.email);
+            if (result) {
+                this.setState({checkEmailServer: true, checkEmailNo: 2, checkEmailLabel: '사용가능한 이메일 입니다.'});
+            } else {
+                this.setState({checkEmailServer: false, checkEmailNo: 1, checkEmailLabel: '사용불가능한 이메일 입니다.'});
+            }
+        } else {
+            this.setState({checkEmailServer: false});
+        }
     };
 
     handleStateUserPw = (userPw) => {
         this.setState({userPw});
+
+         if(userPw >0 && this.state.userRePw >0 && userPw === this.state.userRePw){
+             this.setState({checkPassRe:2, checkPassReLabel:'일치합니다'})
+         }
+        if(validation.checkPassLength(userPw)) {
+
+            this.setState({checkPasswordNo: 0, checkPasswordLabel: ''})
+        }
+
+        else{
+            this.setState({checkPasswordNo:1,checkPasswordLabel:'8자 이상 입력해주세요.'})
+        }
     };
-    handleStateUserNickName = (userNickName) => {
-        this.setState({userNickName});
-    };
+
     handleStateUserRePw = (userRePw) => {
         this.setState({userRePw});
+          if (this.state.userPw.length < 8) {
+              this.setState({checkPassRe: 0, checkPassReLabel: ''})
+          }
+        else if (validation.checkPassRe(this.state.userPw, userRePw)) {
+            this.setState({checkPassRe: 2, checkPassReLabel: '일치합니다'})
+        }
+        else {
+            this.setState({checkPassRe: 1, checkPassReLabel: '비밀번호가 불일치 합니다'})
+        }
+
     };
-    handleStateEmail = (email) => {
-        this.setState({email});
-    };
+
     handleStateMajor = (major) => {
         this.setState({major});
     };
@@ -323,6 +407,8 @@ class SignInScreen extends React.Component {
                                        icon={'lock'}
                                        secureText={true}
                                        label={'비밀번호'}
+                                       checkNo={this.state.checkPasswordNo}
+                                       checkLabel={this.state.checkPasswordLabel}
                         />
                         <SignTextInput handle={this.handleStateUserRePw}
                                        value={userRePw}
@@ -330,18 +416,26 @@ class SignInScreen extends React.Component {
                                        icon={'lock'}
                                        secureText={true}
                                        label={'비밀번호 확인'}
+                                       checkNo ={this.state.checkPassRe}
+                                       checkLabel={this.state.checkPassReLabel}
                         />
                         <SignTextInput handle={this.handleStateUserNickName}
                                        value={userNickName}
                                        placeholder={'닉네임'}
                                        icon={'user-secret'}
                                        label={'닉네임'}
+                                       checkNo={this.state.checkNickNameNo}
+                                       checkLabel={this.state.checkNickNameLabel}
+                                       blur={this.handleCheckUserNickName}
                         />
-                        <SignTextInput handle={this.handleStateEmail}
+                        <SignTextInput handle={this.handleStateUserEmail}
                                        value={email}
                                        placeholder={'이메일'}
                                        icon={'envelope'}
                                        label={'이메일'}
+                                       checkNo={this.state.checkEmailNo}
+                                       checkLabel={this.state.checkEmailLabel}
+                                       blur={this.handleCheckUserEmail}
                         />
                     </View>
                 );
@@ -393,10 +487,12 @@ class SignInScreen extends React.Component {
 
     basicChecked = async () => {
         const { SignIn } = this.props;
-        let checkid = await SignIn.checkUserId(this.state.userId);
-        if(!checkid) return this.handleCheckUserId();
-        let checkemail = await SignIn.checkUserEmail(this.state.email);
-        if(!checkemail) return this.handleCheckUserEmail();
+        // let checkid = await SignIn.checkUserId(this.state.userId);
+        // if(!checkid) return this.handleCheckUserId();
+        // let checknickname = await SignIn.checkUserNickName(this.state.userNickName);
+        // if(!checknickname)
+        // let checkemail = await SignIn.checkUserEmail(this.state.email);
+        // if(!checkemail) return this.handleCheckUserEmail();
         this.onPageChange(1);
     };
     signUpUser = async () => {

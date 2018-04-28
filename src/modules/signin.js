@@ -106,9 +106,20 @@ export const checkUserId = (userId) => async dispatch => {
     }
 };
 
+export const checkUserNickName = (nickname) => async dispatch => {
+    const userNickNameCheck = await fetch(`${ROOT_URL}/userValidation/checkUserNickName/${nickname}`);
+    const jsonData = await userNickNameCheck.json();
+    console.log('check dup nickname : ', jsonData.statusCode);
+    if (jsonData.statusCode == 200) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 export const checkUserEmail = (email) => async dispatch => {
-    const userIdCheck = await fetch(`${ROOT_URL}/userValidation/checkEmail/${email}`);
-    const jsonData = await userIdCheck.json();
+    const userEmailCheck = await fetch(`${ROOT_URL}/userValidation/checkUserEmail/${email}`);
+    const jsonData = await userEmailCheck.json();
     console.log('check dup email : ', jsonData.statusCode);
     if (jsonData.statusCode == 200) {
         return true;
