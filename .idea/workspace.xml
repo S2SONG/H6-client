@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b59e02b8-8362-4b12-b305-99a939079c87" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/utils/validations.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/ui/WarningModal.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/config.js" afterPath="$PROJECT_DIR$/config.js" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
       <change beforePath="$PROJECT_DIR$/src/components/screen/SignIn/SignInScreen.js" afterPath="$PROJECT_DIR$/src/components/screen/SignIn/SignInScreen.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/TermsModal.js" afterPath="$PROJECT_DIR$/src/components/ui/TermsModal.js" />
       <change beforePath="$PROJECT_DIR$/src/modules/signin.js" afterPath="$PROJECT_DIR$/src/modules/signin.js" />
+      <change beforePath="$PROJECT_DIR$/src/utils/validations.js" afterPath="$PROJECT_DIR$/src/utils/validations.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SignInScreen.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SignInScreen.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/screen/SignIn/SignInScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="288" column="0" lean-forward="true" selection-start-line="288" selection-start-column="0" selection-end-line="288" selection-end-column="0" />
+            <state relative-caret-position="309">
+              <caret line="578" column="54" lean-forward="false" selection-start-line="578" selection-start-column="54" selection-end-line="578" selection-end-column="54" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -32,22 +35,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="TermsModal.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/ui/TermsModal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="375">
+              <caret line="25" column="52" lean-forward="true" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TermsModal.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/ui/TermsModal.js">
+      <file leaf-file-name="WarningModal.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/ui/WarningModal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="255">
+              <caret line="17" column="54" lean-forward="false" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -55,8 +62,8 @@
       <file leaf-file-name="validations.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utils/validations.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" column="22" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
+            <state relative-caret-position="435">
+              <caret line="29" column="2" lean-forward="false" selection-start-line="29" selection-start-column="2" selection-end-line="29" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -76,7 +83,7 @@
         <entry file="file://$PROJECT_DIR$/config.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+              <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -85,8 +92,8 @@
       <file leaf-file-name="signin.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/modules/signin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
-              <caret line="104" column="18" lean-forward="true" selection-start-line="104" selection-start-column="18" selection-end-line="104" selection-end-column="18" />
+            <state relative-caret-position="543">
+              <caret line="389" column="53" lean-forward="false" selection-start-line="389" selection-start-column="53" selection-end-line="389" selection-end-column="53" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -117,8 +124,8 @@
       <file leaf-file-name="SignTextInput.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/ui/SignTextInput.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+            <state relative-caret-position="-607">
+              <caret line="3" column="35" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="35" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -144,10 +151,24 @@
       <find>handleStatePwd</find>
       <find>handleSignin</find>
       <find>handleSignUp</find>
-      <find>register</find>
       <find>toggle</find>
       <find>close</find>
       <find>checkIdLength</find>
+      <find>handlecheckUserEmail</find>
+      <find>passcheck</find>
+      <find>state.e</find>
+      <find>handleStateuser</find>
+      <find>this.props.register</find>
+      <find>handleSignupmodal</find>
+      <find>TERMS_FIRST_CHECKED</find>
+      <find>handleTermsfirstcheck</find>
+      <find>SIGN_UP_USER_ID_MODAL</find>
+      <find>this.handleTerms</find>
+      <find>current</find>
+      <find>SIGN_UP_CURR</find>
+      <find>register</find>
+      <find>termsmodal</find>
+      <find>handleTerms</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -193,10 +214,12 @@
         <option value="$PROJECT_DIR$/src/components/ui/SignUpDatePicker.js" />
         <option value="$PROJECT_DIR$/src/components/ui/SignTextInput.js" />
         <option value="$PROJECT_DIR$/utils/validations.js" />
-        <option value="$PROJECT_DIR$/src/modules/signin.js" />
         <option value="$PROJECT_DIR$/config.js" />
-        <option value="$PROJECT_DIR$/src/components/screen/SignIn/SignInScreen.js" />
         <option value="$PROJECT_DIR$/src/utils/validations.js" />
+        <option value="$PROJECT_DIR$/src/components/ui/WarningModal.js" />
+        <option value="$PROJECT_DIR$/src/modules/signin.js" />
+        <option value="$PROJECT_DIR$/src/components/ui/TermsModal.js" />
+        <option value="$PROJECT_DIR$/src/components/screen/SignIn/SignInScreen.js" />
       </list>
     </option>
   </component>
@@ -326,12 +349,6 @@
               <item name="h6-native" type="b2602c69:ProjectViewProjectNode" />
               <item name="h6-native" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="reducers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="h6-native" type="b2602c69:ProjectViewProjectNode" />
-              <item name="h6-native" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -394,7 +411,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114421000" />
+    <option name="totallyTimeSpent" value="137659000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -446,6 +463,8 @@
         <option value="$PROJECT_DIR$/../H6-server/apis/lecture/model/lectureReply.model.js" />
         <option value="$PROJECT_DIR$/../H6-server/apis/lecture/model/lectureReply.model.spec.js.map" />
         <option value="$PROJECT_DIR$/../H6-server/apis/lecture/model/lecture.model.spec.js" />
+        <option value="$PROJECT_DIR$/../H6-server/resources/track.resource.js" />
+        <option value="$PROJECT_DIR$/../H6-server/resources/track.resource.js.map" />
       </list>
     </option>
   </component>
@@ -457,20 +476,12 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/screen/SignUp/SignUpStyles.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="32" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/screen/SignUp/SignUpScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="20" column="21" lean-forward="true" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -518,7 +529,7 @@
         <state relative-caret-position="988">
           <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -768,7 +779,7 @@
         <state relative-caret-position="195">
           <caret line="13" column="1" lean-forward="false" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -794,33 +805,17 @@
         <state relative-caret-position="513">
           <caret line="173" column="73" lean-forward="false" selection-start-line="171" selection-start-column="24" selection-end-line="173" selection-end-column="73" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#231#267#0" expanded="true" />
-            <element signature="e#418#467#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
+            <element signature="e#231#267#0" expanded="false" />
+            <element signature="e#418#467#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ui/TermsModal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -841,34 +836,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ui/SignTextInput.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/modules/signin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="104" column="18" lean-forward="true" selection-start-line="104" selection-start-column="18" selection-end-line="104" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/validations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="22" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/screen/SignIn/SignInStyles.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -877,10 +844,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/validations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="2" lean-forward="false" selection-start-line="29" selection-start-column="2" selection-end-line="29" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ui/SignTextInput.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-607">
+          <caret line="3" column="35" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ui/WarningModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="54" lean-forward="false" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/modules/signin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="389" column="53" lean-forward="false" selection-start-line="389" selection-start-column="53" selection-end-line="389" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/screen/SignIn/SignInScreen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="288" column="0" lean-forward="true" selection-start-line="288" selection-start-column="0" selection-end-line="288" selection-end-column="0" />
+        <state relative-caret-position="309">
+          <caret line="578" column="54" lean-forward="false" selection-start-line="578" selection-start-column="54" selection-end-line="578" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ui/TermsModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="52" lean-forward="true" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

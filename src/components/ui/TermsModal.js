@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Modal, ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-elements';
+import HTML from 'react-native-render-html';
 import PropTypes from 'prop-types';
 export class TermsModal extends React.Component{
     constructor(props){
@@ -20,29 +21,7 @@ export class TermsModal extends React.Component{
                 <View style = { styles.modalContainer } >
                     <ScrollView style = { styles.innerContainer } >
                         <Text h3 style = { styles.headerText }>{ this.props.title }</Text>
-                        <Text h3>
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-                            fsdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfa
-
-                        </Text>
+                        <HTML html={this.props.htmlContent}/>
                     </ScrollView>
                     <View style = { styles.buttonContainer }>
                         <Button
@@ -61,6 +40,7 @@ TermsModal.propTypes = {
     closeModal : PropTypes.func,
     modalVisible : PropTypes.bool,
     title : PropTypes.string,
+    htmlContent: PropTypes.string
 };
 
 const styles = StyleSheet.create({
