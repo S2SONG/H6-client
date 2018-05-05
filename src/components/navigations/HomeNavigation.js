@@ -1,7 +1,7 @@
 import React from "react";
 import {StackNavigator, TabNavigator} from 'react-navigation';
 import {HomeScreen} from "../screen/Home/HomeScreen";
-import {MyInfoScreen} from "../screen/MyInfo/MyInfoScreen";
+import MyInfoScreen from "../screen/MyInfo/MyInfoScreen";
 import {Icon} from 'react-native-elements';
 import { } from 'react-native-material-bottom-navigation'
 import {LectureInfoScreen} from "../screen/Lecture/LectureInfoScreen";
@@ -11,6 +11,7 @@ export const HomeTabs = TabNavigator({
         Home: {
             screen: HomeScreen,
             navigationOptions: {
+                header:null,
                 tabBarLabel: '홈',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='home' size={24} color={tintColor}/>)
             }
@@ -18,6 +19,7 @@ export const HomeTabs = TabNavigator({
         Lecture: {
             screen: LectureInfoScreen,
             navigationOptions: {
+                header:null,
                 tabBarLabel: '강의평가',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='book' size={24} color={tintColor}/>)
             }
@@ -36,8 +38,8 @@ export const HomeTabs = TabNavigator({
         tabBarPosition: 'bottom',
         //swipeEnabled:false,
         //animationEnabled:false,
+        headerMode:'screen',
         navigationOptions : {
-            header: null
         },
         tabBarOptions: {
             activeTintColor: 'red',

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, View, Text, Animated, AsyncStorage} from 'react-native';
+import {Alert, View, Text, Animated, AsyncStorage, ScrollView, KeyboardAvoidingView, Keyboard} from 'react-native';
 import {LinearGradient} from 'expo';
 import {Button, Icon} from 'react-native-elements';
 import Modal from 'react-native-modal';
@@ -56,7 +56,15 @@ class SignInScreen extends React.Component {
             pwd: '',
             register:false,
             termsModal:false,
-        }
+            keyboardSpace:0
+        };
+        Keyboard.addListener('keyboardDidShow', (frames)=>{
+            if(!frames.endCoordinates) return;
+            this.setState({keyboardSpace: frames.endCoordinates.height});
+        });
+        Keyboard.addListener('keyboardDidHide', (frames)=>{
+            this.setState({keyboardSpace:0})
+        });
     }
 
     componentDidMount() {
@@ -431,7 +439,8 @@ class SignInScreen extends React.Component {
                 );
             case 1:
                 return(
-                    <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+                    <ScrollView>
+                    <View style={{flex:1, justifyContent:'center', alignItems:'center', paddingTop:this.state.keyboardSpace?50:0, paddingBottom:this.state.keyboardSpace?65:0}} behavior="padding" enabled>
                         <SignTextInput handle={this.handleStateUserId}
                                        value={this.props.userId}
                                        placeholder={'아이디'}
@@ -478,6 +487,7 @@ class SignInScreen extends React.Component {
                                        blur={this.handleCheckUserEmail}
                         />
                     </View>
+                    </ScrollView>
                 );
             case 2:
                 return(
@@ -563,10 +573,10 @@ class SignInScreen extends React.Component {
 
     autoLogin = async () => {
         const {SignIn} = this.props;
-        // const token = await AsyncStorage.getItem('token');
-        // if(token !== null){
-        //     this.props.navigation.navigate('Home');
-        // }
+        const token = await AsyncStorage.getItem('token');
+        if(token !== null){
+            this.props.navigation.navigate('Home');
+        }
         SignIn.handleAuto(true);
     };
 
@@ -583,6 +593,8 @@ class SignInScreen extends React.Component {
                 style={styles.container}
             >
                 <Toast ref="toast"/>
+
+                <KeyboardAvoidingView behavior={'position'} enabled>
                 <Modal isVisible={this.props.register}>
                     <TermsModal
                         closeModal = { this.handleTermsFirstModalClose }
@@ -626,13 +638,14 @@ class SignInScreen extends React.Component {
                         body={'이메일을 확인 해주세요.'}
                         handle={this.handleCheckUserEmailModal}
                     />
-                    <View style={{ flex: 1,justifyContent:'center', alignItems:'center'}}>
-                        <View style={{height:600, width:300, backgroundColor:'#ffffff'}}>
-                            <View name='header' style={{flex:1, flexDirection:'row', justifyContent: 'space-between', height:60, width:300, padding:10}}>
+
+                    <View style={{ flex: 1, justifyContent:'center', alignItems:'center'}}>
+                        <View style={{height:560, width:300, backgroundColor:'#ffffff'}}>
+                            <View name='header' style={{flexDirection:'row', justifyContent: 'space-between', height:60, width:300, padding:10}}>
                                 {this.renderModalHeader(this.props.currentPosition)}
                                 <Icon name="times" type="font-awesome" style={{alignSelf:'flex-end'}}  onPress={this.handleSignUpModal}/>
                             </View>
-                            <View name='body' style={{height:480, width:300, padding:10}}>
+                            <View name='body' style={{flex:1, height:460, width:300, padding:10}}>
                                 <StepIndicator
                                     stepCount={3}
                                     customStyles={customStyles}
@@ -647,6 +660,7 @@ class SignInScreen extends React.Component {
                         </View>
                     </View>
                 </Modal>
+                </KeyboardAvoidingView>
 
                 <Animated.View style={{opacity: animation}}>
                     <SignTextInput

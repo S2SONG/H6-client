@@ -36,7 +36,7 @@ export class SignTextInput extends React.Component {
     };
     render() {
         return (
-            <View style = { { marginBottom: 10, alignItems: 'center' } }>
+            <View style = { { marginBottom: 7, alignItems: 'center' } }>
                 {this.renderLabel()}
                 <View style = { styles.inputLayout }>
                     {/**<View style = { styles.inputIcon }>
