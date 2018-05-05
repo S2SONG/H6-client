@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, Button, Animated, RefreshControl, Platform, StatusBar} from 'react-native';
-import styles from "./HomeStyles";
+import styles from "./LectureStyles";
 
-export class HomeScreen extends React.Component {
+export class LectureScreen extends React.Component {
 
     constructor(props) {
         super(props);
@@ -12,7 +12,6 @@ export class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text>
-                    Home
                 </Text>
             </View>
         )

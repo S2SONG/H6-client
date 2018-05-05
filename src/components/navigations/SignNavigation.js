@@ -16,18 +16,6 @@ const SignNav = StackNavigator({
             header: null
         }
     },
-    SignUp: {
-        screen: SignUpScreen,
-        navigationOptions: {
-            header: null
-        }
-    },
-    Terms: {
-        screen: TermsScreen,
-        navigationOptions: {
-            title: '가입 동의'
-        }
-    },
     HomeTab: {
         screen: HomeTabs
     }

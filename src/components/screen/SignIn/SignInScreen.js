@@ -5,6 +5,7 @@ import {Button, Icon} from 'react-native-elements';
 import Modal from 'react-native-modal';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {DotIndicator} from 'react-native-indicators';
 import styles from "./SignInStyles";
 import config from "../../../../config";
 import {SignTextInput} from "../../ui/SignTextInput";
@@ -63,6 +64,7 @@ class SignInScreen extends React.Component {
         SignIn.initSignInState();
         SignIn.initSignUpState();
         SignIn.signUpTerm1();
+        SignIn.signUpTerm2();
         //로그인화면 애니메이션 효과
         Animated.timing(          // Uses easing functions
             this._opacity,    // The value to drive
@@ -73,6 +75,7 @@ class SignInScreen extends React.Component {
                 delay: 200,
             }            // Configuration
         ).start();                // Don't forget start!
+        this.autoLogin();
     }
 
     //로그인화면 id 입력
@@ -401,7 +404,7 @@ class SignInScreen extends React.Component {
                                 onValueChange={this.handleTermsFirstCheck}
                             />
                             <Text style={{width:180, marginLeft:10}}>
-                                개인정보 수집 및 이용
+                                개인정보 수집 및 이용 (필수)
                             </Text>
                             <LinkText
                                 value='보기'
@@ -416,7 +419,7 @@ class SignInScreen extends React.Component {
                                 onValueChange={this.handleTermsSecondCheck}
                             />
                             <Text style={{width:180, marginLeft:10}}>
-                                한담 서비스 이용 약관
+                                한담 서비스 이용 약관 (필수)
                             </Text>
                             <LinkText
                                 value='보기'
@@ -539,6 +542,8 @@ class SignInScreen extends React.Component {
                 return this.handleCheckUserEmailModal();
             let checkemail = await SignIn.checkUserEmail(this.props.userEmail);
             if (!checkemail) return this.handleCheckUserEmailModal();
+        }else{
+            return this.handleCheckUserEmailModal();
         }
         if(!(this.props.checkPassword && this.props.checkRePassword))
             return this.handleCheckUserPasswordModal();
@@ -556,10 +561,23 @@ class SignInScreen extends React.Component {
       }
     };
 
+    autoLogin = async () => {
+        const {SignIn} = this.props;
+        // const token = await AsyncStorage.getItem('token');
+        // if(token !== null){
+        //     this.props.navigation.navigate('Home');
+        // }
+        SignIn.handleAuto(true);
+    };
+
     render() {
         const animation = this._opacity;
+        if(!this.props.auto){
+            return(
+                <DotIndicator color='white' />
+            )
+        }
         return (
-
             <LinearGradient
                 colors={[config.main_background_color1, config.main_background_color2, config.main_background_color3]}
                 style={styles.container}
@@ -576,7 +594,7 @@ class SignInScreen extends React.Component {
                         closeModal = { this.handleTermsSecondModalClose }
                         modalVisible = { this.props.secondVisible }
                         title = '한담 서비스 이용 약관'
-                        htmlContent={this.props.term1}
+                        htmlContent={this.props.term2}
                     />
                     <WarningModal
                         visible={this.state.termsModal}
@@ -674,6 +692,8 @@ export default connect((state) => ({
         login: state.signin.login,
         id: state.signin.id,
         pwd: state.signin.pwd,
+        auto: state.signin.auto,
+
         register: state.signin.register,
         currentPosition: state.signin.currentPosition,
         termsModal: state.signin.termsModal,
@@ -717,7 +737,7 @@ export default connect((state) => ({
         checkPassword: state.signin.checkPassword,
         checkRePassword: state.signin.checkRePassword,
         term1: state.signin.term1,
-
+        term2: state.signin.term2,
     }),
     (dispatch) => ({
         SignIn: bindActionCreators(signin, dispatch)

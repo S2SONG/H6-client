@@ -1,3 +1,4 @@
+import {AsyncStorage} from 'react-native';
 import {handleActions} from 'redux-actions';
 import config from "../../config";
 
@@ -7,6 +8,8 @@ const ROOT_URL = config.server;
 const SIGN_IN = 'SIGN_IN';
 const SIGN_IN_ID = 'SIGN_IN_ID';
 const SIGN_IN_PWD = 'SIGN_IN_PWD';
+const SIGN_IN_AUTO = 'SIGN_IN_AUTO';
+
 const SIGN_UP_MODAL = 'SIGN_UP_MODAL';
 
 const TERMS_FIRST_CHECKED = 'TERMS_FIRST_CHECKED';
@@ -50,11 +53,12 @@ const SIGN_UP_USER_NICKNAME_MODAL = 'SIGN_UP_USER_NICKNAME_MODAL';
 const SIGN_UP_USER_PWD_MODAL = 'SIGN_UP_USER_PWD_MODAL';
 const SIGN_UP_CURRENT_POSITION = 'SIGN_UP_CURRENT_POSITION';
 const SIGN_UP_TERM_1 = 'SIGN_UP_TERM_1';
+const SIGN_UP_TERM_2 = 'SIGN_UP_TERM_2';
 
 
 const initialState = {
     sample: "",
-    pending: false,
+    auto: false,
     error: false,
     login: false,
     id: '',
@@ -104,6 +108,7 @@ const initialState = {
     checkRePassword:false,
 
     term1:'',
+    term2:''
 };
 
 export const initSignInState = () => dispatch => {
@@ -154,6 +159,10 @@ export const initSignUpState = () => dispatch => {
     dispatch({type:TERMS_FIRST_CHECKED_SET, payload:false});
     dispatch({type:TERMS_SECOND_CHECKED_SET, payload:false});
 
+};
+
+export const handleAuto = (check) => dispatch => {
+    dispatch({type:SIGN_IN_AUTO, payload:check});
 };
 
 export const handleSignInId = (id) => dispatch => {
@@ -295,6 +304,10 @@ export const handleSignUpTerm1 = (term) => dispatch => {
     dispatch({type:SIGN_UP_TERM_1, payload: term});
 };
 
+export const handleSignUpTerm2 = (term) => dispatch => {
+    dispatch({type:SIGN_UP_TERM_2, payload: term});
+};
+
 
 export const signInUser = (userId, userPw) => async dispatch => {
     console.log('start');
@@ -313,11 +326,12 @@ export const signInUser = (userId, userPw) => async dispatch => {
         body: JSON.stringify(userData)
     });
     const jsonData = await signInCheck.json();
-    console.log('json : ' + jsonData.statusCode);
     if (jsonData.statusCode == 200) {
         dispatch({type: SIGN_IN, payload: true});
+        AsyncStorage.setItem('token', jsonData.result);
     } else {
         dispatch({type: SIGN_IN, payload: false});
+        AsyncStorage.removeItem('token');
     }
 
 };
@@ -394,6 +408,15 @@ export const signUpTerm1 = () => async dispatch => {
   } else {
       dispatch({type:SIGN_UP_TERM_1, payload:''});
   }
+};
+export const signUpTerm2 = () => async dispatch => {
+    const term = await fetch(`${ROOT_URL}/terms/privacyPolicy`);
+    const jsonData = await term.json();
+    if(jsonData.statusCode == 200){
+        dispatch({type:SIGN_UP_TERM_2, payload:jsonData.result});
+    } else {
+        dispatch({type:SIGN_UP_TERM_2, payload:''});
+    }
 };
 
 
@@ -663,6 +686,18 @@ export default handleActions({
         return {
             ...state,
             term1: action.payload,
+        }
+    },
+    [SIGN_UP_TERM_2]: (state, action) => {
+        return {
+            ...state,
+            term2: action.payload
+        }
+    },
+    [SIGN_IN_AUTO]: (state, action) => {
+        return {
+            ...state,
+            auto: action.payload
         }
     }
 }, initialState);

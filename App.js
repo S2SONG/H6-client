@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, BackHandler} from 'react-native';
+import {View, StyleSheet, BackHandler, StatusBar} from 'react-native';
 import {Constants} from 'expo';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
@@ -24,7 +24,7 @@ export default class App extends React.Component {
         return (
             //redux store 사용
             <Provider store={store}>
-                    <SignNavigation/>
+                <SignNavigation/>
             </Provider>
         );
     }
