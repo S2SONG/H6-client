@@ -18,6 +18,7 @@ const TERMS_SECOND_CHECKED = 'TERMS_SECOND_CHECKED';
 const TERMS_SECOND_CHECKED_SET = 'TERMS_SECOND_CHECKED_SET';
 const TERMS_FIRST_MODAL = 'TERMS_FIRST_MODAL';
 const TERMS_SECOND_MODAL = 'TERMS_SECOND_MODAL';
+const TERMS_ALL_CHECKED = 'TERMS_ALL_CHECKED';
 
 const SIGN_UP_USER_ID = 'SIGN_UP_USER_ID';
 const SIGN_UP_USER_PWD = 'SIGN_UP_USER_PWD';
@@ -108,7 +109,7 @@ const initialState = {
     checkRePassword:false,
 
     term1:'',
-    term2:''
+    term2:'',
 };
 
 export const initSignInState = () => dispatch => {
@@ -306,6 +307,10 @@ export const handleSignUpTerm1 = (term) => dispatch => {
 
 export const handleSignUpTerm2 = (term) => dispatch => {
     dispatch({type:SIGN_UP_TERM_2, payload: term});
+};
+
+export const handleTermsAll = (check) => dispatch =>{
+    dispatch({type:TERMS_ALL_CHECKED, payload:check});
 };
 
 
@@ -698,6 +703,13 @@ export default handleActions({
         return {
             ...state,
             auto: action.payload
+        }
+    },
+    [TERMS_ALL_CHECKED]: (state, action) => {
+        return {
+            ...state,
+            isFirstChecked: action.payload,
+            isSecondChecked: action.payload
         }
     }
 }, initialState);

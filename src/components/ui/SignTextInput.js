@@ -73,13 +73,11 @@ SignTextInput.propTypes = {
 const styles = StyleSheet.create({
     inputLayout: {
         flexDirection: 'row',
-        height: 40,
+        height: 50,
         width: '90%',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#f6f7f9',
         paddingLeft: 10,
         borderRadius:3,
-        borderWidth:1,
-        borderColor:'#aaaaaa'
     },
     input: {
         width: '100%',

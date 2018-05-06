@@ -18,6 +18,7 @@ export default class App extends React.Component {
             // Typically you would use the navigator here to go to the last state.
             return true;
         });
+        StatusBar.setBarStyle('light-content',true);
     }
 
     render() {

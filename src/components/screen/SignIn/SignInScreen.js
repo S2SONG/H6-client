@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, View, Text, Animated, AsyncStorage, ScrollView, KeyboardAvoidingView, Keyboard} from 'react-native';
+import {Alert, View, Text, Animated, AsyncStorage, ScrollView, KeyboardAvoidingView, Keyboard, SafeAreaView, StatusBar, TouchableHighlight} from 'react-native';
 import {LinearGradient} from 'expo';
 import {Button, Icon} from 'react-native-elements';
 import Modal from 'react-native-modal';
@@ -26,23 +26,23 @@ const customStyles = {
     currentStepIndicatorSize:30,
     separatorStrokeWidth: 2,
     currentStepStrokeWidth: 3,
-    stepStrokeCurrentColor: '#0b6aff',
+    stepStrokeCurrentColor: '#989898',
     stepStrokeWidth: 3,
-    stepStrokeFinishedColor: '#0b6aff',
+    stepStrokeFinishedColor: '#989898',
     stepStrokeUnFinishedColor: '#aaaaaa',
-    separatorFinishedColor: '#0b6aff',
+    separatorFinishedColor: '#989898',
     separatorUnFinishedColor: '#aaaaaa',
-    stepIndicatorFinishedColor: '#0b6aff',
+    stepIndicatorFinishedColor: '#989898',
     stepIndicatorUnFinishedColor: '#ffffff',
     stepIndicatorCurrentColor: '#ffffff',
     stepIndicatorLabelFontSize: 13,
     currentStepIndicatorLabelFontSize: 13,
-    stepIndicatorLabelCurrentColor: '#0b6aff',
+    stepIndicatorLabelCurrentColor: '#989898',
     stepIndicatorLabelFinishedColor: '#ffffff',
     stepIndicatorLabelUnFinishedColor: '#aaaaaa',
     labelColor: '#999999',
     labelSize: 13,
-    currentStepLabelColor: '#0b6aff'
+    currentStepLabelColor: '#989898'
 };
 
 
@@ -65,6 +65,7 @@ class SignInScreen extends React.Component {
         Keyboard.addListener('keyboardDidHide', (frames)=>{
             this.setState({keyboardSpace:0})
         });
+
     }
 
     componentDidMount() {
@@ -145,6 +146,17 @@ class SignInScreen extends React.Component {
     handleTermsSecondCheck = () => {
         const {SignIn} = this.props;
         SignIn.handleTermsSecondCheck();
+    };
+
+    //모두 동의
+    handleTermsAllTrue = () => {
+        const {SignIn} = this.props;
+        if(this.returnChecked()){
+            SignIn.handleTermsAll(false);
+        }else{
+            SignIn.handleTermsAll(true);
+        }
+
     };
 
     //동의 체크
@@ -394,7 +406,7 @@ class SignInScreen extends React.Component {
     };
     renderModalHeader = (page) => {
         if(this.props.currentPosition!==0)
-            return(<Icon name="arrow-left" type="font-awesome" style={{alignSelf:'flex-start'}} onPress={()=>{this.onPageChange(-1)}}/>);
+            return(<Icon name="ios-arrow-back-outline" type="ionicon" style={{alignSelf:'flex-start'}} onPress={()=>{this.onPageChange(-1)}}/>);
         else{
             return(<View style={{alignSelf:'flex-start'}}></View>);
         }
@@ -404,11 +416,29 @@ class SignInScreen extends React.Component {
         switch(page){
             case 0:
                 return(
-                    <View style={{flex:1, marginTop:20}}>
-                        <View style={{flexDirection:'row', alignItems:'center', height:40, width:280, marginBottom:10, padding:10, borderWidth:1}}>
+                    <View style={{flex:1, alignItems:'center', marginTop:20}}>
+                        <TouchableHighlight underlayColor='#ececec' onPress={this.handleTermsAllTrue}>
+                        <View style={{alignItems:'center'}}>
+                            <View style={{flexDirection:'row', justifyContent:'flex-start', height:40, width:300, marginBottom:10, padding:10, paddingLeft:20}}>
+                                <RoundCheckbox
+                                    size={24}
+                                    checked={this.returnChecked()}
+                                    backgroundColor="#989898"
+                                    onValueChange={this.handleTermsAllTrue}
+                                />
+                                <Text style={{width:190, marginLeft:10}}>
+                                    회원가입 약관에 모두 동의합니다.
+                                </Text>
+                            </View>
+
+                        </View>
+                        </TouchableHighlight>
+                        <View style={{alignItems:'center'}}>
+                            <View style={{flexDirection:'row', justifyContent:'flex-start', height:40, width:300, marginBottom:10, padding:10,paddingLeft:20}}>
                             <RoundCheckbox
                                 size={24}
                                 checked={this.props.isFirstChecked}
+                                backgroundColor="#989898"
                                 onValueChange={this.handleTermsFirstCheck}
                             />
                             <Text style={{width:180, marginLeft:10}}>
@@ -419,11 +449,14 @@ class SignInScreen extends React.Component {
                                 handle={this.handleTermsFirstModalOpen}
                                 link_style={{color:'grey'}}
                             />
+                            </View>
                         </View>
-                        <View style={{flexDirection:'row', alignItems:'center', height:40, width:280, marginBottom:10, padding:10, borderWidth:1}}>
+                        <View style={{alignItems:'center'}}>
+                            <View style={{flexDirection:'row', justifyContent:'flex-start', height:40, width:300, marginBottom:10, padding:10,paddingLeft:20}}>
                             <RoundCheckbox
                                 size={24}
                                 checked={this.props.isSecondChecked}
+                                backgroundColor="#989898"
                                 onValueChange={this.handleTermsSecondCheck}
                             />
                             <Text style={{width:180, marginLeft:10}}>
@@ -434,6 +467,7 @@ class SignInScreen extends React.Component {
                                 handle={this.handleTermsSecondModalOpen}
                                 link_style={{color:'grey'}}
                             />
+                            </View>
                         </View>
                     </View>
                 );
@@ -517,19 +551,19 @@ class SignInScreen extends React.Component {
           case 0:
               return(
                   <View>
-                      <Button onPress={this.nextTerms} title="다음"/>
+                      <Button buttonStyle={{backgroundColor:'#8f96a0', borderRadius:30, width:200, alignSelf:'center'}} onPress={this.nextTerms} title="Continue"/>
                   </View>
               );
           case 1:
               return(
                   <View>
-                      <Button onPress={this.basicChecked} title="다음"/>
+                      <Button buttonStyle={{backgroundColor:'#8f96a0', borderRadius:30, width:200, alignSelf:'center'}} onPress={this.basicChecked} title="Continue"/>
                   </View>
               );
           case 2:
               return(
                   <View>
-                      <Button onPress={this.signUpUser} title="가입 완료"/>
+                      <Button buttonStyle={{backgroundColor:'#8f96a0', borderRadius:30, width:200, alignSelf:'center'}} onPress={this.signUpUser} title="Finish"/>
                   </View>
               );
       }
@@ -552,8 +586,6 @@ class SignInScreen extends React.Component {
                 return this.handleCheckUserEmailModal();
             let checkemail = await SignIn.checkUserEmail(this.props.userEmail);
             if (!checkemail) return this.handleCheckUserEmailModal();
-        }else{
-            return this.handleCheckUserEmailModal();
         }
         if(!(this.props.checkPassword && this.props.checkRePassword))
             return this.handleCheckUserPasswordModal();
@@ -588,14 +620,12 @@ class SignInScreen extends React.Component {
             )
         }
         return (
-            <LinearGradient
-                colors={[config.main_background_color1, config.main_background_color2, config.main_background_color3]}
+
+            <View
                 style={styles.container}
             >
                 <Toast ref="toast"/>
-
-                <KeyboardAvoidingView behavior={'position'} enabled>
-                <Modal isVisible={this.props.register}>
+                <Modal isVisible={this.props.register} transparent={false}>
                     <TermsModal
                         closeModal = { this.handleTermsFirstModalClose }
                         modalVisible = { this.props.firstVisible }
@@ -640,64 +670,66 @@ class SignInScreen extends React.Component {
                     />
 
                     <View style={{ flex: 1, justifyContent:'center', alignItems:'center'}}>
-                        <View style={{height:560, width:300, backgroundColor:'#ffffff'}}>
-                            <View name='header' style={{flexDirection:'row', justifyContent: 'space-between', height:60, width:300, padding:10}}>
+                        <View style={{height:560, width:300, backgroundColor:'#ffffff', borderRadius:8}}>
+                            <View name='header' style={{flexDirection:'row', justifyContent: 'space-between', height:40, width:300, padding:5}}>
                                 {this.renderModalHeader(this.props.currentPosition)}
-                                <Icon name="times" type="font-awesome" style={{alignSelf:'flex-end'}}  onPress={this.handleSignUpModal}/>
+                                <Icon name="md-close" type="ionicon" style={{alignSelf:'flex-end'}}  onPress={this.handleSignUpModal}/>
                             </View>
-                            <View name='body' style={{flex:1, height:460, width:300, padding:10}}>
+                            <Text style={{marginBottom:10, alignSelf:'center'}}>SIGN UP</Text>
+                            <View name='body' style={{flex:1, height:460, width:300}}>
                                 <StepIndicator
                                     stepCount={3}
                                     customStyles={customStyles}
                                     currentPosition={this.props.currentPosition}
-                                    labels={labels}
                                 />
                                 {this.renderModalBody(this.props.currentPosition)}
                             </View>
-                            <View name='footer' style={{height:60, width:300, padding:10}}>
+                            <View name='footer' style={{height:100, width:300, padding:10}}>
                                 {this.renderModalFooter(this.props.currentPosition)}
                             </View>
                         </View>
                     </View>
                 </Modal>
-                </KeyboardAvoidingView>
-
+                <SafeAreaView style={styles.container}>
+                    <StatusBar barStyle="dark-content"/>
+                    <KeyboardAvoidingView style={styles.container}>
                 <Animated.View style={{opacity: animation}}>
                     <SignTextInput
                         handle={this.handleSignInId}
                         value={this.props.id}
-                        placeholder={'아이디'}
+                        placeholder={'ID'}
                         icon={'user'}
                     />
                     <SignTextInput
                         handle={this.handleSignInPwd}
                         value={this.props.pwd}
-                        placeholder={'비밀번호'}
+                        placeholder={'Password'}
                         icon={'lock'}
                         secureText={true}
                     />
                     <Button
-                        title='로그인'
+                        title='Sign in'
                         titleStyle={styles.buttonText}
                         buttonStyle={styles.button}
                         onPress={this.signInUser}
                     />
                     <View style={styles.linkView}>
-                        <LinkText
-                            value='회원가입'
-                            handle={this.handleSignUpModal}
-                            link_style={{color:'white'}}
-                        />
-                        <Text> </Text>
                         <Text
                             style={styles.link}
-
                         >
-                            아이디/비밀번호 찾기
+                            Forgot password?
                         </Text>
                     </View>
                 </Animated.View>
-            </LinearGradient>
+                </KeyboardAvoidingView>
+                <View style={{height:20, alignItems:'center'}}>
+                    <LinkText
+                        value={'New here? Sign Up'}
+                        handle={this.handleSignUpModal}
+                        link_style={{color:'black'}}/>
+                </View>
+                </SafeAreaView>
+            </View>
         );
     }
 }
@@ -717,6 +749,8 @@ export default connect((state) => ({
         userPasswordCheckModal: state.signin.userPasswordCheckModal,
         isFirstChecked: state.signin.isFirstChecked,
         isSecondChecked: state.signin.isSecondChecked,
+        isAllChecked: state.signin.isAllChecked,
+
         firstVisible: state.signin.firstVisible,
         secondVisible: state.signin.secondVisible,
         userId: state.signin.userId,

@@ -3,7 +3,8 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        padding: 15
+        backgroundColor:'white',
+        padding:10
     },
     inputLayout: {
         marginBottom: 10,
@@ -14,12 +15,15 @@ export default StyleSheet.create({
         width: '100%',
     },
     button: {
+        marginTop: 40,
         marginBottom: 10,
-        width: '100%',
-        height: 45,
-        borderRadius: 5,
+        width: 200,
+        height: 50,
+        borderRadius: 30,
         alignItems: 'center',
-        justifyContent: 'center'
+        alignSelf: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#8f96a0'
     },
     buttonText: {
         fontSize: 20,
@@ -31,6 +35,6 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     link: {
-        color: 'white',
+        color: 'black',
     }
 });
