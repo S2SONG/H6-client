@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button, Animated, RefreshControl, Platform, StatusBar} from 'react-native';
+import {View, Text, Button, Animated, RefreshControl, Platform, StatusBar, SafeAreaView} from 'react-native';
 import styles from "./LectureStyles";
 
 export class LectureScreen extends React.Component {
@@ -10,10 +10,17 @@ export class LectureScreen extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text>
-                </Text>
-            </View>
+            <SafeAreaView style={styles.container}>
+                <View style={{flex:1, marginTop:StatusBar.currentHeight}}>
+
+                <View style={{height:20}}>
+                    <Text style={{color:'black'}}>Hello Lecture</Text>
+                </View>
+                <View style={{flex:1}}>
+
+                </View>
+                </View>
+            </SafeAreaView>
         )
     }
 }

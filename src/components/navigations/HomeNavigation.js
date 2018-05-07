@@ -5,6 +5,7 @@ import MyInfoScreen from "../screen/MyInfo/MyInfoScreen";
 import {Icon} from 'react-native-elements';
 import { } from 'react-native-material-bottom-navigation'
 import {LectureInfoScreen} from "../screen/Lecture/LectureInfoScreen";
+import {LectureScreen} from "../screen/Lecture/LectureScreen";
 
 //홈 Tab 네비게이션
 export const HomeTabs = TabNavigator({
@@ -17,7 +18,7 @@ export const HomeTabs = TabNavigator({
             }
         },
         Lecture: {
-            screen: LectureInfoScreen,
+            screen: LectureScreen,
             navigationOptions: {
                 header:null,
                 tabBarLabel: '강의평가',

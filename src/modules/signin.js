@@ -414,6 +414,7 @@ export const signUpTerm1 = () => async dispatch => {
       dispatch({type:SIGN_UP_TERM_1, payload:''});
   }
 };
+
 export const signUpTerm2 = () => async dispatch => {
     const term = await fetch(`${ROOT_URL}/terms/privacyPolicy`);
     const jsonData = await term.json();

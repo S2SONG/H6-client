@@ -2,9 +2,9 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        backgroundColor:'white',
-        padding:10
+        justifyContent:'center',
+        backgroundColor:'#ffffff',
+        padding:10,
     },
     inputLayout: {
         marginBottom: 10,

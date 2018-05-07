@@ -1,5 +1,18 @@
 import React from 'react';
-import {Alert, View, Text, Animated, AsyncStorage, ScrollView, KeyboardAvoidingView, Keyboard, SafeAreaView, StatusBar, TouchableHighlight} from 'react-native';
+import {
+    Alert,
+    View,
+    Text,
+    Animated,
+    AsyncStorage,
+    ScrollView,
+    KeyboardAvoidingView,
+    Keyboard,
+    SafeAreaView,
+    StatusBar,
+    TouchableHighlight,
+    Image
+} from 'react-native';
 import {LinearGradient} from 'expo';
 import {Button, Icon} from 'react-native-elements';
 import Modal from 'react-native-modal';
@@ -19,11 +32,13 @@ import {SignUpDatePicker} from "../../ui/SignUpDatePicker";
 import Toast, {DURATION} from 'react-native-easy-toast';
 import {validation} from "../../../utils/validations";
 import {WarningModal} from "../../ui/WarningModal";
+import {TermsListItem} from "../../ui/TermsListItem";
 
-const labels = ["가입동의","기본정보","부가정보"];
+
+const labels = ["가입동의", "기본정보", "부가정보"];
 const customStyles = {
     stepIndicatorSize: 25,
-    currentStepIndicatorSize:30,
+    currentStepIndicatorSize: 30,
     separatorStrokeWidth: 2,
     currentStepStrokeWidth: 3,
     stepStrokeCurrentColor: '#989898',
@@ -51,19 +66,23 @@ class SignInScreen extends React.Component {
     constructor(props) {
         super(props);
         this._opacity = new Animated.Value(0);
+        this.translate = this._opacity.interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: [200, 20, 0],
+        });
         this.state = {
             id: '',
             pwd: '',
-            register:false,
-            termsModal:false,
-            keyboardSpace:0
+            register: false,
+            termsModal: false,
+            keyboardSpace: 0
         };
-        Keyboard.addListener('keyboardDidShow', (frames)=>{
-            if(!frames.endCoordinates) return;
+        Keyboard.addListener('keyboardDidShow', (frames) => {
+            if (!frames.endCoordinates) return;
             this.setState({keyboardSpace: frames.endCoordinates.height});
         });
-        Keyboard.addListener('keyboardDidHide', (frames)=>{
-            this.setState({keyboardSpace:0})
+        Keyboard.addListener('keyboardDidHide', (frames) => {
+            this.setState({keyboardSpace: 0})
         });
 
     }
@@ -79,9 +98,9 @@ class SignInScreen extends React.Component {
             this._opacity,    // The value to drive
             {
                 toValue: 1,
-                duration: 500,
+                duration: 3000,
                 // ease: Easing.inout(),
-                delay: 200,
+                delay: 1000,
             }            // Configuration
         ).start();                // Don't forget start!
         this.autoLogin();
@@ -132,7 +151,7 @@ class SignInScreen extends React.Component {
     //약관동의 처리
     handleTerms = () => {
         this.setState({
-            termsModal:!this.state.termsModal
+            termsModal: !this.state.termsModal
         })
     };
 
@@ -151,9 +170,9 @@ class SignInScreen extends React.Component {
     //모두 동의
     handleTermsAllTrue = () => {
         const {SignIn} = this.props;
-        if(this.returnChecked()){
+        if (this.returnChecked()) {
             SignIn.handleTermsAll(false);
-        }else{
+        } else {
             SignIn.handleTermsAll(true);
         }
 
@@ -186,7 +205,7 @@ class SignInScreen extends React.Component {
     };
 
     nextTerms = () => {
-        if(this.returnChecked()){
+        if (this.returnChecked()) {
             return this.onPageChange(1);
         }
         this.handleTerms();
@@ -215,11 +234,11 @@ class SignInScreen extends React.Component {
     handleStateUserId = (userId) => {
         const {SignIn} = this.props;
         if (validation.checkIdLength(userId)) {
-            if(userId.length==0){
+            if (userId.length == 0) {
                 SignIn.handleSignUpCheckUserIdClient(false);
                 SignIn.handleSignUpCheckUserIdNo(0);
                 SignIn.handleSignUpCheckUserIdLabel('');
-            }else{
+            } else {
                 SignIn.handleSignUpCheckUserIdClient(true);
                 SignIn.handleSignUpCheckUserIdNo(0);
                 SignIn.handleSignUpCheckUserIdLabel('');
@@ -232,27 +251,27 @@ class SignInScreen extends React.Component {
         SignIn.handleSignUpUserId(userId);
     };
     handleCheckUserId = async () => {
-      const {SignIn} = this.props;
-      if(this.props.checkIdClient && this.props.userId.length > 0) {
-          const result = await SignIn.checkUserId(this.props.userId);
-          if (result) {
-              SignIn.handleSignUpCheckUserIdServer(true);
-              SignIn.handleSignUpCheckUserIdNo(2);
-              SignIn.handleSignUpCheckUserIdLabel('사용 가능한 아이디 입니다.');
-          } else {
-              SignIn.handleSignUpCheckUserIdServer(false);
-              SignIn.handleSignUpCheckUserIdNo(1);
-              SignIn.handleSignUpCheckUserIdLabel('사용 불가능한 아이디 입니다.');
-          }
-      } else {
-          SignIn.handleSignUpCheckUserIdServer(false);
-      }
+        const {SignIn} = this.props;
+        if (this.props.checkIdClient && this.props.userId.length > 0) {
+            const result = await SignIn.checkUserId(this.props.userId);
+            if (result) {
+                SignIn.handleSignUpCheckUserIdServer(true);
+                SignIn.handleSignUpCheckUserIdNo(2);
+                SignIn.handleSignUpCheckUserIdLabel('사용 가능한 아이디 입니다.');
+            } else {
+                SignIn.handleSignUpCheckUserIdServer(false);
+                SignIn.handleSignUpCheckUserIdNo(1);
+                SignIn.handleSignUpCheckUserIdLabel('사용 불가능한 아이디 입니다.');
+            }
+        } else {
+            SignIn.handleSignUpCheckUserIdServer(false);
+        }
     };
 
     handleStateUserNickName = (userNickName) => {
         const {SignIn} = this.props;
-        if(validation.checkNickNameLength(userNickName)){
-            if(userNickName.length==0) {
+        if (validation.checkNickNameLength(userNickName)) {
+            if (userNickName.length == 0) {
                 SignIn.handleSignUpCheckUserNickNameClient(false);
                 SignIn.handleSignUpCheckUserNickNameNo(0);
                 SignIn.handleSignUpCheckUserNickNameLabel('');
@@ -262,7 +281,7 @@ class SignInScreen extends React.Component {
                 SignIn.handleSignUpCheckUserNickNameNo(0);
                 SignIn.handleSignUpCheckUserNickNameLabel('');
             }
-        }else{
+        } else {
             SignIn.handleSignUpCheckUserNickNameClient(false);
             SignIn.handleSignUpCheckUserNickNameNo(1);
             SignIn.handleSignUpCheckUserNickNameLabel('닉네임은 두글자 이상이여야 합니다.');
@@ -270,32 +289,32 @@ class SignInScreen extends React.Component {
         SignIn.handleSignUpUserNickName(userNickName);
     };
     handleCheckUserNickName = async () => {
-      const {SignIn} = this.props;
-      if(this.props.checkNickNameClient && this.props.userNickName.length > 0) {
-          const result = await SignIn.checkUserNickName(this.props.userNickName);
-          if (result) {
-              SignIn.handleSignUpCheckUserNickNameServer(true);
-              SignIn.handleSignUpCheckUserNickNameNo(2);
-              SignIn.handleSignUpCheckUserNickNameLabel('사용 가능한 닉네임 입니다.');
-          } else {
-              SignIn.handleSignUpCheckUserNickNameServer(false);
-              SignIn.handleSignUpCheckUserNickNameNo(1);
-              SignIn.handleSignUpCheckUserNickNameLabel('사용 불가능한 닉네임 입니다.');
-          }
-      } else {
-          SignIn.handleSignUpCheckUserNickNameServer(false);
-      }
+        const {SignIn} = this.props;
+        if (this.props.checkNickNameClient && this.props.userNickName.length > 0) {
+            const result = await SignIn.checkUserNickName(this.props.userNickName);
+            if (result) {
+                SignIn.handleSignUpCheckUserNickNameServer(true);
+                SignIn.handleSignUpCheckUserNickNameNo(2);
+                SignIn.handleSignUpCheckUserNickNameLabel('사용 가능한 닉네임 입니다.');
+            } else {
+                SignIn.handleSignUpCheckUserNickNameServer(false);
+                SignIn.handleSignUpCheckUserNickNameNo(1);
+                SignIn.handleSignUpCheckUserNickNameLabel('사용 불가능한 닉네임 입니다.');
+            }
+        } else {
+            SignIn.handleSignUpCheckUserNickNameServer(false);
+        }
     };
 
 
     handleStateUserEmail = (userEmail) => {
         const {SignIn} = this.props;
-        if(validation.checkEmail(userEmail)){
+        if (validation.checkEmail(userEmail)) {
             SignIn.handleSignUpCheckUserEmailClient(true);
             SignIn.handleSignUpCheckUserEmailNo(0);
             SignIn.handleSignUpCheckUserEmailLabel('');
-        }else{
-            if(userEmail.length==0) {
+        } else {
+            if (userEmail.length == 0) {
                 SignIn.handleSignUpCheckUserEmailClient(false);
                 SignIn.handleSignUpCheckUserEmailNo(0);
                 SignIn.handleSignUpCheckUserEmailLabel('');
@@ -310,7 +329,7 @@ class SignInScreen extends React.Component {
 
     handleCheckUserEmail = async () => {
         const {SignIn} = this.props;
-        if(this.props.checkEmailClient && this.props.userEmail.length > 0) {
+        if (this.props.checkEmailClient && this.props.userEmail.length > 0) {
             const result = await SignIn.checkUserEmail(this.props.userEmail);
             if (result) {
                 SignIn.handleSignUpCheckUserEmailServer(true);
@@ -329,8 +348,8 @@ class SignInScreen extends React.Component {
     handleStateUserPw = (userPw) => {
         const {SignIn} = this.props;
         SignIn.handleSignUpUserPwd(userPw);
-        if(validation.checkPassLength(userPw)) {
-            if(userPw.length==0) {
+        if (validation.checkPassLength(userPw)) {
+            if (userPw.length == 0) {
                 SignIn.handleSignUpCheckUserPassword(false);
                 SignIn.handleSignUpCheckUserPasswordNo(0);
                 SignIn.handleSignUpCheckUserPasswordLabel('');
@@ -345,15 +364,15 @@ class SignInScreen extends React.Component {
             SignIn.handleSignUpCheckUserPasswordLabel('8자 이상 입력 해주세요');
         }
 
-        if(userPw.length==0 || !validation.checkPassLength(userPw)){
+        if (userPw.length == 0 || !validation.checkPassLength(userPw)) {
             SignIn.handleSignUpCheckUserRePassword(false);
             SignIn.handleSignUpCheckUserRePasswordNo(0);
             SignIn.handleSignUpCheckUserRePasswordLabel('');
-        } else if(userPw.length > 0 && this.props.userRePw.length > 0 && validation.checkPassCompare(userPw, this.props.userRePw)){
+        } else if (userPw.length > 0 && this.props.userRePw.length > 0 && validation.checkPassCompare(userPw, this.props.userRePw)) {
             SignIn.handleSignUpCheckUserRePassword(true);
             SignIn.handleSignUpCheckUserRePasswordNo(2);
             SignIn.handleSignUpCheckUserRePasswordLabel('비밀번호가 일치 합니다');
-        } else if(userPw.length > 0 && this.props.userRePw.length > 0 && !validation.checkPassCompare(userPw, this.props.userRePw)){
+        } else if (userPw.length > 0 && this.props.userRePw.length > 0 && !validation.checkPassCompare(userPw, this.props.userRePw)) {
             SignIn.handleSignUpCheckUserRePassword(false);
             SignIn.handleSignUpCheckUserRePasswordNo(1);
             SignIn.handleSignUpCheckUserRePasswordLabel('비밀번호가 불일치 합니다');
@@ -364,11 +383,11 @@ class SignInScreen extends React.Component {
         const {SignIn} = this.props;
         // this.setState({userRePw});
         SignIn.handleSignUpUserRePwd(userRePw);
-        if((this.props.userPw.length == 0 || !validation.checkPassLength(this.props.userPw)) || userRePw.length == 0){
+        if ((this.props.userPw.length == 0 || !validation.checkPassLength(this.props.userPw)) || userRePw.length == 0) {
             SignIn.handleSignUpCheckUserRePassword(false);
             SignIn.handleSignUpCheckUserRePasswordNo(0);
             SignIn.handleSignUpCheckUserRePasswordLabel('');
-        } else if (validation.checkPassCompare(this.props.userPw, userRePw)){
+        } else if (validation.checkPassCompare(this.props.userPw, userRePw)) {
             SignIn.handleSignUpCheckUserRePassword(true);
             SignIn.handleSignUpCheckUserRePasswordNo(2);
             SignIn.handleSignUpCheckUserRePasswordLabel('비밀번호가 일치 합니다');
@@ -402,130 +421,125 @@ class SignInScreen extends React.Component {
 
     onPageChange = (diff) => {
         const {SignIn} = this.props;
-        SignIn.handleSignUpCurrentPosition(this.props.currentPosition+diff);
+        SignIn.handleSignUpCurrentPosition(this.props.currentPosition + diff);
     };
     renderModalHeader = (page) => {
-        if(this.props.currentPosition!==0)
-            return(<Icon name="ios-arrow-back-outline" type="ionicon" style={{alignSelf:'flex-start'}} onPress={()=>{this.onPageChange(-1)}}/>);
-        else{
-            return(<View style={{alignSelf:'flex-start'}}></View>);
+        if (this.props.currentPosition !== 0)
+            return (
+                <Icon name="ios-arrow-back-outline" type="ionicon" style={{alignSelf: 'flex-start'}} onPress={() => {
+                    this.onPageChange(-1)
+                }}/>);
+        else {
+            return (<View style={{alignSelf: 'flex-start'}}></View>);
         }
     };
     renderModalBody = (page) => {
 
-        switch(page){
+        switch (page) {
             case 0:
-                return(
-                    <View style={{flex:1, alignItems:'center', marginTop:20}}>
+                return (
+                    <View style={{flex: 1, alignItems: 'center', marginTop: 20}}>
                         <TouchableHighlight underlayColor='#ececec' onPress={this.handleTermsAllTrue}>
-                        <View style={{alignItems:'center'}}>
-                            <View style={{flexDirection:'row', justifyContent:'flex-start', height:40, width:300, marginBottom:10, padding:10, paddingLeft:20}}>
-                                <RoundCheckbox
-                                    size={24}
-                                    checked={this.returnChecked()}
-                                    backgroundColor="#989898"
-                                    onValueChange={this.handleTermsAllTrue}
-                                />
-                                <Text style={{width:190, marginLeft:10}}>
-                                    회원가입 약관에 모두 동의합니다.
-                                </Text>
-                            </View>
+                            <View style={{alignItems: 'center'}}>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'flex-start',
+                                    height: 40,
+                                    width: 300,
+                                    marginBottom: 10,
+                                    padding: 10,
+                                    paddingLeft: 20
+                                }}>
+                                    <RoundCheckbox
+                                        size={24}
+                                        checked={this.returnChecked()}
+                                        backgroundColor="#989898"
+                                        onValueChange={this.handleTermsAllTrue}
+                                    />
+                                    <Text style={{width: 190, marginLeft: 10}}>
+                                        회원가입 약관에 모두 동의합니다.
+                                    </Text>
+                                </View>
 
-                        </View>
+                            </View>
                         </TouchableHighlight>
-                        <View style={{alignItems:'center'}}>
-                            <View style={{flexDirection:'row', justifyContent:'flex-start', height:40, width:300, marginBottom:10, padding:10,paddingLeft:20}}>
-                            <RoundCheckbox
-                                size={24}
-                                checked={this.props.isFirstChecked}
-                                backgroundColor="#989898"
-                                onValueChange={this.handleTermsFirstCheck}
-                            />
-                            <Text style={{width:180, marginLeft:10}}>
-                                개인정보 수집 및 이용 (필수)
-                            </Text>
-                            <LinkText
-                                value='보기'
-                                handle={this.handleTermsFirstModalOpen}
-                                link_style={{color:'grey'}}
-                            />
-                            </View>
-                        </View>
-                        <View style={{alignItems:'center'}}>
-                            <View style={{flexDirection:'row', justifyContent:'flex-start', height:40, width:300, marginBottom:10, padding:10,paddingLeft:20}}>
-                            <RoundCheckbox
-                                size={24}
-                                checked={this.props.isSecondChecked}
-                                backgroundColor="#989898"
-                                onValueChange={this.handleTermsSecondCheck}
-                            />
-                            <Text style={{width:180, marginLeft:10}}>
-                                한담 서비스 이용 약관 (필수)
-                            </Text>
-                            <LinkText
-                                value='보기'
-                                handle={this.handleTermsSecondModalOpen}
-                                link_style={{color:'grey'}}
-                            />
-                            </View>
-                        </View>
+                        <TermsListItem
+                            title='개인정보 수집 및 이용 (필수)'
+                            checked={this.props.isFirstChecked}
+                            onValueChange={this.handleTermsFirstCheck}
+                            modalHandle={this.handleTermsFirstModalOpen}
+                            modalText='보기'
+                        />
+                        <TermsListItem
+                            title='한담 서비스 이용 약관 (필수)'
+                            checked={this.props.isSecondChecked}
+                            onValueChange={this.handleTermsSecondCheck}
+                            modalHandle={this.handleTermsSecondModalOpen}
+                            modalText='보기'
+                        />
                     </View>
                 );
             case 1:
-                return(
+                return (
                     <ScrollView>
-                    <View style={{flex:1, justifyContent:'center', alignItems:'center', paddingTop:this.state.keyboardSpace?50:0, paddingBottom:this.state.keyboardSpace?65:0}} behavior="padding" enabled>
-                        <SignTextInput handle={this.handleStateUserId}
-                                       value={this.props.userId}
-                                       placeholder={'아이디'}
-                                       icon={'user'}
-                                       label={'아이디'}
-                                       checkNo={this.props.checkIdNo}
-                                       checkLabel={this.props.checkIdLabel}
-                                       blur={this.handleCheckUserId}
-                        />
-                        <SignTextInput handle={this.handleStateUserPw}
-                                       value={this.props.userPw}
-                                       placeholder={'비밀번호'}
-                                       icon={'lock'}
-                                       secureText={true}
-                                       label={'비밀번호'}
-                                       checkNo={this.props.checkPasswordNo}
-                                       checkLabel={this.props.checkPasswordLabel}
-                        />
-                        <SignTextInput handle={this.handleStateUserRePw}
-                                       value={this.props.userRePw}
-                                       placeholder={'비밀번호 확인'}
-                                       icon={'lock'}
-                                       secureText={true}
-                                       label={'비밀번호 확인'}
-                                       checkNo ={this.props.checkPassRe}
-                                       checkLabel={this.props.checkPassReLabel}
-                        />
-                        <SignTextInput handle={this.handleStateUserNickName}
-                                       value={this.props.userNickName}
-                                       placeholder={'닉네임'}
-                                       icon={'user-secret'}
-                                       label={'닉네임'}
-                                       checkNo={this.props.checkNickNameNo}
-                                       checkLabel={this.props.checkNickNameLabel}
-                                       blur={this.handleCheckUserNickName}
-                        />
-                        <SignTextInput handle={this.handleStateUserEmail}
-                                       value={this.props.userEmail}
-                                       placeholder={'이메일'}
-                                       icon={'envelope'}
-                                       label={'이메일'}
-                                       checkNo={this.props.checkEmailNo}
-                                       checkLabel={this.props.checkEmailLabel}
-                                       blur={this.handleCheckUserEmail}
-                        />
-                    </View>
+                        <View style={{
+                            flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            paddingTop: this.state.keyboardSpace ? 50 : 0,
+                            paddingBottom: this.state.keyboardSpace ? 65 : 0
+                        }} behavior="padding" enabled>
+                            <SignTextInput handle={this.handleStateUserId}
+                                           value={this.props.userId}
+                                           placeholder={'아이디'}
+                                           icon={'user'}
+                                           label={'아이디'}
+                                           checkNo={this.props.checkIdNo}
+                                           checkLabel={this.props.checkIdLabel}
+                                           blur={this.handleCheckUserId}
+                            />
+                            <SignTextInput handle={this.handleStateUserPw}
+                                           value={this.props.userPw}
+                                           placeholder={'비밀번호'}
+                                           icon={'lock'}
+                                           secureText={true}
+                                           label={'비밀번호'}
+                                           checkNo={this.props.checkPasswordNo}
+                                           checkLabel={this.props.checkPasswordLabel}
+                            />
+                            <SignTextInput handle={this.handleStateUserRePw}
+                                           value={this.props.userRePw}
+                                           placeholder={'비밀번호 확인'}
+                                           icon={'lock'}
+                                           secureText={true}
+                                           label={'비밀번호 확인'}
+                                           checkNo={this.props.checkPassRe}
+                                           checkLabel={this.props.checkPassReLabel}
+                            />
+                            <SignTextInput handle={this.handleStateUserNickName}
+                                           value={this.props.userNickName}
+                                           placeholder={'닉네임'}
+                                           icon={'user-secret'}
+                                           label={'닉네임'}
+                                           checkNo={this.props.checkNickNameNo}
+                                           checkLabel={this.props.checkNickNameLabel}
+                                           blur={this.handleCheckUserNickName}
+                            />
+                            <SignTextInput handle={this.handleStateUserEmail}
+                                           value={this.props.userEmail}
+                                           placeholder={'이메일'}
+                                           icon={'envelope'}
+                                           label={'이메일'}
+                                           checkNo={this.props.checkEmailNo}
+                                           checkLabel={this.props.checkEmailLabel}
+                                           blur={this.handleCheckUserEmail}
+                            />
+                        </View>
                     </ScrollView>
                 );
             case 2:
-                return(
-                    <View style={{flex:1, justifyContent:'center', alignItems:'center', marginTop:10}}>
+                return (
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
                         <SignUpMajor handle={this.handleStateMajor}
                                      value={this.props.major}
                                      placeholder={'전공을 선택해 주세요'}/>
@@ -547,95 +561,113 @@ class SignInScreen extends React.Component {
         }
     };
     renderModalFooter = (page) => {
-      switch(page){
-          case 0:
-              return(
-                  <View>
-                      <Button buttonStyle={{backgroundColor:'#8f96a0', borderRadius:30, width:200, alignSelf:'center'}} onPress={this.nextTerms} title="Continue"/>
-                  </View>
-              );
-          case 1:
-              return(
-                  <View>
-                      <Button buttonStyle={{backgroundColor:'#8f96a0', borderRadius:30, width:200, alignSelf:'center'}} onPress={this.basicChecked} title="Continue"/>
-                  </View>
-              );
-          case 2:
-              return(
-                  <View>
-                      <Button buttonStyle={{backgroundColor:'#8f96a0', borderRadius:30, width:200, alignSelf:'center'}} onPress={this.signUpUser} title="Finish"/>
-                  </View>
-              );
-      }
+        switch (page) {
+            case 0:
+                return (
+                    <View>
+                        <Button buttonStyle={{
+                            backgroundColor: '#8f96a0',
+                            borderRadius: 30,
+                            width: 200,
+                            alignSelf: 'center'
+                        }} onPress={this.nextTerms} title="Continue"/>
+                    </View>
+                );
+            case 1:
+                return (
+                    <View>
+                        <Button buttonStyle={{
+                            backgroundColor: '#8f96a0',
+                            borderRadius: 30,
+                            width: 200,
+                            alignSelf: 'center'
+                        }} onPress={this.basicChecked} title="Continue"/>
+                    </View>
+                );
+            case 2:
+                return (
+                    <View>
+                        <Button buttonStyle={{
+                            backgroundColor: '#8f96a0',
+                            borderRadius: 30,
+                            width: 200,
+                            alignSelf: 'center'
+                        }} onPress={this.signUpUser} title="Finish"/>
+                    </View>
+                );
+        }
     };
 
     basicChecked = async () => {
-        const { SignIn } = this.props;
-        if(!this.props.checkIdClient)
+        const {SignIn} = this.props;
+        if (!this.props.checkIdClient)
             return this.handleCheckUserIdModal();
         let checkid = await SignIn.checkUserId(this.props.userId);
-        if(!checkid) return this.handleCheckUserIdModal();
+        if (!checkid) return this.handleCheckUserIdModal();
 
-        if(!this.props.checkNickNameClient)
+        if (!this.props.checkNickNameClient)
             return this.handleCheckUserNickNameModal();
         let checknickname = await SignIn.checkUserNickName(this.props.userNickName);
-        if(!checknickname) return this.handleCheckUserNickNameModal();
+        if (!checknickname) return this.handleCheckUserNickNameModal();
 
-        if(this.props.userEmail.length > 0) {
+        if (this.props.userEmail.length > 0) {
             if (!this.props.checkEmailClient)
                 return this.handleCheckUserEmailModal();
             let checkemail = await SignIn.checkUserEmail(this.props.userEmail);
             if (!checkemail) return this.handleCheckUserEmailModal();
         }
-        if(!(this.props.checkPassword && this.props.checkRePassword))
+        if (!(this.props.checkPassword && this.props.checkRePassword))
             return this.handleCheckUserPasswordModal();
         this.onPageChange(1);
     };
     signUpUser = async () => {
-      const {SignIn} = this.props;
-      const {userId, userPw, userNickName, userEmail, major, minor, doubleMajor, connectedMajor, admissionYear} = this.props;
-      let signUpCheck = await SignIn.signUpUser(userId, userPw, userNickName, userEmail, major, minor, doubleMajor, connectedMajor, admissionYear);
-      if(signUpCheck){
-          this.handleSignUpModal();
-          this.refs.toast.show('회원가입에 성공했습니다.');
-      } else {
+        const {SignIn} = this.props;
+        const {userId, userPw, userNickName, userEmail, major, minor, doubleMajor, connectedMajor, admissionYear} = this.props;
+        let signUpCheck = await SignIn.signUpUser(userId, userPw, userNickName, userEmail, major, minor, doubleMajor, connectedMajor, admissionYear);
+        if (signUpCheck) {
+            this.handleSignUpModal();
+            this.refs.toast.show('회원가입에 성공했습니다.');
+        } else {
 
-      }
+        }
     };
 
     autoLogin = async () => {
         const {SignIn} = this.props;
         const token = await AsyncStorage.getItem('token');
-        if(token !== null){
+        if (token !== null) {
             this.props.navigation.navigate('Home');
         }
         SignIn.handleAuto(true);
     };
 
     render() {
+
         const animation = this._opacity;
-        if(!this.props.auto){
-            return(
-                <DotIndicator color='white' />
+        if (!this.props.auto) {
+            return (
+                <DotIndicator color='white'/>
             )
         }
         return (
 
-            <View
+            <KeyboardAvoidingView
                 style={styles.container}
+                behavior="padding"
             >
+                <SafeAreaView style={{flex: 1}}>
                 <Toast ref="toast"/>
                 <Modal isVisible={this.props.register} transparent={false}>
                     <TermsModal
-                        closeModal = { this.handleTermsFirstModalClose }
-                        modalVisible = { this.props.firstVisible }
-                        title = '개인정보 수집 및 이용'
+                        closeModal={this.handleTermsFirstModalClose}
+                        modalVisible={this.props.firstVisible}
+                        title='개인정보 수집 및 이용'
                         htmlContent={this.props.term1}
                     />
                     <TermsModal
-                        closeModal = { this.handleTermsSecondModalClose }
-                        modalVisible = { this.props.secondVisible }
-                        title = '한담 서비스 이용 약관'
+                        closeModal={this.handleTermsSecondModalClose}
+                        modalVisible={this.props.secondVisible}
+                        title='한담 서비스 이용 약관'
                         htmlContent={this.props.term2}
                     />
                     <WarningModal
@@ -669,14 +701,21 @@ class SignInScreen extends React.Component {
                         handle={this.handleCheckUserEmailModal}
                     />
 
-                    <View style={{ flex: 1, justifyContent:'center', alignItems:'center'}}>
-                        <View style={{height:560, width:300, backgroundColor:'#ffffff', borderRadius:8}}>
-                            <View name='header' style={{flexDirection:'row', justifyContent: 'space-between', height:40, width:300, padding:5}}>
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                        <View style={{height: 560, width: 300, backgroundColor: '#ffffff', borderRadius: 8}}>
+                            <View name='header' style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                height: 40,
+                                width: 300,
+                                padding: 5
+                            }}>
                                 {this.renderModalHeader(this.props.currentPosition)}
-                                <Icon name="md-close" type="ionicon" style={{alignSelf:'flex-end'}}  onPress={this.handleSignUpModal}/>
+                                <Icon name="md-close" type="ionicon" style={{alignSelf: 'flex-end'}}
+                                      onPress={this.handleSignUpModal}/>
                             </View>
-                            <Text style={{marginBottom:10, alignSelf:'center'}}>SIGN UP</Text>
-                            <View name='body' style={{flex:1, height:460, width:300}}>
+                            <Text style={{marginBottom: 10, alignSelf: 'center'}}>SIGN UP</Text>
+                            <View name='body' style={{flex: 1, height: 460, width: 300}}>
                                 <StepIndicator
                                     stepCount={3}
                                     customStyles={customStyles}
@@ -684,52 +723,77 @@ class SignInScreen extends React.Component {
                                 />
                                 {this.renderModalBody(this.props.currentPosition)}
                             </View>
-                            <View name='footer' style={{height:100, width:300, padding:10}}>
+                            <View name='footer' style={{height: 100, width: 300, padding: 10}}>
                                 {this.renderModalFooter(this.props.currentPosition)}
                             </View>
                         </View>
                     </View>
                 </Modal>
-                <SafeAreaView style={styles.container}>
-                    <StatusBar barStyle="dark-content"/>
-                    <KeyboardAvoidingView style={styles.container}>
-                <Animated.View style={{opacity: animation}}>
-                    <SignTextInput
-                        handle={this.handleSignInId}
-                        value={this.props.id}
-                        placeholder={'ID'}
-                        icon={'user'}
-                    />
-                    <SignTextInput
-                        handle={this.handleSignInPwd}
-                        value={this.props.pwd}
-                        placeholder={'Password'}
-                        icon={'lock'}
-                        secureText={true}
-                    />
-                    <Button
-                        title='Sign in'
-                        titleStyle={styles.buttonText}
-                        buttonStyle={styles.button}
-                        onPress={this.signInUser}
-                    />
-                    <View style={styles.linkView}>
-                        <Text
-                            style={styles.link}
-                        >
-                            Forgot password?
-                        </Text>
-                    </View>
-                </Animated.View>
-                </KeyboardAvoidingView>
-                <View style={{height:20, alignItems:'center'}}>
-                    <LinkText
-                        value={'New here? Sign Up'}
-                        handle={this.handleSignUpModal}
-                        link_style={{color:'black'}}/>
-                </View>
+
+                    <ScrollView contentContainerStyle={{flexGrow:1}} style={{flex: 1}}>
+                        <View style={{flex: 1}}>
+                            <StatusBar barStyle="dark-content"/>
+
+                            <Animated.View
+                                style={[
+                                    {
+                                        height: 300,
+                                        width: '100%',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    },
+                                    {
+                                        transform: [
+                                            {translateY: this.translate}
+                                        ]
+                                    },
+                                ]}>
+                                <Image
+                                    source={require('../../../../assets/Handam.png')}
+                                />
+                            </Animated.View>
+                            <Animated.View style={{flex: 1, opacity: animation}}>
+                                <View style={{flex: 1}}>
+                                    <SignTextInput
+                                        handle={this.handleSignInId}
+                                        value={this.props.id}
+                                        placeholder={'ID'}
+                                        icon={'user'}
+                                    />
+                                    <SignTextInput
+                                        handle={this.handleSignInPwd}
+                                        value={this.props.pwd}
+                                        placeholder={'Password'}
+                                        icon={'lock'}
+                                        secureText={true}
+                                    />
+                                    <Button
+                                        title='Sign in'
+                                        titleStyle={styles.buttonText}
+                                        buttonStyle={styles.button}
+                                        onPress={this.signInUser}
+                                    />
+
+                                    <View style={styles.linkView}>
+                                        <Text
+                                            style={styles.link}
+                                        >
+                                            Forgot password?
+                                        </Text>
+                                    </View>
+                                </View>
+                                <View style={{height: 20, alignItems: 'center'}}>
+                                    <LinkText
+                                        value={'New here? Sign Up'}
+                                        handle={this.handleSignUpModal}
+                                        link_style={{color: 'black'}}/>
+                                </View>
+                            </Animated.View>
+                        </View>
+                    </ScrollView>
                 </SafeAreaView>
-            </View>
+
+            </KeyboardAvoidingView>
         );
     }
 }
