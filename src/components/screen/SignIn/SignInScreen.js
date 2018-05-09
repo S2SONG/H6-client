@@ -14,7 +14,7 @@ import {
     Image
 } from 'react-native';
 import {LinearGradient} from 'expo';
-import {Button, Icon} from 'react-native-elements';
+import {Button, Icon, SearchBar} from 'react-native-elements';
 import Modal from 'react-native-modal';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -33,6 +33,7 @@ import Toast, {DURATION} from 'react-native-easy-toast';
 import {validation} from "../../../utils/validations";
 import {WarningModal} from "../../ui/WarningModal";
 import {TermsListItem} from "../../ui/TermsListItem";
+import {SignUpIndicator} from "./UI/SignUpIndicator";
 
 
 const labels = ["가입동의", "기본정보", "부가정보"];
@@ -716,11 +717,12 @@ class SignInScreen extends React.Component {
                             </View>
                             <Text style={{marginBottom: 10, alignSelf: 'center'}}>SIGN UP</Text>
                             <View name='body' style={{flex: 1, height: 460, width: 300}}>
-                                <StepIndicator
-                                    stepCount={3}
-                                    customStyles={customStyles}
-                                    currentPosition={this.props.currentPosition}
-                                />
+                                <SignUpIndicator max={3} position={this.props.currentPosition}/>
+                                {/*<StepIndicator*/}
+                                    {/*stepCount={3}*/}
+                                    {/*customStyles={customStyles}*/}
+                                    {/*currentPosition={this.props.currentPosition}*/}
+                                {/*/>*/}
                                 {this.renderModalBody(this.props.currentPosition)}
                             </View>
                             <View name='footer' style={{height: 100, width: 300, padding: 10}}>
