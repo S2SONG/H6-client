@@ -32,20 +32,20 @@ export class SignUpIndicator extends React.Component {
                     return (
                         <View key={i} style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                             <View style={{
-                                height: 8,
-                                width: 8,
-                                borderRadius: 4,
+                                height: 20,
+                                width: 20,
+                                borderRadius: 10,
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                backgroundColor: 'black',
+                                backgroundColor: i==this.props.position?'#989898':'white',
                                 margin: 10,
                             }}>
                                 <View style={{
-                                    height:20,
-                                    width:20,
-                                    borderRadius:10,
+                                    height:8,
+                                    width:8,
+                                    borderRadius:4,
                                     backgroundColor:'black',
-                                    opacity: i==this.props.position?0.2:0
+
                                 }}>
                                 </View>
                             </View>

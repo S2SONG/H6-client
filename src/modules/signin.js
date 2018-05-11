@@ -123,7 +123,7 @@ export const initSignUpState = () => dispatch => {
     dispatch({type:SIGN_UP_USER_RE_PWD, payload:''});
     dispatch({type:SIGN_UP_USER_NICKNAME, payload:undefined});
     dispatch({type:SIGN_UP_USER_EMAIL, payload:''});
-    dispatch({type:SIGN_UP_MAJOR, payload:undefined});
+    dispatch({type:SIGN_UP_MAJOR, payload:''});
     dispatch({type:SIGN_UP_MINOR, payload:undefined});
     dispatch({type:SIGN_UP_DOUBLE_MAJOR, payload:undefined});
     dispatch({type:SIGN_UP_CONNECT_MAJOR, payload:undefined});

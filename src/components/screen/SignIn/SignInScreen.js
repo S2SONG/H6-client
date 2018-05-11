@@ -13,12 +13,12 @@ import {
     TouchableHighlight,
     Image
 } from 'react-native';
-import {LinearGradient} from 'expo';
-import {Button, Icon, SearchBar} from 'react-native-elements';
+import {Button, Icon} from 'react-native-elements';
 import Modal from 'react-native-modal';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {DotIndicator} from 'react-native-indicators';
+
 import styles from "./SignInStyles";
 import config from "../../../../config";
 import {SignTextInput} from "../../ui/SignTextInput";
@@ -34,6 +34,7 @@ import {validation} from "../../../utils/validations";
 import {WarningModal} from "../../ui/WarningModal";
 import {TermsListItem} from "../../ui/TermsListItem";
 import {SignUpIndicator} from "./UI/SignUpIndicator";
+import {TrackPicker} from "./UI/TrackPicker";
 
 
 const labels = ["가입동의", "기본정보", "부가정보"];
@@ -105,6 +106,7 @@ class SignInScreen extends React.Component {
             }            // Configuration
         ).start();                // Don't forget start!
         this.autoLogin();
+
     }
 
     //로그인화면 id 입력
@@ -794,7 +796,6 @@ class SignInScreen extends React.Component {
                         </View>
                     </ScrollView>
                 </SafeAreaView>
-
             </KeyboardAvoidingView>
         );
     }
@@ -824,6 +825,7 @@ export default connect((state) => ({
         userRePw: state.signin.userRePw,
         userNickName: state.signin.userNickName,
         userEmail: state.signin.userEmail,
+
         major: state.signin.major,
         minor: state.signin.minor,
         doubleMajor: state.signin.doubleMajor,
