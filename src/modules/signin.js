@@ -75,7 +75,7 @@ const initialState = {
     isSecondChecked: false,
     firstVisible: false,
     secondVisible: false,
-    userId: undefined,
+    userId: '',
     userPw: '',
     userRePw: '',
     userNickName: undefined,
@@ -374,12 +374,11 @@ export const checkUserEmail = (email) => async dispatch => {
     }
 };
 
-export const signUpUser = (userId, userPw, userNickName, userEmail, major, minor, doubleMajor, connectedMajor, admissionYear) => async dispatch => {
+export const signUpUser = (userId, userPw, userNickName, major, minor, doubleMajor, connectedMajor, admissionYear) => async dispatch => {
     let userData = {
         userId: userId,
         userPw: userPw,
         userNickName: userNickName,
-        userEmail: userEmail,
         major: major,
         minor: minor,
         doubleMajor: doubleMajor,

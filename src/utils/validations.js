@@ -23,10 +23,11 @@ validation.checkEmail = (email) => {
 };
 
 validation.checkPassLength = (pass) => {
-    if (0 < pass.length && pass.length < 8)
-        return false;
-    else
+    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+    if (reg.test(pass))
         return true;
+    else
+        return false;
 };
 
 validation.checkPassCompare = (pass, passRe) => {

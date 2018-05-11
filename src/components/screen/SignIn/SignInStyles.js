@@ -4,7 +4,7 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent:'center',
         backgroundColor:'#ffffff',
-
+        padding:10
     },
     inputLayout: {
         marginBottom: 10,

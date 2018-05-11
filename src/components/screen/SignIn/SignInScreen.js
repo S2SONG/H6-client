@@ -236,7 +236,8 @@ class SignInScreen extends React.Component {
 
     handleStateUserId = (userId) => {
         const {SignIn} = this.props;
-        if (validation.checkIdLength(userId)) {
+        // if (validation.checkIdLength(userId)) {
+        if(validation.checkEmail(userId)){
             if (userId.length == 0) {
                 SignIn.handleSignUpCheckUserIdClient(false);
                 SignIn.handleSignUpCheckUserIdNo(0);
@@ -249,7 +250,7 @@ class SignInScreen extends React.Component {
         } else {
             SignIn.handleSignUpCheckUserIdClient(false);
             SignIn.handleSignUpCheckUserIdNo(1);
-            SignIn.handleSignUpCheckUserIdLabel('아이디는 6자 이상이여야 합니다.');
+            SignIn.handleSignUpCheckUserIdLabel('아이디는 이메일 형식이어야 합니다.');
         }
         SignIn.handleSignUpUserId(userId);
     };
@@ -364,7 +365,7 @@ class SignInScreen extends React.Component {
         } else {
             SignIn.handleSignUpCheckUserPassword(false);
             SignIn.handleSignUpCheckUserPasswordNo(1);
-            SignIn.handleSignUpCheckUserPasswordLabel('8자 이상 입력 해주세요');
+            SignIn.handleSignUpCheckUserPasswordLabel('8자이상 16자이하의 영문,숫자,특수문자를 포함해야합니다.');
         }
 
         if (userPw.length == 0 || !validation.checkPassLength(userPw)) {
@@ -528,15 +529,15 @@ class SignInScreen extends React.Component {
                                            checkLabel={this.props.checkNickNameLabel}
                                            blur={this.handleCheckUserNickName}
                             />
-                            <SignTextInput handle={this.handleStateUserEmail}
-                                           value={this.props.userEmail}
-                                           placeholder={'이메일'}
-                                           icon={'envelope'}
-                                           label={'이메일'}
-                                           checkNo={this.props.checkEmailNo}
-                                           checkLabel={this.props.checkEmailLabel}
-                                           blur={this.handleCheckUserEmail}
-                            />
+                            {/*<SignTextInput handle={this.handleStateUserEmail}*/}
+                                           {/*value={this.props.userEmail}*/}
+                                           {/*placeholder={'이메일'}*/}
+                                           {/*icon={'envelope'}*/}
+                                           {/*label={'이메일'}*/}
+                                           {/*checkNo={this.props.checkEmailNo}*/}
+                                           {/*checkLabel={this.props.checkEmailLabel}*/}
+                                           {/*blur={this.handleCheckUserEmail}*/}
+                            {/*/>*/}
                         </View>
                     </ScrollView>
                 );
@@ -613,20 +614,20 @@ class SignInScreen extends React.Component {
         let checknickname = await SignIn.checkUserNickName(this.props.userNickName);
         if (!checknickname) return this.handleCheckUserNickNameModal();
 
-        if (this.props.userEmail.length > 0) {
-            if (!this.props.checkEmailClient)
-                return this.handleCheckUserEmailModal();
-            let checkemail = await SignIn.checkUserEmail(this.props.userEmail);
-            if (!checkemail) return this.handleCheckUserEmailModal();
-        }
+        // if (this.props.userEmail.length > 0) {
+        //     if (!this.props.checkEmailClient)
+        //         return this.handleCheckUserEmailModal();
+        //     let checkemail = await SignIn.checkUserEmail(this.props.userEmail);
+        //     if (!checkemail) return this.handleCheckUserEmailModal();
+        // }
         if (!(this.props.checkPassword && this.props.checkRePassword))
             return this.handleCheckUserPasswordModal();
         this.onPageChange(1);
     };
     signUpUser = async () => {
         const {SignIn} = this.props;
-        const {userId, userPw, userNickName, userEmail, major, minor, doubleMajor, connectedMajor, admissionYear} = this.props;
-        let signUpCheck = await SignIn.signUpUser(userId, userPw, userNickName, userEmail, major, minor, doubleMajor, connectedMajor, admissionYear);
+        const {userId, userPw, userNickName, major, minor, doubleMajor, connectedMajor, admissionYear} = this.props;
+        let signUpCheck = await SignIn.signUpUser(userId, userPw, userNickName, major, minor, doubleMajor, connectedMajor, admissionYear);
         if (signUpCheck) {
             this.handleSignUpModal();
             this.refs.toast.show('회원가입에 성공했습니다.');

@@ -6,13 +6,39 @@ import PropTypes from 'prop-types';
 export class SignUpMajor extends React.Component {
 
     render() {
-        let data = [{
-            value: '컴퓨터학부',
-        }, {
-            value: '글로벌미디어',
-        }, {
-            value: '경영학부',
-        }];
+        let data = [
+            {
+                value: '컴퓨터학부',
+            },
+            {
+                value: '글로벌미디어',
+            },
+            {
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            },{
+                value: '경영학부',
+            }
+        ];
 
         return (
             <View style={styles.container}>
