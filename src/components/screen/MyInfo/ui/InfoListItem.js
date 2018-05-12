@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import PropTypes from 'prop-types';
 
 export class InfoListItem extends React.Component{
@@ -7,11 +7,12 @@ export class InfoListItem extends React.Component{
     render(){
 
         return(
-            <TouchableOpacity
+            <TouchableHighlight
+                underlayColor={'#8f96a0'}
                 style={styles.container}
                 onPress={this.props.handle}>
                 <Text style={styles.text}>{this.props.title}</Text>
-            </TouchableOpacity>
+            </TouchableHighlight>
         )
     }
 }
@@ -23,16 +24,12 @@ InfoListItem.propTypes = {
 
 const styles = StyleSheet.create({
     container:{
-        height:60,
+        height:40,
         padding:10,
         backgroundColor:'white',
-        borderTopWidth:1,
-        borderBottomWidth:1,
-        borderTopColor:'#dddce0',
-        borderBottomColor:'#dddce0',
         justifyContent:'center'
     },
     text:{
-        fontSize:18
+        fontSize:15
     }
 });

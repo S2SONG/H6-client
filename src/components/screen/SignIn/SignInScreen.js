@@ -33,8 +33,8 @@ import Toast, {DURATION} from 'react-native-easy-toast';
 import {validation} from "../../../utils/validations";
 import {WarningModal} from "../../ui/WarningModal";
 import {TermsListItem} from "../../ui/TermsListItem";
-import {SignUpIndicator} from "./UI/SignUpIndicator";
-import {TrackPicker} from "./UI/TrackPicker";
+import {SignUpIndicator} from "./ui/SignUpIndicator";
+import {TrackPicker} from "./ui/TrackPicker";
 
 
 const labels = ["가입동의", "기본정보", "부가정보"];

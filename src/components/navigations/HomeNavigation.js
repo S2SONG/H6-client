@@ -38,7 +38,8 @@ export const HomeTabs = TabNavigator({
         MyInfo: {
             screen: MyInfoScreen,
             navigationOptions: {
-                tabBarLabel: '내정보',
+                header:null,
+                tabBarLabel: '마이페이지',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='user' size={24} color={tintColor}/>)
             }
         },
@@ -54,15 +55,17 @@ export const HomeTabs = TabNavigator({
         navigationOptions : {
         },
         tabBarOptions: {
-            activeTintColor: 'red',
+            // activeTintColor: 'red',
             inactiveTintColor: 'black',
             indicatorStyle: {
                 opacity: 0
             },
-            style: {
-                backgroundColor: 'white'
-            },
-            showIcon: true
-        },
+            showIcon: true,
+            bottomNavigationOptions: {
+                labelColor: 'black',
+                backgroundColor: '#ebebeb',
+                rippleColor: 'white',
+            }
+        }
     }
 );

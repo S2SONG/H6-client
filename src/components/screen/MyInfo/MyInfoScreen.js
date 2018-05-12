@@ -1,80 +1,91 @@
 import React from 'react';
-import { View, Text, ScrollView, AsyncStorage } from 'react-native';
+import {View, Text, ScrollView, AsyncStorage, SafeAreaView} from 'react-native';
+import {Icon} from 'react-native-elements';
 import styles from "./MyInfoStyles";
-import {InfoListItem} from "../../ui/InfoListItem";
+import {InfoListItem} from "./ui/InfoListItem";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import myinfo from "../../../modules/myinfo";
+import {TitleView} from "../../ui/TitleView";
 
-class MyInfoScreen extends React.Component{
+class MyInfoScreen extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            account:[
-                {title:'메일 인증'},
-                {title:'닉네임 변경'},
-                {title:'회원 탈퇴'},
-                {title:'로그아웃', handle:this.handleLogout}
+            account: [
+                {title: '계정정보'},
+                {title: '로그아웃', handle: this.handleLogout},
+                {title: '회원탈퇴'},
+                {title: '한성인 인증'},
             ],
-            appInfo:[
-                {title:'앱 버전'},
-                {title:'문의하기'},
-                {title:'공지사항'},
-                {title:'커뮤니티 이용규칙'},
-                {title:'개인정보 처리방침'},
-                {title:'오픈소스 라이센스'},
-                {title:'폰트 라이센스'},
+            appInfo: [
+                {title: '이용약관'},
+                {title: '개인정보취급방침'},
+                {title: '업데이트 정보'}
             ]
         }
     }
-    static navigationOptions = ({ navigation }) => {
-        const params = navigation.state.params || {};
 
-        return {
-            headerLeft: (
-                <View></View>
-            ),
-            title:'내정보'
-        };
-    };
+    // static navigationOptions = ({ navigation }) => {
+    //     const params = navigation.state.params || {};
+    //
+    //     return {
+    //         headerLeft: (
+    //             <View></View>
+    //         ),
+    //         title:'내정보'
+    //     };
+    // };
 
     renderAccount = () => {
-        return(
-            this.state.account.map((data, i)=>{
-                return(<InfoListItem key={i} title={data.title} handle={data.handle}/>)
-            })
+        return (
+            <View style={styles.infoContainer}>
+                {this.state.account.map((data, i) => {
+                    return (<InfoListItem key={i} title={data.title} handle={data.handle}/>)
+                })}
+            </View>
         )
     };
 
     renderAppInfo = () => {
-      return(
-          this.state.appInfo.map((data, i) => {
-              return(<InfoListItem key={i} title={data.title}/>)
-          })
-      )
+        return (
+            <View style={styles.infoContainer}>
+                {this.state.appInfo.map((data, i) => {
+                    return (<InfoListItem key={i} title={data.title}/>)
+                })}
+            </View>
+        )
     };
 
     handleLogout = async () => {
         await AsyncStorage.removeItem('token');
         this.props.navigation.navigate('SignIn');
     };
-    render(){
-        return(
-            <ScrollView style = {styles.container}>
-                <View style={styles.profile}>
-                </View>
-                <View style={styles.subject}><Text> 계정 </Text></View>
-                {this.renderAccount()}
-                <View style={styles.subject}><Text> 앱 정보 </Text></View>
-                {this.renderAppInfo()}
-            </ScrollView>
+
+    render() {
+        return (
+            <SafeAreaView style={styles.container}>
+                <TitleView title={'마이페이지'}/>
+                <ScrollView style={styles.container}>
+                    <View style={styles.profile}>
+                        <Icon type='ionicon' name='ios-contact' size={60}/>
+                        <Text style={styles.profileNickName}>so02</Text>
+                        <Text style={styles.profileId}>so0j914_@gmail.com</Text>
+                    </View>
+                    <View style={styles.contentContainer}>
+                        <View style={styles.subject}><Text> ACCOUNT </Text></View>
+                        {this.renderAccount()}
+                        <View style={styles.subject}><Text> SETTING </Text></View>
+                        {this.renderAppInfo()}
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
         )
     }
 }
 
-export default connect((state) => ({
-    }),
+export default connect((state) => ({}),
     (dispatch) => ({
         MyInfo: bindActionCreators(myinfo, dispatch)
     })

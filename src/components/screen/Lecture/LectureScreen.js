@@ -5,7 +5,8 @@ import styles from "./LectureStyles";
 import * as lecture from "../../../modules/lecture";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {LectureListItem} from "./UI/LectureListItem";
+import {LectureListItem} from "./ui/LectureListItem";
+import {TitleView} from "../../ui/TitleView";
 
 class LectureScreen extends React.Component {
 
@@ -24,10 +25,7 @@ class LectureScreen extends React.Component {
                 <StatusBar backgroundColor="#717882"
                            translucent={true}
                 />
-                <View style={styles.statusBar}/>
-                <View style={styles.titleBar}>
-                    <Text style={styles.titleBarText}>강의 평가</Text>
-                </View>
+                <TitleView title={'강의평가'}/>
                 <View style={styles.searchContainer}>
                 <SearchBar
                     noIcon

@@ -1,20 +1,52 @@
 import {StyleSheet} from 'react-native';
+
 export default StyleSheet.create({
     container: {
         flex: 1
     },
-    profile:{
-        marginTop:10,
-        height:100,
-        backgroundColor:'white',
-        borderTopWidth:2,
-        borderBottomWidth:2,
-        borderTopColor:'#dddce0',
-        borderBottomColor:'#dddce0',
+    profile: {
+        height: 150,
+        paddingTop: 20,
+        paddingBottom: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        // borderTopWidth: 2,
+        // borderBottomWidth: 2,
+        // borderTopColor: '#dddce0',
+        // borderBottomColor: '#dddce0',
     },
-    subject:{
-        marginTop:10,
-        marginBottom:10,
-        justifyContent:'center'
+    profileId: {
+        margin: 2,
+        color: '#8f96a0',
+        fontSize: 10
+    },
+    profileNickName: {
+        margin: 2,
+        color: '#8f96a0',
+        fontSize: 15
+    },
+    subject: {
+        marginTop: 10,
+        marginBottom: 10,
+        justifyContent: 'center'
+    },
+    contentContainer: {
+        flex: 1,
+        padding: 10,
+    },
+    infoContainer: {
+        backgroundColor: 'white',
+        marginBottom: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderTopColor: '#dddce0',
+        borderBottomColor: '#dddce0',
+        borderRightColor: '#dddce0',
+        borderLeftColor: '#dddce0'
     }
 });

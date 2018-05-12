@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import TimeAgo from 'react-native-timeago';
@@ -35,7 +35,7 @@ export class LectureListItem extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={this.props.handler}>
                 <View style={styles.leftContainer}>
                     <Text style={styles.lectureTitle}>{this.props.lecture.lectureName}</Text>
                     <Text style={styles.lectureTrack}>{this.props.lecture.track} 트랙</Text>
@@ -50,7 +50,7 @@ export class LectureListItem extends React.Component {
                         <TimeAgo time={this.props.lecture.updatedAt} />
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 }
@@ -65,6 +65,7 @@ export class LectureListItem extends React.Component {
 
 LectureListItem.propTypes = {
     lecture: PropTypes.object,
+    handler: PropTypes.func,
 };
 
 const styles = StyleSheet.create({
@@ -78,10 +79,12 @@ const styles = StyleSheet.create({
     },
     leftContainer: {
         width:'50%',
+        paddingLeft:10,
         alignItems: 'flex-start'
     },
     rightContainer: {
         width:'50%',
+        paddingRight:10,
         alignItems: 'flex-end'
     },
     line: {
