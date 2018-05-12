@@ -10,21 +10,7 @@ export class HomeScreen extends React.Component {
     }
 
     componentDidMount(){
-        this.lectures();
     }
-
-    lectures = async () => {
-        const token = await AsyncStorage.getItem('token');
-        console.log(token);
-        const data = await fetch(`${config.server}/lecturesInfo?page=1&count=3`,{
-            method: "GET",
-            headers:{
-                'x-access-token':token
-            }
-        });
-        const jsonData = await data.json();
-        console.log(jsonData);
-    };
 
     render() {
         return (

@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {StackNavigator} from 'react-navigation';
 import {Constants} from 'expo';
 import SignInScreen from "../screen/SignIn/SignInScreen";

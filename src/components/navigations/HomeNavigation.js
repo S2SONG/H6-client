@@ -1,13 +1,23 @@
 import React from "react";
+import {SafeAreaView} from 'react-native';
 import {StackNavigator, TabNavigator} from 'react-navigation';
 import {HomeScreen} from "../screen/Home/HomeScreen";
 import MyInfoScreen from "../screen/MyInfo/MyInfoScreen";
 import {Icon} from 'react-native-elements';
-import { } from 'react-native-material-bottom-navigation'
+import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import {LectureInfoScreen} from "../screen/Lecture/LectureInfoScreen";
-import {LectureScreen} from "../screen/Lecture/LectureScreen";
+import LectureScreen from "../screen/Lecture/LectureScreen";
 
 //홈 Tab 네비게이션
+const TabBar = props => (
+    <SafeAreaView
+        forceInset={{ top: 'never', bottom: 'always', horizontal: 'never' }}
+        style={{ backgroundColor: '#fff' }}
+    >
+        <NavigationComponent {...props} />
+    </SafeAreaView>
+);
+
 export const HomeTabs = TabNavigator({
         Home: {
             screen: HomeScreen,
@@ -35,7 +45,8 @@ export const HomeTabs = TabNavigator({
     },
     {
         //lazy: true,
-        initialRouteName: 'Home',
+        initialRouteName: 'Lecture',
+        tabBarComponent: TabBar,
         tabBarPosition: 'bottom',
         //swipeEnabled:false,
         //animationEnabled:false,
