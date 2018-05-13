@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b59e02b8-8362-4b12-b305-99a939079c87" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/ui/TitleView.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigations/HomeNavigation.js" afterPath="$PROJECT_DIR$/src/components/navigations/HomeNavigation.js" />
       <change beforePath="$PROJECT_DIR$/src/components/screen/Lecture/LectureScreen.js" afterPath="$PROJECT_DIR$/src/components/screen/Lecture/LectureScreen.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/screen/Lecture/UI/LectureListItem.js" afterPath="$PROJECT_DIR$/src/components/screen/Lecture/ui/LectureListItem.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/screen/MyInfo/MyInfoScreen.js" afterPath="$PROJECT_DIR$/src/components/screen/MyInfo/MyInfoScreen.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/screen/MyInfo/MyInfoStyles.js" afterPath="$PROJECT_DIR$/src/components/screen/MyInfo/MyInfoStyles.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/screen/SignIn/SignInScreen.js" afterPath="$PROJECT_DIR$/src/components/screen/SignIn/SignInScreen.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/screen/SignIn/UI/SignUpIndicator.js" afterPath="$PROJECT_DIR$/src/components/screen/SignIn/ui/SignUpIndicator.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/screen/SignIn/UI/TrackPicker.js" afterPath="$PROJECT_DIR$/src/components/screen/SignIn/ui/TrackPicker.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/InfoListItem.js" afterPath="$PROJECT_DIR$/src/components/screen/MyInfo/ui/InfoListItem.js" />
+      <change beforePath="$PROJECT_DIR$/src/modules/lecture.js" afterPath="$PROJECT_DIR$/src/modules/lecture.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,18 +18,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="HomeNavigation.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/navigations/HomeNavigation.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="41" column="35" lean-forward="false" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SignInScreen.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/screen/SignIn/SignInScreen.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -72,14 +52,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SignUpIndicator.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/screen/SignIn/ui/SignUpIndicator.js">
+      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="80" lean-forward="false" selection-start-line="39" selection-start-column="80" selection-end-line="39" selection-end-column="80" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="30">
+              <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -94,7 +72,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyInfoStyles.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MyInfoStyles.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/screen/MyInfo/MyInfoStyles.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="420">
@@ -104,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LectureScreen.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LectureScreen.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/screen/Lecture/LectureScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="27" column="43" lean-forward="true" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
+            <state relative-caret-position="360">
+              <caret line="24" column="40" lean-forward="false" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -119,10 +97,22 @@
       <file leaf-file-name="LectureListItem.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/screen/Lecture/ui/LectureListItem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="42" column="53" lean-forward="true" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
+            <state relative-caret-position="838">
+              <caret line="70" column="18" lean-forward="false" selection-start-line="70" selection-start-column="18" selection-end-line="70" selection-end-column="18" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lecture.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/modules/lecture.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-202">
+              <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#44#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -189,7 +179,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/components/screen/Terms/TermsScreen.js" />
         <option value="$PROJECT_DIR$/components/ui/SignUpPicker.js" />
         <option value="$PROJECT_DIR$/components/navigations/SignNavigation.js" />
         <option value="$PROJECT_DIR$/components/screen/SignUp/SignUpScreen.js" />
@@ -231,15 +220,16 @@
         <option value="$PROJECT_DIR$/src/components/ui/SafetyNavigationComponent.js" />
         <option value="$PROJECT_DIR$/src/components/navigations/SignNavigation.js" />
         <option value="$PROJECT_DIR$/src/components/screen/Home/HomeScreen.js" />
-        <option value="$PROJECT_DIR$/src/modules/lecture.js" />
         <option value="$PROJECT_DIR$/src/components/screen/Lecture/LectureStyles.js" />
-        <option value="$PROJECT_DIR$/src/components/screen/Lecture/LectureScreen.js" />
         <option value="$PROJECT_DIR$/src/components/ui/TitleView.js" />
         <option value="$PROJECT_DIR$/src/components/screen/Lecture/UI/LectureListItem.js" />
         <option value="$PROJECT_DIR$/src/components/navigations/HomeNavigation.js" />
         <option value="$PROJECT_DIR$/src/components/screen/MyInfo/MyInfoScreen.js" />
         <option value="$PROJECT_DIR$/src/components/screen/MyInfo/ui/InfoListItem.js" />
         <option value="$PROJECT_DIR$/src/components/screen/MyInfo/MyInfoStyles.js" />
+        <option value="$PROJECT_DIR$/src/components/screen/Lecture/ui/LectureListItem.js" />
+        <option value="$PROJECT_DIR$/src/modules/lecture.js" />
+        <option value="$PROJECT_DIR$/src/components/screen/Lecture/LectureScreen.js" />
       </list>
     </option>
   </component>
@@ -458,12 +448,12 @@
       <workItem from="1521717425938" duration="609000" />
       <workItem from="1521809442545" duration="574000" />
       <workItem from="1522066176079" duration="15885000" />
-      <workItem from="1525498010240" duration="76336000" />
+      <workItem from="1525498010240" duration="82381000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="219330000" />
+    <option name="totallyTimeSpent" value="225375000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -718,14 +708,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/ui/SignTextInput.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
@@ -836,41 +818,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/modules/lecture.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="22" lean-forward="true" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/screen/Lecture/LectureStyles.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
           <caret line="19" column="6" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="19" selection-end-column="6" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/screen/Lecture/LectureScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="27" column="43" lean-forward="true" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/screen/Lecture/ui/LectureListItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="42" column="53" lean-forward="true" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -945,6 +897,44 @@
         <state relative-caret-position="420">
           <caret line="28" column="14" lean-forward="true" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/screen/Lecture/ui/LectureListItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="838">
+          <caret line="70" column="18" lean-forward="false" selection-start-line="70" selection-start-column="18" selection-end-line="70" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/modules/lecture.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-202">
+          <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/screen/Lecture/LectureScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="40" lean-forward="false" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

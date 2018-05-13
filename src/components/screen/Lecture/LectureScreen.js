@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StatusBar, SafeAreaView, FlatList} from 'react-native';
-import {SearchBar, List} from 'react-native-elements';
+import {View, Text, StatusBar, SafeAreaView, FlatList, ActivityIndicator} from 'react-native';
+import {SearchBar, Button} from 'react-native-elements';
 import styles from "./LectureStyles";
 import * as lecture from "../../../modules/lecture";
 import {bindActionCreators} from "redux";
@@ -14,10 +14,22 @@ class LectureScreen extends React.Component {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const {Lecture} = this.props;
-        Lecture.getLectureList(this.props.currentPosition);
+        Lecture.getLectureList(this.props.currentPage, this.props.lectureListLength);
     }
+
+    renderListFooter = () => {
+        const {Lecture} = this.props;
+        return (
+            <View style={{marginBottom:20}}>
+                {this.props.loading ? <ActivityIndicator size="large" animating/> :
+                    (this.props.lectureListLength<this.props.total ?
+                        <Button title='더보기' onPress={() => Lecture.getLectureList(this.props.currentPage, this.props.lectureListLength)}/>
+                        : null)}
+            </View>
+        )
+    };
 
     render() {
         return (
@@ -27,37 +39,37 @@ class LectureScreen extends React.Component {
                 />
                 <TitleView title={'강의평가'}/>
                 <View style={styles.searchContainer}>
-                <SearchBar
-                    noIcon
-                    placeholder={'Search'}
-                    inputStyle={styles.searchBarInput}
-                    containerStyle={styles.searchBarContainer}/>
+                    <SearchBar
+                        noIcon
+                        placeholder={'Search'}
+                        inputStyle={styles.searchBarInput}
+                        containerStyle={styles.searchBarContainer}/>
                     <Text style={styles.searchBarLabel}>과목명, 교수명, 과목코드 중 하나를 입력하세요.</Text>
                 </View>
-                        <FlatList
-                            style={{flexGrow:1, padding:10, backgroundColor:'#f5f5f5'}}
-                            data={this.props.lectureList[0]}
-                            keyExtractor={(x, i) => i}
-                            // onEndReached={() => this.handleEnd()}
-                            // onEndReachedThreshold={0.5}
-                            // ListFooterComponent={() =>
-                            //     this.state.loading ? null : <ActivityIndicator size="large" animating/>}
-                            renderItem={({item}) =>
-                                <LectureListItem lecture={item}/>
-                            }
-                        />
-
-
-
+                <View style={{flex: 1}}>
+                    <FlatList
+                        style={{flexGrow: 1, padding: 10, backgroundColor: '#f5f5f5'}}
+                        data={this.props.lectureList}
+                        keyExtractor={(x, i) => i}
+                        // onEndReached={() => this.handleEnd()}
+                        // onEndReachedThreshold={0.5}
+                        // ListFooterComponent={() =>
+                        //     this.props.loading ? <ActivityIndicator size="large" animating/> : null}
+                        ListFooterComponent={this.renderListFooter}
+                        renderItem={({item}) =><LectureListItem lecture={item}/>}
+                    />
+                </View>
             </SafeAreaView>
         )
     }
 }
 
 export default connect((state) => ({
-    currentPosition: state.lecture.currentPosition,
-    lectureList: state.lecture.lectureList,
-
+        currentPage: state.lecture.currentPage,
+        lectureList: state.lecture.lectureList,
+        loading: state.lecture.loading,
+        total: state.lecture.total,
+        lectureListLength: state.lecture.lectureListLength,
     }),
     (dispatch) => ({
         Lecture: bindActionCreators(lecture, dispatch)
