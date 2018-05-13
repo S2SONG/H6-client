@@ -39,7 +39,8 @@ export class LectureListItem extends React.Component {
                 <View style={styles.leftContainer}>
                     <Text style={styles.lectureTitle}>{this.props.lecture.lectureName}</Text>
                     <Text style={styles.lectureTrack}>{this.props.lecture.track} 트랙</Text>
-                    <Text style={styles.line}>{this.props.lecture.professorName}교수님</Text>
+                    <Text style={styles.line}>{this.props.lecture.professorName} 교수</Text>
+                    <Text style={styles.line}>리플 {this.props.lecture.replyCount}</Text>
                     <Text style={styles.line}></Text>
                 </View>
                 <View style={styles.rightContainer}>
