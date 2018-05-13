@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b59e02b8-8362-4b12-b305-99a939079c87" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/config.js" afterPath="$PROJECT_DIR$/config.js" />
       <change beforePath="$PROJECT_DIR$/src/components/screen/Lecture/LectureScreen.js" afterPath="$PROJECT_DIR$/src/components/screen/Lecture/LectureScreen.js" />
       <change beforePath="$PROJECT_DIR$/src/components/screen/Lecture/LectureStyles.js" afterPath="$PROJECT_DIR$/src/components/screen/Lecture/LectureStyles.js" />
@@ -419,12 +420,12 @@
       <workItem from="1521717425938" duration="609000" />
       <workItem from="1521809442545" duration="574000" />
       <workItem from="1522066176079" duration="15885000" />
-      <workItem from="1525498010240" duration="91894000" />
+      <workItem from="1525498010240" duration="91953000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="234888000" />
+    <option name="totallyTimeSpent" value="234947000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
