@@ -48,8 +48,8 @@ export default StyleSheet.create({
     },
     listContainer: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
-        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
 });
