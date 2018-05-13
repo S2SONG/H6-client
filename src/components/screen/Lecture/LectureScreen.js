@@ -86,7 +86,7 @@ class LectureScreen extends React.Component {
                         onChangeText={this.onChangeTextValue}
                         searchHandler={this.searchHandler}
                     />
-                    <Text style={styles.searchBarLabel}>과목명, 교수명, 과목코드 중 하나를 입력하세요.</Text>
+                    <Text style={styles.searchBarLabel}>과목명, 교수명, 과목코드, 트랙 중 하나를 입력하세요.</Text>
                 </View>
                 {this.renderList()}
             </SafeAreaView>
