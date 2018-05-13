@@ -40,6 +40,7 @@ class LectureScreen extends React.Component {
                 <TitleView title={'강의평가'}/>
                 <View style={styles.searchContainer}>
                     <SearchBar
+                        clearIcon={{ color: '#86939e', name: 'search', style:{width:30, height:30}}}
                         noIcon
                         placeholder={'Search'}
                         inputStyle={styles.searchBarInput}

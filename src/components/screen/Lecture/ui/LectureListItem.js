@@ -1,8 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {Icon} from 'react-native-elements';
+// import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import TimeAgo from 'react-native-timeago';
+import Stars from 'react-native-stars';
+import StarRating from 'react-native-star-rating';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 export class LectureListItem extends React.Component {
 
@@ -43,7 +47,19 @@ export class LectureListItem extends React.Component {
                     <Text style={styles.line}></Text>
                 </View>
                 <View style={styles.rightContainer}>
-                    {this.renderAverage()}
+                    <StarRating
+                        disabled={true}
+                        emptyStar={'ios-star-outline'}
+                        fullStar={'ios-star'}
+                        halfStar={'ios-star-half'}
+                        iconSet={'Ionicons'}
+                        maxStars={5}
+                        rating={Math.ceil(this.props.lecture.average*2)/2}
+                        fullStarColor={'#f8fa00'}
+                        halfStarColor={'#f8fa00'}
+                        halfStarEnabled={true}
+                        starSize={20}
+                    />
                     <Text style={styles.line}></Text>
                     <Text style={styles.line}></Text>
                     <View style={styles.lectureUpdateTime}>

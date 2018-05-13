@@ -46,7 +46,7 @@ export const HomeTabs = TabNavigator({
     },
     {
         //lazy: true,
-        initialRouteName: 'Lecture',
+        initialRouteName: 'Home',
         tabBarComponent: TabBar,
         tabBarPosition: 'bottom',
         //swipeEnabled:false,
