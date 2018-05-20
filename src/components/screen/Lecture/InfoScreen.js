@@ -9,9 +9,8 @@ import {bindActionCreators} from "redux";
 import * as lectureInfo from "../../../modules/lectureInfo";
 import {connect} from "react-redux";
 import {LectureReplyListItem} from "./ui/LectureReplyListItem";
-import styles from "./LectureInfoStyles";
 
-class LectureInfoScreen extends React.Component {
+class InfoScreen extends React.Component {
 
     //"average": 1,
 // "lectureInfoIndex": 2,
@@ -116,6 +115,20 @@ class LectureInfoScreen extends React.Component {
                     ListFooterComponent={this.renderListFooter}
                     renderItem={({item}) => <LectureReplyListItem lectureReply={item}/>}
                 >
+
+                    {/*<View style={styles.listContainer}>*/}
+                        {/*<TriggeringView onHide={()=>this.onChangeHeaderTitle(true)} onDisplay={()=>this.onChangeHeaderTitle(false)}/>*/}
+                        {/*<FlatList*/}
+                            {/*style={{flexGrow: 1, padding: 10, backgroundColor: '#f5f5f5'}}*/}
+                            {/*data={this.props.lectureReplyList}*/}
+                            {/*keyExtractor={(x, i) => i}*/}
+                            {/*// onEndReached={() => this.handleEnd()}*/}
+                            {/*// onEndReachedThreshold={0.5}*/}
+                            {/*ListFooterComponent={this.renderListFooter}*/}
+                            {/*renderItem={({item}) => <LectureReplyListItem lectureReply={item}/>}*/}
+                        {/*/>*/}
+                    {/*</View>*/}
+
                 </HeaderImageScrollView>
                 <ActionButton buttonColor="rgba(231,76,60,1)">
                     <ActionButton.Item buttonColor='#9b59b6' title="New Task"
@@ -136,6 +149,41 @@ class LectureInfoScreen extends React.Component {
     }
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    statusBar: {
+        backgroundColor: '#8f96a0',
+        height: StatusBar.currentHeight
+    },
+    titleBar: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: 50,
+        paddingLeft: 10,
+        paddingRight: 10,
+        backgroundColor: 'transparent',
+    },
+    renderHeader: {
+        height: 150,
+        backgroundColor: '#8f96a0',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    renderHeaderTitle: {
+        color: 'white',
+        fontSize: 20,
+        margin: 20
+    },
+    listContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+});
+
 export default connect((state) => ({
         header: state.lectureInfo.header,
         lecture: state.lectureInfo.lecture,
@@ -148,4 +196,4 @@ export default connect((state) => ({
     (dispatch) => ({
         LectureInfo: bindActionCreators(lectureInfo, dispatch)
     })
-)(LectureInfoScreen);
+)(InfoScreen);

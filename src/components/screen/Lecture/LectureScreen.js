@@ -33,6 +33,10 @@ class LectureScreen extends React.Component {
         )
     };
 
+    navigationLectureInfo = () => {
+        this.props.navigation.navigate('LectureInfo');
+    };
+
     renderList = () => {
         if (this.props.searchText !== '' && this.props.total == 0) {
             return (
@@ -54,7 +58,7 @@ class LectureScreen extends React.Component {
                         // ListFooterComponent={() =>
                         //     this.props.loading ? <ActivityIndicator size="large" animating/> : null}
                         ListFooterComponent={this.renderListFooter}
-                        renderItem={({item}) => <LectureListItem lecture={item}/>}
+                        renderItem={({item}) => <LectureListItem lecture={item} navigation={this.props.navigation}/>}
                     />
                 </View>
             )

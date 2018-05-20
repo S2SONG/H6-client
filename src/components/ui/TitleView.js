@@ -7,16 +7,16 @@ export class TitleView extends React.Component {
 
     renderLeftIcon = () => {
         if (this.props.leftIcon)
-            return (<Icon style={styles.leftIcon} name={this.props.leftIcon} type='ionicon' size={24}
-                          onPress={this.props.leftIconHandler}/>);
-        return null;
+            return (<Icon style={styles.leftIcon} name={this.props.leftIcon} type='ionicon' size={24} color={'white'}
+                                 onPress={this.props.leftIconHandler}/>);
+        return (<View style={styles.leftIcon}></View>);
     };
 
     renderRightIcon = () => {
         if (this.props.rightIcon)
-            return (<Icon style={styles.rightIcon} name={this.props.rightIcon} type='ionicon' size={24}
+            return (<Icon style={styles.rightIcon} name={this.props.rightIcon} type='ionicon' size={24} color={'white'}
                           onPress={this.props.rightIconHandler}/>);
-        return null;
+        return (<View style={styles.rightIcon}></View>);
     };
 
     render() {
@@ -50,11 +50,10 @@ const styles = StyleSheet.create({
     },
     titleBar: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         height: 50,
         paddingLeft: 10,
         paddingRight: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#8f96a0',
     },
     titleBarText: {
