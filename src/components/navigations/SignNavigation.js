@@ -15,16 +15,21 @@ const SignNav = StackNavigator({
     SignIn: {
         screen: SignInScreen,
         navigationOptions: {
-            header: null
+            header: null,
+            gesturesEnabled: false
         }
     },
     HomeTab: {
-        screen: HomeTabs
+        screen: HomeTabs,
+        navigationOptions: {
+            gesturesEnabled: false
+        }
     },
     LectureInfo: {
         screen: LectureInfoScreen,
         navigationOptions: {
-            header: null
+            header: null,
+            gesturesEnabled: false
         }
     }
 }, {
