@@ -1,11 +1,13 @@
+import moment from 'moment';
 export const util = {};
 
 util.timeSince = (date) => {
     if(date == null || date == undefined)
         return "";
-    var seconds = Math.floor((new Date() - new Date(date)) / 1000);
 
-    var interval = Math.floor(seconds / 31536000);
+    let seconds = Math.floor((new Date(moment().utc(moment().format())) - new Date(date)) / 1000);
+
+    let interval = Math.floor(seconds / 31536000);
 
     if (interval > 1) {
         return interval + " 년전";
