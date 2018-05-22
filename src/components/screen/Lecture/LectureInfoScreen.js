@@ -11,8 +11,11 @@ import {connect} from "react-redux";
 import {LectureReplyListItem} from "./ui/LectureReplyListItem";
 import styles from "./LectureInfoStyles";
 
+<<<<<<< HEAD
 //import LectureReplyListTest from "./ui/LectureReplyListTest";
 
+=======
+>>>>>>> 4d8188f6240985b4bf0ff8dfd0419d97619cfa9b
 class LectureInfoScreen extends React.Component {
 
     //"average": 1,
