@@ -28,7 +28,7 @@ export class LectureReplyListItem extends React.Component {
                 <View style={styles.rightContainer}>
                     <StarRating
                         disabled={true}
-                        emptyStar={'ios-star-outline'}
+                        emptyStar={'ios-star'}
                         fullStar={'ios-star'}
                         halfStar={'ios-star-half'}
                         iconSet={'Ionicons'}

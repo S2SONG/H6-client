@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import {LectureReplyListItem} from "./ui/LectureReplyListItem";
 import styles from "./LectureInfoStyles";
 
+
 class LectureInfoScreen extends React.Component {
 
     //"average": 1,
@@ -75,7 +76,7 @@ class LectureInfoScreen extends React.Component {
                 <Text style={styles.renderHeaderTitle}>{this.props.lecture.lectureName}</Text>
                 <StarRating
                     disabled={true}
-                    emptyStar={'ios-star-outline'}
+                    emptyStar={'ios-star'}
                     fullStar={'ios-star'}
                     halfStar={'ios-star-half'}
                     iconSet={'Ionicons'}
