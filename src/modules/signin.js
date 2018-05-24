@@ -11,6 +11,7 @@ const SIGN_IN_PWD = 'SIGN_IN_PWD';
 const SIGN_IN_AUTO = 'SIGN_IN_AUTO';
 
 const SIGN_UP_MODAL = 'SIGN_UP_MODAL';
+const FIND_PWD_MODAL = 'FIND_PWD_MODAL';
 
 const TERMS_FIRST_CHECKED = 'TERMS_FIRST_CHECKED';
 const TERMS_FIRST_CHECKED_SET = 'TERMS_FIRST_CHECKED_SET';
@@ -110,6 +111,8 @@ const initialState = {
 
     term1:'',
     term2:'',
+
+    findPwd:false,
 };
 
 export const initSignInState = () => dispatch => {
@@ -160,6 +163,7 @@ export const initSignUpState = () => dispatch => {
     dispatch({type:TERMS_FIRST_CHECKED_SET, payload:false});
     dispatch({type:TERMS_SECOND_CHECKED_SET, payload:false});
 
+    dispatch({type:FIND_PWD_MODAL, payload:false});
 };
 
 export const handleAuto = (check) => dispatch => {
@@ -175,6 +179,11 @@ export const handleSignInPwd = (pwd) => dispatch => {
 
 export const handleSignUpModal = () => dispatch => {
     dispatch({type:SIGN_UP_MODAL});
+};
+
+//비밀번호찾기
+export const FindPwdModal = (modal) => dispatch => {
+    dispatch({type:FIND_PWD_MODAL, payload: modal});
 };
 
 export const handleTermsFirstCheck = () => dispatch => {
@@ -453,6 +462,13 @@ export default handleActions({
             register: !state.register,
         }
     },
+    [FIND_PWD_MODAL]: (state, action) => {
+        return {
+            ...state,
+            //register: !state.register,
+            findPwd: action.payload,
+        }
+    },
     [TERMS_FIRST_CHECKED]: (state, action) => {
         return {
             ...state,
@@ -711,5 +727,5 @@ export default handleActions({
             isFirstChecked: action.payload,
             isSecondChecked: action.payload
         }
-    }
+    },
 }, initialState);
