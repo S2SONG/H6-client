@@ -11,7 +11,6 @@ import {connect} from "react-redux";
 import {LectureReplyListItem} from "./ui/LectureReplyListItem";
 import styles from "./LectureInfoStyles";
 
-
 class LectureInfoScreen extends React.Component {
 
     //"average": 1,
@@ -57,6 +56,11 @@ class LectureInfoScreen extends React.Component {
 
     navigationGoBack = () => {
         this.props.navigation.goBack();
+    };
+
+    navigationGoEval = () => {
+        console.log("notes tapped!");
+        this.props.navigation.navigate('Evaluation');
     };
 
     renderTitle = () => {
@@ -119,8 +123,8 @@ class LectureInfoScreen extends React.Component {
                 >
                 </HeaderImageScrollView>
                 <ActionButton buttonColor="rgba(231,76,60,1)">
-                    <ActionButton.Item buttonColor='#9b59b6' title="New Task"
-                                       onPress={() => console.log("notes tapped!")}>
+                    <ActionButton.Item buttonColor='#9b59b6' title="글쓰기"
+                                       onPress={() => this.navigationGoEval()}>
                         <Ionicon name="md-create" style={styles.actionButtonIcon}/>
                     </ActionButton.Item>
                     <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {
