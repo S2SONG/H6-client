@@ -750,8 +750,9 @@ class SignInScreen extends React.Component {
                     <FindPwdModal
                         visible={this.props.findPwd}
                         title={'비밀번호 찾기'}
-                        body={'이메일을 입력하시오'}
-                        handle={this.handleFindPwdModalClose}
+                        body={'가입시 입력한 이메일로 비밀번호를 전송합니다. 이메일을 입력해 주세요.'}
+                        closeModal={this.handleFindPwdModalClose}
+                        //handle={this.handleFindPwdModalClose} 이메일 전송 메소드
                     />
                     <ScrollView contentContainerStyle={{flexGrow:1}} style={{flex: 1}}>
                         <View style={{flex: 1}}>
