@@ -122,19 +122,21 @@ class LectureInfoScreen extends React.Component {
                     renderItem={({item}) => <LectureReplyListItem lectureReply={item}/>}
                 >
                 </HeaderImageScrollView>
-                <ActionButton buttonColor="rgba(231,76,60,1)">
-                    <ActionButton.Item buttonColor='#9b59b6' title="글쓰기"
-                                       onPress={() => this.navigationGoEval()}>
-                        <Ionicon name="md-create" style={styles.actionButtonIcon}/>
-                    </ActionButton.Item>
-                    <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {
-                    }}>
-                        <Ionicon name="md-notifications-off" style={styles.actionButtonIcon}/>
-                    </ActionButton.Item>
-                    <ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => {
-                    }}>
-                        <Ionicon name="md-done-all" style={styles.actionButtonIcon}/>
-                    </ActionButton.Item>
+                <ActionButton buttonColor="rgb(124,130,140)" title="글쓰기"
+                                            onPress={()=>this.navigationGoEval()}>
+                    <Ionicon name="md-create" style={styles.actionButtonIcon}/>
+                    {/*<ActionButton.Item buttonColor='#9b59b6' title="글쓰기"*/}
+                                       {/*onPress={() => this.navigationGoEval()}>*/}
+                        {/*<Ionicon name="md-create" style={styles.actionButtonIcon}/>*/}
+                    {/*</ActionButton.Item>*/}
+                    {/*<ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {*/}
+                    {/*}}>*/}
+                        {/*<Ionicon name="md-notifications-off" style={styles.actionButtonIcon}/>*/}
+                    {/*</ActionButton.Item>*/}
+                    {/*<ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => {*/}
+                    {/*}}>*/}
+                        {/*<Ionicon name="md-done-all" style={styles.actionButtonIcon}/>*/}
+                    {/*</ActionButton.Item>*/}
                 </ActionButton>
             </SafeAreaView>
         )

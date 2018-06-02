@@ -15,7 +15,7 @@ export class SignUpIndicator extends React.Component {
                     height: 2,
                     width: 30,
                     borderRadius: 2,
-                    backgroundColor: '#f9f9f9'
+                    backgroundColor: 'rgb(216,216,216)'
                 }}>
                 </View>
             )
@@ -37,7 +37,7 @@ export class SignUpIndicator extends React.Component {
                                 borderRadius: 10,
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                backgroundColor: i==this.props.position?'#989898':'white',
+                                backgroundColor: i==this.props.position?'#989898':'rgb(246,246,246)',
                                 margin: 10,
                             }}>
                                 <View style={{
