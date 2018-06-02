@@ -54,15 +54,17 @@ export class LectureListItem extends React.Component {
                 <View style={styles.rightContainer}>
                     <StarRating
                         disabled={true}
-                        emptyStar={'ios-star-outline'}
+                        emptyStar={'ios-star'}
                         fullStar={'ios-star'}
                         halfStar={'ios-star-half'}
                         iconSet={'Ionicons'}
                         maxStars={5}
-                        rating={Math.ceil(this.props.lecture.average * 2) / 2}
+                        // rating={Math.ceil(this.props.lecture.average * 2) / 2}
+                        rating={this.props.lecture.average}
                         fullStarColor={'#f8fa00'}
                         halfStarColor={'#f8fa00'}
                         halfStarEnabled={true}
+                        emptyStarColor={'#cfcfcf'}
                         starSize={20}
                     />
                     <Text style={styles.line}></Text>
