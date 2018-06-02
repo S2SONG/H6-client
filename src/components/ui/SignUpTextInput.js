@@ -46,25 +46,27 @@ export class SignUpTextInput extends React.Component {
     render() {
         return (
             <View style = { { marginBottom: 7, alignItems: 'center' } }>
-                {this.renderLabel()}
+                {/*{this.renderLabel()}*/}
                 <View style = {this.state.hasFocus ? styles.focusedTextInput : styles.inputLayout }>
                     {/**<View style = { styles.inputIcon }>
                      <Icon type = "font-awesome" name = { this.props.icon }/>
                      </View>**/}
                     <TextInput
-                        //onBlur = {this.props.blur}
+                        onBlur = {this.props.blur}
                         onChangeText = { this.props.handle }
                         value = { this.props.value }
                         secureTextEntry = { this.props.secureText }
                         style = { styles.input }
                         underlineColorAndroid = "transparent"
-                        //placeholder = { this.props.placeholder }
+                        placeholder = { this.props.placeholder }
                         onFocus={this.setFocus.bind(this, true)}
                         onBlur={this.setFocus.bind(this, false)}
+                        placeholderTextColor={styles.placeholderColor}
                     />
                 </View>
                 {this.renderCheckLabel()}
             </View>
+
         )
     }
 }
@@ -87,19 +89,24 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 50,
         width: '90%',
-        backgroundColor: 'white',
+        backgroundColor: 'rgb(246,246,246)',
         paddingLeft: 10,
         borderRadius:3,
+        borderBottomColor: 'rgb(216,216,216)',
+        borderBottomWidth: 2,
     },
     focusedTextInput: {
         flexDirection: 'row',
         height: 50,
         width: '90%',
-        backgroundColor: 'white',
+        backgroundColor: 'rgb(246,246,246)',
         paddingLeft: 10,
         borderRadius:3,
-        borderBottomColor: 'yellow',
+        borderBottomColor: 'black',
         borderBottomWidth:2,
+    },
+    placeholderColor:{
+      color:'black'
     },
     input: {
         width: '100%',

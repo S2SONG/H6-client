@@ -509,7 +509,7 @@ class SignInScreen extends React.Component {
                         }} behavior="padding" enabled>
                             <SignUpTextInput handle={this.handleStateUserId}
                                            value={this.props.userId}
-                                           placeholder={'아이디'}
+                                           placeholder={'Email'}
                                            icon={'user'}
                                            label={'ID'}
                                            checkNo={this.props.checkIdNo}
@@ -518,7 +518,7 @@ class SignInScreen extends React.Component {
                             />
                             <SignUpTextInput handle={this.handleStateUserPw}
                                            value={this.props.userPw}
-                                           placeholder={'비밀번호'}
+                                           placeholder={'Password'}
                                            icon={'lock'}
                                            secureText={true}
                                            label={'Password'}
@@ -527,7 +527,7 @@ class SignInScreen extends React.Component {
                             />
                             <SignUpTextInput handle={this.handleStateUserRePw}
                                            value={this.props.userRePw}
-                                           placeholder={'비밀번호 확인'}
+                                           placeholder={'Password again'}
                                            icon={'lock'}
                                            secureText={true}
                                            label={'Password again'}
@@ -536,7 +536,7 @@ class SignInScreen extends React.Component {
                             />
                             <SignUpTextInput handle={this.handleStateUserNickName}
                                            value={this.props.userNickName}
-                                           placeholder={'닉네임'}
+                                           placeholder={'UserNickName'}
                                            icon={'user-secret'}
                                            label={'Nickname'}
                                            checkNo={this.props.checkNickNameNo}
@@ -719,20 +719,20 @@ class SignInScreen extends React.Component {
                         handle={this.handleCheckUserEmailModal}
                     />
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <View style={{height: 560, width: 300, backgroundColor: '#ffffff', borderRadius: 8}}>
+                        <View style={{height: 497, width: 342, backgroundColor: 'rgb(246,246,246)', borderRadius: 8}}>
                             <View name='header' style={{
                                 flexDirection: 'row',
                                 justifyContent: 'space-between',
                                 height: 40,
-                                width: 300,
-                                padding: 5
+                                width: 340,
+                                padding: 10
                             }}>
                                 {this.renderModalHeader(this.props.currentPosition)}
                                 <Icon name="md-close" type="ionicon" style={{alignSelf: 'flex-end'}}
                                       onPress={this.handleSignUpModal}/>
                             </View>
-                            <Text style={{marginBottom: 10, alignSelf: 'center'}}>SIGN UP</Text>
-                            <View name='body' style={{flex: 1, height: 460, width: 300}}>
+                            <Text style={{marginBottom: 10, alignSelf: 'center', fontSize:18}}>회원가입</Text>
+                            <View name='body' style={{flex: 1, height: 460, width: 340}}>
                                 <SignUpIndicator max={3} position={this.props.currentPosition}/>
                                 {/*<StepIndicator*/}
                                     {/*stepCount={3}*/}
@@ -741,7 +741,7 @@ class SignInScreen extends React.Component {
                                 {/*/>*/}
                                 {this.renderModalBody(this.props.currentPosition)}
                             </View>
-                            <View name='footer' style={{height: 100, width: 300, padding: 10}}>
+                            <View name='footer' style={{height: 100, width: 340, padding: 10}}>
                                 {this.renderModalFooter(this.props.currentPosition)}
                             </View>
                         </View>
