@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
     profile: {
         height: 150,
@@ -33,13 +33,15 @@ export default StyleSheet.create({
     },
     contentContainer: {
         flex: 1,
-        padding: 10,
+        padding: 14,
     },
     infoContainer: {
         backgroundColor: 'white',
         marginBottom: 20,
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 5,
+        paddingBottom: 5,
         borderTopWidth: 1,
         borderBottomWidth: 1,
         borderLeftWidth: 1,
@@ -47,6 +49,12 @@ export default StyleSheet.create({
         borderTopColor: '#dddce0',
         borderBottomColor: '#dddce0',
         borderRightColor: '#dddce0',
-        borderLeftColor: '#dddce0'
+        borderLeftColor: '#dddce0',
+        borderRadius: 3,
+    },
+    infoContentLine: {
+        width: '100%',
+        height: 1,
+        backgroundColor: 'rgb(216,216,216)'
     }
 });

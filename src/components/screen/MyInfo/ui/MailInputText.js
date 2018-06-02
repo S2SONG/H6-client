@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
 
-export class InfoListItem extends React.Component {
+export class MailInputText extends React.Component {
 
     render() {
         return (
@@ -22,7 +22,7 @@ export class InfoListItem extends React.Component {
     }
 }
 
-InfoListItem.propTypes = {
+MailInputText.propTypes = {
     handle: PropTypes.func,
     title: PropTypes.string,
     right: PropTypes.string,
