@@ -1,4 +1,4 @@
-import {StyleSheet, StatusBar} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -26,10 +26,5 @@ export default StyleSheet.create({
         color: 'white',
         fontSize: 20,
         margin: 20
-    },
-    listContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 });

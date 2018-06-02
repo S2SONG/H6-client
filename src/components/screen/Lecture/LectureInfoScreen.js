@@ -58,6 +58,11 @@ class LectureInfoScreen extends React.Component {
         this.props.navigation.goBack();
     };
 
+    navigationGoEval = () => {
+        console.log("notes tapped!");
+        this.props.navigation.navigate('Evaluation');
+    };
+
     renderTitle = () => {
         return (
             <View style={styles.titleBar}>
@@ -75,7 +80,7 @@ class LectureInfoScreen extends React.Component {
                 <Text style={styles.renderHeaderTitle}>{this.props.lecture.lectureName}</Text>
                 <StarRating
                     disabled={true}
-                    emptyStar={'ios-star-outline'}
+                    emptyStar={'ios-star'}
                     fullStar={'ios-star'}
                     halfStar={'ios-star-half'}
                     iconSet={'Ionicons'}
@@ -118,8 +123,8 @@ class LectureInfoScreen extends React.Component {
                 >
                 </HeaderImageScrollView>
                 <ActionButton buttonColor="rgba(231,76,60,1)">
-                    <ActionButton.Item buttonColor='#9b59b6' title="New Task"
-                                       onPress={() => console.log("notes tapped!")}>
+                    <ActionButton.Item buttonColor='#9b59b6' title="글쓰기"
+                                       onPress={() => this.navigationGoEval()}>
                         <Ionicon name="md-create" style={styles.actionButtonIcon}/>
                     </ActionButton.Item>
                     <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {
