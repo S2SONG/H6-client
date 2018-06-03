@@ -7,6 +7,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import myinfo from "../../../modules/myinfo";
 import {TitleView} from "../../ui/TitleView";
+import config from '../../../../config';
 
 class MyInfoScreen extends React.Component {
 
@@ -14,35 +15,45 @@ class MyInfoScreen extends React.Component {
         super(props);
         this.state = {
             account: [
-                {title: '계정정보'},
+                {title: '계정정보', handle: this.navigationAccountScreen},
                 {title: '로그아웃', handle: this.handleLogout},
-                {title: '회원탈퇴'},
-                {title: '한성인 인증'},
+                {title: '회원탈퇴', handle: this.navigationLeaveScreen},
+                {title: '한성인 인증', handle: this.navigationMainAuthScreen},
             ],
             appInfo: [
-                {title: '이용약관'},
-                {title: '개인정보취급방침'},
-                {title: '업데이트 정보'}
+                {title: '이용약관', handle:()=>this.navigationTermScreen('이용약관', this.props.term1)},
+                {title: '개인정보처리방침', handle:()=>this.navigationTermScreen('개인정보처리방침', this.props.term2)},
+                {title: '앱 버전', right:`${config.appVersion}(${config.appVersionDate})`}
             ]
         }
     }
 
-    // static navigationOptions = ({ navigation }) => {
-    //     const params = navigation.state.params || {};
-    //
-    //     return {
-    //         headerLeft: (
-    //             <View></View>
-    //         ),
-    //         title:'내정보'
-    //     };
-    // };
+    navigationAccountScreen = () => {
+        this.props.navigation.navigate('account');
+    };
+
+    navigationMainAuthScreen = () => {
+        this.props.navigation.navigate('mail');
+    };
+
+    navigationLeaveScreen = () => {
+        this.props.navigation.navigate('leave');
+    };
+
+    navigationTermScreen = (title, content) => {
+        this.props.navigation.navigate('terms',{title:title, content:content});
+    };
 
     renderAccount = () => {
         return (
             <View style={styles.infoContainer}>
                 {this.state.account.map((data, i) => {
-                    return (<InfoListItem key={i} title={data.title} handle={data.handle}/>)
+                    return (
+                        <View key={i}>
+                            <InfoListItem title={data.title} handle={data.handle} right={data.right}/>
+                            {i < this.state.account.length - 1 ?
+                                <View style={styles.infoContentLine}/> : null}
+                        </View>)
                 })}
             </View>
         )
@@ -52,7 +63,12 @@ class MyInfoScreen extends React.Component {
         return (
             <View style={styles.infoContainer}>
                 {this.state.appInfo.map((data, i) => {
-                    return (<InfoListItem key={i} title={data.title}/>)
+                    return (
+                        <View key={i}>
+                            <InfoListItem title={data.title} handle={data.handle} right={data.right}/>
+                            {i < this.state.appInfo.length - 1 ?
+                                <View style={styles.infoContentLine}/> : null}
+                        </View>)
                 })}
             </View>
         )
@@ -74,9 +90,9 @@ class MyInfoScreen extends React.Component {
                         <Text style={styles.profileId}>so0j914_@gmail.com</Text>
                     </View>
                     <View style={styles.contentContainer}>
-                        <View style={styles.subject}><Text> ACCOUNT </Text></View>
+                        <View style={styles.subject}><Text> Account </Text></View>
                         {this.renderAccount()}
-                        <View style={styles.subject}><Text> SETTING </Text></View>
+                        <View style={styles.subject}><Text> Settings </Text></View>
                         {this.renderAppInfo()}
                     </View>
                 </ScrollView>
@@ -85,7 +101,10 @@ class MyInfoScreen extends React.Component {
     }
 }
 
-export default connect((state) => ({}),
+export default connect((state) => ({
+    term1: state.signin.term1,
+    term2: state.signin.term2
+    }),
     (dispatch) => ({
         MyInfo: bindActionCreators(myinfo, dispatch)
     })

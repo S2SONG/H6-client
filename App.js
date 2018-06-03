@@ -23,10 +23,10 @@ export default class App extends React.Component {
 
     render() {
         return (
-            //redux store 사용
-            <Provider store={store}>
-                <SignNavigation/>
-            </Provider>
+        //redux store 사용
+        <Provider store={store}>
+            <SignNavigation/>
+        </Provider>
         );
     }
 }

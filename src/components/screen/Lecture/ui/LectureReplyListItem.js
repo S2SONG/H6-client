@@ -37,6 +37,7 @@ export class LectureReplyListItem extends React.Component {
                         fullStarColor={'#f8fa00'}
                         halfStarColor={'#f8fa00'}
                         halfStarEnabled={true}
+                        emptyStarColor={'#cfcfcf'}
                         starSize={20}
                     />
                     <Text style={styles.line}></Text>

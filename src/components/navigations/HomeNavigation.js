@@ -8,6 +8,10 @@ import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import {LectureInfoScreen} from "../screen/Lecture/LectureInfoScreen";
 import LectureScreen from "../screen/Lecture/LectureScreen";
 import InfoScreen from "../screen/Lecture/InfoScreen";
+import {TermScreen} from "../screen/MyInfo/TermScreen";
+import LeaveScreen from "../screen/MyInfo/LeaveScreen";
+import MailAuthScreen from "../screen/MyInfo/MailAuthScreen";
+import AccountScreen from "../screen/MyInfo/AccountScreen";
 
 //홈 Tab 네비게이션
 const TabBar = props => (
@@ -18,6 +22,48 @@ const TabBar = props => (
         <NavigationComponent {...props} />
     </SafeAreaView>
 );
+
+const MyInfo = StackNavigator({
+    myInfo: {
+        screen: MyInfoScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    },
+    account: {
+        screen: AccountScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    },
+    terms: {
+        screen: TermScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    },
+    leave:{
+        screen: LeaveScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    },
+    mail:{
+        screen: MailAuthScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    }
+},{
+    initialRouteName: 'myInfo',
+    //타이틀바 설정을 화면마다 따로
+    headerMode: 'screen'
+});
 
 export const HomeTabs = TabNavigator({
         Home: {
@@ -38,7 +84,7 @@ export const HomeTabs = TabNavigator({
             }
         },
         MyInfo: {
-            screen: MyInfoScreen,
+            screen: MyInfo,
             navigationOptions: {
                 header:null,
                 tabBarLabel: '마이페이지',
@@ -65,7 +111,7 @@ export const HomeTabs = TabNavigator({
             showIcon: true,
             bottomNavigationOptions: {
                 labelColor: 'black',
-                backgroundColor: '#ebebeb',
+                backgroundColor: 'rgba(121,130,146,0.6)',
                 rippleColor: 'white',
             }
         }
