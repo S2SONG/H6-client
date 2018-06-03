@@ -14,6 +14,13 @@ class EvaluationScreen extends React.Component {
     }
 
     componentDidMount() {
+        this.evaluationInit();
+    }
+
+    evaluationInit = async () =>{
+        const {EvaluationInfo} = this.props;
+        const evaluate = this.props.navigation.getParam('evaluate', {});
+
     }
 
     navigationGoBack = () => {
@@ -47,8 +54,8 @@ class EvaluationScreen extends React.Component {
                 </View>
 
                 <View style={styles.container}>
-                    <Text style={{fontSize: 21, fontWeight: '700', paddingLeft : 15, paddingTop:30 }}>그래픽 디자인 </Text>
-                    <Text style={{fontSize: 14, color:'rgb(124,130,140)', paddingLeft: 15, paddingBottom: 10 }}>Major & Track / professor</Text>
+                    <Text style={{fontSize: 21, fontWeight: '700', paddingLeft : 15, paddingTop:30 }}>{this.props.evaluate.lectureName} </Text>
+                    <Text style={{fontSize: 14, color:'rgb(124,130,140)', paddingLeft: 15, paddingBottom: 10 }}>{this.props.evaluate.track} / {this.props.evaluate.professorName}</Text>
 
                     <Text style={styles.boldText}>수강학기</Text>
                     <SemesterPicker handle={this.handleSemester}
@@ -116,8 +123,9 @@ class EvaluationScreen extends React.Component {
 
 export default connect((state) => ({
     semester: state.evaluation.semester,
+        evaluate:state.lectureInfo.lecture
     }),
     (dispatch) => ({
         Evaluation: bindActionCreators(evaluation, dispatch)
     })
-)(EvaluationScreen);
+)(EvaluationScreen)
