@@ -4,6 +4,9 @@ import {Button} from 'react-native-elements';
 import {TitleView} from "../../ui/TitleView";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
+import {MailInputText} from "./ui/MailInputText";
+import * as mailauth from "../../../modules/mailauth";
+import styles from "./MailAuthStyles";
 
 class MailAuthScreen extends React.Component {
 
@@ -18,14 +21,19 @@ class MailAuthScreen extends React.Component {
         this.props.navigation.goBack();
     };
 
+    onChangeEmail = (email) => {
+        const {MailAuth} = this.props;
+        MailAuth.onChangeEmail(email);
+    };
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <TitleView title={'한성이인증'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
+                <TitleView title={'한성인인증'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
                 <ScrollView style={styles.contentContainer}>
                     <Text style={styles.contentText}>강의평가를 위해서는</Text>
                     <Text style={styles.contentText}>학교 이메일 계정을 통한 인증절차가 필요합니다.</Text>
-
+                    <MailInputText handle={this.onChangeEmail} email={this.props.mail}/>
                     <Button buttonStyle={styles.contentButton} title={'인증번호 요청'}></Button>
                 </ScrollView>
             </SafeAreaView>
@@ -34,30 +42,10 @@ class MailAuthScreen extends React.Component {
 }
 
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    contentContainer: {
-        flexGrow: 1,
-        paddingTop: 157
-    },
-    contentText: {
-        fontSize: 14,
-        alignSelf: 'center',
-        textAlign: 'center'
-    },
-    contentButton: {
-        width: 224,
-        height: 58,
-        alignSelf:'center',
-        marginTop: 41,
-        backgroundColor: 'rgb(124,130,140)',
-        borderRadius: 29
-    }
-
-});
-
-export default connect((state) => ({}),
-    (dispatch) => ({})
+export default connect((state) => ({
+    mail: state.mailauth.mail,
+    }),
+    (dispatch) => ({
+        MailAuth: bindActionCreators(mailauth, dispatch)
+    })
 )(MailAuthScreen);

@@ -11,6 +11,7 @@ import InfoScreen from "../screen/Lecture/InfoScreen";
 import {TermScreen} from "../screen/MyInfo/TermScreen";
 import LeaveScreen from "../screen/MyInfo/LeaveScreen";
 import MailAuthScreen from "../screen/MyInfo/MailAuthScreen";
+import AccountScreen from "../screen/MyInfo/AccountScreen";
 
 //홈 Tab 네비게이션
 const TabBar = props => (
@@ -25,6 +26,13 @@ const TabBar = props => (
 const MyInfo = StackNavigator({
     myInfo: {
         screen: MyInfoScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    },
+    account: {
+        screen: AccountScreen,
         navigationOptions: {
             header: null,
             gesturesEnabled: false
@@ -103,7 +111,7 @@ export const HomeTabs = TabNavigator({
             showIcon: true,
             bottomNavigationOptions: {
                 labelColor: 'black',
-                backgroundColor: '#ebebeb',
+                backgroundColor: 'rgba(121,130,146,0.6)',
                 rippleColor: 'white',
             }
         }

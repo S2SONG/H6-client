@@ -1,9 +1,10 @@
 import React from 'react';
 import {View, Text, ScrollView, AsyncStorage, SafeAreaView, StyleSheet} from 'react-native';
 import {Button} from 'react-native-elements';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import {TitleView} from "../../ui/TitleView";
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import styles from "./LeaveStyles";
 
 class LeaveScreen extends React.Component {
 
@@ -31,31 +32,6 @@ class LeaveScreen extends React.Component {
         )
     }
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    contentContainer: {
-        flexGrow: 1,
-        paddingTop: 191
-    },
-    contentText: {
-        fontSize: 14,
-        alignSelf: 'center',
-        textAlign: 'center'
-    },
-    contentButton: {
-        width: 224,
-        height: 58,
-        alignSelf:'center',
-        marginTop: 52,
-        backgroundColor: 'rgb(124,130,140)',
-        borderRadius: 29
-    }
-
-});
 
 export default connect((state) => ({}),
     (dispatch) => ({})

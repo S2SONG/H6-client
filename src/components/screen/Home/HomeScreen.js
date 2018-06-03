@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, Button, Animated, RefreshControl, Platform, StatusBar, AsyncStorage} from 'react-native';
+import {View, Text, SafeAreaView} from 'react-native';
 import styles from "./HomeStyles";
 import config from "../../../../config";
+import {TitleView} from "../../ui/TitleView";
 
 export class HomeScreen extends React.Component {
 
@@ -14,11 +15,9 @@ export class HomeScreen extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text>
-                    Home
-                </Text>
-            </View>
+            <SafeAreaView style={styles.container}>
+                <TitleView title={'홈'}/>
+            </SafeAreaView>
         )
     }
 }

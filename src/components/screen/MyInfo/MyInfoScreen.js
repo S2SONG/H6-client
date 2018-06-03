@@ -15,7 +15,7 @@ class MyInfoScreen extends React.Component {
         super(props);
         this.state = {
             account: [
-                {title: '계정정보'},
+                {title: '계정정보', handle: this.navigationAccountScreen},
                 {title: '로그아웃', handle: this.handleLogout},
                 {title: '회원탈퇴', handle: this.navigationLeaveScreen},
                 {title: '한성인 인증', handle: this.navigationMainAuthScreen},
@@ -27,6 +27,10 @@ class MyInfoScreen extends React.Component {
             ]
         }
     }
+
+    navigationAccountScreen = () => {
+        this.props.navigation.navigate('account');
+    };
 
     navigationMainAuthScreen = () => {
         this.props.navigation.navigate('mail');
