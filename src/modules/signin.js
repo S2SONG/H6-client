@@ -331,21 +331,50 @@ export const signInUser = (userId, userPw) => async dispatch => {
     };
 
     //로그인 서버로 post 형식으로 보냄
-    const signInCheck = await fetch(`${ROOT_URL}/signIn`, {
-        method: "POST",
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-    });
-    const jsonData = await signInCheck.json();
-    if (jsonData.statusCode == 200) {
-        dispatch({type: SIGN_IN, payload: true});
-        AsyncStorage.setItem('token', jsonData.result);
-    } else {
+    try {
+        const signInCheck = await fetch(`${ROOT_URL}/signIn`, {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        });
+        const jsonData = await signInCheck.json();
+
+        if (jsonData.statusCode == 200) {
+            dispatch({type: SIGN_IN, payload: true});
+            AsyncStorage.setItem('admissionYear', jsonData.result.admissionYear?jsonData.result.admissionYear:'');
+            AsyncStorage.setItem('connectedMajor', jsonData.result.connectedMajor?jsonData.result.connectedMajor:'');
+            AsyncStorage.setItem('createdAt', jsonData.result.createdAt);
+            AsyncStorage.setItem('doubleMajor', jsonData.result.doubleMajor?jsonData.result.doubleMajor:'');
+            AsyncStorage.setItem('isValidation', jsonData.result.isValidation+'');
+            AsyncStorage.setItem('major', jsonData.result.major?jsonData.result.major:'');
+            AsyncStorage.setItem('minor', jsonData.result.minor?jsonData.result.minor:'');
+            AsyncStorage.setItem('token', jsonData.result.token);
+            AsyncStorage.setItem('updatedAt', jsonData.result.updatedAt?jsonData.result.updatedAt:'');
+            AsyncStorage.setItem('userId', jsonData.result.userId);
+            AsyncStorage.setItem('userIndex', jsonData.result.userIndex+'');
+            AsyncStorage.setItem('userNickName', jsonData.result.userNickName);
+        } else {
+            dispatch({type: SIGN_IN, payload: false});
+            AsyncStorage.removeItem('token');
+            AsyncStorage.removeItem('admissionYear');
+            AsyncStorage.removeItem('connectedMajor');
+            AsyncStorage.removeItem('createdAt');
+            AsyncStorage.removeItem('doubleMajor');
+            AsyncStorage.removeItem('isValidation');
+            AsyncStorage.removeItem('major');
+            AsyncStorage.removeItem('minor');
+            AsyncStorage.removeItem('token');
+            AsyncStorage.removeItem('updatedAt');
+            AsyncStorage.removeItem('userId');
+            AsyncStorage.removeItem('userIndex');
+            AsyncStorage.removeItem('userNickName');
+        }
+    }catch (err){
         dispatch({type: SIGN_IN, payload: false});
-        AsyncStorage.removeItem('token');
+        console.log(err);
     }
 
 };
