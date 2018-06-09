@@ -23,7 +23,7 @@ const TabBar = props => (
     </SafeAreaView>
 );
 
-const MyInfo = StackNavigator({
+const MyPage = StackNavigator({
     myInfo: {
         screen: MyInfoScreen,
         navigationOptions: {
@@ -83,8 +83,8 @@ export const HomeTabs = TabNavigator({
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='book' size={24} color={tintColor}/>)
             }
         },
-        MyInfo: {
-            screen: MyInfo,
+        MyPage: {
+            screen: MyPage,
             navigationOptions: {
                 header:null,
                 tabBarLabel: '마이페이지',

@@ -5,7 +5,7 @@ import styles from "./MyInfoStyles";
 import {InfoListItem} from "./ui/InfoListItem";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import myinfo from "../../../modules/myinfo";
+import * as myinfo from "../../../modules/myinfo";
 import {TitleView} from "../../ui/TitleView";
 import config from '../../../../config';
 
@@ -26,6 +26,11 @@ class MyInfoScreen extends React.Component {
                 {title: '앱 버전', right:`${config.appVersion}(${config.appVersionDate})`}
             ]
         }
+    }
+
+    componentDidMount(){
+        const {MyInfo} = this.props;
+        MyInfo.setProfile();
     }
 
     navigationAccountScreen = () => {
@@ -86,8 +91,8 @@ class MyInfoScreen extends React.Component {
                 <ScrollView style={styles.container}>
                     <View style={styles.profile}>
                         <Icon type='ionicon' name='ios-contact' size={60}/>
-                        <Text style={styles.profileNickName}>so02</Text>
-                        <Text style={styles.profileId}>so0j914_@gmail.com</Text>
+                        <Text style={styles.profileNickName}>{this.props.userId}</Text>
+                        <Text style={styles.profileId}>{this.props.userNickName}</Text>
                     </View>
                     <View style={styles.contentContainer}>
                         <View style={styles.subject}><Text> Account </Text></View>
@@ -103,7 +108,9 @@ class MyInfoScreen extends React.Component {
 
 export default connect((state) => ({
     term1: state.signin.term1,
-    term2: state.signin.term2
+    term2: state.signin.term2,
+    userId: state.myinfo.userId,
+    userNickName: state.myinfo.userNickName
     }),
     (dispatch) => ({
         MyInfo: bindActionCreators(myinfo, dispatch)

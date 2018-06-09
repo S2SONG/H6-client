@@ -8,9 +8,9 @@ import mailauth from './mailauth';
 
 export default combineReducers({
     signin,
-    myinfo,
     lecture,
     lectureInfo,
     evaluation,
-    mailauth
+    mailauth,
+    myinfo,
 });
