@@ -343,7 +343,7 @@ export const signInUser = (userId, userPw) => async dispatch => {
 
         if (jsonData.statusCode == 200) {
             dispatch({type: SIGN_IN, payload: true});
-            AsyncStorage.setItem('admissionYear', jsonData.result.admissionYear?jsonData.result.admissionYear:'');
+            AsyncStorage.setItem('admissionYear', jsonData.result.admissionYear?jsonData.result.admissionYear+'':'');
             AsyncStorage.setItem('connectedMajor', jsonData.result.connectedMajor?jsonData.result.connectedMajor:'');
             AsyncStorage.setItem('doubleMajor', jsonData.result.doubleMajor?jsonData.result.doubleMajor:'');
             AsyncStorage.setItem('isValidation', jsonData.result.isValidation+'');
