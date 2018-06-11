@@ -12,6 +12,7 @@ import {TermScreen} from "../screen/MyInfo/TermScreen";
 import LeaveScreen from "../screen/MyInfo/LeaveScreen";
 import MailAuthScreen from "../screen/MyInfo/MailAuthScreen";
 import AccountScreen from "../screen/MyInfo/AccountScreen";
+import PasswordScreen from "../screen/MyInfo/PasswordScreen";
 
 //홈 Tab 네비게이션
 const TabBar = props => (
@@ -58,6 +59,13 @@ const MyPage = StackNavigator({
             header: null,
             gesturesEnabled: false
         }
+    },
+    password:{
+        screen: PasswordScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
     }
 },{
     initialRouteName: 'myInfo',
@@ -70,7 +78,7 @@ export const HomeTabs = TabNavigator({
             screen: HomeScreen,
             navigationOptions: {
                 header:null,
-                tabBarLabel: '홈',
+                // tabBarLabel: '',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='home' size={24} color={tintColor}/>)
             }
         },
@@ -79,7 +87,7 @@ export const HomeTabs = TabNavigator({
             // screen: InfoScreen,
             navigationOptions: {
                 header:null,
-                tabBarLabel: '강의평가',
+                // tabBarLabel: '',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='book' size={24} color={tintColor}/>)
             }
         },
@@ -87,7 +95,7 @@ export const HomeTabs = TabNavigator({
             screen: MyPage,
             navigationOptions: {
                 header:null,
-                tabBarLabel: '마이페이지',
+                // tabBarLabel: '',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='user' size={24} color={tintColor}/>)
             }
         },
@@ -95,7 +103,7 @@ export const HomeTabs = TabNavigator({
     {
         //lazy: true,
         initialRouteName: 'Home',
-        tabBarComponent: TabBar,
+        // tabBarComponent: TabBar,
         tabBarPosition: 'bottom',
         //swipeEnabled:false,
         //animationEnabled:false,
@@ -109,8 +117,9 @@ export const HomeTabs = TabNavigator({
                 opacity: 0
             },
             showIcon: true,
+            showLabel: false,
             bottomNavigationOptions: {
-                labelColor: 'black',
+                // labelColor: 'black',
                 backgroundColor: 'rgba(121,130,146,0.6)',
                 rippleColor: 'white',
             }

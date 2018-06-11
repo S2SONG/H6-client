@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import styles from "./MailAuthStyles";
 import {AccountTextView} from "./ui/AccountTextView";
 
-class AccountScreen extends React.Component {
+class PasswordScreen extends React.Component {
 
     constructor(props) {
         super(props);
@@ -20,18 +20,11 @@ class AccountScreen extends React.Component {
         this.props.navigation.goBack();
     };
 
-    navigationPassword = () => {
-        this.props.navigation.navigate('password');
-    };
-
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <TitleView title={'계정정보'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
+                <TitleView title={'비밀번호 변경'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
                 <ScrollView style={styles.contentContainer} contentContainerStyle={{paddingLeft:17, paddingRight:15}}>
-                    <AccountTextView label={'Email'} text={'아이디'}/>
-                    <Button onPress={this.navigationPassword} value={'비밀번호 변경'}/>
-                    <AccountTextView label={'UserNickName'} text={'닉네임'}/>
                 </ScrollView>
             </SafeAreaView>
         )
@@ -43,4 +36,4 @@ export default connect((state) => ({
     }),
     (dispatch) => ({
     })
-)(AccountScreen);
+)(PasswordScreen);
