@@ -24,7 +24,7 @@ AccountTextView.propTypes = {
     label: PropTypes.string,
     text: PropTypes.string,
     link: PropTypes.string,
-    handle: PropTypes.function,
+    handle: PropTypes.func,
 };
 
 const styles = StyleSheet.create({

@@ -8,6 +8,16 @@ import {Icon} from 'react-native-elements';
 
 export class FindPwdModal extends React.Component{
 
+    renderUnderLabel = () => {
+        if(this.props.checkNo == 0) {
+            return null;
+        } else if (this.props.checkNo == 1) {
+            return (<Text style={{width: '100%', marginTop: 5, textAlign: 'center', color: 'rgb(208,2,27)'}}>{this.props.checkLabel}</Text>)
+        } else {
+            return (<Text style={{width: '100%', marginTop: 5, textAlign: 'center', color: 'rgb(64,133,213)'}}>{this.props.checkLabel}</Text>)
+        }
+    };
+
     render(){
         return(
             <Modal isVisible={this.props.visible}>
@@ -30,10 +40,10 @@ export class FindPwdModal extends React.Component{
                                  <Icon type = "font-awesome" name = { this.props.icon }/>
                                  </View>**/}
                                 <TextInput
-                                    onBlur = {this.props.blur}
+                                    // onBlur = {this.props.blur}
                                     onChangeText = { this.props.handle }
                                     value = { this.props.value }
-                                    secureTextEntry = { this.props.secureText }
+                                    // secureTextEntry = { this.props.secureText }
                                     style = { styles.input }
                                     underlineColorAndroid = "transparent"
                                     placeholder = { this.props.placeholder }
@@ -49,11 +59,12 @@ export class FindPwdModal extends React.Component{
                                 {/*blur={this.handleCheckUserNickName}*/}
                                 {/*/>*/}
                             </View>
+                            {this.renderUnderLabel()}
                         </View>
                         <View style={styles.footer}>
                             <LinkText
                                 value='이메일 전송'
-                                handle={this.props.handle}
+                                handle={this.props.sendPwd}
                                 // link_style={link_style.link_style}
                             />
                         </View>
@@ -70,6 +81,9 @@ FindPwdModal.propTypes = {
     body: PropTypes.string,
     closeModal: PropTypes.func,
     handle:PropTypes.func,
+    checkNo: PropTypes.number,
+    checkLabel: PropTypes.string,
+    sendPwd: PropTypes.func,
 };
 
 const styles = StyleSheet.create({
@@ -118,6 +132,14 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         borderRadius:3,
         alignSelf:'center',
+    },
+    input: {
+        flex:1
+    },
+    underLabel: {
+        width: '100%',
+        marginTop: 5,
+        textAlign: 'center'
     }
 });
 //
