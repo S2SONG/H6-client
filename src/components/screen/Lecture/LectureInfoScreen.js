@@ -124,7 +124,7 @@ class LectureInfoScreen extends React.Component {
                 </HeaderImageScrollView>
                 <ActionButton buttonColor="rgb(124,130,140)" title="글쓰기"
                                             onPress={()=>this.navigationGoEval()}>
-                    <Ionicon name="md-create" style={styles.actionButtonIcon}/>
+                    {/*<Ionicon name="md-create" style={styles.actionButtonIcon}/>*/}
                     {/*<ActionButton.Item buttonColor='#9b59b6' title="글쓰기"*/}
                                        {/*onPress={() => this.navigationGoEval()}>*/}
                         {/*<Ionicon name="md-create" style={styles.actionButtonIcon}/>*/}

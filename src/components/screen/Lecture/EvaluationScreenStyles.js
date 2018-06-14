@@ -42,15 +42,25 @@ export default StyleSheet.create({
         color: 'white',
     },
 
-    boldText:{
-        fontSize: 16,
-        fontWeight: '700',
+    item:{
+        fontSize: 13,
         margin : 10,
+        paddingTop:19,
     },
     homework:{
         height:25,
         width:20,
         backgroundColor:'rgb(216,216,216)',
+    },
+    textBox:{
+        height: 82,
+        width: 325,
+        backgroundColor:'white',
+        alignSelf:'flex-start',
+        borderColor:'rgb(216,216,216)',
+        borderRadius:3,
+        borderWidth: 1,
+        padding: 3,
     }
 
 });

@@ -39,6 +39,10 @@ export class SemesterPicker extends React.Component {
                     label={this.props.placeholder}
                     data={data}
                     onChangeText={this.props.handle}
+                    //containerStyle={styles.container}
+                    fontSize={13}
+                    textColor={'black'}
+                    baseColor={'gray'}
                 />
             </View>
         )
@@ -54,7 +58,19 @@ SemesterPicker.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ffffff',
-        width: '90%'
+        justifyContent:'flex-start',
+        width: 200,
+        height: 50,
+        paddingLeft: 19,
+        paddingBottom: 19,
     },
+    picker:{
+        width: 159,
+        height: 40,
+        backgroundColor:'transparent',
+        paddingLeft: 19,
+        paddingBottom:19,
+        borderWidth:2,
+        borderColor:'rgb(216,216,216)',
+    }
 });
