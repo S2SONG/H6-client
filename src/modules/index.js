@@ -5,6 +5,7 @@ import lecture from './lecture';
 import lectureInfo from './lectureInfo';
 import evaluation from  './evaluation';
 import mailauth from './mailauth';
+import password from './password';
 
 export default combineReducers({
     signin,
@@ -13,4 +14,5 @@ export default combineReducers({
     evaluation,
     mailauth,
     myinfo,
+    password,
 });

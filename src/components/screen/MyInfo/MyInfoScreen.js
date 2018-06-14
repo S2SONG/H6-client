@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, AsyncStorage, SafeAreaView} from 'react-native';
+import {View, Text, ScrollView, AsyncStorage, SafeAreaView, Alert} from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from "./MyInfoStyles";
 import {InfoListItem} from "./ui/InfoListItem";
@@ -38,7 +38,17 @@ class MyInfoScreen extends React.Component {
     };
 
     navigationMainAuthScreen = () => {
-        this.props.navigation.navigate('mail');
+        if(this.props.isValidation == 0)
+            this.props.navigation.navigate('mail');
+        else
+            return Alert.alert(
+                '경고',
+                '이미 메일을 인증하셨습니다.',
+                [
+                    {text:'확인'}
+                ],
+                {cancelable: false}
+            )
     };
 
     navigationLeaveScreen = () => {
@@ -79,7 +89,20 @@ class MyInfoScreen extends React.Component {
         )
     };
 
-    handleLogout = async () => {
+    handleLogout = () => {
+        return Alert.alert(
+            '로그아웃 확인',
+            '로그아웃하시겠습니까?',
+            [
+                {text: '취소'},
+                {text: '확인', onPress: this.deleteItem},
+            ],
+            {cancelable: false}
+        )
+
+    };
+
+    deleteItem = async () => {
         await AsyncStorage.removeItem('token');
         this.props.navigation.navigate('SignIn');
     };
@@ -110,7 +133,8 @@ export default connect((state) => ({
     term1: state.signin.term1,
     term2: state.signin.term2,
     userId: state.myinfo.userId,
-    userNickName: state.myinfo.userNickName
+    userNickName: state.myinfo.userNickName,
+    isValidation: state.myinfo.isValidation
     }),
     (dispatch) => ({
         MyInfo: bindActionCreators(myinfo, dispatch)

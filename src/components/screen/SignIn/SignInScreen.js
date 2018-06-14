@@ -11,7 +11,7 @@ import {
     SafeAreaView,
     StatusBar,
     TouchableHighlight,
-    Image
+    Image,
 } from 'react-native';
 import {Button, Icon} from 'react-native-elements';
 import Modal from 'react-native-modal';
@@ -137,8 +137,8 @@ class SignInScreen extends React.Component {
             this.props.navigation.navigate('Home');
         } else {
             Alert.alert(
-                 '로그인 오류',
-                 '아이디와 비밀번호를 확인해 주세요',
+                '로그인 오류',
+                '아이디와 비밀번호를 확인해 주세요',
                 // ' ',
                 // '비밀번호가 일치하지 않습니다.',
                 [
@@ -158,12 +158,74 @@ class SignInScreen extends React.Component {
     //비밀번호 찾기
     handleFindPwdModal = () => {
         const {SignIn} = this.props;
+        SignIn.handleFindPwdUserId('');
+        SignIn.handleFindPwdCheckNo(0);
+        SignIn.handleFindPwdCheckLabel('');
         SignIn.FindPwdModal(true);
     };
     handleFindPwdModalClose = () => {
         const {SignIn} = this.props;
         SignIn.FindPwdModal(false);
     };
+    handleFindPwdUserId = async (id) => {
+        const {SignIn} = this.props;
+        SignIn.handleFindPwdUserId(id);
+        const check = await this.checkFindPwdUserId(id);
+        if(check){
+            const returnValue = await SignIn.checkUserId(id);
+            if (!returnValue) {
+                SignIn.handleFindPwdCheckNo(2);
+                SignIn.handleFindPwdCheckLabel('가입확인 된 이메일입니다.');
+            } else {
+                SignIn.handleFindPwdCheckNo(1);
+                SignIn.handleFindPwdCheckLabel('가입되지 않은 이메일입니다.');
+            }
+        }
+
+    };
+    checkFindPwdUserId = (id) => {
+        const {SignIn} = this.props;
+        if (validation.checkEmail(id)) {
+            if (id.length == 0) {
+                SignIn.handleFindPwdCheckNo(0);
+                SignIn.handleFindPwdCheckLabel('');
+            } else {
+                SignIn.handleFindPwdCheckNo(0);
+                SignIn.handleFindPwdCheckLabel('');
+                return true;
+            }
+        } else {
+            SignIn.handleFindPwdCheckNo(1);
+            SignIn.handleFindPwdCheckLabel('이메일 형식이 아닙니다.');
+        }
+        return false;
+    };
+    sendFindPwd = async () => {
+        const {SignIn} = this.props;
+        if(this.props.findPwdCheckNo!=2){
+            return;
+        }
+        const resultValue = await SignIn.sendFindPwd(this.props.findPwdUserId);
+        this.handleFindPwdModalClose();
+        if (resultValue) {
+            return Alert.alert(
+                '성공',
+                '임시 비밀번호 전송에 성공했습니다.',
+                [
+                    {text:'확인'}
+                ]
+            )
+        } else {
+            return Alert.alert(
+                '경고',
+                '임시 비밀번호 전송에 실패했습니다.',
+                [
+                    {text:'확인'}
+                ]
+            )
+        }
+    };
+
 
     //약관동의 처리
     handleTerms = () => {
@@ -251,7 +313,7 @@ class SignInScreen extends React.Component {
     handleStateUserId = (userId) => {
         const {SignIn} = this.props;
         // if (validation.checkIdLength(userId)) {
-        if(validation.checkEmail(userId)){
+        if (validation.checkEmail(userId)) {
             if (userId.length == 0) {
                 SignIn.handleSignUpCheckUserIdClient(false);
                 SignIn.handleSignUpCheckUserIdNo(0);
@@ -508,49 +570,49 @@ class SignInScreen extends React.Component {
                             paddingBottom: this.state.keyboardSpace ? 65 : 0
                         }} behavior="padding" enabled>
                             <SignUpTextInput handle={this.handleStateUserId}
-                                           value={this.props.userId}
-                                           placeholder={'Email'}
-                                           icon={'user'}
-                                           label={'ID'}
-                                           checkNo={this.props.checkIdNo}
-                                           checkLabel={this.props.checkIdLabel}
-                                           blur={this.handleCheckUserId}
+                                             value={this.props.userId}
+                                             placeholder={'Email'}
+                                             icon={'user'}
+                                             label={'ID'}
+                                             checkNo={this.props.checkIdNo}
+                                             checkLabel={this.props.checkIdLabel}
+                                             blur={this.handleCheckUserId}
                             />
                             <SignUpTextInput handle={this.handleStateUserPw}
-                                           value={this.props.userPw}
-                                           placeholder={'Password'}
-                                           icon={'lock'}
-                                           secureText={true}
-                                           label={'Password'}
-                                           checkNo={this.props.checkPasswordNo}
-                                           checkLabel={this.props.checkPasswordLabel}
+                                             value={this.props.userPw}
+                                             placeholder={'Password'}
+                                             icon={'lock'}
+                                             secureText={true}
+                                             label={'Password'}
+                                             checkNo={this.props.checkPasswordNo}
+                                             checkLabel={this.props.checkPasswordLabel}
                             />
                             <SignUpTextInput handle={this.handleStateUserRePw}
-                                           value={this.props.userRePw}
-                                           placeholder={'Password again'}
-                                           icon={'lock'}
-                                           secureText={true}
-                                           label={'Password again'}
-                                           checkNo={this.props.checkPassRe}
-                                           checkLabel={this.props.checkPassReLabel}
+                                             value={this.props.userRePw}
+                                             placeholder={'Password again'}
+                                             icon={'lock'}
+                                             secureText={true}
+                                             label={'Password again'}
+                                             checkNo={this.props.checkPassRe}
+                                             checkLabel={this.props.checkPassReLabel}
                             />
                             <SignUpTextInput handle={this.handleStateUserNickName}
-                                           value={this.props.userNickName}
-                                           placeholder={'UserNickName'}
-                                           icon={'user-secret'}
-                                           label={'Nickname'}
-                                           checkNo={this.props.checkNickNameNo}
-                                           checkLabel={this.props.checkNickNameLabel}
-                                           blur={this.handleCheckUserNickName}
+                                             value={this.props.userNickName}
+                                             placeholder={'UserNickName'}
+                                             icon={'user-secret'}
+                                             label={'Nickname'}
+                                             checkNo={this.props.checkNickNameNo}
+                                             checkLabel={this.props.checkNickNameLabel}
+                                             blur={this.handleCheckUserNickName}
                             />
                             {/*<SignTextInput handle={this.handleStateUserEmail}*/}
-                                           {/*value={this.props.userEmail}*/}
-                                           {/*placeholder={'이메일'}*/}
-                                           {/*icon={'envelope'}*/}
-                                           {/*label={'이메일'}*/}
-                                           {/*checkNo={this.props.checkEmailNo}*/}
-                                           {/*checkLabel={this.props.checkEmailLabel}*/}
-                                           {/*blur={this.handleCheckUserEmail}*/}
+                            {/*value={this.props.userEmail}*/}
+                            {/*placeholder={'이메일'}*/}
+                            {/*icon={'envelope'}*/}
+                            {/*label={'이메일'}*/}
+                            {/*checkNo={this.props.checkEmailNo}*/}
+                            {/*checkLabel={this.props.checkEmailLabel}*/}
+                            {/*blur={this.handleCheckUserEmail}*/}
                             {/*/>*/}
                         </View>
                     </ScrollView>
@@ -674,87 +736,92 @@ class SignInScreen extends React.Component {
                 behavior="padding"
             >
                 <SafeAreaView style={{flex: 1}}>
-                <Toast ref="toast"/>
-                <Modal isVisible={this.props.register} transparent={false}>
-                    <TermsModal
-                        closeModal={this.handleTermsFirstModalClose}
-                        modalVisible={this.props.firstVisible}
-                        title='개인정보 수집 및 이용'
-                        htmlContent={this.props.term1}
-                    />
-                    <TermsModal
-                        closeModal={this.handleTermsSecondModalClose}
-                        modalVisible={this.props.secondVisible}
-                        title='한담 서비스 이용 약관'
-                        htmlContent={this.props.term2}
-                    />
-                    <WarningModal
-                        visible={this.state.termsModal}
-                        title={'경고'}
-                        body={'약관에 동의 해주세요.'}
-                        handle={this.handleTerms}
-                    />
-                    <WarningModal
-                        visible={this.props.userIdCheckModal}
-                        title={'경고'}
-                        body={'아이디를 확인 해주세요.'}
-                        handle={this.handleCheckUserIdModal}
-                    />
-                    <WarningModal
-                        visible={this.props.userNickNameCheckModal}
-                        title={'경고'}
-                        body={'닉네임을 확인 해주세요.'}
-                        handle={this.handleCheckUserNickNameModal}
-                    />
-                    <WarningModal
-                        visible={this.props.userPasswordCheckModal}
-                        title={'경고'}
-                        body={'비밀번호를 다시 확인해 주세요.'}
-                        handle={this.handleCheckUserPasswordModal}
-                    />
-                    <WarningModal
-                        visible={this.props.userEmailCheckModal}
-                        title={'경고'}
-                        body={'이메일을 확인 해주세요.'}
-                        handle={this.handleCheckUserEmailModal}
-                    />
-                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <View style={{height: 497, width: 342, backgroundColor: 'rgb(246,246,246)', borderRadius: 8}}>
-                            <View name='header' style={{
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                                height: 40,
-                                width: 340,
-                                padding: 10
-                            }}>
-                                {this.renderModalHeader(this.props.currentPosition)}
-                                <Icon name="md-close" type="ionicon" style={{alignSelf: 'flex-end'}}
-                                      onPress={this.handleSignUpModal}/>
-                            </View>
-                            <Text style={{marginBottom: 10, alignSelf: 'center', fontSize:18}}>회원가입</Text>
-                            <View name='body' style={{flex: 1, height: 460, width: 340}}>
-                                <SignUpIndicator max={3} position={this.props.currentPosition}/>
-                                {/*<StepIndicator*/}
+                    <Toast ref="toast"/>
+                    <Modal isVisible={this.props.register} transparent={false}>
+                        <TermsModal
+                            closeModal={this.handleTermsFirstModalClose}
+                            modalVisible={this.props.firstVisible}
+                            title='개인정보 수집 및 이용'
+                            htmlContent={this.props.term1}
+                        />
+                        <TermsModal
+                            closeModal={this.handleTermsSecondModalClose}
+                            modalVisible={this.props.secondVisible}
+                            title='한담 서비스 이용 약관'
+                            htmlContent={this.props.term2}
+                        />
+                        <WarningModal
+                            visible={this.state.termsModal}
+                            title={'경고'}
+                            body={'약관에 동의 해주세요.'}
+                            handle={this.handleTerms}
+                        />
+                        <WarningModal
+                            visible={this.props.userIdCheckModal}
+                            title={'경고'}
+                            body={'아이디를 확인 해주세요.'}
+                            handle={this.handleCheckUserIdModal}
+                        />
+                        <WarningModal
+                            visible={this.props.userNickNameCheckModal}
+                            title={'경고'}
+                            body={'닉네임을 확인 해주세요.'}
+                            handle={this.handleCheckUserNickNameModal}
+                        />
+                        <WarningModal
+                            visible={this.props.userPasswordCheckModal}
+                            title={'경고'}
+                            body={'비밀번호를 다시 확인해 주세요.'}
+                            handle={this.handleCheckUserPasswordModal}
+                        />
+                        <WarningModal
+                            visible={this.props.userEmailCheckModal}
+                            title={'경고'}
+                            body={'이메일을 확인 해주세요.'}
+                            handle={this.handleCheckUserEmailModal}
+                        />
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}}>
+                            <View
+                                style={{height: 497, width: 342, backgroundColor: 'rgb(246,246,246)', borderRadius: 8}}>
+                                <View name='header' style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    height: 40,
+                                    width: 340,
+                                    padding: 10
+                                }}>
+                                    {this.renderModalHeader(this.props.currentPosition)}
+                                    <Icon name="md-close" type="ionicon" style={{alignSelf: 'flex-end'}}
+                                          onPress={this.handleSignUpModal}/>
+                                </View>
+                                <Text style={{marginBottom: 10, alignSelf: 'center', fontSize: 18}}>회원가입</Text>
+                                <View name='body' style={{flex: 1, height: 460, width: 340}}>
+                                    <SignUpIndicator max={3} position={this.props.currentPosition}/>
+                                    {/*<StepIndicator*/}
                                     {/*stepCount={3}*/}
                                     {/*customStyles={customStyles}*/}
                                     {/*currentPosition={this.props.currentPosition}*/}
-                                {/*/>*/}
-                                {this.renderModalBody(this.props.currentPosition)}
-                            </View>
-                            <View name='footer' style={{height: 100, width: 340, padding: 10}}>
-                                {this.renderModalFooter(this.props.currentPosition)}
+                                    {/*/>*/}
+                                    {this.renderModalBody(this.props.currentPosition)}
+                                </View>
+                                <View name='footer' style={{height: 100, width: 340, padding: 10}}>
+                                    {this.renderModalFooter(this.props.currentPosition)}
+                                </View>
                             </View>
                         </View>
-                    </View>
-                </Modal>
+                    </Modal>
                     <FindPwdModal
                         visible={this.props.findPwd}
                         title={'비밀번호 찾기'}
                         body={'가입시 입력한 이메일로 비밀번호를 전송합니다. 이메일을 입력해 주세요.'}
                         closeModal={this.handleFindPwdModalClose}
-                        //handle={this.handleFindPwdModalClose} 이메일 전송 메소드
+                        value={this.props.findPwdUserId}
+                        handle={this.handleFindPwdUserId}
+                        checkNo={this.props.findPwdCheckNo}
+                        checkLabel={this.props.findPwdCheckLabel}
+                        sendPwd={this.sendFindPwd}
                     />
-                    <ScrollView contentContainerStyle={{flexGrow:1}} style={{flex: 1}}>
+                    <ScrollView contentContainerStyle={{flexGrow: 1}} style={{flex: 1}}>
                         <View style={{flex: 1}}>
                             <StatusBar barStyle="dark-content"/>
 
@@ -802,14 +869,14 @@ class SignInScreen extends React.Component {
                                         <LinkText
                                             value={'Forgot password?'}
                                             handle={this.handleFindPwdModal}
-                                            link_style={{color:'black'}}/>
+                                            link_style={{color: 'black'}}/>
                                     </View>
                                 </View>
                                 <View style={{height: 20, alignItems: 'center'}}>
                                     <LinkText
                                         value={'New here? Sign Up'}
                                         handle={this.handleSignUpModal}
-                                        link_style={{color: 'black'}} />
+                                        link_style={{color: 'black'}}/>
                                 </View>
                             </Animated.View>
                         </View>
@@ -875,6 +942,9 @@ export default connect((state) => ({
         term2: state.signin.term2,
 
         findPwd: state.signin.findPwd, //비번찾기
+        findPwdUserId: state.signin.findPwdUserId,
+        findPwdCheckNo: state.signin.findPwdCheckNo,
+        findPwdCheckLabel: state.signin.findPwdCheckLabel
     }),
     (dispatch) => ({
         SignIn: bindActionCreators(signin, dispatch)
