@@ -59,7 +59,6 @@ class LectureInfoScreen extends React.Component {
     };
 
     navigationGoEval = () => {
-        console.log("notes tapped!");
         this.props.navigation.navigate('Evaluation');
     };
 

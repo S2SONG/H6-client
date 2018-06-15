@@ -5,8 +5,7 @@ import {Button} from 'react-native-elements';
 
 export class EvaluateButton extends React.Component{
     getScore = (value) => {
-    this.props.getScoreValue=value;
-    console.log(value);
+        this.props.handleGetScore(value);
     };
     render(){
         return(
@@ -31,14 +30,13 @@ export class EvaluateButton extends React.Component{
 
 EvaluateButton.propTypes = {
     buttonData:PropTypes.array,
-    getScoreValue: PropTypes.Object,
+    handleGetScore: PropTypes.func
 };
 
 const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
         justifyContent: 'flex-start',
-        // margin:2,
         width: '100%',
     },
     button:{
