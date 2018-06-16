@@ -1,6 +1,6 @@
 import React from "react";
 import {SafeAreaView, StyleSheet} from 'react-native';
-import {StackNavigator} from 'react-navigation';
+import {StackNavigator, createStackNavigator} from 'react-navigation';
 import {Constants} from 'expo';
 import SignInScreen from "../screen/SignIn/SignInScreen";
 import SignUpScreen from "../screen/SignUp/SignUpScreen";
@@ -12,7 +12,7 @@ import EvaluationScreen from "../screen/Lecture/EvaluationScreen";
 
 //StackNavigation 사용
 // 로그인, 동의화면, 회원가입, 홈 네비게이션
-const SignNav = StackNavigator({
+const SignNav = createStackNavigator({
     SignIn: {
         screen: SignInScreen,
         navigationOptions: {
@@ -44,7 +44,7 @@ const SignNav = StackNavigator({
     //네비게이션 첫 화면 = 로그인
     initialRouteName: 'SignIn',
     //타이틀바 설정을 화면마다 따로
-    headerMode: 'screen'
+    headerMode: 'null'
 });
 
 export class SignNavigation extends React.Component {

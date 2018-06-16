@@ -1,6 +1,7 @@
 import React from "react";
 import {SafeAreaView} from 'react-native';
-import {StackNavigator, TabNavigator} from 'react-navigation';
+import {StackNavigator, TabNavigator, createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {HomeScreen} from "../screen/Home/HomeScreen";
 import MyInfoScreen from "../screen/MyInfo/MyInfoScreen";
 import {Icon} from 'react-native-elements';
@@ -24,7 +25,7 @@ const TabBar = props => (
     </SafeAreaView>
 );
 
-const MyPage = StackNavigator({
+const MyPage = createStackNavigator({
     myInfo: {
         screen: MyInfoScreen,
         navigationOptions: {
@@ -69,25 +70,28 @@ const MyPage = StackNavigator({
     }
 },{
     initialRouteName: 'myInfo',
-    //타이틀바 설정을 화면마다 따로
     headerMode: 'screen'
 });
 
-export const HomeTabs = TabNavigator({
+export const HomeTabs = createMaterialBottomTabNavigator({
         Home: {
             screen: HomeScreen,
             navigationOptions: {
                 header:null,
-                // tabBarLabel: '',
-                tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='home' size={24} color={tintColor}/>)
+                // labeled:false,
+                tabBarLabel: 'Home',
+                tabBarColor: 'rgb(127,0,247)',
+                tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='home' size={24} color={tintColor}/>),
+
             }
         },
         Lecture: {
             screen: LectureScreen,
-            // screen: InfoScreen,
             navigationOptions: {
                 header:null,
-                // tabBarLabel: '',
+                // labeled:false,
+                tabBarLabel: 'Lecture',
+                tabBarColor: 'rgb(56,74,255)',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='book' size={24} color={tintColor}/>)
             }
         },
@@ -95,7 +99,9 @@ export const HomeTabs = TabNavigator({
             screen: MyPage,
             navigationOptions: {
                 header:null,
-                // tabBarLabel: '',
+                // labeled:false,
+                tabBarLabel: 'MyPage',
+                tabBarColor: 'rgb(0,113,108)',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='user' size={24} color={tintColor}/>)
             }
         },
@@ -104,25 +110,29 @@ export const HomeTabs = TabNavigator({
         //lazy: true,
         initialRouteName: 'Home',
         // tabBarComponent: TabBar,
-        tabBarPosition: 'bottom',
+        // tabBarPosition: 'bottom',
         //swipeEnabled:false,
         //animationEnabled:false,
-        headerMode:'screen',
+        headerMode:'null',
         navigationOptions : {
         },
-        tabBarOptions: {
-            // activeTintColor: 'red',
-            inactiveTintColor: 'black',
-            indicatorStyle: {
-                opacity: 0
-            },
-            showIcon: true,
-            showLabel: false,
-            bottomNavigationOptions: {
-                // labelColor: 'black',
-                backgroundColor: 'rgba(121,130,146,0.6)',
-                rippleColor: 'white',
-            }
-        }
+        // tabBarOptions: {
+        //     // activeTintColor: 'red',
+        //     inactiveTintColor: 'black',
+        //     indicatorStyle: {
+        //         opacity: 0
+        //     },
+        //     showIcon: true,
+        //     showLabel: false,
+        //     bottomNavigationOptions: {
+        //         // labelColor: 'black',
+        //         backgroundColor: 'rgba(121,130,146,0.6)',
+        //         rippleColor: 'white',
+        //     }
+        // },
+        shifting: true,
+        activeTintColor: '#ffffff',
+        inactiveTintColor: 'rgba(255,255,255,0.4)',
+        barStyle: { backgroundColor: 'rgb(207,210,216)' },
     }
 );
