@@ -67,7 +67,6 @@ export const getLectureReplyList = (lectureInfoIndex, page, length) => async dis
     dispatch({type: LECTURE_REPLY_LIST_LENGTH, payload: length + jsonData.result.length});
 };
 
-
 export default handleActions({
     // ... state, sample : action.payload.date
     [LECTURE_INFO]: (state, action) => {
