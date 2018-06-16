@@ -133,7 +133,9 @@ class SignInScreen extends React.Component {
 
     //로그인 결과
     loginResult = () => {
+        const {SignIn} = this.props;
         if (this.props.login === true) {
+            SignIn.initSignInState();
             this.props.navigation.navigate('Home');
         } else {
             Alert.alert(
