@@ -4,11 +4,9 @@ import {AsyncStorage} from "react-native";
 
 const ROOT_URL = config.server;
 
-const LEAVE_PASSWORD_MODAL = 'LEAVE_PASSWORD_MODAL';
 const LEAVE_PASSWORD = 'LEAVE_PASSWORD';
 
 const initialState = {
-    passwordModal: false,
     password: '',
 };
 
@@ -16,15 +14,11 @@ export const initState = () => dispatch => {
 
 };
 
-export const handlePasswordModal = (open) => dispatch => {
-    dispatch({type:LEAVE_PASSWORD_MODAL, payload:open});
-};
-
 export const handlePassword = (password) => dispatch => {
     dispatch({type:LEAVE_PASSWORD, payload:password});
 };
 
-export const handleDeleteUser = () => async dispatch => {
+export const handleLeaveUser = () => async dispatch => {
     const token = await AsyncStorage.getItem('token');
     const userId = await AsyncStorage.getItem('userId');
     const returnCheck = await fetch( `${ROOT_URL}/users/userId/${userId}`, {
@@ -57,12 +51,6 @@ export const handleDeleteUser = () => async dispatch => {
 };
 
 export default handleActions({
-    [LEAVE_PASSWORD_MODAL]: (state, action) => {
-        return {
-            ...state,
-            passwordModal: action.payload,
-        }
-    },
     [LEAVE_PASSWORD]: (state, action) => {
         return {
             ...state,
