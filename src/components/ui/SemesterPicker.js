@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {Dropdown} from 'react-native-material-dropdown';
 import PropTypes from 'prop-types';
 
@@ -35,15 +35,26 @@ export class SemesterPicker extends React.Component {
         ];
         return (
             <View style={styles.container}>
-                <Dropdown
-                    label={this.props.placeholder}
-                    data={data}
-                    onChangeText={this.props.handle}
-                    //containerStyle={styles.container}
-                    fontSize={13}
-                    textColor={'black'}
-                    baseColor={'gray'}
-                />
+                <View  style={{
+                    backgroundColor:'transparent',
+                    height:49,
+                    marginTop:10,
+                    borderRadius: 4,
+                    borderWidth: 1,
+                    borderColor: 'rgb(216,216,216)',
+                    justifyContent:'center'
+                }} onPress={this.onPress}
+                >
+                    <Dropdown
+                        value={'수강학기선택'}
+                        containerStyle={{marginBottom:15, marginLeft:10}}
+                        rippleOpacity={0}
+                        shadeOpacity={0}
+                        baseColor={'black'}
+                        data={data}
+                        onChangeText={this.props.handle}
+                    />
+                </View>
             </View>
         )
     }

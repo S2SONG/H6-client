@@ -21,7 +21,10 @@ export class LectureReplyListItem extends React.Component {
             <TouchableOpacity style={styles.container}>
                 <View style={styles.leftContainer}>
                     <Text style={styles.lectureTitle}>{this.props.lectureReply.userNickName}</Text>
-                    <Text style={styles.lectureTrack}></Text>
+                    <Text style={styles.lectureTrack}>{this.props.lectureReply.preview}</Text>
+                    <Text style={styles.lectureTrack}>{this.props.lectureReply.homeworkType}</Text>
+                    <Text style={styles.lectureTrack}>{this.props.lectureReply.homework}</Text>
+                    <Text style={styles.lectureTrack}>{this.props.lectureReply.testCount}</Text>
                     <Text style={styles.line}></Text>
                     <Text style={styles.line}></Text>
                 </View>
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 10,
         margin:10,
-        height: 120,
+        height: 250,
         backgroundColor: 'white',
         borderRadius: 10,
     },

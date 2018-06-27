@@ -99,11 +99,7 @@ class EvaluationScreen extends React.Component {
 
     saveReply = async () => {
         console.log("save");
-
         const {Evaluation} = this.props;
-        //let lectureIndex = this.props.lectureInfo.lectureIndex;
-        //let userIndex = this.props.userId.userIndex;
-        //console.log(lectureIndex, userIndex);
         let lectureInfoIndex = this.props.lecture.lectureInfoIndex;
         const {semester, homework, homeworkType, testCount, receivedGrade, review, score} = this.props;
 
@@ -216,8 +212,6 @@ export default connect((state) => ({
     receivedGrade:state.evaluation.receivedGrade,  //학점
     review:state.evaluation.review,              //댓글
     score:state.evaluation.score,              //총점
-    //starCount:state.evaluation.score,           //총점
-
     }),
     (dispatch) => ({
         Evaluation: bindActionCreators(evaluation, dispatch)
