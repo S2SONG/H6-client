@@ -17,7 +17,7 @@ class MyInfoScreen extends React.Component {
             account: [
                 {title: '계정정보', handle: this.navigationAccountScreen},
                 {title: '로그아웃', handle: this.handleLogout},
-                {title: '회원탈퇴', handle: this.navigationLeaveScreen},
+                {title: '회원탈퇴', handle: this.handleLeave},
                 {title: '한성인 인증', handle: this.navigationMainAuthScreen},
             ],
             appInfo: [
@@ -50,6 +50,8 @@ class MyInfoScreen extends React.Component {
                 {cancelable: false}
             )
     };
+
+
 
     navigationLeaveScreen = () => {
         this.props.navigation.navigate('leave');
@@ -87,6 +89,18 @@ class MyInfoScreen extends React.Component {
                 })}
             </View>
         )
+    };
+
+    handleLeave = () => {
+      return Alert.alert(
+          '탈퇴 확인',
+          '탈퇴 시 모든 정보가 즉시 삭제되며 복구할 수 없습니다. 모든 정보 삭제에 동의하시면 탈퇴를 진행하세요.',
+          [
+              {text: '취소'},
+              {text: '확인', onPress:this.navigationLeaveScreen}
+          ],
+          {cancelable: false}
+      )
     };
 
     handleLogout = () => {
