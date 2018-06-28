@@ -7,6 +7,7 @@ import MyInfoScreen from "../screen/MyInfo/MyInfoScreen";
 import {Icon} from 'react-native-elements';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import {LectureInfoScreen} from "../screen/Lecture/LectureInfoScreen";
+// import {EvaluationScreen} from "../screen/Lecture/EvaluationScreen";
 import LectureScreen from "../screen/Lecture/LectureScreen";
 import InfoScreen from "../screen/Lecture/InfoScreen";
 import {TermScreen} from "../screen/MyInfo/TermScreen";
@@ -105,6 +106,7 @@ export const HomeTabs = createMaterialBottomTabNavigator({
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='user' size={24} color={tintColor}/>)
             }
         },
+
     },
     {
         //lazy: true,

@@ -8,29 +8,29 @@ export class SemesterPicker extends React.Component {
     render() {
         let data = [
             {
-                value: '2018년 1학기',
+                value: '2018-1학기',
             },
             {
-                value: '2018년 2학기',
+                value: '2018-2학기',
             },
             {
-                value: '2017년 1학기',
+                value: '2017-1학기',
             },
             {
-                value: '2017년 2학기',
+                value: '2017-2학기',
             },
             {
-                value: '2016년 1학기',
+                value: '2016-1학기',
             }, {
-                value: '2016년 2학기',
+                value: '2016-2학기',
             }, {
-                value: '2015년 1학기',
+                value: '2015-1학기',
             }, {
-                value: '2015년 2학기',
+                value: '2015-2학기',
             }, {
-                value: '2014년 1학기',
+                value: '2014-1학기',
             }, {
-                value: '2014년 2학기',
+                value: '2014-2학기',
             }
         ];
         return (

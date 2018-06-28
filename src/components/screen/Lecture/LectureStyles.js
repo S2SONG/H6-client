@@ -8,6 +8,28 @@ export default StyleSheet.create({
         backgroundColor: '#8f96a0',
         height: StatusBar.currentHeight
     },
+    header:{
+        height:250,
+        backgroundColor:'white',
+        justifyContent:'center',
+        paddingLeft: 25,
+    },
+    headerTitle:{
+        paddingTop: 20,
+        fontSize: 17,
+        fontWeight: '700',
+    },
+    updateText:{
+        fontSize:13,
+        color:'black',
+        paddingTop: 10,
+    },
+    searchContainer: {
+        paddingTop: 30,
+        width:'95%',
+        height: 130,
+        backgroundColor: 'white',
+    },
     titleBar: {
         height: 50,
         justifyContent: 'center',
@@ -20,11 +42,6 @@ export default StyleSheet.create({
     },
     body: {
         flex: 1,
-        backgroundColor: 'white',
-    },
-    searchContainer: {
-        padding:10,
-        height: 160,
         backgroundColor: 'white',
     },
     searchBarInput: {
@@ -48,6 +65,7 @@ export default StyleSheet.create({
     },
     listContainer: {
         flex: 1,
+        width:'100%',
         justifyContent: 'center',
         alignItems: 'center'
     },
