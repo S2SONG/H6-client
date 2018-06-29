@@ -29,7 +29,11 @@ export default StyleSheet.create({
     subject: {
         marginTop: 10,
         marginBottom: 10,
-        justifyContent: 'center'
+        justifyContent: 'center',
+
+    },
+    baseText:{
+        fontFamily: 'AppleSDGothicNeo'
     },
     contentContainer: {
         flex: 1,

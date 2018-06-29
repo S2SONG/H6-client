@@ -21,8 +21,8 @@ class MyInfoScreen extends React.Component {
                 {title: '한성인 인증', handle: this.navigationMainAuthScreen},
             ],
             appInfo: [
-                {title: '이용약관', handle:()=>this.navigationTermScreen('이용약관', this.props.term1)},
                 {title: '개인정보처리방침', handle:()=>this.navigationTermScreen('개인정보처리방침', this.props.term2)},
+                {title: '이용약관', handle:()=>this.navigationTermScreen('이용약관', this.props.term1)},
                 {title: '앱 버전', right:`${config.appVersion}(${config.appVersionDate})`}
             ]
         }
@@ -97,7 +97,7 @@ class MyInfoScreen extends React.Component {
           '탈퇴 시 모든 정보가 즉시 삭제되며 복구할 수 없습니다. 모든 정보 삭제에 동의하시면 탈퇴를 진행하세요.',
           [
               {text: '취소'},
-              {text: '확인', onPress:this.navigationLeaveScreen}
+              {text: '계속하기', onPress:this.navigationLeaveScreen}
           ],
           {cancelable: false}
       )
@@ -132,7 +132,7 @@ class MyInfoScreen extends React.Component {
                         <Text style={styles.profileId}>{this.props.userNickName}</Text>
                     </View>
                     <View style={styles.contentContainer}>
-                        <View style={styles.subject}><Text> Account </Text></View>
+                        <View style={[styles.baseText, styles.subject]}><Text> Account </Text></View>
                         {this.renderAccount()}
                         <View style={styles.subject}><Text> Settings </Text></View>
                         {this.renderAppInfo()}

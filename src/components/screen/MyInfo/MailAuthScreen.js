@@ -60,7 +60,7 @@ class MailAuthScreen extends React.Component {
                     <Text style={styles.contentText}>강의평가를 위해서는</Text>
                     <Text style={styles.contentText}>학교 이메일 계정을 통한 인증절차가 필요합니다.</Text>
                     <MailInputText handle={this.onChangeEmail} email={this.props.mail}/>
-                    <Button buttonStyle={styles.contentButton} title={'인증메일 요청'} onPress={this.sendAuthMail}></Button>
+                    <Button buttonStyle={styles.contentButton} title={'인증메일 요청(발송)'} onPress={this.sendAuthMail}></Button>
                 </ScrollView>
             </SafeAreaView>
         )
