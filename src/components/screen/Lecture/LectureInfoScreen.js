@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, SafeAreaView, StyleSheet, StatusBar, ActivityIndicator, FlatList} from 'react-native';
+import {Text, View, SafeAreaView, StyleSheet, StatusBar, ActivityIndicator, FlatList, ScrollView} from 'react-native';
 import {Icon, Button} from 'react-native-elements';
 import ActionButton from 'react-native-action-button';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -62,38 +62,53 @@ class LectureInfoScreen extends React.Component {
         this.props.navigation.navigate('Evaluation');
     };
 
-    renderTitle = () => {
+    renderArrow = () => {
         return (
-            <View style={styles.titleBar}>
-                <Icon name={'ios-arrow-back-outline'} type='ionicon' size={24} color={'white'}
+            <View style={styles.arrow}>
+                <Icon name={'ios-arrow-back-outline'} type='ionicon' size={28} color={'black'}
                       onPress={this.navigationGoBack}/>
-                {this.props.header?<Text style={{color: 'white', fontSize: 18, alignSelf: 'center'}}>{this.props.lecture.lectureName}</Text>:<View/>}
-                <View></View>
             </View>
         )
     };
 
     renderHeader = () => {
         return (
-            <View style={styles.renderHeader}>
-                <Text style={styles.renderHeaderTitle}>{this.props.lecture.lectureName}</Text>
-                <StarRating
-                    disabled={true}
-                    emptyStar={'ios-star'}
-                    fullStar={'ios-star'}
-                    halfStar={'ios-star-half'}
-                    iconSet={'Ionicons'}
-                    maxStars={5}
-                    rating={Math.ceil(this.props.lecture.average * 2) / 2}
-                    fullStarColor={'#f8fa00'}
-                    halfStarColor={'#f8fa00'}
-                    halfStarEnabled={true}
-                    starSize={20}
+            <View style={styles.title}>
+                <View style={{alignSelf:'flex-start',width:'50%', paddingTop:10}}>
+                    <Text style={styles.renderHeaderTitle}>{this.props.lecture.lectureName}</Text>
+                    <View style={{margin:5,width:'40%'}}>
+                        <StarRating
+                            disabled={true}
+                            emptyStar={'ios-star'}
+                            fullStar={'ios-star'}
+                            halfStar={'ios-star-half'}
+                            iconSet={'Ionicons'}
+                            maxStars={5}
+                            rating={Math.ceil(this.props.lecture.average * 2) / 2}
+                            fullStarColor={'#f5a623'}
+                            halfStarColor={'#f5a623'}
+                            halfStarEnabled={true}
+                            starSize={20}
+                        />
+                    </View>
+                    <Text style={{fontSize:11, opacity:40, paddingTop:15,color:'rgb(176,176,176)',paddingLeft:8}}>
+                            {this.props.lecture.track} / {this.props.lecture.professorName} 교수님</Text>
+                </View>
+                {this.renderWrite()}
+            </View>
+        )
+    };
+    renderWrite = () => {
+        return(
+            <View style={{width:'50%',alignSelf:'flex-end',paddingRight:15, paddingBottom:30}}>
+                <Button
+                    icon={{name: 'create', size:25}}
+                    buttonStyle={styles.button}
+                    onPress={()=>this.navigationGoEval()}
                 />
             </View>
         )
     };
-
     onChangeHeaderTitle = (check) => {
         const {LectureInfo} = this.props;
         LectureInfo.onChangeHeaderTitle(check);
@@ -106,37 +121,19 @@ class LectureInfoScreen extends React.Component {
                            translucent={true}
                 />
                 <View style={styles.statusBar}/>
-                <HeaderImageScrollView
-                    style={{flex:1}}
-                    maxHeight={200}
-                    minHeight={50}
-                    renderHeader={() => this.renderHeader()}
-                    renderFixedForeground={() => this.renderTitle()}
-                    ScrollViewComponent={FlatList}
-                    scrollViewBackgroundColor={'#f5f5f5'}
-                    data={this.props.lectureReplyList}
-                    keyExtractor={(x,i)=>i}
-                    ListHeaderComponent={this.renderListHeader}
-                    ListFooterComponent={this.renderListFooter}
-                    renderItem={({item}) => <LectureReplyListItem lectureReply={item}/>}
-                >
-                </HeaderImageScrollView>
-                <ActionButton buttonColor="rgb(124,130,140)" title="글쓰기"
-                                            onPress={()=>this.navigationGoEval()}>
-                    {/*<Ionicon name="md-create" style={styles.actionButtonIcon}/>*/}
-                    {/*<ActionButton.Item buttonColor='#9b59b6' title="글쓰기"*/}
-                                       {/*onPress={() => this.navigationGoEval()}>*/}
-                        {/*<Ionicon name="md-create" style={styles.actionButtonIcon}/>*/}
-                    {/*</ActionButton.Item>*/}
-                    {/*<ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {*/}
-                    {/*}}>*/}
-                        {/*<Ionicon name="md-notifications-off" style={styles.actionButtonIcon}/>*/}
-                    {/*</ActionButton.Item>*/}
-                    {/*<ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => {*/}
-                    {/*}}>*/}
-                        {/*<Ionicon name="md-done-all" style={styles.actionButtonIcon}/>*/}
-                    {/*</ActionButton.Item>*/}
-                </ActionButton>
+                <View style={styles.renderHeader}>
+                            {this.renderArrow()}
+                            {this.renderHeader()}
+                            </View>
+                <ScrollView backgroundColor={"white"}>
+                    <FlatList
+                        data={this.props.lectureReplyList}
+                        keyExtractor={(x,i)=>i}
+                        ListHeaderComponent={this.renderListHeader}
+                        ListFooterComponent={this.renderListFooter}
+                        renderItem={({item}) => <LectureReplyListItem lectureReply={item}/>}
+                        />
+                </ScrollView>
             </SafeAreaView>
         )
     }

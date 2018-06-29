@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text, StyleSheet} from 'react-native';
-import PropTypes from 'prop-types';;
+import PropTypes from 'prop-types';
 import {Button} from 'react-native-elements';
 
 export class EvaluateButton extends React.Component{
@@ -21,6 +21,7 @@ export class EvaluateButton extends React.Component{
                             onPress={()=>this.getScore(item)}
                             value={item}
                         />
+
                     )
                 })}
             </View>
