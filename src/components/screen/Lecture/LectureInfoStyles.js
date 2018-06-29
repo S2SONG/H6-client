@@ -5,31 +5,50 @@ export default StyleSheet.create({
         flex: 1
     },
     statusBar: {
-        backgroundColor: '#8f96a0',
+        backgroundColor: 'transparent',
         height: StatusBar.currentHeight
     },
-    titleBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        height: 50,
-        paddingLeft: 10,
-        paddingRight: 10,
-        backgroundColor: 'transparent',
-    },
     renderHeader: {
-        height: 150,
-        backgroundColor: '#8f96a0',
-        justifyContent: 'center',
-        alignItems: 'center'
+        height: 180,
+        backgroundColor: 'white',
+        //justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexDirection: 'column',
+    },
+    arrow: {
+        flexDirection: 'row',
+        //justifyContent: 'flex-start',
+        height: 20,
+        paddingTop: 25,
+        paddingLeft: 20,
+        backgroundColor: 'white',
+    },
+    title:{
+        flexDirection: 'row',
+        //justifyContent: 'flex-start',
+        paddingTop: 10,
+        paddingLeft: 20,
+        paddingBottom: 20,
+        backgroundColor: 'transparent',
+        alignItems:'flex-start'
     },
     renderHeaderTitle: {
-        color: 'white',
-        fontSize: 20,
-        margin: 20
+        color: 'black',
+        fontSize: 17,
+        fontWeight:'800',
+        margin: 10,
+        textAlign:'left'
     },
     listContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
+    button:{
+        width:56,
+        height:56,
+        backgroundColor: '#d8d8d8',
+        borderRadius:100,
+        alignSelf:'flex-end'
+    }
 });

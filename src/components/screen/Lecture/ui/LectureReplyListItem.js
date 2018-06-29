@@ -18,35 +18,51 @@ export class LectureReplyListItem extends React.Component {
 
     render() {
         return (
-            <TouchableOpacity style={styles.container}>
-                <View style={styles.leftContainer}>
-                    <Text style={styles.lectureTitle}>{this.props.lectureReply.userNickName}</Text>
-                    <Text style={styles.lectureTrack}></Text>
-                    <Text style={styles.line}></Text>
-                    <Text style={styles.line}></Text>
+            <View style={styles.container}>
+                <View style={{flexDirection: 'row'}}>
+                    <View style={styles.leftContainer}>
+                        <Text style={styles.replyNickName}>{this.props.lectureReply.userNickName}</Text>
+                    </View>
+                    <View style={styles.rightContainer}>
+                        <StarRating
+                            disabled={true}
+                            emptyStar={'ios-star'}
+                            fullStar={'ios-star'}
+                            halfStar={'ios-star-half'}
+                            iconSet={'Ionicons'}
+                            maxStars={5}
+                            rating={this.props.lectureReply.score}
+                            //rating={Math.ceil(this.props.lectureReply.score*2)/2}
+                            fullStarColor={'rgb(255,166,0)'}
+                            halfStarColor={'rgb(255,166,0)'}
+                            halfStarEnabled={true}
+                            emptyStarColor={'#cfcfcf'}
+                            starSize={20}
+                        />
+                    </View>
                 </View>
-                <View style={styles.rightContainer}>
-                    <StarRating
-                        disabled={true}
-                        emptyStar={'ios-star'}
-                        fullStar={'ios-star'}
-                        halfStar={'ios-star-half'}
-                        iconSet={'Ionicons'}
-                        maxStars={5}
-                        rating={Math.ceil(this.props.lectureReply.score*2)/2}
-                        fullStarColor={'#f8fa00'}
-                        halfStarColor={'#f8fa00'}
-                        halfStarEnabled={true}
-                        emptyStarColor={'#cfcfcf'}
-                        starSize={20}
-                    />
-                    <Text style={styles.line}></Text>
-                    <Text style={styles.line}></Text>
-                    {/*<View style={styles.lectureUpdateTime}>*/}
-                        {/*<TimeAgo time={this.props.lectureReply.updatedAt} />*/}
-                    {/*</View>*/}
+                <View style={{flexDirection: 'row',paddingLeft:15, paddingTop:10}}>
+                    <View style ={{width:'30%'}}>
+                        <Text style={styles.replyIndex}>수강학기</Text>
+                        <Text style={styles.replyIndex}>과제 </Text>
+                        <Text style={styles.replyIndex}>과제타입 </Text>
+                        <Text style={styles.replyIndex}>시험횟수 </Text>
+                        <Text style={styles.replyIndex}>학점 </Text>
+                     </View>
+
+                    <View style={{width:'70%',}}>
+                        <Text style={styles.replyContents}>{this.props.lectureReply.semester}</Text>
+                        <Text style={styles.replyContents}>{this.props.lectureReply.homework}</Text>
+                        <Text style={styles.replyContents}>{this.props.lectureReply.homeworkType}</Text>
+                        <Text style={styles.replyContents}>{this.props.lectureReply.testCount}</Text>
+                        <Text style={styles.replyContents}>{this.props.lectureReply.receivedGrade}</Text>
+                    </View>
                 </View>
-            </TouchableOpacity>
+                <View style={{paddingLeft:15, paddingTop:40, height:40}}>
+                    <Text style={styles.replyContents}>{this.props.lectureReply.review}</Text>
+                </View>
+
+            </View>
         )
     }
 }
@@ -70,17 +86,19 @@ LectureReplyListItem.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        padding: 10,
-        margin:10,
-        height: 120,
-        backgroundColor: 'white',
-        borderRadius: 10,
+        flexDirection: 'column',
+        width:'100%',
+        marginBottom:10,
+        paddingLeft:30,
+        paddingRight:30,
+        paddingTop:10,
+        height: 275,
+        backgroundColor: 'rgb(245,245,245)',
     },
     leftContainer: {
         width:'50%',
         paddingLeft:10,
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
     },
     rightContainer: {
         width:'50%',
@@ -92,22 +110,24 @@ const styles = StyleSheet.create({
         marginTop:3,
         marginBottom:3
     },
-    lectureTitle: {
+    replyNickName: {
         height:20,
-        fontSize:18,
+        fontSize:12,
         marginTop:3,
         marginBottom:3,
     },
-    lectureTrack: {
+    replyIndex: {
+        fontSize:12,
         height:20,
-        marginTop:3,
-        marginBottom:3,
-        color:'#b9bdc3'
+        color:'#b9bdc3',
+        textAlign:'left',
+        margin:-3
     },
-    lectureUpdateTime: {
+    replyContents:{
+        fontSize:12,
         height:20,
-        marginTop:3,
-        marginBottom:3,
-
+        margin:-3,
+        color:'black',
+        textAlign:'left',
     }
 });

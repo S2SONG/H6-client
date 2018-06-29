@@ -52,41 +52,41 @@ class EvaluationScreen extends React.Component {
 
     handleHomework=(homework)=> {
         const {Evaluation} = this.props;
-        if(homework==="없음") homework = '0';
-        if(homework==="적음") homework = '1';
-        if(homework==="보통") homework = '2';
-        if(homework==="많음") homework = '3';
+        // if(homework==="없음") homework = '0';
+        // if(homework==="적음") homework = '1';
+        // if(homework==="보통") homework = '2';
+        // if(homework==="많음") homework = '3';
         Evaluation.handleHomework(homework);
         console.log(homework);
     }; //과제
 
     handleHomeworkType=(homeworkType)=>{
         const {Evaluation} = this.props;
-        if(homeworkType==="팀 프로젝트") homeworkType = 1;
-        if(homeworkType==="개인 프로젝트") homeworkType = 2;
-        if(homeworkType==="레포트") homeworkType = 3;
+        // if(homeworkType==="팀 프로젝트") homeworkType = 1;
+        // if(homeworkType==="개인 프로젝트") homeworkType = 2;
+        // if(homeworkType==="레포트") homeworkType = 3;
         Evaluation.handleHomeworkType(homeworkType);
         console.log(homeworkType);
     }; //과제타입
 
     handleTestCount=(testCount)=>{
         const {Evaluation} = this.props;
-        if(testCount==="없음") testCount = 0;
-        if(testCount==="1회") testCount = 1;
-        if(testCount==="2회") testCount = 2;
-        if(testCount==="3회") testCount = 3;
-        if(testCount==="4회 이상") testCount = 4;
+        // if(testCount==="없음") testCount = 0;
+        // if(testCount==="1회") testCount = 1;
+        // if(testCount==="2회") testCount = 2;
+        // if(testCount==="3회") testCount = 3;
+        // if(testCount==="4회 이상") testCount = 4;
         Evaluation.handleTestCount(testCount);
         console.log(testCount);
     }; //시험횟수
 
     handleReceivedGrade=(receivedGrade)=>{
         const {Evaluation} = this.props;
-        if(receivedGrade==="P/N") receivedGrade = 0;
-        if(receivedGrade==="F") receivedGrade = 1;
-        if(receivedGrade==="C~") receivedGrade = 2;
-        if(receivedGrade==="B") receivedGrade = 3;
-        if(receivedGrade==="A") receivedGrade = 4;
+        // if(receivedGrade==="P/N") receivedGrade = 0;
+        // if(receivedGrade==="F") receivedGrade = 1;
+        // if(receivedGrade==="C~") receivedGrade = 2;
+        // if(receivedGrade==="B") receivedGrade = 3;
+        // if(receivedGrade==="A") receivedGrade = 4;
         Evaluation.handleReceivedGrade(receivedGrade);
         console.log(receivedGrade);
     }; //학점
@@ -94,16 +94,12 @@ class EvaluationScreen extends React.Component {
     handleReview=(review)=>{
         const {Evaluation} = this.props;
         Evaluation.handleReview(review);
-        console.log(review);
+        //console.log(review);
     }; //댓글
 
     saveReply = async () => {
         console.log("save");
-
         const {Evaluation} = this.props;
-        //let lectureIndex = this.props.lectureInfo.lectureIndex;
-        //let userIndex = this.props.userId.userIndex;
-        //console.log(lectureIndex, userIndex);
         let lectureInfoIndex = this.props.lecture.lectureInfoIndex;
         const {semester, homework, homeworkType, testCount, receivedGrade, review, score} = this.props;
 
@@ -207,7 +203,6 @@ class EvaluationScreen extends React.Component {
 }
 
 export default connect((state) => ({
-    //user: state.signin.,
     lecture: state.lectureInfo.lecture,
     semester: state.evaluation.semester,
     homework: state.evaluation.homework,           //과제
@@ -216,8 +211,6 @@ export default connect((state) => ({
     receivedGrade:state.evaluation.receivedGrade,  //학점
     review:state.evaluation.review,              //댓글
     score:state.evaluation.score,              //총점
-    //starCount:state.evaluation.score,           //총점
-
     }),
     (dispatch) => ({
         Evaluation: bindActionCreators(evaluation, dispatch)

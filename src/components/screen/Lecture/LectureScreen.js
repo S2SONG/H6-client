@@ -50,13 +50,9 @@ class LectureScreen extends React.Component {
             return (
                 <View style={styles.listContainer}>
                     <FlatList
-                        style={{flexGrow: 1, padding: 10, backgroundColor: '#f5f5f5'}}
+                        style={{flexGrow: 1, backgroundColor: 'white'}}
                         data={this.props.lectureList}
                         keyExtractor={(x, i) => i}
-                        // onEndReached={() => this.handleEnd()}
-                        // onEndReachedThreshold={0.5}
-                        // ListFooterComponent={() =>
-                        //     this.props.loading ? <ActivityIndicator size="large" animating/> : null}
                         ListFooterComponent={this.renderListFooter}
                         renderItem={({item}) => <LectureListItem lecture={item} navigation={this.props.navigation}/>}
                     />
@@ -83,14 +79,17 @@ class LectureScreen extends React.Component {
                 <StatusBar backgroundColor="#717882"
                            translucent={true}
                 />
-                <TitleView title={'강의평가'}/>
-                <View style={styles.searchContainer}>
-                    <LectureSearchBar
-                        value={this.props.textValue}
-                        onChangeText={this.onChangeTextValue}
-                        searchHandler={this.searchHandler}
-                    />
-                    <Text style={styles.searchBarLabel}>과목명, 교수명, 과목코드, 트랙 중 하나를 입력하세요.</Text>
+                <View style={styles.header}>
+                    <Text style={styles.headerTitle}>강의평가</Text>
+                    <View style={styles.searchContainer}>
+                        <LectureSearchBar
+                            value={this.props.textValue}
+                            onChangeText={this.onChangeTextValue}
+                            searchHandler={this.searchHandler}
+                            placeholder={'과목명, 교수명, 과목코드, 트랙 중 하나를 입력하세요.'}
+                        />
+                    </View>
+                    <Text style={styles.updateText}>최신 업데이트</Text>
                 </View>
                 {this.renderList()}
             </SafeAreaView>
