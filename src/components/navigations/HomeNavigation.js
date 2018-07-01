@@ -79,9 +79,9 @@ export const HomeTabs = createMaterialBottomTabNavigator({
             screen: HomeScreen,
             navigationOptions: {
                 header:null,
-                // labeled:false,
-                tabBarLabel: 'Home',
-                tabBarColor: 'rgb(127,0,247)',
+                labeled:false,
+                // tabBarLabel: 'Home',
+                // tabBarColor: 'rgb(127,0,247)',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='home' size={24} color={tintColor}/>),
 
             }
@@ -90,9 +90,9 @@ export const HomeTabs = createMaterialBottomTabNavigator({
             screen: LectureScreen,
             navigationOptions: {
                 header:null,
-                // labeled:false,
-                tabBarLabel: 'Lecture',
-                tabBarColor: 'rgb(56,74,255)',
+                labeled:false,
+                // tabBarLabel: 'Lecture',
+                // tabBarColor: 'rgb(56,74,255)',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='book' size={24} color={tintColor}/>)
             }
         },
@@ -100,9 +100,9 @@ export const HomeTabs = createMaterialBottomTabNavigator({
             screen: MyPage,
             navigationOptions: {
                 header:null,
-                // labeled:false,
-                tabBarLabel: 'MyPage',
-                tabBarColor: 'rgb(0,113,108)',
+                labeled:false,
+                // tabBarLabel: 'MyPage',
+                // tabBarColor: 'rgb(0,113,108)',
                 tabBarIcon: ({tintColor}) => (<Icon type="font-awesome" name='user' size={24} color={tintColor}/>)
             }
         },
@@ -133,8 +133,8 @@ export const HomeTabs = createMaterialBottomTabNavigator({
         //     }
         // },
         shifting: true,
-        activeTintColor: '#ffffff',
-        inactiveTintColor: 'rgba(255,255,255,0.4)',
-        barStyle: { backgroundColor: 'rgb(207,210,216)' },
+        activeTintColor: '#000000',
+        inactiveTintColor: 'rgb(203,203,203)',
+        barStyle: { backgroundColor: 'rgb(255,255,255)' },
     }
 );
