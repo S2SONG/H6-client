@@ -30,9 +30,8 @@ export default StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         justifyContent: 'center',
-
     },
-    baseText:{
+    baseText: {
         fontFamily: 'AppleSDGothicNeo'
     },
     contentContainer: {

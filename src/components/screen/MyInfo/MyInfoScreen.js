@@ -24,6 +24,11 @@ class MyInfoScreen extends React.Component {
                 {title: '개인정보처리방침', handle:()=>this.navigationTermScreen('개인정보처리방침', this.props.term2)},
                 {title: '이용약관', handle:()=>this.navigationTermScreen('이용약관', this.props.term1)},
                 {title: '앱 버전', right:`${config.appVersion}(${config.appVersionDate})`}
+            ],
+            contact: [
+                {title: '팀 정보'},
+                {title: '공지사항'},
+                {title: '문의'}
             ]
         }
     }
@@ -90,6 +95,20 @@ class MyInfoScreen extends React.Component {
             </View>
         )
     };
+    renderContact = () => {
+        return (
+            <View style={styles.infoContainer}>
+                {this.state.contact.map((data, i) => {
+                    return (
+                        <View key={i}>
+                            <InfoListItem title={data.title} handle={data.handle} right={data.right}/>
+                            {i < this.state.appInfo.length - 1 ?
+                                <View style={styles.infoContentLine}/> : null}
+                        </View>)
+                })}
+            </View>
+        )
+    };
 
     handleLeave = () => {
       return Alert.alert(
@@ -125,17 +144,20 @@ class MyInfoScreen extends React.Component {
         return (
             <SafeAreaView style={styles.container}>
                 <TitleView title={'마이페이지'}/>
+                <View style={styles.profile}>
+                    <Icon type='ionicon' name='ios-contact' size={60}/>
+                    <Text style={styles.profileNickName}>{this.props.userId}</Text>
+                    <Text style={styles.profileId}>{this.props.userNickName}</Text>
+                </View>
                 <ScrollView style={styles.container}>
-                    <View style={styles.profile}>
-                        <Icon type='ionicon' name='ios-contact' size={60}/>
-                        <Text style={styles.profileNickName}>{this.props.userId}</Text>
-                        <Text style={styles.profileId}>{this.props.userNickName}</Text>
-                    </View>
+
                     <View style={styles.contentContainer}>
-                        <View style={[styles.baseText, styles.subject]}><Text> Account </Text></View>
+                        <View style={styles.subject}><Text style={styles.baseText}> Account </Text></View>
                         {this.renderAccount()}
                         <View style={styles.subject}><Text> Settings </Text></View>
                         {this.renderAppInfo()}
+                        <View style={styles.subject}><Text> Contact us </Text></View>
+                        {this.renderContact()}
                     </View>
                 </ScrollView>
             </SafeAreaView>

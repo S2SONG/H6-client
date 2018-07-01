@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textInput: {
-        width: 277,
+        width: 240,
         height: 40,
         paddingLeft: 10,
         justifyContent: 'center',
