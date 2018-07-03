@@ -32,7 +32,7 @@ const SignNav = createStackNavigator({
             header: null,
             gesturesEnabled: false
         }
-    },
+        },
     Evaluation:{
         screen: EvaluationScreen,
         navigationOptions: {
