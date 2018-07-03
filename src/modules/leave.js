@@ -1,6 +1,6 @@
 import {handleActions} from 'redux-actions';
 import config from "../../config";
-import {AsyncStorage} from "react-native";
+import {Alert, AsyncStorage} from "react-native";
 
 const ROOT_URL = config.server;
 
@@ -16,6 +16,28 @@ export const initState = () => dispatch => {
 
 export const handlePassword = (password) => dispatch => {
     dispatch({type:LEAVE_PASSWORD, payload:password});
+};
+
+export const checkPassword = (password) => async dispatch => {
+    const userId = await AsyncStorage.getItem('userId');
+    var userData = {
+        userPw: password
+    };
+    const passCheck = await fetch(`${ROOT_URL}/userValidation/userId/${userId}/userPw`,{
+        method: "POST",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    });
+
+    const passData = await passCheck.json();
+    if(passData.statusCode == 200){
+        return true;
+    } else {
+        return false;
+    }
 };
 
 export const handleLeaveUser = () => async dispatch => {

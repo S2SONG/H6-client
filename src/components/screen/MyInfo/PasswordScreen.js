@@ -4,10 +4,11 @@ import {Button} from 'react-native-elements';
 import {TitleView} from "../../ui/TitleView";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import styles from "./MailAuthStyles";
+import styles from "./PasswordStyles";
 import * as password from "../../../modules/password";
 import {SignTextInput} from "../../ui/SignTextInput";
 import {validation} from "../../../utils/validations";
+import {PasswordInput} from "./ui/PasswordInput";
 
 class PasswordScreen extends React.Component {
 
@@ -134,14 +135,14 @@ class PasswordScreen extends React.Component {
         return (
             <SafeAreaView style={styles.container}>
                 <TitleView title={'비밀번호 변경'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
-                <ScrollView style={styles.contentContainer} contentContainerStyle={{paddingLeft: 17, paddingRight: 15}}>
-                    <SignTextInput
-                        label={'현재 비밀번호'}
+                <ScrollView style={styles.contentContainer} contentContainerStyle={{justifyContent:'center', alignItems:'center', paddingLeft: 17, paddingRight: 15}}>
+                    <Text style={styles.currentPassLabel}>소중한 정보 보호를 위해 현재 비밀번호를 확인해 주세요.</Text>
+                    <PasswordInput
                         secureText={true}
                         value={this.props.currentPassword}
                         handle={this.onChangeCurrentPassword}/>
-
-                    <SignTextInput
+                    <View style={{height:50}}></View>
+                    <PasswordInput
                         label={'새로운 비밀번호'}
                         secureText={true}
                         value={this.props.newPassword}
@@ -149,14 +150,14 @@ class PasswordScreen extends React.Component {
                         checkNo={this.props.newPasswordCheckNo}
                         checkLabel={this.props.newPasswordCheckLabel}/>
 
-                    <SignTextInput
+                    <PasswordInput
                         label={'비밀번호 확인'}
                         secureText={true}
                         value={this.props.reNewPassword}
                         handle={this.onChangeReNewPassword}
                         checkNo={this.props.reNewPasswordCheckNo}
                         checkLabel={this.props.reNewPasswordCheckLabel}/>
-                    <Button value={'변경하기'} onPress={this.passwordChange}/>
+                    <Button buttonStyle={styles.button} title={'저장'} onPress={this.passwordChange}/>
                 </ScrollView>
             </SafeAreaView>
         )

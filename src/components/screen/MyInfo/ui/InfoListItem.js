@@ -14,7 +14,7 @@ export class InfoListItem extends React.Component {
                 <View style={{flex:1, flexDirection:'row', justifyContent: 'space-between',}}>
                     <Text style={styles.text}>{this.props.title}</Text>
                     {this.props.right === undefined ?
-                        <Icon style={styles.rightIcon} name='ios-arrow-forward' type='ionicon'/>:
+                        <Icon style={styles.rightIcon} name='ios-arrow-forward' type='ionicon' color={'#d8d8d8'}/>:
                         <Text style={styles.rightText}>{this.props.right}</Text>}
                 </View>
             </TouchableHighlight>

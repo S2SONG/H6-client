@@ -32,6 +32,17 @@ class LeaveScreen extends React.Component {
 
     handleLeaveUser = async () => {
       const {Leave} = this.props;
+      const checkPwd = await Leave.checkPassword(this.props.password);
+      if(!checkPwd){
+          return Alert.alert(
+              '오류',
+              '비밀번호가 틀렸습니다.',
+              [
+                  {text: '확인'},
+              ],
+              {cancelable: false}
+          )
+      }
       const result = await Leave.handleLeaveUser();
       if(result){
           Alert.alert(
