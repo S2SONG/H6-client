@@ -1,10 +1,20 @@
 import React from 'react';
 import {View, Text, SafeAreaView} from 'react-native';
+import {Button} from 'react-native-elements';
 import styles from "./HomeStyles";
-import config from "../../../../config";
 import {TitleView} from "../../ui/TitleView";
-import { TextField } from 'react-native-material-textfield';
+import * as Animatable from 'react-native-animatable';
 
+
+class ExampleView extends React.Component{
+
+    render(){
+        return(<View style={{width:200, height:50,backgroundColor:'red'}}>
+        </View>)
+    }
+}
+
+ExampleView = Animatable.createAnimatableComponent(ExampleView);
 export class HomeScreen extends React.Component {
 
     constructor(props) {
@@ -18,10 +28,9 @@ export class HomeScreen extends React.Component {
         return (
             <SafeAreaView style={styles.container}>
                 <TitleView title={'홈'}/>
-                <TextField
-                    label='Phone number'
-                />
+                <ExampleView />
             </SafeAreaView>
         )
     }
 }
+

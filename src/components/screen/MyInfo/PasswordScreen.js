@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, AsyncStorage, SafeAreaView, Alert} from 'react-native';
+import {View, Text, ScrollView, AsyncStorage, SafeAreaView, Alert, KeyboardAvoidingView, Keyboard} from 'react-native';
 import {Button} from 'react-native-elements';
 import {TitleView} from "../../ui/TitleView";
 import {bindActionCreators} from "redux";
@@ -14,6 +14,18 @@ class PasswordScreen extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+          keyboardSpace: 0,
+        };
+
+        Keyboard.addListener('keyboardDidShow', (frames) => {
+            if (!frames.endCoordinates) return;
+            this.setState({keyboardSpace: frames.endCoordinates.height});
+        });
+        Keyboard.addListener('keyboardDidHide', (frames) => {
+            this.setState({keyboardSpace: 0})
+        });
     }
 
     componentDidMount() {
@@ -135,7 +147,10 @@ class PasswordScreen extends React.Component {
         return (
             <SafeAreaView style={styles.container}>
                 <TitleView title={'비밀번호 변경'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
-                <ScrollView style={styles.contentContainer} contentContainerStyle={{justifyContent:'center', alignItems:'center', paddingLeft: 17, paddingRight: 15}}>
+                <ScrollView behavior="padding"
+                            enabled
+                            style={styles.contentContainer}
+                            contentContainerStyle={{justifyContent:'center', alignItems:'center', paddingLeft: 17, paddingRight: 15, paddingBottom:this.state.keyboardSpace}}>
                     <Text style={styles.currentPassLabel}>소중한 정보 보호를 위해 현재 비밀번호를 확인해 주세요.</Text>
                     <PasswordInput
                         secureText={true}
