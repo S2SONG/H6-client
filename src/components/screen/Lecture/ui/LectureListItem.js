@@ -2,11 +2,11 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 // import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
-import TimeAgo from 'react-native-timeago';
 import StarRating from 'react-native-star-rating';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {util} from "../../../../utils/util";
-
+import {ScoreIndicator} from "./ScoreIndicator";
+import TimeAgo from "react-native-timeago";
 
 export class LectureListItem extends React.Component {
 
@@ -38,7 +38,7 @@ export class LectureListItem extends React.Component {
     };
 
     navigationLectureInfo = () => {
-        this.props.navigation.navigate('LectureInfo', {lecture: this.props.lecture});
+        this.props.navigation.navigate('lectureInfo', {lecture: this.props.lecture});
     };
 
     render() {
@@ -50,29 +50,32 @@ export class LectureListItem extends React.Component {
                     <Text style={styles.professor}>{this.props.lecture.professorName} 교수님</Text>
                     {/*<Text style={styles.line}>{this.props.lecture.lectureReply.preview}</Text>*/}
                     {/*<Text style={styles.line}>리플 {this.props.lecture.replyCount}</Text>*/}
-                    <Text style={styles.line}></Text>
+                    {/*<Text style={styles.professor}>{this.props.reply.preview}</Text>*/}
                 </View>
                 <View style={styles.rightContainer}>
-                    <StarRating
-                        disabled={true}
-                        emptyStar={'md-square'}
-                        fullStar={'md-square'}
-                        halfStar={'md-square'}
-                        iconSet={'Ionicons'}
-                        maxStars={5}
-                        // rating={Math.ceil(this.props.lecture.average * 2) / 2}
-                        rating={this.props.lecture.average}
-                        fullStarColor={'black'}
-                        halfStarColor={'gray'}
-                        halfStarEnabled={true}
-                        emptyStarColor={'#cfcfcf'}
-                        starSize={19}
-                    />
+                    <ScoreIndicator
+                        rating={Math.ceil(this.props.lecture.average * 2) / 2}/>
+                    {/*<StarRating*/}
+                        {/*disabled={true}*/}
+                        {/*emptyStar={'md-square'}*/}
+                        {/*fullStar={'md-square'}*/}
+                        {/*halfStar={'md-square'}*/}
+                        {/*iconSet={'Ionicons'}*/}
+                        {/*maxStars={5}*/}
+                        {/*// rating={Math.ceil(this.props.lecture.average * 2) / 2}*/}
+                        {/*rating={this.props.lecture.average}*/}
+                        {/*fullStarColor={'black'}*/}
+                        {/*halfStarColor={'gray'}*/}
+                        {/*halfStarEnabled={true}*/}
+                        {/*emptyStarColor={'#cfcfcf'}*/}
+                        {/*starSize={19}*/}
+                    {/*/>*/}
                     <Text style={styles.line}></Text>
                     <Text style={styles.line}></Text>
                     <View style={styles.lectureUpdateTime}>
-                        {/*<TimeAgo time={this.props.lecture.updatedAt} />*/}
-                        <Text style={styles.lectureUpdateTimeText}>{util.timeSince(this.props.lecture.updatedAt)}</Text>
+                        {/*<TimeAgo time={this.props.lecture.updatedAt}/>*/}
+                        <Text style={styles.lectureUpdateTimeText}>
+                            {util.timeSince(this.props.lecture.updatedAt)}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -90,14 +93,14 @@ export class LectureListItem extends React.Component {
 
 LectureListItem.propTypes = {
     lecture: PropTypes.object,
-    navigation: PropTypes.object,
+    navigation: PropTypes.object
 };
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         marginBottom: 10,
-        height: 100,
+        height: 110,
         backgroundColor:'rgb(245,245,245)',
     },
     leftContainer: {
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
         width: '50%',
         paddingRight: 20,
         alignItems: 'flex-end',
-        marginTop:10
+        marginTop:10,
     },
     line: {
         height: 20,

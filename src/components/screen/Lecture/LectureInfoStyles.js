@@ -9,7 +9,7 @@ export default StyleSheet.create({
         height: StatusBar.currentHeight
     },
     renderHeader: {
-        height: 180,
+        height: 200,
         backgroundColor: 'white',
         //justifyContent: 'space-between',
         alignItems: 'flex-start',
@@ -18,7 +18,8 @@ export default StyleSheet.create({
     arrow: {
         flexDirection: 'row',
         //justifyContent: 'flex-start',
-        height: 20,
+        height: 50,
+        width:70,
         paddingTop: 25,
         paddingLeft: 20,
         backgroundColor: 'white',
@@ -27,7 +28,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         //justifyContent: 'flex-start',
         paddingTop: 10,
-        paddingLeft: 20,
+        paddingLeft: 10,
         paddingBottom: 20,
         backgroundColor: 'transparent',
         alignItems:'flex-start'

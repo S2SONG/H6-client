@@ -6,15 +6,17 @@ import {HomeScreen} from "../screen/Home/HomeScreen";
 import MyInfoScreen from "../screen/MyInfo/MyInfoScreen";
 import {Icon} from 'react-native-elements';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
-import {LectureInfoScreen} from "../screen/Lecture/LectureInfoScreen";
-// import {EvaluationScreen} from "../screen/Lecture/EvaluationScreen";
+import LectureInfoScreen from "../screen/Lecture/LectureInfoScreen";
+// import InfoScreen from "../screen/Lecture/InfoScreen";
+//import EvaluationScreen from "../screen/Lecture/EvaluationScreen";
 import LectureScreen from "../screen/Lecture/LectureScreen";
-import InfoScreen from "../screen/Lecture/InfoScreen";
+//import LectureInfoScreen from "../screen/Lecture/InfoScreen";
 import {TermScreen} from "../screen/MyInfo/TermScreen";
 import LeaveScreen from "../screen/MyInfo/LeaveScreen";
 import MailAuthScreen from "../screen/MyInfo/MailAuthScreen";
 import AccountScreen from "../screen/MyInfo/AccountScreen";
 import PasswordScreen from "../screen/MyInfo/PasswordScreen";
+import EvaluationScreen from "../screen/Lecture/EvaluationScreen";
 
 //홈 Tab 네비게이션
 const TabBar = props => (
@@ -74,6 +76,27 @@ const MyPage = createStackNavigator({
     headerMode: 'screen'
 });
 
+
+const LectureTab = createStackNavigator({
+    lecture: {
+        screen: LectureScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    },
+    lectureInfo: {
+        screen: LectureInfoScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    }
+    },{
+        initialRouteName: 'lecture',
+        headerMode: 'screen'
+});
+
 export const HomeTabs = createMaterialBottomTabNavigator({
         Home: {
             screen: HomeScreen,
@@ -87,7 +110,7 @@ export const HomeTabs = createMaterialBottomTabNavigator({
             }
         },
         Lecture: {
-            screen: LectureScreen,
+            screen: LectureTab,
             navigationOptions: {
                 header:null,
                 labeled:false,
