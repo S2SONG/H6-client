@@ -3,17 +3,17 @@ import {StatusBar, StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'white'
+        backgroundColor:'white',
+        paddingLeft:10
     },
     statusBar: {
         backgroundColor: '#8f96a0',
         height: StatusBar.currentHeight
     },
     titleBar: {
-        //justifyContent: 'space-between',
+        //justifyContent: 'flex-start',
         flexDirection: 'row',
         height: 50,
-        paddingLeft: 10,
         paddingRight: 10,
         backgroundColor: 'transparent',
         alignItems: 'center',
@@ -27,15 +27,16 @@ export default StyleSheet.create({
     },
     arrow:{
         backgroundColor: 'transparent',
-        paddingLeft: 13,
         paddingBottom: 14,
         paddingTop:10,
+        width:35,
+        height:50,
         alignSelf:'flex-start',
     },
     title:{
         backgroundColor:'transparent',
         alignSelf: 'center',
-        paddingLeft:117,
+        paddingLeft:100,
     },
     titleText:{
         fontSize: 18,

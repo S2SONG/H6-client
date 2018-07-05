@@ -34,7 +34,7 @@ class LectureScreen extends React.Component {
     };
 
     navigationLectureInfo = () => {
-        this.props.navigation.navigate('LectureInfo');
+        this.props.navigation.navigate('lectureInfo');
     };
 
     renderList = () => {
@@ -53,7 +53,7 @@ class LectureScreen extends React.Component {
                         style={{flexGrow: 1, backgroundColor: 'white'}}
                         data={this.props.lectureList}
                         keyExtractor={(x, i) => i}
-                        ListFooterComponent={this.renderListFooter}
+                        // ListFooterComponent={this.renderListFooter}
                         renderItem={({item}) => <LectureListItem lecture={item} navigation={this.props.navigation}/>}
                     />
                 </View>

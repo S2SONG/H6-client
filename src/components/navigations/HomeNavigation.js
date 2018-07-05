@@ -7,8 +7,8 @@ import MyInfoScreen from "../screen/MyInfo/MyInfoScreen";
 import {Icon} from 'react-native-elements';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import LectureInfoScreen from "../screen/Lecture/LectureInfoScreen";
-import InfoScreen from "../screen/Lecture/InfoScreen";
-import EvaluationScreen from "../screen/Lecture/EvaluationScreen";
+// import InfoScreen from "../screen/Lecture/InfoScreen";
+//import EvaluationScreen from "../screen/Lecture/EvaluationScreen";
 import LectureScreen from "../screen/Lecture/LectureScreen";
 //import LectureInfoScreen from "../screen/Lecture/InfoScreen";
 import {TermScreen} from "../screen/MyInfo/TermScreen";
@@ -85,20 +85,13 @@ const LectureTab = createStackNavigator({
             gesturesEnabled: false
         }
     },
-    evaluation: {
-        screen: EvaluationScreen,
+    lectureInfo: {
+        screen: LectureInfoScreen,
         navigationOptions: {
             header: null,
             gesturesEnabled: false
         }
-    },
-    // lectureInfoPage: {
-    //     screen: LectureInfoScreen,
-    //     navigationOptions: {
-    //         header: null,
-    //         gesturesEnabled: false
-    //     }
-    // }
+    }
     },{
         initialRouteName: 'lecture',
         headerMode: 'screen'
@@ -117,7 +110,7 @@ export const HomeTabs = createMaterialBottomTabNavigator({
             }
         },
         Lecture: {
-            screen: LectureScreen,
+            screen: LectureTab,
             navigationOptions: {
                 header:null,
                 labeled:false,

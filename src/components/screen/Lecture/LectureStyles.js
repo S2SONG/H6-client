@@ -9,19 +9,20 @@ export default StyleSheet.create({
         height: StatusBar.currentHeight
     },
     header:{
-        height:250,
+        height:270,
         backgroundColor:'white',
-        justifyContent:'center',
+        // justifyContent:'center',
         paddingLeft: 25,
     },
     headerTitle:{
-        paddingTop: 20,
+        paddingTop: 80,
         fontSize: 17,
-        fontWeight: '700',
+        fontWeight: '900',
     },
     updateText:{
         fontSize:13,
         color:'black',
+        opacity:0.3,
         paddingTop: 10,
     },
     searchContainer: {

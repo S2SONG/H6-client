@@ -9,6 +9,7 @@ import {SemesterPicker} from "../../ui/SemesterPicker";
 import {EvaluateButton} from "./ui/EvaluateButton";
 import StarRating from 'react-native-star-rating';
 import Toast, {DURATION} from 'react-native-easy-toast'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class EvaluationScreen extends React.Component {
 
@@ -113,6 +114,7 @@ class EvaluationScreen extends React.Component {
 
     render() {
         return (
+            <KeyboardAwareScrollView>
             <SafeAreaView style={styles.container}>
                 <StatusBar backgroundColor="#717882"
                            translucent={true}/>
@@ -143,7 +145,8 @@ class EvaluationScreen extends React.Component {
 
                     <Text style={styles.item}>과제</Text>
                     <EvaluateButton buttonData={['없음','적음','보통','많음']}
-                                    handleGetScore = {this.handleHomework}/>
+                                    handleGetScore = {this.handleHomework}
+                                    pressStatus={true}/>
 
                     <Text style={styles.item}>과제타입</Text>
                     <EvaluateButton buttonData={['팀 프로젝트','개인 프로젝트','레포트']}
@@ -169,22 +172,25 @@ class EvaluationScreen extends React.Component {
                     </View>
 
                     <View style={{justifyContent:'flex-start', flexDirection:'row', alignItems:'center', width: '50%', paddingLeft: 13, paddingTop:19}}>
-                        <Text style={{fontSize:13,}}>총평    </Text>
-                        <StarRating
-                            disabled={false}
-                            emptyStar={'ios-star'}
-                            fullStar={'ios-star'}
-                            halfStar={'ios-star-half'}
-                            iconSet={'Ionicons'}
-                            maxStars={5}
-                            fullStarColor={'#f8fa00'}
-                            halfStarColor={'#f8fa00'}
-                            halfStarEnabled={true}
-                            emptyStarColor={'#cfcfcf'}
-                            starSize={20}
-                            rating={this.state.starCount}
-                            selectedStar={(rating) => this.onStarRatingPress(rating)}
-                        />
+                        <Text style={{fontSize:13,paddingRight:10}}>총평</Text>
+                        <View style={{ width:100}}>
+                            <StarRating
+                                disabled={false}
+                                emptyStar={'ios-star'}
+                                fullStar={'ios-star'}
+                                halfStar={'ios-star-half'}
+                                iconSet={'Ionicons'}
+                                maxStars={5}
+                                fullStarColor={'#f8fa00'}
+                                halfStarColor={'#f8fa00'}
+                                halfStarEnabled={true}
+                                emptyStarColor={'#cfcfcf'}
+                                starSize={30}
+                                starStyle={{margin:5}}
+                                rating={this.state.starCount}
+                                selectedStar={(rating) => this.onStarRatingPress(rating)}
+                            />
+                        </View>
                     </View>
                     <View style ={{paddingTop:38,}}>
                         <Button buttonStyle={{
@@ -197,6 +203,7 @@ class EvaluationScreen extends React.Component {
                     </View>
                 </ScrollView>
             </SafeAreaView>
+            </KeyboardAwareScrollView>
         )
     }
 

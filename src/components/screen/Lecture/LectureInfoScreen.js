@@ -10,6 +10,7 @@ import * as lectureInfo from "../../../modules/lectureInfo";
 import {connect} from "react-redux";
 import {LectureReplyListItem} from "./ui/LectureReplyListItem";
 import styles from "./LectureInfoStyles";
+import {ScoreIndicator} from "./ui/ScoreIndicator";
 
 class LectureInfoScreen extends React.Component {
 
@@ -41,8 +42,7 @@ class LectureInfoScreen extends React.Component {
         const {LectureInfo} = this.props;
         return (
             <View style={{marginBottom: 20}}>
-                {this.props.loading ? <ActivityIndicator size="large" animating/> :
-                    (this.props.lectureReplyListLength < this.props.total ?
+                {(this.props.lectureReplyListLength < this.props.total ?
                         <Button title='더보기'
                                 onPress={() => LectureInfo.getLectureReplyList(this.props.lecture.lectureInfoIndex, this.props.currentPage, this.props.lectureReplyListLength)}/>
                         : null)}
@@ -74,22 +74,24 @@ class LectureInfoScreen extends React.Component {
     renderHeader = () => {
         return (
             <View style={styles.title}>
-                <View style={{alignSelf:'flex-start',width:'50%', paddingTop:10}}>
+                <View style={{alignSelf:'flex-start',width:'50%'}}>
                     <Text style={styles.renderHeaderTitle}>{this.props.lecture.lectureName}</Text>
                     <View style={{margin:5,width:'40%'}}>
-                        <StarRating
-                            disabled={true}
-                            emptyStar={'ios-star'}
-                            fullStar={'ios-star'}
-                            halfStar={'ios-star-half'}
-                            iconSet={'Ionicons'}
-                            maxStars={5}
-                            rating={Math.ceil(this.props.lecture.average * 2) / 2}
-                            fullStarColor={'#f5a623'}
-                            halfStarColor={'#f5a623'}
-                            halfStarEnabled={true}
-                            starSize={20}
-                        />
+                        <ScoreIndicator
+                            rating={Math.ceil(this.props.lecture.average * 2) / 2}/>
+                        {/*<StarRating*/}
+                            {/*disabled={true}*/}
+                            {/*emptyStar={'ios-star'}*/}
+                            {/*fullStar={'ios-star'}*/}
+                            {/*halfStar={'ios-star-half'}*/}
+                            {/*iconSet={'Ionicons'}*/}
+                            {/*maxStars={5}*/}
+                            {/*rating={Math.ceil(this.props.lecture.average * 2) / 2}*/}
+                            {/*fullStarColor={'#f5a623'}*/}
+                            {/*halfStarColor={'#f5a623'}*/}
+                            {/*halfStarEnabled={true}*/}
+                            {/*starSize={20}*/}
+                        {/*/>*/}
                     </View>
                     <Text style={{fontSize:11, opacity:40, paddingTop:15,color:'rgb(176,176,176)',paddingLeft:8}}>
                             {this.props.lecture.track} / {this.props.lecture.professorName} 교수님</Text>

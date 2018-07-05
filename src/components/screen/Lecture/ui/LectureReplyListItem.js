@@ -2,9 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 // import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
-import TimeAgo from 'react-native-timeago';
 import StarRating from 'react-native-star-rating';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {ScoreIndicator} from "./ScoreIndicator";
 
 export class LectureReplyListItem extends React.Component {
 
@@ -24,25 +24,27 @@ export class LectureReplyListItem extends React.Component {
                         <Text style={styles.replyNickName}>{this.props.lectureReply.userNickName}</Text>
                     </View>
                     <View style={styles.rightContainer}>
-                        <StarRating
-                            disabled={true}
-                            emptyStar={'ios-star'}
-                            fullStar={'ios-star'}
-                            halfStar={'ios-star-half'}
-                            iconSet={'Ionicons'}
-                            maxStars={5}
-                            rating={this.props.lectureReply.score}
-                            //rating={Math.ceil(this.props.lectureReply.score*2)/2}
-                            fullStarColor={'rgb(255,166,0)'}
-                            halfStarColor={'rgb(255,166,0)'}
-                            halfStarEnabled={true}
-                            emptyStarColor={'#cfcfcf'}
-                            starSize={20}
-                        />
+                        <ScoreIndicator
+                            rating={Math.ceil(this.props.lectureReply.score * 2) / 2}/>
+                        {/*<StarRating*/}
+                            {/*disabled={true}*/}
+                            {/*emptyStar={'ios-star'}*/}
+                            {/*fullStar={'ios-star'}*/}
+                            {/*halfStar={'ios-star-half'}*/}
+                            {/*iconSet={'Ionicons'}*/}
+                            {/*maxStars={5}*/}
+                            {/*rating={this.props.lectureReply.score}*/}
+                            {/*//rating={Math.ceil(this.props.lectureReply.score*2)/2}*/}
+                            {/*fullStarColor={'rgb(255,166,0)'}*/}
+                            {/*halfStarColor={'rgb(255,166,0)'}*/}
+                            {/*halfStarEnabled={true}*/}
+                            {/*emptyStarColor={'#cfcfcf'}*/}
+                            {/*starSize={20}*/}
+                        {/*/>*/}
                     </View>
                 </View>
-                <View style={{flexDirection: 'row',paddingLeft:15, paddingTop:10}}>
-                    <View style ={{width:'30%'}}>
+                <View style={{flexDirection: 'row',paddingLeft:15, paddingTop:15}}>
+                    <View style ={{width:'20%',paddingTop:5}}>
                         <Text style={styles.replyIndex}>수강학기</Text>
                         <Text style={styles.replyIndex}>과제 </Text>
                         <Text style={styles.replyIndex}>과제타입 </Text>
@@ -50,7 +52,7 @@ export class LectureReplyListItem extends React.Component {
                         <Text style={styles.replyIndex}>학점 </Text>
                      </View>
 
-                    <View style={{width:'70%',}}>
+                    <View style={{width:'80%',paddingLeft:-10}}>
                         <Text style={styles.replyContents}>{this.props.lectureReply.semester}</Text>
                         <Text style={styles.replyContents}>{this.props.lectureReply.homework}</Text>
                         <Text style={styles.replyContents}>{this.props.lectureReply.homeworkType}</Text>
@@ -58,7 +60,7 @@ export class LectureReplyListItem extends React.Component {
                         <Text style={styles.replyContents}>{this.props.lectureReply.receivedGrade}</Text>
                     </View>
                 </View>
-                <View style={{paddingLeft:15, paddingTop:40, height:40}}>
+                <View style={{paddingLeft:15, paddingTop:40}}>
                     <Text style={styles.replyContents}>{this.props.lectureReply.review}</Text>
                 </View>
 
@@ -89,8 +91,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         width:'100%',
         marginBottom:10,
-        paddingLeft:30,
-        paddingRight:30,
+        paddingLeft:20,
+        paddingRight:20,
         paddingTop:10,
         height: 275,
         backgroundColor: 'rgb(245,245,245)',
@@ -125,8 +127,7 @@ const styles = StyleSheet.create({
     },
     replyContents:{
         fontSize:12,
-        height:20,
-        margin:-3,
+        //margin:-3,
         color:'black',
         textAlign:'left',
     }
