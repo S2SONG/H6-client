@@ -137,17 +137,21 @@ class SignInScreen extends React.Component {
             SignIn.initSignInState();
             this.props.navigation.navigate('Home');
         } else {
-            Alert.alert(
-                '로그인 오류',
-                '아이디와 비밀번호를 확인해 주세요',
-                // ' ',
-                // '비밀번호가 일치하지 않습니다.',
-                [
-                    {text: 'OK', onPress: () => console.log('OK Pressed')},
-                ],
-                {cancelable: false}
-            )
+            SignIn.handleSignInCheck(true);
         }
+        SignIn.handleSignInCheck(false);
+        // else {
+        //     Alert.alert(
+        //         '로그인 오류',
+        //         '아이디와 비밀번호를 확인해 주세요',
+        //         // ' ',
+        //         // '비밀번호가 일치하지 않습니다.',
+        //         [
+        //             {text: 'OK', onPress: () => console.log('OK Pressed')},
+        //         ],
+        //         {cancelable: false}
+        //     )
+        // }
     };
     //회원가입 클릭 시 동의화면 이동
     handleSignUpModal = () => {
@@ -904,6 +908,7 @@ class SignInScreen extends React.Component {
                                         value={this.props.id}
                                         placeholder={'이메일'}
                                         icon={'user'}
+                                        bounce={this.props.signInCheck}
                                     />
                                     <SignTextInput
                                         handle={this.handleSignInPwd}
@@ -911,6 +916,7 @@ class SignInScreen extends React.Component {
                                         placeholder={'비밀번호'}
                                         icon={'lock'}
                                         secureText={true}
+                                        bounce={this.props.signInCheck}
                                     />
                                     {this.renderSignInButton()}
 
@@ -999,6 +1005,8 @@ export default connect((state) => ({
 
         findPwdResult: state.signin.findPwdResult,
         findPwdResultTitle: state.signin.findPwdResultTitle,
+
+        signInCheck: state.signin.signInCheck,
     }),
     (dispatch) => ({
         SignIn: bindActionCreators(signin, dispatch)

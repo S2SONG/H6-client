@@ -64,7 +64,7 @@ export class CustomModal extends React.Component {
 
     render() {
         return (
-            <Modal visible={this.props.visible} animationType = { 'slide' } transparent={true}>
+            <Modal visible={this.props.visible} animationType = { 'slide' } transparent={false} onRequestClose={() => {}}>
                 <View style={{flex: 1, backgroundColor:'#31313187', justifyContent: 'center', alignItems: 'center'}}>
                     {this.renderClose()}
                     <View style={{height: this.props.height, width: this.props.width, backgroundColor: this.props.background, borderRadius: 5}}>

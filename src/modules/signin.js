@@ -64,6 +64,7 @@ const FIND_PWD_CHECK_LABEL = 'FIND_PWD_CHECK_LABEL';
 
 const FIND_PWD_RESULT = 'FIND_PWD_RESULT';
 const FIND_PWD_RESULT_TITLE = 'FIND_PWD_RESULT_TITLE';
+const SIGN_IN_CHECK = 'SIGN_IN_CHECK';
 
 
 const initialState = {
@@ -128,11 +129,14 @@ const initialState = {
 
     findPwdResult: false,
     findPwdResultTitle: '',
+
+    signInCheck: false,
 };
 
 export const initSignInState = () => dispatch => {
     dispatch({type: SIGN_IN_ID, payload: ''});
     dispatch({type: SIGN_IN_PWD, payload: ''});
+    dispatch({type: SIGN_IN_CHECK, payload: false});
 };
 
 export const initSignUpState = () => dispatch => {
@@ -188,6 +192,10 @@ export const initSignUpState = () => dispatch => {
 
     dispatch({type:FIND_PWD_RESULT, payload: false});
     dispatch({type:FIND_PWD_RESULT_TITLE, payload: ''});
+};
+
+export const handleSignInCheck = (value) => dispatch => {
+  dispatch({type: SIGN_IN_CHECK, payload:value});
 };
 
 export const handleFindPwdCheckNo = (no) => dispatch => {
@@ -843,6 +851,12 @@ export default handleActions({
         return {
             ...state,
             findPwdResultTitle: action.payload,
+        }
+    },
+    [SIGN_IN_CHECK]: (state, action) => {
+        return {
+            ...state,
+            signInCheck: action.payload,
         }
     },
 }, initialState);
