@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, StatusBar} from 'react-native';
+import {View, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
 
@@ -7,8 +7,15 @@ export class TitleView extends React.Component {
 
     renderLeftIcon = () => {
         if (this.props.leftIcon)
-            return (<Icon style={styles.leftIcon} name={this.props.leftIcon} type='ionicon' size={24} color={'white'}
-                                 onPress={this.props.leftIconHandler}/>);
+            return (
+                <Icon
+                    iconStyle={styles.leftIcon}
+                    onPress={this.props.leftIconHandler}
+                    name={this.props.leftIcon}
+                    type='ionicon'
+                    size={24} color={'white'}
+                    underlayColor={'#7c828c00'}
+                />);
         return (<View style={styles.leftIcon}></View>);
     };
 
@@ -45,7 +52,7 @@ TitleView.propTypes = {
 
 const styles = StyleSheet.create({
     statusBar: {
-        backgroundColor: '#8f96a0',
+        backgroundColor: '#7c828c',
         height: StatusBar.currentHeight
     },
     titleBar: {
@@ -54,18 +61,19 @@ const styles = StyleSheet.create({
         height: 50,
         paddingLeft: 10,
         paddingRight: 10,
-        backgroundColor: '#8f96a0',
+        backgroundColor: '#7c828c',
     },
     titleBarText: {
         alignSelf: 'center',
         color: 'white',
-        fontSize: 18
+        fontSize: 18,
     },
     leftIcon: {
-        alignSelf: 'flex-start'
-
+        alignSelf: 'flex-start',
+        width:50,
     },
     rightIcon: {
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
+        width:50,
     }
 });

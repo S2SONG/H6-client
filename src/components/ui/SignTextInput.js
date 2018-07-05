@@ -39,9 +39,6 @@ export class SignTextInput extends React.Component {
             <View style = { { marginBottom: 7, alignItems: 'center' } }>
                 {this.renderLabel()}
                 <View style = { styles.inputLayout }>
-                    {/**<View style = { styles.inputIcon }>
-                        <Icon type = "font-awesome" name = { this.props.icon }/>
-                    </View>**/}
                     <TextInput
                         onBlur = {this.props.blur}
                         onChangeText = { this.props.handle }
@@ -49,6 +46,7 @@ export class SignTextInput extends React.Component {
                         secureTextEntry = { this.props.secureText }
                         style = { styles.input }
                         underlineColorAndroid = "transparent"
+                        placeholderTextColor= 'black'
                         placeholder = { this.props.placeholder }
                     />
                 </View>
@@ -73,14 +71,16 @@ SignTextInput.propTypes = {
 const styles = StyleSheet.create({
     inputLayout: {
         flexDirection: 'row',
-        height: 50,
-        width: '90%',
-        backgroundColor: '#f6f7f9',
+        height: 53,
+        width: 289,
+        backgroundColor: 'rgb(236,236,236)',
         paddingLeft: 10,
-        borderRadius:3,
+        borderRadius:26.5,
     },
     input: {
+        paddingLeft: 28,
         width: '100%',
+        fontSize: 14,
     },
     inputIcon: {
         marginRight: 10,

@@ -9,6 +9,7 @@ const SIGN_IN = 'SIGN_IN';
 const SIGN_IN_ID = 'SIGN_IN_ID';
 const SIGN_IN_PWD = 'SIGN_IN_PWD';
 const SIGN_IN_AUTO = 'SIGN_IN_AUTO';
+const SIGN_IN_BUTTON = 'SIGN_IN_BUTTON';
 
 const SIGN_UP_MODAL = 'SIGN_UP_MODAL';
 const FIND_PWD_MODAL = 'FIND_PWD_MODAL';
@@ -61,6 +62,9 @@ const FIND_PWD_USER_ID = 'FIND_PWD_USER_ID';
 const FIND_PWD_CHECK_NO = 'FIND_PWD_CHECK_NO';
 const FIND_PWD_CHECK_LABEL = 'FIND_PWD_CHECK_LABEL';
 
+const FIND_PWD_RESULT = 'FIND_PWD_RESULT';
+const FIND_PWD_RESULT_TITLE = 'FIND_PWD_RESULT_TITLE';
+
 
 const initialState = {
     sample: "",
@@ -69,6 +73,7 @@ const initialState = {
     login: false,
     id: '',
     pwd: '',
+    signInButton: false,
     register: false,
     currentPosition: 0,
     termsModal: false,
@@ -119,7 +124,10 @@ const initialState = {
     findPwd: false,
     findPwdUserId: '',
     findPwdCheckNo: 0,
-    findPwdCheckLabel: ''
+    findPwdCheckLabel: '',
+
+    findPwdResult: false,
+    findPwdResultTitle: '',
 };
 
 export const initSignInState = () => dispatch => {
@@ -175,6 +183,11 @@ export const initSignUpState = () => dispatch => {
     dispatch({type: FIND_PWD_USER_ID, payload: ''});
     dispatch({type: FIND_PWD_CHECK_NO, payload: 0});
     dispatch({type: FIND_PWD_CHECK_LABEL, payload: ''});
+
+    dispatch({type: SIGN_IN_BUTTON, payload: false});
+
+    dispatch({type:FIND_PWD_RESULT, payload: false});
+    dispatch({type:FIND_PWD_RESULT_TITLE, payload: ''});
 };
 
 export const handleFindPwdCheckNo = (no) => dispatch => {
@@ -342,6 +355,19 @@ export const handleSignUpTerm2 = (term) => dispatch => {
 
 export const handleTermsAll = (check) => dispatch => {
     dispatch({type: TERMS_ALL_CHECKED, payload: check});
+};
+
+export const handleSignInButton = (value) => dispatch => {
+    dispatch({type:SIGN_IN_BUTTON, payload: value});
+};
+
+export const handleFindPwdResult = (value) => dispatch => {
+    console.log('findpwdresult', value);
+    dispatch({type:FIND_PWD_RESULT, payload: value});
+};
+
+export const handleFindPwdResultTitle = (title) => dispatch => {
+    dispatch({type:FIND_PWD_RESULT_TITLE, payload: title});
 };
 
 export const signInUser = (userId, userPw) => async dispatch => {
@@ -800,5 +826,23 @@ export default handleActions({
             ...state,
             findPwdCheckLabel: action.payload,
         }
-    }
+    },
+    [SIGN_IN_BUTTON]: (state, action) => {
+        return {
+            ...state,
+            signInButton: action.payload,
+        }
+    },
+    [FIND_PWD_RESULT]: (state, action) => {
+        return {
+            ...state,
+            findPwdResult: action.payload,
+        }
+    },
+    [FIND_PWD_RESULT_TITLE]: (state, action) => {
+        return {
+            ...state,
+            findPwdResultTitle: action.payload,
+        }
+    },
 }, initialState);
