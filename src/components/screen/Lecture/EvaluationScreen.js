@@ -114,8 +114,8 @@ class EvaluationScreen extends React.Component {
 
     render() {
         return (
-            <KeyboardAwareScrollView>
             <SafeAreaView style={styles.container}>
+                <KeyboardAwareScrollView>
                 <StatusBar backgroundColor="#717882"
                            translucent={true}/>
                 <Toast ref="toast"/>
@@ -202,8 +202,8 @@ class EvaluationScreen extends React.Component {
                         }} onPress={this.saveReply} title="작성하기"/>
                     </View>
                 </ScrollView>
+                </KeyboardAwareScrollView>
             </SafeAreaView>
-            </KeyboardAwareScrollView>
         )
     }
 

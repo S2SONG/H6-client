@@ -55,7 +55,7 @@ class LectureInfoScreen extends React.Component {
     };
 
     navigationGoBack = () => {
-        this.props.navigation.goBack();
+        this.props.navigation.navigate('lecture');
     };
 
     navigationGoEval = () => {
