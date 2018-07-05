@@ -40,7 +40,7 @@ export const handleSearchText = (value) => dispatch => {
 export const getLectureList = (searchText, page, length) => async dispatch => {
     dispatch({type: LECTURE_LOADING, payload: true});
     const token = await AsyncStorage.getItem('token');
-    const url = searchText===''?`${ROOT_URL}/lecturesInfo?page=${page}&count=3`:`${ROOT_URL}/pageListLectureInfoBySearchTerm/${searchText}?page=${page}&count=3\``;
+    const url = searchText===''?`${ROOT_URL}/lecturesInfo?page=${page}&count=5`:`${ROOT_URL}/pageListLectureInfoBySearchTerm/${searchText}?page=${page}&count=3\``;
     const data = await fetch(url, {
         method: "GET",
         headers: {
