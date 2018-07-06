@@ -2,7 +2,8 @@ import {StyleSheet, StatusBar} from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor:'white',
     },
     statusBar: {
         backgroundColor: 'transparent',

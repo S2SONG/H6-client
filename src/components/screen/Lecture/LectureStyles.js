@@ -2,7 +2,8 @@ import {StatusBar, StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor:'white',
     },
     statusBar: {
         backgroundColor: '#8f96a0',
@@ -16,8 +17,8 @@ export default StyleSheet.create({
     },
     headerTitle:{
         paddingTop: 80,
-        fontSize: 17,
-        fontWeight: '900',
+        fontSize: 18,
+        fontWeight:'bold'
     },
     updateText:{
         fontSize:13,
