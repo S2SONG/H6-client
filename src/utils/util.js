@@ -30,3 +30,13 @@ util.timeSince = (date) => {
     }
     return Math.floor(seconds) + " 초전";
 };
+
+util.timeToFormat = (date, format) => {
+    let time = moment(date).format(format);
+    return time;
+};
+
+util.getTimerSecond = (date) => {
+    let seconds = Math.floor(new Date(date) - new Date(moment().utc(moment().format())));
+    return seconds;
+};

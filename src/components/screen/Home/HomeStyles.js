@@ -5,4 +5,10 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor:'white'
     },
+    contentContainer: {
+        paddingLeft:17,
+        paddingRight:17,
+        alignItems:'center',
+    }
+
 });
