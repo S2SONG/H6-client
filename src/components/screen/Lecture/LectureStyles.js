@@ -10,13 +10,14 @@ export default StyleSheet.create({
         height: StatusBar.currentHeight
     },
     header:{
-        height:270,
+        height:80,
         backgroundColor:'white',
         // justifyContent:'center',
         paddingLeft: 25,
+        paddingBottom:10
     },
     headerTitle:{
-        paddingTop: 80,
+        paddingTop: 50,
         fontSize: 18,
         fontWeight:'bold'
     },
@@ -24,13 +25,19 @@ export default StyleSheet.create({
         fontSize:13,
         color:'black',
         opacity:0.3,
-        paddingTop: 10,
+        fontWeight:'bold',
+        paddingBottom: 10,
+        //marginLeft:-280
     },
     searchContainer: {
-        paddingTop: 30,
-        width:'95%',
-        height: 130,
-        backgroundColor: 'white',
+        width:'90%',
+        height: 40,
+        alignSelf:'center',
+        shadowColor:'gray',
+        shadowOpacity:0.2,
+        shadowRadius:2,
+        shadowOffset:{width:1, height:4},
+        borderRadius:19.5
     },
     titleBar: {
         height: 50,

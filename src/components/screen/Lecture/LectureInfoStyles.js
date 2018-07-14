@@ -27,7 +27,7 @@ export default StyleSheet.create({
     },
     title:{
         flexDirection: 'row',
-        //justifyContent: 'flex-start',
+        justifyContent: 'flex-start',
         paddingTop: 10,
         paddingLeft: 10,
         paddingBottom: 20,

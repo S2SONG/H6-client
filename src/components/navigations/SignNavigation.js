@@ -9,6 +9,7 @@ import {HomeTabs} from "./HomeNavigation";
 import LectureInfoScreen from "../screen/Lecture/LectureInfoScreen";
 import InfoScreen from "../screen/Lecture/InfoScreen";
 import EvaluationScreen from "../screen/Lecture/EvaluationScreen";
+import AmendScreen from "../screen/Lecture/AmendScreen";
 
 //StackNavigation 사용
 // 로그인, 동의화면, 회원가입, 홈 네비게이션
@@ -35,6 +36,13 @@ const SignNav = createStackNavigator({
         },
     Evaluation:{
         screen: EvaluationScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    },
+    Amend:{
+        screen: AmendScreen,
         navigationOptions: {
             header: null,
             gesturesEnabled: false

@@ -1,31 +1,34 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Button, TouchableHighlight , TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
-export class ScoreIndicator extends React.Component {
+export class EvaluateScore extends React.Component {
 
     constructor(props) {
         super(props);
-    }
+        this.state={
+            count:0,
+            press: false
+        }
+    };
+
+    counter =()=> {
+        this.press = !this.press;
+        if(this.press) this.count ++;
+        else if (!this.press) this.count --;
+    };
 
     renderScore = () => {
-        const rating = this.props.rating;
-        const no = Math.abs(5-this.props.rating);
-        const data = Array.from({length: rating});
-        const data2 = Array.from({length:Math.ceil(no)});
+        const data = Array.from({length: 5});
         return (
             <View style={{flexDirection:'row'}}>
                 {data.map((_, i) => {
                     return (
                         <View key={i} style={{flexDirection: 'row'}}>
-                            <View style={styles.rectangleFocus}/>
-                        </View>
-                    )
-                })}
-                {data2.map((_,i) => {
-                    return (
-                        <View key={i} style={{flexDirection: 'row'}}>
-                            <View style={styles.rectangle}/>
+                            <TouchableOpacity style={ this.state.press ? styles.rectangleFocus : styles.rectangle}
+                                              onPress={console.log('점수++')}
+                            >
+                            </TouchableOpacity>
                         </View>
                     )
                 })}
@@ -42,22 +45,22 @@ export class ScoreIndicator extends React.Component {
     }
 }
 
-ScoreIndicator.propTypes={
-    rating:PropTypes.number
+EvaluateScore.propTypes={
+    selected:PropTypes.func
 };
 
 const styles = StyleSheet.create({
     rectangleFocus: {
-        width: 15,
-        height: 8,
+        width: 27,
+        height: 15,
         backgroundColor: '#f5a623',
-        margin:1,
+        margin:2,
         flexDirection:'column',
         borderRadius:7.5
     },
     rectangle:{
-        width: 15,
-        height: 8,
+        width: 27,
+        height: 15,
         backgroundColor: '#000000',
         opacity:0.2,
         margin:1,

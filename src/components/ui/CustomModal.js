@@ -113,7 +113,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'black',
         fontWeight: 'bold',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        textAlign: 'center'
     },
     body: {
         flex:1,

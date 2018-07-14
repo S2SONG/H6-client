@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StatusBar, SafeAreaView, FlatList, ActivityIndicator} from 'react-native';
+import {View, Text, StatusBar, SafeAreaView, FlatList, ActivityIndicator,ScrollView} from 'react-native';
 import {Button, Icon} from 'react-native-elements';
 import styles from "./LectureStyles";
 import * as lecture from "../../../modules/lecture";
@@ -22,6 +22,8 @@ class LectureScreen extends React.Component {
 
     renderListFooter = () => {
         const {Lecture} = this.props;
+        console.log('total:'+this.props.total);
+        console.log('lectureListLength'+this.props.lectureListLength);
         return (
             <View style={{marginBottom: 20}}>
                 {this.props.loading ? <ActivityIndicator size="large" animating/> :
@@ -46,14 +48,29 @@ class LectureScreen extends React.Component {
                     <Text>검색어를 확인해주세요.</Text>
                 </View>
             )
-        } else {
+        } else if(this.props.searchText == '') {
+            return (
+                <View style={styles.listContainer}>
+                    <View style={{width:'100%', paddingBottom:5 ,paddingLeft:15, paddingTop:20}}>
+                        <Text style={styles.updateText}>최신 업데이트</Text>
+                    </View>
+                    <FlatList
+                        style={{flexGrow: 1, backgroundColor: 'white'}}
+                        data={this.props.lectureList}
+                        keyExtractor={(x, i) => i}
+                        ListFooterComponent={this.renderListFooter}
+                        renderItem={({item}) => <LectureListItem lecture={item} navigation={this.props.navigation}/>}
+                    />
+                </View>
+            )
+        }else {
             return (
                 <View style={styles.listContainer}>
                     <FlatList
                         style={{flexGrow: 1, backgroundColor: 'white'}}
                         data={this.props.lectureList}
                         keyExtractor={(x, i) => i}
-                        // ListFooterComponent={this.renderListFooter}
+                        ListFooterComponent={this.renderListFooter}
                         renderItem={({item}) => <LectureListItem lecture={item} navigation={this.props.navigation}/>}
                     />
                 </View>
@@ -81,17 +98,20 @@ class LectureScreen extends React.Component {
                 />
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>강의평가</Text>
-                    <View style={styles.searchContainer}>
-                        <LectureSearchBar
-                            value={this.props.textValue}
-                            onChangeText={this.onChangeTextValue}
-                            searchHandler={this.searchHandler}
-                            placeholder={'과목명, 교수명, 과목코드, 트랙 중 하나를 입력하세요.'}
-                        />
-                    </View>
-                    <Text style={styles.updateText}>최신 업데이트</Text>
                 </View>
-                {this.renderList()}
+                <ScrollView>
+                    <View style={{padding:10,paddingBottom:10}}>
+                        <View style={styles.searchContainer}>
+                            <LectureSearchBar
+                                value={this.props.textValue}
+                                onChangeText={this.onChangeTextValue}
+                                searchHandler={this.searchHandler}
+                                placeholder={'과목명, 교수명, 과목코드, 트랙 중 하나를 입력하세요.'}
+                            />
+                        </View>
+                    </View>
+                    {this.renderList()}
+                </ScrollView>
             </SafeAreaView>
         )
     }

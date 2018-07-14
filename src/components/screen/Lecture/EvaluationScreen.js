@@ -8,8 +8,10 @@ import {Icon, Button} from 'react-native-elements';
 import {SemesterPicker} from "../../ui/SemesterPicker";
 import {EvaluateButton} from "./ui/EvaluateButton";
 import StarRating from 'react-native-star-rating';
-import Toast, {DURATION} from 'react-native-easy-toast'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {ScoreIndicator} from "./ui/ScoreIndicator";
+import {EvaluateScore} from "./ui/EvaluateScore";
+import {CustomModal} from "../../ui/CustomModal";
 
 class EvaluationScreen extends React.Component {
 
@@ -18,6 +20,7 @@ class EvaluationScreen extends React.Component {
         this.state = {
             starCount: 0,
             review: '',
+            visible:false
         };
     };
 
@@ -99,81 +102,102 @@ class EvaluationScreen extends React.Component {
     }; //댓글
 
     saveReply = async () => {
-        console.log("save");
         const {Evaluation} = this.props;
         let lectureInfoIndex = this.props.lecture.lectureInfoIndex;
         const {semester, homework, homeworkType, testCount, receivedGrade, review, score} = this.props;
 
         let saveCheck = await Evaluation.postReply(semester, homework, homeworkType, testCount, receivedGrade, review, score,lectureInfoIndex);
         if (saveCheck) {
-            this.refs.toast.show('작성되었습니다.');
-            this.props.navigation.navigate('LectureInfo',{lecture: this.props.lecture});
+            console.log('작성완료');
+            this.replyModalOpen();
         } else {
         }
+    };
+
+    replyModalOpen=()=>{
+        const {Evaluation} = this.props;
+        Evaluation.saveModal(true);
+    };
+    replyModalClose=()=>{
+        const {Evaluation} = this.props;
+        Evaluation.saveModal(false);
+        this.props.navigation.navigate('LectureInfo',{lecture: this.props.lecture});
     };
 
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <KeyboardAwareScrollView>
+                <CustomModal
+                    visible={this.props.visible} footerHandle={this.replyModalClose} height={156} width={280}
+                    title={'강의평이 작성되었습니다.'} footerText={'확인'} footer={true}/>
                 <StatusBar backgroundColor="#717882"
                            translucent={true}/>
-                <Toast ref="toast"/>
                 <View style={styles.statusBar}/>
-                <View style={styles.renderHeader}>
-                    <View style ={styles.titleBar}>
-                        <View style ={styles.arrow}>
-                            <Icon name={'ios-arrow-back-outline'} type='ionicon' size={30} color={'white'}
-                                onPress={this.navigationGoBack}/>
-                        </View>
-                        <View style={styles.title}>
-                            <Text style={styles.titleText}>강의평 쓰기</Text>
-                        </View>
+                <View>
+                    <View style ={styles.arrow}>
+                        <Icon name={"md-close"} type="ionicon" size={32} color={'black'}
+                              onPress={this.navigationGoBack}/>
+                    </View>
+                    <View style={styles.title}>
+                        <Text style={styles.titleText}>강의평 쓰기</Text>
                     </View>
                 </View>
 
+                <KeyboardAwareScrollView>
                 <ScrollView style={styles.container}>
-                    <Text style={{fontSize: 17, fontWeight: '700', paddingLeft : 15, paddingTop:30 }}>
-                        {this.props.lecture.lectureName} </Text>
-                    <Text style={{fontSize: 12, color:'rgb(124,130,140)', paddingLeft: 15, paddingBottom: 10 }}>
-                        {this.props.lecture.track} / {this.props.lecture.professorName}</Text>
-
-                    <Text style={styles.item}>수강학기</Text>
-                    <SemesterPicker handle={this.handleSemester}
-                                    value={this.props.semester}
-                                    placeholder={"수강학기 선택"}/>
-
-                    <Text style={styles.item}>과제</Text>
-                    <EvaluateButton buttonData={['없음','적음','보통','많음']}
-                                    handleGetScore = {this.handleHomework}
-                                    pressStatus={true}/>
-
-                    <Text style={styles.item}>과제타입</Text>
-                    <EvaluateButton buttonData={['팀 프로젝트','개인 프로젝트','레포트']}
-                                    handleGetScore = {this.handleHomeworkType}/>
-
-                    <Text style={styles.item}>시험횟수</Text>
-                    <EvaluateButton buttonData={['없음','1회', '2회','3회','4회이상']}
-                                    handleGetScore = {this.handleTestCount}/>
-
-                    <Text style={styles.item}>학점</Text>
-                    <EvaluateButton buttonData={['P/N','F','C~','B','A']}
-                                    handleGetScore = {this.handleReceivedGrade}/>
-
-                    <Text style={styles.item}>댓글</Text>
-                    <View style={{width:'100%', justifyContent:'flex-start', paddingLeft: 19}}>
-                        <TextInput
-                            style={styles.textBox}
-                            underlineColorAndroid = "transparent"
-                            placeholder = {'이곳에 강의평가를 해주세요'}
-                            multiline = {true}
-                            onChangeText = { this.handleReview}
-                        />
+                    <View style = {styles.lecture}>
+                        <Text style={{fontSize: 17, fontWeight: 'bold', paddingLeft : 20,color:'black', paddingTop:20}}>
+                            {this.props.lecture.lectureName} </Text>
+                        <Text style={{fontSize: 12, color:'black',opacity:0.4, paddingLeft: 20, paddingBottom: 10,paddingTop:10}}>
+                            {this.props.lecture.track} / {this.props.lecture.professorName}</Text>
                     </View>
+                    <View style = {{paddingLeft:10}}>
+                        <Text style={styles.item}>수강학기</Text>
+                        <SemesterPicker handle={this.handleSemester}
+                                        value={this.props.semester}
+                                        placeholder={"수강학기 선택"}/>
 
+                        <Text style={styles.item}>과제</Text>
+                        <EvaluateButton buttonData={['없음','적음','보통','많음']}
+                                        handleGetScore = {this.handleHomework}
+                                        pressStatus={0}
+                        />
+
+                        <Text style={styles.item}>과제타입</Text>
+                        <EvaluateButton buttonData={['팀 프로젝트','개인 프로젝트','레포트']}
+                                        handleGetScore = {this.handleHomeworkType}
+                                        pressStatus={0}
+                        />
+
+                        <Text style={styles.item}>시험횟수</Text>
+                        <EvaluateButton buttonData={['없음','1회', '2회','3회','4회이상']}
+                                        handleGetScore = {this.handleTestCount}
+                                        pressStatus={0}
+                        />
+
+                        <Text style={styles.item}>학점</Text>
+                        <EvaluateButton buttonData={['P/N','F','C~','B','A']}
+                                        handleGetScore = {this.handleReceivedGrade}
+                                        pressStatus={0}
+                        />
+
+                        <Text style={styles.item}>댓글</Text>
+                        <View style={{width:334, height:148, justifyContent:'flex-start',backgroundColor:'white', alignSelf:'center',
+                            borderColor:'rgb(216,216,216)',borderRadius:3, borderWidth: 1,}}>
+                            <TextInput
+                                style={styles.textBox}
+                                underlineColorAndroid = "transparent"
+                                placeholder = {'\n\n\n                   이 강의에 대한 자유로운 평가를\n'+'                      200자 안에서 작성해주세요.'}
+                                placeholderStyle = {{ textAlign:'center'}}
+                                multiline = {true}
+                                onChangeText = { this.handleReview}
+                            />
+                        </View>
+                    </View>
                     <View style={{justifyContent:'flex-start', flexDirection:'row', alignItems:'center', width: '50%', paddingLeft: 13, paddingTop:19}}>
                         <Text style={{fontSize:13,paddingRight:10}}>총평</Text>
                         <View style={{ width:100}}>
+                            <EvaluateScore selected={(rating)=>this.onStarRatingPress(rating)}/>
                             <StarRating
                                 disabled={false}
                                 emptyStar={'ios-star'}
@@ -218,6 +242,8 @@ export default connect((state) => ({
     receivedGrade:state.evaluation.receivedGrade,  //학점
     review:state.evaluation.review,              //댓글
     score:state.evaluation.score,              //총점
+    modal:state.evaluation.saveModal,
+    visible:state.evaluation.visible
     }),
     (dispatch) => ({
         Evaluation: bindActionCreators(evaluation, dispatch)

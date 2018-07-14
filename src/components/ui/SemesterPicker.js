@@ -53,6 +53,7 @@ export class SemesterPicker extends React.Component {
                         baseColor={'black'}
                         data={data}
                         onChangeText={this.props.handle}
+                        // defaltValue={this.props.value}
                     />
                 </View>
             </View>
@@ -64,7 +65,7 @@ export class SemesterPicker extends React.Component {
 SemesterPicker.propTypes = {
     handle: PropTypes.func,
     placeholder: PropTypes.string,
-    value: PropTypes.string
+    // value: PropTypes.value
 };
 
 const styles = StyleSheet.create({
