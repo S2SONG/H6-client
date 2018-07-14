@@ -11,6 +11,8 @@ const HOME_VOTE_ITEM_LIST_INIT = 'HOME_VOTE_ITEM_LIST_INIT';
 const HOME_PERCENT_1 = 'HOME_PERCENT_1';
 const HOME_PERCENT_2 = 'HOME_PERCENT_2';
 const HOME_SECOND = 'HOME_SECOND';
+const HOME_PAST_VOTE = 'HOME_PAST_VOTE';
+const HOME_PAST_VOTE_INIT = 'HOME_PAST_VOTE_INIT';
 
 const initialState = {
     voteItemList:[],
@@ -18,6 +20,7 @@ const initialState = {
     percent1: 0,
     percent2: 0,
     seconds:0,
+    pastVote: [],
 };
 
 export const initState = () => dispatch => {
@@ -26,6 +29,7 @@ export const initState = () => dispatch => {
     dispatch({type:HOME_PERCENT_1, payload: 0});
     dispatch({type:HOME_PERCENT_2, payload: 0});
     dispatch({type:HOME_SECOND, payload: 0});
+    dispatch({type:HOME_PAST_VOTE_INIT});
 };
 
 export const handleVoteTopic = (value) => dispatch => {
@@ -69,6 +73,25 @@ export const getVote = () => async dispatch => {
     }
 };
 
+export const getPastVote = (page, count) => async dispatch => {
+    const token = await AsyncStorage.getItem('token');
+    const result = await fetch(`${ROOT_URL}/pastVote?page=${page}&count=${count}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-access-token': token
+        }
+    });
+    const jsonData = await result.json();
+    console.log(jsonData);
+    if(jsonData.statusCode == 200) {
+        const past = jsonData.result;
+        dispatch({type: HOME_PAST_VOTE, payload: past});
+    }
+};
+
+
 export default handleActions({
     [HOME_VOTE_TOPIC]: (state, action) => {
         return {
@@ -107,5 +130,21 @@ export default handleActions({
             ...state,
             seconds: action.payload,
         }
-    }
+    },
+    [HOME_PAST_VOTE_INIT]: (state, action) => {
+        return {
+            ...state,
+            pastVote: [],
+        }
+    },
+    [HOME_PAST_VOTE]: (state, action) => {
+        return {
+            ...state,
+            pastVote: [
+                ...state.pastVote,
+                ...action.payload,
+            ]
+        }
+    },
+
 }, initialState)

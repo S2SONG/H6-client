@@ -9,6 +9,7 @@ import password from './password';
 import leave from './leave';
 import home from './home';
 import currentVote from './currentVote';
+import pastVote from './pastVote';
 
 export default combineReducers({
     signin,
@@ -21,4 +22,5 @@ export default combineReducers({
     leave,
     home,
     currentVote,
+    pastVote
 });

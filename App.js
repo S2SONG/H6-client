@@ -1,10 +1,8 @@
 import React from 'react';
 import {View, StyleSheet, BackHandler, StatusBar} from 'react-native';
-import {Constants} from 'expo';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-import { Font } from 'expo';
 import {SignNavigation} from "./src/components/navigations/SignNavigation";
 import reducer from "./src/modules";
 
@@ -14,7 +12,6 @@ export default class App extends React.Component {
 
     componentDidMount(){
         //안드로이드 back button handle
-        Font.loadAsync({'AppleSDGothicNeo': require('./assets/fonts/apple-sd-gothic-neo-medium.ttf'),});
         BackHandler.addEventListener('hardwareBackPress', function() {
             // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
             // Typically you would use the navigator here to go to the last state.
@@ -41,6 +38,5 @@ const styles = StyleSheet.create({
     },
     statusBar: {
         backgroundColor: '#000000',
-        height: Constants.statusBarHeight
     }
 });

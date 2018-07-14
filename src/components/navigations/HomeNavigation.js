@@ -18,6 +18,8 @@ import AccountScreen from "../screen/MyInfo/AccountScreen";
 import PasswordScreen from "../screen/MyInfo/PasswordScreen";
 import EvaluationScreen from "../screen/Lecture/EvaluationScreen";
 import CurrentVoteScreen from "../screen/Home/CurrentVoteScreen";
+import PastVoteListScreen from "../screen/Home/PastVoteListScreen";
+import PastVoteScreen from "../screen/Home/PastVoteScreen";
 
 //홈 Tab 네비게이션
 const TabBar = props => (
@@ -108,6 +110,20 @@ const HomeStack = createStackNavigator({
     },
     currentVote:{
         screen: CurrentVoteScreen,
+        navigationOptions: {
+            header:null,
+            gesturesEnabled: false,
+        }
+    },
+    pastVoteList:{
+        screen: PastVoteListScreen,
+        navigationOptions: {
+            header:null,
+            gesturesEnabled: false,
+        }
+    },
+    pastVote:{
+        screen: PastVoteScreen,
         navigationOptions: {
             header:null,
             gesturesEnabled: false,

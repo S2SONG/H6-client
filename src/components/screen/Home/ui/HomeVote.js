@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
 import {BoxShadow, BorderShadow} from 'react-native-shadow';
 
