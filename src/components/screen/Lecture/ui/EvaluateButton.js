@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 
 export class EvaluateButton extends React.Component{
     getScore = (value,i) => {
-        this.state.pressButton = i;
+        this.state.pressButton = value;
         this.props.handleGetScore(value);
     };
 
     constructor(props) {
         super(props);
-        this.state = { pressButton: undefined }
+        this.state = {
+            pressButton: this.props.pressStatus
+        }
     }
 
     render(){
@@ -20,15 +22,14 @@ export class EvaluateButton extends React.Component{
                     return (
                         <TouchableHighlight
                             key={i}
-                            style={this.state.pressButton==i|| this.props.pressStatus==item ? styles.focus : styles.button }
+                            style={this.state.pressButton==item ? styles.focus : styles.button }
                             underlayColor='black'
                             onPress={()=>this.getScore(item,i)}
                             value={item}
                         >
-                            <Text style={this.state.pressButton==i || this.props.pressStatus==item ? styles.focusTitle : styles.title}>
+                            <Text style={this.state.pressButton==item  ? styles.focusTitle : styles.title}>
                               {item}
                             </Text>
-                            {/*|| this.props.pressStatus==item*/}
                         </TouchableHighlight>
                     )
                 })}
@@ -40,7 +41,7 @@ export class EvaluateButton extends React.Component{
 EvaluateButton.propTypes = {
     buttonData:PropTypes.array,
     handleGetScore: PropTypes.func,
-    pressStatus:PropTypes.number
+    pressStatus:PropTypes.string
 };
 
 const styles = StyleSheet.create({

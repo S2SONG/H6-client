@@ -22,8 +22,6 @@ class LectureScreen extends React.Component {
 
     renderListFooter = () => {
         const {Lecture} = this.props;
-        console.log('total:'+this.props.total);
-        console.log('lectureListLength'+this.props.lectureListLength);
         return (
             <View style={{marginBottom: 20}}>
                 {this.props.loading ? <ActivityIndicator size="large" animating/> :

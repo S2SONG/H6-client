@@ -7,15 +7,30 @@ export class EvaluateScore extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            count:0,
-            press: false
+            count: this.props.rating,
+            press: [false,false,false,false,false]
+        };
+        var num;
+        for(num=0; num < this.state.count ; num++){
+            this.state.press[num] = true;
+            console.log(this.state.count, this.state.press[num])
+        }
+        for(num=this.state.count; num<5; num ++){
+            this.state.press[num] = false;
         }
     };
 
-    counter =()=> {
-        this.press = !this.press;
-        if(this.press) this.count ++;
-        else if (!this.press) this.count --;
+    getScore = (i) => {
+        this.state.count = i+1;
+        var num;
+        for(num=0; num < this.state.count ; num++){
+            this.state.press[num] = true;
+            console.log(this.state.count, this.state.press[num])
+        }
+        for(num=this.state.count; num<5; num ++){
+            this.state.press[num] = false;
+        }
+        this.props.handleGetScore(this.state.count);
     };
 
     renderScore = () => {
@@ -25,10 +40,12 @@ export class EvaluateScore extends React.Component {
                 {data.map((_, i) => {
                     return (
                         <View key={i} style={{flexDirection: 'row'}}>
-                            <TouchableOpacity style={ this.state.press ? styles.rectangleFocus : styles.rectangle}
-                                              onPress={console.log('점수++')}
-                            >
-                            </TouchableOpacity>
+                            <TouchableHighlight
+                                key={i}
+                                style={this.state.press[i]==true ? styles.rectangleFocus : styles.rectangle }
+                                onPress={()=>this.getScore(i)}
+                            ><View/>
+                            </TouchableHighlight>
                         </View>
                     )
                 })}
@@ -46,7 +63,8 @@ export class EvaluateScore extends React.Component {
 }
 
 EvaluateScore.propTypes={
-    selected:PropTypes.func
+    rating:PropTypes.number,
+    handleGetScore: PropTypes.func,
 };
 
 const styles = StyleSheet.create({

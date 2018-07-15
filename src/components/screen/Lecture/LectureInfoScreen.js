@@ -42,7 +42,6 @@ class LectureInfoScreen extends React.Component {
         const {Evaluation} = this.props;
         await Evaluation.initReplyState();
         await Evaluation.getReplyIndex(this.props.lecture.lectureInfoIndex);
-        console.log('didmount'+this.props.reply.lectureReplyIndex);
     };
 
     renderListFooter = () => {
@@ -96,31 +95,21 @@ class LectureInfoScreen extends React.Component {
         )
     };
 
-    getLectureReplyIndex = () => {
-        const {Evaluation} = this.props;
-        Evaluation.getReplyIndex(this.props.lecture.lectureInfoIndex);
-    };
-
     renderCheck =() => {
-        // const replyIndex = this.props.reply.lectureReplyIndex;
-        // console.log(replyIndex);
-        // this.getLectureReplyIndex();
-        // if(this.props.lecture.lectureInfoIndex!=undefined)
-        console.log(this.props.reply.lectureReplyIndex);
-        return(
-            <View style={{width:'85%', alignSelf:'flex-start', paddingRight:-20}}>
-                <Icon
-                    name='kebab-horizontal'
-                    type='octicon'
-                    color='black'
-                    onPress={this.renderModalPicker}/>
-            </View>
-        )
-        // else return(
-        //     <View><Text title={'글써야대'}/></View>
-        // )
+        if(this.props.reply==""){
+            return null;
+        } else {
+            return (
+                    <View style={{width:'85%', alignSelf:'flex-start', paddingRight:-20}}>
+                        <Icon
+                            name='kebab-horizontal'
+                            type='octicon'
+                            color='black'
+                            onPress={this.renderModalPicker}/>
+                    </View>
+            );
+        }
     };
-
 
     renderWrite = () => {
         return(
@@ -128,6 +117,18 @@ class LectureInfoScreen extends React.Component {
                 <Icon name='note' type='simple-line-icon' color={'white'} />
             </View>
         )
+    };
+    renderWriteButton = () => {
+        const {Evaluation} = this.props;
+        Evaluation.checkGetLectureReply(this.props.lecture.lectureInfoIndex);
+        if(!this.props.check) return null;
+        else return(
+                <ActionButton
+                    buttonColor={'#4a4a4a'}
+                    renderIcon = {this.renderWrite}
+                    onPress={() =>this.navigationGoEval()}>
+                </ActionButton>
+            )
     };
 
     renderModalPicker = () => {
@@ -151,6 +152,7 @@ class LectureInfoScreen extends React.Component {
     removeReplyModalClose = () => {
         const {Evaluation} = this.props;
         Evaluation.removeReplyModal(false);
+        this.props.navigation.navigate('lecture'); //
     };
 
     onChangeHeaderTitle = (check) => {
@@ -158,8 +160,13 @@ class LectureInfoScreen extends React.Component {
         LectureInfo.onChangeHeaderTitle(check);
     };
 
-    removeReply = () => {
-        //리플 삭제
+    removeReply = async () => {
+        const {Evaluation} = this.props;
+        await Evaluation.deleteReply(this.props.reply.lectureReplyIndex);
+        // this.forceUpdate();
+        this.removeReplyModalClose();
+        // this.props.navigation.navigate('LectureInfo');
+        // Evaluation.removeReplyModal(false);
     };
 
     render() {
@@ -182,11 +189,12 @@ class LectureInfoScreen extends React.Component {
                         renderItem={({item}) => <LectureReplyListItem lectureReply={item}/>}
                         />
                 </ScrollView>
-                <ActionButton
-                    buttonColor={'#4a4a4a'}
-                    renderIcon = {this.renderWrite}
-                    onPress={() =>this.navigationGoEval()}>
-                </ActionButton>
+                {this.renderWriteButton()}
+                {/*<ActionButton*/}
+                    {/*buttonColor={'#4a4a4a'}*/}
+                    {/*renderIcon = {this.renderWrite}*/}
+                    {/*onPress={() =>this.navigationGoEval()}>*/}
+                {/*</ActionButton>*/}
                 <CustomModal
                     visible={this.props.removeModal} close={this.removeReplyModalClose} height={172} width={280}
                     title={'신중한 삭제를 위해 한번 더 생각해주세요.\n정말 삭제하시겠어요?'} footerText={'삭제'} footer={true} footerHandle={this.removeReply}/>
@@ -204,7 +212,8 @@ export default connect((state) => ({
         total: state.lectureInfo.total,
         lectureReplyListLength: state.lectureInfo.lectureReplyListLength,
         removeModal:state.evaluation.removeModal,
-        reply:state.evaluation.reply
+        reply:state.evaluation.reply,
+        check:state.evaluation.check
     }),
     (dispatch) => ({
         LectureInfo: bindActionCreators(lectureInfo, dispatch),

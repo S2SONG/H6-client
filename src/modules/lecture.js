@@ -48,7 +48,7 @@ export const getLectureList = (searchText, page, length) => async dispatch => {
         }
     });
     const jsonData = await data.json();
-    console.log(length);
+    console.log(jsonData);
 
     dispatch({type: LECTURE_LIST, payload: jsonData.result});
     dispatch({type: LECTURE_TOTAL, payload: jsonData.resultCount});

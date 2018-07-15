@@ -30,6 +30,7 @@ class EvaluationScreen extends React.Component {
     evaluationInit = async () =>{
         const {Evaluation} = this.props;
         await Evaluation.initReplyState();
+        await Evaluation.getReplyIndex(this.props.lecture.lectureInfoIndex);
     };
 
     navigationGoBack = () => {
@@ -155,30 +156,27 @@ class EvaluationScreen extends React.Component {
                         <Text style={styles.item}>수강학기</Text>
                         <SemesterPicker handle={this.handleSemester}
                                         value={this.props.semester}
-                                        placeholder={"수강학기 선택"}/>
+                                        placeholder={"수강학기 선택"}
+                                        defaultValue={"수강학기 선택"}/>
 
                         <Text style={styles.item}>과제</Text>
                         <EvaluateButton buttonData={['없음','적음','보통','많음']}
                                         handleGetScore = {this.handleHomework}
-                                        pressStatus={0}
                         />
 
                         <Text style={styles.item}>과제타입</Text>
                         <EvaluateButton buttonData={['팀 프로젝트','개인 프로젝트','레포트']}
                                         handleGetScore = {this.handleHomeworkType}
-                                        pressStatus={0}
                         />
 
                         <Text style={styles.item}>시험횟수</Text>
                         <EvaluateButton buttonData={['없음','1회', '2회','3회','4회이상']}
                                         handleGetScore = {this.handleTestCount}
-                                        pressStatus={0}
                         />
 
                         <Text style={styles.item}>학점</Text>
                         <EvaluateButton buttonData={['P/N','F','C~','B','A']}
                                         handleGetScore = {this.handleReceivedGrade}
-                                        pressStatus={0}
                         />
 
                         <Text style={styles.item}>댓글</Text>
@@ -187,33 +185,37 @@ class EvaluationScreen extends React.Component {
                             <TextInput
                                 style={styles.textBox}
                                 underlineColorAndroid = "transparent"
-                                placeholder = {'\n\n\n                   이 강의에 대한 자유로운 평가를\n'+'                      200자 안에서 작성해주세요.'}
+                                placeholder = {'\n\n                이 강의에 대한 자유로운 평가를\n'+'                   200자 안에서 작성해주세요.'}
                                 placeholderStyle = {{ textAlign:'center'}}
                                 multiline = {true}
                                 onChangeText = { this.handleReview}
+                                maxLength={200}
                             />
                         </View>
                     </View>
                     <View style={{justifyContent:'flex-start', flexDirection:'row', alignItems:'center', width: '50%', paddingLeft: 13, paddingTop:19}}>
                         <Text style={{fontSize:13,paddingRight:10}}>총평</Text>
                         <View style={{ width:100}}>
-                            <EvaluateScore selected={(rating)=>this.onStarRatingPress(rating)}/>
-                            <StarRating
-                                disabled={false}
-                                emptyStar={'ios-star'}
-                                fullStar={'ios-star'}
-                                halfStar={'ios-star-half'}
-                                iconSet={'Ionicons'}
-                                maxStars={5}
-                                fullStarColor={'#f8fa00'}
-                                halfStarColor={'#f8fa00'}
-                                halfStarEnabled={true}
-                                emptyStarColor={'#cfcfcf'}
-                                starSize={30}
-                                starStyle={{margin:5}}
-                                rating={this.state.starCount}
-                                selectedStar={(rating) => this.onStarRatingPress(rating)}
+                            <EvaluateScore
+                                rating = {this.state.starCount}
+                                handleGetScore={(rating)=>this.onStarRatingPress(rating)}
                             />
+                            {/*<StarRating*/}
+                                {/*disabled={false}*/}
+                                {/*emptyStar={'ios-star'}*/}
+                                {/*fullStar={'ios-star'}*/}
+                                {/*halfStar={'ios-star-half'}*/}
+                                {/*iconSet={'Ionicons'}*/}
+                                {/*maxStars={5}*/}
+                                {/*fullStarColor={'#f8fa00'}*/}
+                                {/*halfStarColor={'#f8fa00'}*/}
+                                {/*halfStarEnabled={true}*/}
+                                {/*emptyStarColor={'#cfcfcf'}*/}
+                                {/*starSize={30}*/}
+                                {/*starStyle={{margin:5}}*/}
+                                {/*rating={this.state.starCount}*/}
+                                {/*selectedStar={(rating) => this.onStarRatingPress(rating)}*/}
+                            {/*/>*/}
                         </View>
                     </View>
                     <View style ={{paddingTop:38,}}>

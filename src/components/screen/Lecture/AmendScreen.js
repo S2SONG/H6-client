@@ -10,22 +10,29 @@ import {EvaluateButton} from "./ui/EvaluateButton";
 import StarRating from 'react-native-star-rating';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {CustomModal} from "../../ui/CustomModal";
+import {EvaluateScore} from "./ui/EvaluateScore";
 
 class AmendScreen extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            visible:false
+            visible:false,
+            semester:this.props.reply.semester,
+            homework:this.props.reply.homework,
+            homeworkType:this.props.reply.homeworkType,
+            testCount:this.props.reply.testCount,
+            receivedGrade:this.props.reply.receivedGrade,
+            review:this.props.reply.review,
+            score:this.props.reply.score
         };
+        const {Evaluation} = this.props;
+        Evaluation.getReplyIndex(this.props.lecture.lectureInfoIndex);
+        this.testCountChangeType(this.state.testCount);
     };
 
     componentDidMount() {
-        const {Evaluation} = this.props;
         this.evaluationInit();
-        const lectureReplyIndex = this.props.lectureReplyIndex;
-        Evaluation.getCurrentReply(lectureReplyIndex);
-        console.log('getReply');
     };
     evaluationInit = async () =>{
         const {Evaluation} = this.props;
@@ -43,7 +50,7 @@ class AmendScreen extends React.Component {
     }; //수강학기
     onStarRatingPress(rating) {
         this.setState({
-            starCount: rating
+            score: rating
         });
         this.handleScore(rating);
     }; //별점
@@ -81,9 +88,9 @@ class AmendScreen extends React.Component {
         const {Evaluation} = this.props;
         let lectureInfoIndex = this.props.lecture.lectureInfoIndex;
         const {semester, homework, homeworkType, testCount, receivedGrade, review, score} = this.props;
-
-        let saveCheck = await Evaluation.updateReply(semester, homework, homeworkType, testCount, receivedGrade, review, score,lectureInfoIndex);
-        if (saveCheck) {
+        const lectureReplyIndex = this.props.reply.lectureReplyIndex;
+        let updateCheck = await Evaluation.updateLectureReply(semester, homework, homeworkType, testCount, receivedGrade, review, score,lectureInfoIndex,lectureReplyIndex);
+        if (updateCheck) {
             console.log('수정완료');
             this.replyModalOpen();
         } else {
@@ -98,6 +105,14 @@ class AmendScreen extends React.Component {
         const {Evaluation} = this.props;
         Evaluation.saveModal(false);
         this.props.navigation.navigate('LectureInfo',{lecture: this.props.lecture});
+    };
+
+    testCountChangeType = (testCount) => {
+        if(testCount===0) this.state.testCount = "없음";
+        if(testCount===1) this.state.testCount = "1회";
+        if(testCount===2) this.state.testCount = "2회";
+        if(testCount===3) this.state.testCount = "3회";
+        if(testCount===4) this.state.testCount = "4회이상";
     };
 
     render() {
@@ -131,28 +146,29 @@ class AmendScreen extends React.Component {
                             <Text style={styles.item}>수강학기</Text>
                             <SemesterPicker handle={this.handleSemester}
                                             value={this.props.semester}
-                                            placeholder={"수강학기 선택"}/>
+                                            placeholder={"수강학기 선택"}
+                                            defaultValue={this.state.semester}/>
 
                             <Text style={styles.item}>과제</Text>
                             <EvaluateButton buttonData={['없음','적음','보통','많음']}
                                             handleGetScore = {this.handleHomework}
-                                            // pressStatus={this.props.currentReply.homework}
+                                            pressStatus={this.state.homework}
                                             />
                             <Text style={styles.item}>과제타입</Text>
                             <EvaluateButton buttonData={['팀 프로젝트','개인 프로젝트','레포트']}
                                             handleGetScore = {this.handleHomeworkType}
-                                            // pressStatus={this.props.currentReply.homeworkType}
+                                            pressStatus={this.state.homeworkType}
                                             />
 
                             <Text style={styles.item}>시험횟수</Text>
                             <EvaluateButton buttonData={['없음','1회', '2회','3회','4회이상']}
                                             handleGetScore = {this.handleTestCount}
-                                            // pressStatus={this.props.currentReply.testCount}/>
+                                            pressStatus={this.state.testCount}
                                             />
                             <Text style={styles.item}>학점</Text>
                             <EvaluateButton buttonData={['P/N','F','C~','B','A']}
                                             handleGetScore = {this.handleReceivedGrade}
-                                            // pressStatus={this.props.currentReply.receivedGrade}
+                                            pressStatus={this.state.receivedGrade}
                                             />
 
                             <Text style={styles.item}>댓글</Text>
@@ -163,32 +179,35 @@ class AmendScreen extends React.Component {
                                     underlineColorAndroid = "transparent"
                                     placeholderStyle = {{ textAlign:'center'}}
                                     multiline = {true}
+                                    defaultValue = {this.state.review}
                                     onChangeText = {this.handleReview}
                                     maxLength={200}
-                                    // defaultValue={this.props.currentReply.review}
                                 />
                             </View>
                         </View>
                         <View style={{justifyContent:'flex-start', flexDirection:'row', alignItems:'center', width: '50%', paddingLeft: 13, paddingTop:19}}>
                             <Text style={{fontSize:13,paddingRight:10}}>총평</Text>
                             <View style={{ width:100}}>
-                                {/*<EvaluateScore selected={(rating)=>this.onPress(rating)}/>*/}
-                                <StarRating
-                                    disabled={false}
-                                    emptyStar={'ios-star'}
-                                    fullStar={'ios-star'}
-                                    halfStar={'ios-star-half'}
-                                    iconSet={'Ionicons'}
-                                    maxStars={5}
-                                    fullStarColor={'#f8fa00'}
-                                    halfStarColor={'#f8fa00'}
-                                    halfStarEnabled={true}
-                                    emptyStarColor={'#cfcfcf'}
-                                    starSize={30}
-                                    starStyle={{margin:5}}
-                                    rating={this.state.starCount}
-                                    selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                <EvaluateScore
+                                    rating = {this.state.score}
+                                    handleGetScore={(rating)=>this.onStarRatingPress(rating)}
                                 />
+                                {/*<StarRating*/}
+                                    {/*disabled={false}*/}
+                                    {/*emptyStar={'ios-star'}*/}
+                                    {/*fullStar={'ios-star'}*/}
+                                    {/*halfStar={'ios-star-half'}*/}
+                                    {/*iconSet={'Ionicons'}*/}
+                                    {/*maxStars={5}*/}
+                                    {/*fullStarColor={'#f8fa00'}*/}
+                                    {/*halfStarColor={'#f8fa00'}*/}
+                                    {/*halfStarEnabled={true}*/}
+                                    {/*emptyStarColor={'#cfcfcf'}*/}
+                                    {/*starSize={30}*/}
+                                    {/*starStyle={{margin:5}}*/}
+                                    {/*rating={this.state.score}*/}
+                                    {/*selectedStar={(rating) => this.onStarRatingPress(rating)}*/}
+                                {/*/>*/}
                             </View>
                         </View>
                         <View style ={{paddingTop:38,}}>
@@ -198,7 +217,7 @@ class AmendScreen extends React.Component {
                                 width: 224,
                                 height:58,
                                 alignSelf: 'center'
-                            }} onPress={this.saveReply} title="작성하기"/>
+                            }} onPress={this.saveReply} title="수정하기"/>
                         </View>
                     </ScrollView>
                 </KeyboardAwareScrollView>
@@ -219,7 +238,9 @@ export default connect((state) => ({
         score:state.evaluation.score,              //총점
         modal:state.evaluation.saveModal,
         visible:state.evaluation.visible,
-        currentReply:state.evaluation.currentReply
+        currentReply:state.evaluation.currentReply,
+        reply:state.evaluation.reply,
+        updateReply:state.evaluation.updateReply
     }),
     (dispatch) => ({
         Evaluation: bindActionCreators(evaluation, dispatch)
