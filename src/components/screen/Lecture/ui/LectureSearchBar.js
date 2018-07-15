@@ -17,8 +17,8 @@ export class LectureSearchBar extends React.Component {
                 />
                 <Icon
                     containerStyle={styles.iconStyle}
-                    name='md-search'
-                    type='ionicon'
+                    name='search'
+                    type='evilicon'
                     color='black'
                     //underlayColor={'#f6f7f9'}
                     onPress={this.props.searchHandler}
@@ -39,15 +39,12 @@ LectureSearchBar.propTypes = {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingLeft: 2,
-        backgroundColor: 'transparent',
-        height: 40,
-        borderBottomColor: 'black',
-        borderBottomWidth: 2
+        paddingLeft:10
     },
     inputStyle: {
         flex:1,
-        fontSize:12
+        fontSize:12,
+        paddingLeft:5
     },
     iconStyle: {
         width:30,

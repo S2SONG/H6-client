@@ -46,13 +46,14 @@ export class SemesterPicker extends React.Component {
                 }} onPress={this.onPress}
                 >
                     <Dropdown
-                        value={'수강학기선택'}
+                        value={this.props.defaultValue}
                         containerStyle={{marginBottom:15, marginLeft:10}}
                         rippleOpacity={0}
                         shadeOpacity={0}
                         baseColor={'black'}
                         data={data}
                         onChangeText={this.props.handle}
+                        // defaltValue={this.props.value}
                     />
                 </View>
             </View>
@@ -64,7 +65,7 @@ export class SemesterPicker extends React.Component {
 SemesterPicker.propTypes = {
     handle: PropTypes.func,
     placeholder: PropTypes.string,
-    value: PropTypes.string
+    defaultValue: PropTypes.string
 };
 
 const styles = StyleSheet.create({

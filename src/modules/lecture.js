@@ -40,7 +40,7 @@ export const handleSearchText = (value) => dispatch => {
 export const getLectureList = (searchText, page, length) => async dispatch => {
     dispatch({type: LECTURE_LOADING, payload: true});
     const token = await AsyncStorage.getItem('token');
-    const url = searchText===''?`${ROOT_URL}/lecturesInfo?page=${page}&count=5`:`${ROOT_URL}/pageListLectureInfoBySearchTerm/${searchText}?page=${page}&count=3\``;
+    const url = searchText===''?`${ROOT_URL}/lecturesInfo?page=${page}&count=4`:`${ROOT_URL}/pageListLectureInfoBySearchTerm/${searchText}?page=${page}&count=6\``;
     const data = await fetch(url, {
         method: "GET",
         headers: {
@@ -48,6 +48,8 @@ export const getLectureList = (searchText, page, length) => async dispatch => {
         }
     });
     const jsonData = await data.json();
+    console.log(jsonData);
+
     dispatch({type: LECTURE_LIST, payload: jsonData.result});
     dispatch({type: LECTURE_TOTAL, payload: jsonData.resultCount});
     dispatch({type: CURRENT_PAGE, payload: page + 1});

@@ -4,7 +4,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor:'white',
-        paddingLeft:10
+        // paddingLeft:10
     },
     statusBar: {
         backgroundColor: '#8f96a0',
@@ -31,18 +31,25 @@ export default StyleSheet.create({
         paddingTop:10,
         width:35,
         height:50,
-        alignSelf:'flex-start',
+        alignSelf:'flex-end',
+        marginRight:20
     },
     title:{
         backgroundColor:'transparent',
-        alignSelf: 'center',
-        paddingLeft:100,
+        alignSelf: 'flex-start',
+        paddingLeft:20,
+        paddingBottom:10
     },
     titleText:{
-        fontSize: 18,
-        color: 'white',
+        fontSize: 17,
+        color: 'black',
+        fontWeight:'bold'
     },
-
+    lecture:{
+        backgroundColor: 'rgb(246,246,246)',
+        width:375,
+        height:81
+    },
     item:{
         fontSize: 13,
         margin : 10,
@@ -54,14 +61,9 @@ export default StyleSheet.create({
         backgroundColor:'rgb(216,216,216)',
     },
     textBox:{
-        height: 82,
-        width: 325,
-        backgroundColor:'white',
-        alignSelf:'flex-start',
-        borderColor:'rgb(216,216,216)',
-        borderRadius:3,
-        borderWidth: 1,
-        padding: 3,
+        margin:10,
+        marginTop:10,
+        marginBottom:10,
     }
 
 });

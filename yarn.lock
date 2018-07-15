@@ -5557,9 +5557,15 @@ react-native-animatable@^1.3.0:
   dependencies:
     prop-types "^15.5.10"
 
+<<<<<<< HEAD
+react-native-branch@2.0.0-beta.3:
+  version "2.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.0.0-beta.3.tgz#2167af86bbc9f964bd45bd5f37684e5b54965e32"
+=======
 react-native-branch@2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
+>>>>>>> fbd1cd2821ca5b1693c69951b53d9a193d17f160
 
 react-native-button@^2.3.0:
   version "2.3.0"
@@ -5610,9 +5616,19 @@ react-native-elements@^0.19.0:
     opencollective "^1.0.3"
     prop-types "^15.5.8"
 
+<<<<<<< HEAD
+react-native-enhanced-actionsheet@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-enhanced-actionsheet/-/react-native-enhanced-actionsheet-1.4.0.tgz#b3bd51774bcee1c4ecdd13401639b8b17f2eb9d4"
+
+react-native-gesture-handler@1.0.0-alpha.39:
+  version "1.0.0-alpha.39"
+  resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.0.0-alpha.39.tgz#e87851d5efc49d2d91ebf76ad59b7b5d1fd356f5"
+=======
 react-native-gesture-handler@1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.0.4.tgz#1cc13eeffe34dcd6fe4f415c05b08823de9c7584"
+>>>>>>> fbd1cd2821ca5b1693c69951b53d9a193d17f160
   dependencies:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.2"
@@ -5651,12 +5667,18 @@ react-native-keyboard-aware-scroll-view@^0.6.0:
     prop-types "^15.6.0"
     react-native-iphone-x-helper "^1.0.1"
 
+<<<<<<< HEAD
+react-native-maps@0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.19.0.tgz#ce94fad1cf360e335cb4338a68c95f791e869074"
+=======
 react-native-maps@0.21.0:
   version "0.21.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.21.0.tgz#005f58e93d7623ad59667e8002101970ddf235c2"
   dependencies:
     babel-plugin-module-resolver "^2.3.0"
     babel-preset-react-native "1.9.0"
+>>>>>>> fbd1cd2821ca5b1693c69951b53d9a193d17f160
 
 react-native-material-bottom-navigation@^0.9.0:
   version "0.9.0"
@@ -5695,6 +5717,10 @@ react-native-material-textfield@^0.12.0:
   resolved "https://registry.yarnpkg.com/react-native-material-textfield/-/react-native-material-textfield-0.12.0.tgz#3fba19d76ab89f67052c81e082152fc243d82a3f"
   dependencies:
     prop-types "^15.5.9"
+
+react-native-modal-picker@^0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/react-native-modal-picker/-/react-native-modal-picker-0.0.16.tgz#c9324d880a3bb8f36b772f378164977e2f431cbc"
 
 react-native-modal@^5.4.0:
   version "5.4.0"
