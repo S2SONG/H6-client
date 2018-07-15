@@ -1,6 +1,5 @@
 import React from 'react';
 import {Alert, View, Text, Picker, ScrollView} from 'react-native';
-import {LinearGradient} from 'expo';
 import {Button} from 'react-native-elements';
 // import DatePicker from 'react-native-datepicker';
 import styles from "./SignUpStyles";
@@ -114,7 +113,7 @@ class SignUpScreen extends React.Component {
         const {userNickName, userId, userPw, userRePw, email, major, minor, doubleMajor, connectedMajor, admissionYear} = this.state;
 
         return (
-            <LinearGradient
+            <View
                 colors={[config.main_background_color1, config.main_background_color2, config.main_background_color3]}
                 style={styles.container}
             >
@@ -186,7 +185,7 @@ class SignUpScreen extends React.Component {
                         buttonStyle={styles.button}
                     />
                 </View>
-            </LinearGradient>
+            </View>
         );
     }
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {StackNavigator, createStackNavigator} from 'react-navigation';
-import {Constants} from 'expo';
 import SignInScreen from "../screen/SignIn/SignInScreen";
 import SignUpScreen from "../screen/SignUp/SignUpScreen";
 import {TermsScreen} from "../screen/Terms/TermsScreen";
@@ -62,10 +61,3 @@ export class SignNavigation extends React.Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    statusBar: {
-        backgroundColor: '#000000',
-        height: Constants.statusBarHeight
-    }
-});

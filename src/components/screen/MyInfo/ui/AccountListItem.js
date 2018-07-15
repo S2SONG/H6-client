@@ -13,12 +13,18 @@ export class AccountListItem extends React.Component {
         if(color === undefined){
             return {
                     fontSize: 13,
-                    color: '#d8d8d8'
+                    color: '#d8d8d8',
+                    alignSelf:'center',
+                    alignItems:'center',
+                    justifyContent:'center',
             }
         } else {
             return {
                     fontSize: 13,
-                    color: color
+                    color: color,
+                    alignSelf:'center',
+                    alignItems:'center',
+                    justifyContent:'center',
             }
         }
     };
@@ -28,16 +34,15 @@ export class AccountListItem extends React.Component {
                 underlayColor={'#8f96a0'}
                 style={styles.container}
                 onPress={this.props.handle}>
-                <View style={{flex:1, flexDirection:'row', justifyContent: 'space-between',}}>
+                <View style={{flex:1, flexDirection:'row', justifyContent: 'space-between'}}>
                     <Text style={styles.text}>{this.props.title}</Text>
+                    <View/>
                     <View style={styles.right}>
                         {this.props.right === undefined ? null:
                             <Text style={this.returnTextStyle(this.props.rightTextColor)}>{this.props.right}</Text>}
                         {this.props.handle === undefined ? <View style={styles.rightIcon}></View>:
                             <Icon style={styles.rightIcon} name='ios-arrow-forward' type='ionicon' color={'#d8d8d8'}/>}
                     </View>
-
-
                 </View>
             </TouchableHighlight>
         )
@@ -54,24 +59,23 @@ AccountListItem.propTypes = {
 const styles = StyleSheet.create({
     container: {
         height: 34,
-        paddingTop: 9,
-        paddingBottom: 9,
         paddingLeft: 14,
         paddingRight: 15,
         backgroundColor: 'white',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     text: {
         fontSize: 13,
-        alignSelf: 'flex-start'
+        alignSelf: 'center',
+        justifyContent:'center',
     },
     right:{
         flexDirection:'row',
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
+        alignSelf: 'center',
+        justifyContent:'center'
     },
     rightIcon: {
         width:25,
-        alignSelf:'center'
+        alignSelf:'center',
     }
 });

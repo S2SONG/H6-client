@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Dimensions} from 'react-native';
 import {Icon} from 'react-native-elements';
+import {BoxShadow} from 'react-native-shadow';
 import PropTypes from 'prop-types';
 
 export class TitleView extends React.Component {
@@ -13,7 +14,7 @@ export class TitleView extends React.Component {
                     onPress={this.props.leftIconHandler}
                     name={this.props.leftIcon}
                     type='ionicon'
-                    size={24} color={'white'}
+                    size={24} color={'black'}
                     underlayColor={'#7c828c00'}
                 />);
         return (<View style={styles.leftIcon}></View>);
@@ -21,20 +22,37 @@ export class TitleView extends React.Component {
 
     renderRightIcon = () => {
         if (this.props.rightIcon)
-            return (<Icon style={styles.rightIcon} name={this.props.rightIcon} type='ionicon' size={24} color={'white'}
+            return (<Icon style={styles.rightIcon} name={this.props.rightIcon} type='ionicon' size={24} color={'black'}
                           onPress={this.props.rightIconHandler}/>);
         return (<View style={styles.rightIcon}></View>);
     };
 
+
     render() {
+        const shadowOpt = {
+            width:Dimensions.get('window').width,
+            height:104,
+            color:"#000",
+            border:2,
+            radius:3,
+            opacity:0.1,
+            x:0,
+            y:2,
+            style:{marginVertical:5}
+        };
         return (
             <View>
                 <View style={styles.statusBar}></View>
-                <View style={styles.titleBar}>
-                    {this.renderLeftIcon()}
-                    <Text style={styles.titleBarText}>{this.props.title}</Text>
-                    {this.renderRightIcon()}
-                </View>
+                <BoxShadow setting={shadowOpt}>
+                    <View style={styles.titleBarIconView}>
+                        {this.renderLeftIcon()}
+                        <View style={styles.titleBarBlank}></View>
+                        {this.renderRightIcon()}
+                    </View>
+                    <View style={styles.titleBar}>
+                        <Text style={styles.titleBarText}>{this.props.title}</Text>
+                    </View>
+                </BoxShadow>
             </View>
         )
     }
@@ -52,28 +70,37 @@ TitleView.propTypes = {
 
 const styles = StyleSheet.create({
     statusBar: {
-        backgroundColor: '#7c828c',
+        backgroundColor: '#ffffff',
         height: StatusBar.currentHeight
     },
     titleBar: {
+        height: 52,
+        justifyContent: 'flex-end',
+        paddingLeft: 20,
+        paddingBottom: 20,
+        backgroundColor: 'white',
+    },
+    titleBarIconView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height: 50,
-        paddingLeft: 10,
-        paddingRight: 10,
-        backgroundColor: '#7c828c',
+        backgroundColor: 'white',
+        height: 52,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    titleBarBlank: {
+        width: 10,
     },
     titleBarText: {
-        alignSelf: 'center',
-        color: 'white',
+        color: 'black',
         fontSize: 18,
     },
     leftIcon: {
         alignSelf: 'flex-start',
-        width:50,
+        width: 50,
     },
     rightIcon: {
         alignSelf: 'flex-end',
-        width:50,
+        width: 50,
     }
 });

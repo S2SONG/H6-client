@@ -6,8 +6,8 @@ import {InfoListItem} from "./ui/InfoListItem";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import * as myinfo from "../../../modules/myinfo";
-import {TitleView} from "../../ui/TitleView";
 import config from '../../../../config';
+import {TitleView} from "../../ui/TitleView";
 
 class MyInfoScreen extends React.Component {
 
@@ -144,13 +144,12 @@ class MyInfoScreen extends React.Component {
         return (
             <SafeAreaView style={styles.container}>
                 <TitleView title={'마이페이지'}/>
+                <ScrollView >
                 <View style={styles.profile}>
                     <Icon type='ionicon' name='ios-contact' size={60}/>
                     <Text style={styles.profileNickName}>{this.props.userId}</Text>
                     <Text style={styles.profileId}>{this.props.userNickName}</Text>
                 </View>
-                <ScrollView style={styles.container}>
-
                     <View style={styles.contentContainer}>
                         <View style={styles.subject}><Text style={styles.baseText}> Account </Text></View>
                         {this.renderAccount()}

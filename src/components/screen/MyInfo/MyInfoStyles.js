@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:'white'
     },
     profile: {
         height: 150,
@@ -11,10 +12,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
-        // borderTopWidth: 2,
-        // borderBottomWidth: 2,
-        // borderTopColor: '#dddce0',
-        // borderBottomColor: '#dddce0',
     },
     profileId: {
         margin: 2,
@@ -32,7 +29,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     baseText: {
-        fontFamily: 'AppleSDGothicNeo'
+        // fontFamily: 'AppleSDGothicNeo'
     },
     contentContainer: {
         flex: 1,

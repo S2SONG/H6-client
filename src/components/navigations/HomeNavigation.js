@@ -2,7 +2,7 @@ import React from "react";
 import {SafeAreaView} from 'react-native';
 import {StackNavigator, TabNavigator, createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
-import {HomeScreen} from "../screen/Home/HomeScreen";
+import HomeScreen from "../screen/Home/HomeScreen";
 import MyInfoScreen from "../screen/MyInfo/MyInfoScreen";
 import {Icon} from 'react-native-elements';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
@@ -17,6 +17,9 @@ import MailAuthScreen from "../screen/MyInfo/MailAuthScreen";
 import AccountScreen from "../screen/MyInfo/AccountScreen";
 import PasswordScreen from "../screen/MyInfo/PasswordScreen";
 import EvaluationScreen from "../screen/Lecture/EvaluationScreen";
+import CurrentVoteScreen from "../screen/Home/CurrentVoteScreen";
+import PastVoteListScreen from "../screen/Home/PastVoteListScreen";
+import PastVoteScreen from "../screen/Home/PastVoteScreen";
 
 //홈 Tab 네비게이션
 const TabBar = props => (
@@ -97,9 +100,43 @@ const LectureTab = createStackNavigator({
         headerMode: 'screen'
 });
 
+const HomeStack = createStackNavigator({
+    home:{
+        screen: HomeScreen,
+        navigationOptions: {
+            header:null,
+            gesturesEnabled: false,
+        }
+    },
+    currentVote:{
+        screen: CurrentVoteScreen,
+        navigationOptions: {
+            header:null,
+            gesturesEnabled: false,
+        }
+    },
+    pastVoteList:{
+        screen: PastVoteListScreen,
+        navigationOptions: {
+            header:null,
+            gesturesEnabled: false,
+        }
+    },
+    pastVote:{
+        screen: PastVoteScreen,
+        navigationOptions: {
+            header:null,
+            gesturesEnabled: false,
+        }
+    }
+},{
+    initialRouteName: 'home',
+    headerMode: 'screen'
+});
+
 export const HomeTabs = createMaterialBottomTabNavigator({
         Home: {
-            screen: HomeScreen,
+            screen: HomeStack,
             navigationOptions: {
                 header:null,
                 labeled:false,

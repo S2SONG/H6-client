@@ -137,6 +137,7 @@ export const initSignInState = () => dispatch => {
     dispatch({type: SIGN_IN_ID, payload: ''});
     dispatch({type: SIGN_IN_PWD, payload: ''});
     dispatch({type: SIGN_IN_CHECK, payload: false});
+    dispatch({type: SIGN_IN_BUTTON, payload: false});
 };
 
 export const initSignUpState = () => dispatch => {
@@ -187,8 +188,6 @@ export const initSignUpState = () => dispatch => {
     dispatch({type: FIND_PWD_USER_ID, payload: ''});
     dispatch({type: FIND_PWD_CHECK_NO, payload: 0});
     dispatch({type: FIND_PWD_CHECK_LABEL, payload: ''});
-
-    dispatch({type: SIGN_IN_BUTTON, payload: false});
 
     dispatch({type:FIND_PWD_RESULT, payload: false});
     dispatch({type:FIND_PWD_RESULT_TITLE, payload: ''});

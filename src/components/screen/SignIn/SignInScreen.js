@@ -785,8 +785,7 @@ class SignInScreen extends React.Component {
         return (
 
             <KeyboardAvoidingView
-                style={styles.container}
-                behavior="padding">
+                style={styles.container}>
 
                 <CustomModal
                     visible={this.props.findPwd}
@@ -866,19 +865,6 @@ class SignInScreen extends React.Component {
                             </View>
                         </View>
                     </Modal>
-                    {/*<SignInFindPwdModal*/}
-                        {/*visible={this.props.findPwd}*/}
-                        {/*title={'비밀번호 찾기'}*/}
-                        {/*body={'가입시 입력한 이메일로\n임시 비밀번호를 전송합니다.'}*/}
-                        {/*placeholder={'이메일을 입력해주세요.'}*/}
-                        {/*footerText={'이메일 전송'}*/}
-                        {/*closeModal={this.handleFindPwdModalClose}*/}
-                        {/*value={this.props.findPwdUserId}*/}
-                        {/*handle={this.handleFindPwdUserId}*/}
-                        {/*checkNo={this.props.findPwdCheckNo}*/}
-                        {/*checkLabel={this.props.findPwdCheckLabel}*/}
-                        {/*sendPwd={this.sendFindPwd}*/}
-                    {/*/>*/}
                     <ScrollView contentContainerStyle={{flexGrow: 1}} style={{flex: 1}}>
                         <View style={{flex: 1}}>
                             <StatusBar barStyle="dark-content"/>
