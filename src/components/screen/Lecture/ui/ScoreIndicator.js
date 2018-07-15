@@ -11,7 +11,7 @@ export class ScoreIndicator extends React.Component {
     renderScore = () => {
         const rating = this.props.rating;
         const no = Math.abs(5-this.props.rating);
-        const data = Array.from({length: rating});
+        const data = Array.from({length: Math.floor(rating)});
         const data2 = Array.from({length:Math.ceil(no)});
         return (
             <View style={{flexDirection:'row'}}>

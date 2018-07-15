@@ -19,17 +19,23 @@ class PasswordScreen extends React.Component {
           keyboardSpace: 0,
         };
 
-        Keyboard.addListener('keyboardDidShow', (frames) => {
-            if (!frames.endCoordinates) return;
-            this.setState({keyboardSpace: frames.endCoordinates.height});
-        });
-        Keyboard.addListener('keyboardDidHide', (frames) => {
-            this.setState({keyboardSpace: 0})
-        });
+
+    }
+
+    componentWillUnmount () {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
     }
 
     componentDidMount() {
         this.props.Password.initState();
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (frames) => {
+            if (!frames.endCoordinates) return;
+            this.setState({keyboardSpace: frames.endCoordinates.height});
+        });
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', (frames) => {
+            this.setState({keyboardSpace: 0})
+        });
     }
 
     navigationBack = () => {
