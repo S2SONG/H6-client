@@ -3,6 +3,8 @@ import { StyleSheet, Modal, ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-elements';
 import HTML from 'react-native-render-html';
 import PropTypes from 'prop-types';
+import {Icon} from 'react-native-elements';
+
 export class TermsModal extends React.Component{
     constructor(props){
         super(props);
@@ -18,19 +20,36 @@ export class TermsModal extends React.Component{
                 animationType = { 'slide' }
                 onRequestClose = { this.props.closeModal }
             >
-                <View style = { styles.modalContainer } >
-                    <ScrollView style = { styles.innerContainer } >
-                        <Text h3 style = { styles.headerText }>{ this.props.title }</Text>
-                        <HTML html={this.props.htmlContent}/>
-                    </ScrollView>
-                    <View style = { styles.buttonContainer }>
-                        <Button
-                            onPress = { this.props.closeModal }
-                            title = "닫기"
-                        />
+                <View style={{ flex: 1,justifyContent:'center', alignItems:'center', backgroundColor:'#31313187'}}>
+                    <View style={{height:670,width:400,borderRadius: 200}}>
+                        <View name='header' style={{flex:1, height:60, width:'100%', padding:15, alignItems:'flex-end'}}>
+                            {/*<Icon name="md-close" type="ionicon" style={{alignSelf: 'flex-end'}}*/}
+                            {/*onPress={this.props.closeModal}/>*/}
+                            <View style={{height: 42, width: this.props.width, alignItems: 'flex-end',borderRadius:200}}>
+                                <Icon name={'ios-close-circle-outline'}
+                                      type='ionicon'
+                                      color='#ffffff'
+                                      style={{alignSelf: 'flex-end'}}
+                                      size={35}
+                                      underlayColor={'#7c828c00'}
+                                      onPress={this.props.closeModal}/>
+                            </View>
+                            <View style = { styles.modalContainer } >
+                                <ScrollView style = { styles.innerContainer } >
+                                    <Text h3 style = { styles.headerText }>{ this.props.title }</Text>
+                                    <HTML html={this.props.htmlContent}/>
+                                </ScrollView>
+                            </View>
+
+                            {/*<View style = { styles.buttonContainer }>*/}
+                            {/*<Button*/}
+                            {/*onPress = { this.props.closeModal }*/}
+                            {/*title = "닫기"*/}
+                            {/*/>*/}
+                            {/*</View>*/}
+                        </View>
                     </View>
                 </View>
-
             </Modal>
         )
     }
@@ -55,7 +74,7 @@ const styles = StyleSheet.create({
         padding : 10,
     },
     headerText : {
-      textAlign : 'center'
+        textAlign : 'center'
     },
     buttonContainer : {
         height : 60,
