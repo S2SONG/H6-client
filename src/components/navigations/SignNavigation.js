@@ -9,12 +9,35 @@ import LectureInfoScreen from "../screen/Lecture/LectureInfoScreen";
 import InfoScreen from "../screen/Lecture/InfoScreen";
 import EvaluationScreen from "../screen/Lecture/EvaluationScreen";
 import AmendScreen from "../screen/Lecture/AmendScreen";
-
+import SignUpScreen1 from "../screen/SignUp/SignUpScreen1";
+import SignUpScreen2 from "../screen/SignUp/SignUpScreen2";
+import SignUpScreen3 from "../screen/SignUp/SignUpScreen3";
 //StackNavigation 사용
 // 로그인, 동의화면, 회원가입, 홈 네비게이션
 const SignNav = createStackNavigator({
     SignIn: {
         screen: SignInScreen,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    },
+    SignUpOne: {
+        screen: SignUpScreen1,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    },
+    SignUpTwo :{
+        screen: SignUpScreen2,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    },
+    SignUpThree:{
+        screen: SignUpScreen3,
         navigationOptions: {
             header: null,
             gesturesEnabled: false

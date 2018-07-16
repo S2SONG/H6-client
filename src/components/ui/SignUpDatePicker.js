@@ -1,24 +1,25 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import PropTypes from 'prop-types';
-import DatePicker from 'react-native-datepicker';
+import {Dropdown} from 'react-native-material-dropdown';
 
 export class SignUpDatePicker extends React.Component {
 
     render() {
+        console.log(this.props.year);
         return (
-                <View style={styles.container}>
-                    <DatePicker
-                        style={{width: '100%'}}
-                        date={this.props.value}
-                        mode="date"
-                        placeholder={this.props.placeholder}
-                        format="YYYY-MM-DD"
-                        confirmBtnText="확인"
-                        cancelBtnText="취소"
-                        onDateChange={this.props.handle}
-                    />
-                </View>
+            <View style={styles.container}>
+                <Dropdown
+                    containerStyle={{ marginLeft:10}}
+                    rippleOpacity={0}
+                    shadeOpacity={0}
+                    baseColor={'black'}
+                    value={this.props.placeholder}
+                    data={this.props.year}
+                    onChangeText={this.props.handle}
+                    onFocus={this.props.focus}
+                />
+            </View>
         )
     }
 }
@@ -26,7 +27,8 @@ export class SignUpDatePicker extends React.Component {
 SignUpDatePicker.propTypes = {
     handle: PropTypes.func,
     placeholder: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
+    year:PropTypes.array
 };
 
 const styles = StyleSheet.create({
