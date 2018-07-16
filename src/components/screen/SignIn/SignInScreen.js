@@ -71,13 +71,13 @@ class SignInScreen extends React.Component {
             keyboardSpace: 0,
             findPwd: false,
         };
-        Keyboard.addListener('keyboardDidShow', (frames) => {
-            if (!frames.endCoordinates) return;
-            this.setState({keyboardSpace: frames.endCoordinates.height});
-        });
-        Keyboard.addListener('keyboardDidHide', (frames) => {
-            this.setState({keyboardSpace: 0})
-        });
+        // Keyboard.addListener('keyboardDidShow', (frames) => {
+        //     if (!frames.endCoordinates) return;
+        //     this.setState({keyboardSpace: frames.endCoordinates.height});
+        // });
+        // Keyboard.addListener('keyboardDidHide', (frames) => {
+        //     this.setState({keyboardSpace: 0})
+        // });
 
     }
 
@@ -567,8 +567,8 @@ class SignInScreen extends React.Component {
                             flex: 1,
                             justifyContent: 'center',
                             alignItems: 'center',
-                            paddingTop: this.state.keyboardSpace ? 50 : 0,
-                            paddingBottom: this.state.keyboardSpace ? 65 : 0
+                            // paddingTop: this.state.keyboardSpace ? 50 : 0,
+                            // paddingBottom: this.state.keyboardSpace ? 65 : 0
                         }} behavior="padding" enabled>
                             <SignUpTextInput handle={this.handleStateUserId}
                                              value={this.props.userId}
@@ -785,7 +785,8 @@ class SignInScreen extends React.Component {
         return (
 
             <KeyboardAvoidingView
-                style={styles.container}>
+                style={styles.container}
+                behavior="padding" enabled>
 
                 <CustomModal
                     visible={this.props.findPwd}
