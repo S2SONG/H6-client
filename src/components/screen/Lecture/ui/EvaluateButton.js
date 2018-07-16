@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, Text, StyleSheet,TouchableHighlight} from 'react-native';
 import PropTypes from 'prop-types';
+import {BoxShadow} from 'react-native-shadow';
 
 export class EvaluateButton extends React.Component{
     getScore = (value,i) => {
@@ -16,8 +17,18 @@ export class EvaluateButton extends React.Component{
     }
 
     render(){
+        const shadowOpt = {
+            color:"#000",
+            border:1,
+            radius:3,
+            opacity:0.2,
+            borderRadius: 3,
+            alignSelf:'flex-start',
+            marginRight:10,
+            padding:10,
+        }
         return(
-            <View style={[styles.container]}>
+            <View style={styles.container}>
                 {this.props.buttonData.map((item,i) => {
                     return (
                         <TouchableHighlight
@@ -61,6 +72,9 @@ const styles = StyleSheet.create({
         shadowOpacity:0.5,
         shadowRadius:3,
         shadowOffset:{width:2, height:4},
+        borderBottomWidth:1,
+        borderRightWidth:1,
+        borderColor:'gray',
     },
     focus:{
         backgroundColor: '#4a4a4a',
@@ -71,7 +85,10 @@ const styles = StyleSheet.create({
         shadowColor:'gray',
         shadowOpacity:0.5,
         shadowRadius:3,
-        shadowOffset:{width:2, height:4}
+        shadowOffset:{width:2, height:4},
+        borderBottomWidth:1,
+        borderRightWidth:1,
+        borderColor:'gray',
     },
     title:{
         fontSize:13,

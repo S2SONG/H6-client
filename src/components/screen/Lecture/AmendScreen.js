@@ -33,6 +33,7 @@ class AmendScreen extends React.Component {
 
     componentDidMount() {
         this.evaluationInit();
+        if(this.props.review==="") this.handleReview(this.state.review);
     };
     evaluationInit = async () =>{
         const {Evaluation} = this.props;
@@ -81,7 +82,8 @@ class AmendScreen extends React.Component {
     }; //학점
     handleReview=(review)=>{
         const {Evaluation} = this.props;
-        Evaluation.handleReview(review);
+        if(review!="")Evaluation.handleReview(review);
+        else Evaluation.handleReview(this.state.review);
     }; //댓글
 
     saveReply = async () => {
@@ -90,6 +92,7 @@ class AmendScreen extends React.Component {
         const {semester, homework, homeworkType, testCount, receivedGrade, review, score} = this.props;
         const lectureReplyIndex = this.props.reply.lectureReplyIndex;
         let updateCheck = await Evaluation.updateLectureReply(semester, homework, homeworkType, testCount, receivedGrade, review, score,lectureInfoIndex,lectureReplyIndex);
+        // console.log('update>>',this.props.updateReply);
         if (updateCheck) {
             console.log('수정완료');
             this.replyModalOpen();
@@ -104,7 +107,12 @@ class AmendScreen extends React.Component {
     replyModalClose=()=>{
         const {Evaluation} = this.props;
         Evaluation.saveModal(false);
-        this.props.navigation.navigate('LectureInfo',{lecture: this.props.lecture});
+        // this.props.navigation.navigate('LectureInfo',{lecture: this.props.lecture});
+        console.log('update>>',this.props.updateReply);
+        this.props.navigation.navigate('lecture',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList,});
+        this.props.navigation.goBack();
+        this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList, reply: this.props.updateReply});
+        // this.props.navigation.navigate('LectureInfo',{lecture: this.props.lecture, lectureReplyList: this.props.lectureReplyList, reply: this.props.updateReply});
     };
 
     testCountChangeType = (testCount) => {
@@ -212,7 +220,7 @@ class AmendScreen extends React.Component {
                         </View>
                         <View style ={{paddingTop:38,}}>
                             <Button buttonStyle={{
-                                backgroundColor: '#8f96a0',
+                                backgroundColor: '#4a4a4a',
                                 borderRadius: 30,
                                 width: 224,
                                 height:58,

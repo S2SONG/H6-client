@@ -5494,6 +5494,10 @@ react-native-action-button@^2.8.4:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-actionsheet-native@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-actionsheet-native/-/react-native-actionsheet-native-0.0.2.tgz#245cd4e3ed8291155b26693d58ac788ebb5dd1a6"
+
 react-native-animatable@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.2.4.tgz#b5fb7657e8f6edadbc26697057a327fb920b3039"

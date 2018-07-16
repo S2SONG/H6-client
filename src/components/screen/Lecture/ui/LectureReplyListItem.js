@@ -52,7 +52,7 @@ export class LectureReplyListItem extends React.Component {
                         <Text style={styles.replyIndex}>학점 </Text>
                      </View>
 
-                    <View style={{width:'80%',paddingLeft:-10}}>
+                    <View style={{width:'80%', paddingTop:5, paddingLeft:-10}}>
                         <Text style={styles.replyContents}>{this.props.lectureReply.semester}</Text>
                         <Text style={styles.replyContents}>{this.props.lectureReply.homework}</Text>
                         <Text style={styles.replyContents}>{this.props.lectureReply.homeworkType}</Text>
@@ -127,8 +127,10 @@ const styles = StyleSheet.create({
     },
     replyContents:{
         fontSize:12,
+        height:20,
         //margin:-3,
         color:'black',
         textAlign:'left',
+        margin:-3
     }
 });
