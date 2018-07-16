@@ -65,7 +65,15 @@ const FIND_PWD_CHECK_LABEL = 'FIND_PWD_CHECK_LABEL';
 const FIND_PWD_RESULT = 'FIND_PWD_RESULT';
 const FIND_PWD_RESULT_TITLE = 'FIND_PWD_RESULT_TITLE';
 const SIGN_IN_CHECK = 'SIGN_IN_CHECK';
+const SIGN_IN_SCREEN1_BUTTON = 'SIGN_IN_SCREEN1_BUTTON';
+const SIGN_IN_SCREEN1_BUTTON2 = 'SIGN_IN_SCREEN1_BUTTON2';
+const SIGN_IN_SCREEN2_BUTTON='SIGN_IN_SCREEN2_BUTTON';
+const SIGN_IN_SCREEN3_BUTTON='SIGN_IN_SCREEN3_BUTTON';
 
+const ADMISSION_YEAR='ADMISSION_YEAR';
+
+const TRACK_LIST='TRACK_LIST';
+const MAJOR_CHECK='MAJOR_CHECK';
 
 const initialState = {
     sample: "",
@@ -131,13 +139,23 @@ const initialState = {
     findPwdResultTitle: '',
 
     signInCheck: false,
+    signInScreen1Button:'#ffffff',
+    signInScreen1Button2:'#c5c4c4',
+    signInScreen2Button:'#c5c4c4',
+    signInScreen3Button:'#c5c4c4',
+
+    track:[],
+    year:[],
+    majorCheck:true
+
 };
 
 export const initSignInState = () => dispatch => {
     dispatch({type: SIGN_IN_ID, payload: ''});
     dispatch({type: SIGN_IN_PWD, payload: ''});
     dispatch({type: SIGN_IN_CHECK, payload: false});
-    dispatch({type: SIGN_IN_BUTTON, payload: false});
+    dispatch({type: SIGN_IN_BUTTON, payload: true});
+
 };
 
 export const initSignUpState = () => dispatch => {
@@ -146,7 +164,7 @@ export const initSignUpState = () => dispatch => {
     dispatch({type: SIGN_UP_USER_RE_PWD, payload: ''});
     dispatch({type: SIGN_UP_USER_NICKNAME, payload: undefined});
     dispatch({type: SIGN_UP_USER_EMAIL, payload: ''});
-    dispatch({type: SIGN_UP_MAJOR, payload: ''});
+    dispatch({type: SIGN_UP_MAJOR, payload: undefined});
     dispatch({type: SIGN_UP_MINOR, payload: undefined});
     dispatch({type: SIGN_UP_DOUBLE_MAJOR, payload: undefined});
     dispatch({type: SIGN_UP_CONNECT_MAJOR, payload: undefined});
@@ -191,10 +209,11 @@ export const initSignUpState = () => dispatch => {
 
     dispatch({type:FIND_PWD_RESULT, payload: false});
     dispatch({type:FIND_PWD_RESULT_TITLE, payload: ''});
+
 };
 
 export const handleSignInCheck = (value) => dispatch => {
-  dispatch({type: SIGN_IN_CHECK, payload:value});
+    dispatch({type: SIGN_IN_CHECK, payload:value});
 };
 
 export const handleFindPwdCheckNo = (no) => dispatch => {
@@ -205,7 +224,7 @@ export const handleFindPwdCheckLabel = (label) => dispatch => {
 };
 
 export const handleFindPwdUserId = (userId) => dispatch => {
-  dispatch({type:FIND_PWD_USER_ID, payload: userId});
+    dispatch({type:FIND_PWD_USER_ID, payload: userId});
 };
 
 export const handleAuto = (check) => dispatch => {
@@ -268,6 +287,7 @@ export const handleSignUpMinor = (minor) => dispatch => {
 export const handleSignUpDoubleMajor = (doublemajor) => dispatch => {
     dispatch({type: SIGN_UP_DOUBLE_MAJOR, payload: doublemajor});
 };
+
 export const handleSignUpConnectMajor = (major) => dispatch => {
     dispatch({type: SIGN_UP_CONNECT_MAJOR, payload: major});
 };
@@ -376,7 +396,21 @@ export const handleFindPwdResult = (value) => dispatch => {
 export const handleFindPwdResultTitle = (title) => dispatch => {
     dispatch({type:FIND_PWD_RESULT_TITLE, payload: title});
 };
-
+export const handleSignInScreen1Button = (value) =>dispatch =>{
+    dispatch({type:SIGN_IN_SCREEN1_BUTTON, payload:value})
+};
+export const handleSignInScreen1Button2 =(value) => dispatch =>{
+    dispatch ({type:SIGN_IN_SCREEN1_BUTTON2 ,payload:value})
+};
+export const handleSignInScreen2Button =(color)=>dispatch =>{
+    dispatch({type:SIGN_IN_SCREEN2_BUTTON, payload:color})
+};
+export const handleMajorCheck =(check)=>dispatch =>{
+    dispatch({type:MAJOR_CHECK, payload:check})
+};
+export const handleSignInScreen3Button =(color) => dispatch =>{
+    dispatch({type:SIGN_IN_SCREEN3_BUTTON, payload:color})
+};
 export const signInUser = (userId, userPw) => async dispatch => {
     console.log('start');
     var userData = {
@@ -402,7 +436,7 @@ export const signInUser = (userId, userPw) => async dispatch => {
             AsyncStorage.setItem('connectedMajor', jsonData.result.connectedMajor ? jsonData.result.connectedMajor : '');
             AsyncStorage.setItem('doubleMajor', jsonData.result.doubleMajor ? jsonData.result.doubleMajor : '');
             AsyncStorage.setItem('isValidation', jsonData.result.isValidation + '');
-            AsyncStorage.setItem('major', jsonData.result.major ? jsonData.result.major : '');
+            AsyncStorage.setItem(   'major', jsonData.result.major ? jsonData.result.major : '');
             AsyncStorage.setItem('minor', jsonData.result.minor ? jsonData.result.minor : '');
             AsyncStorage.setItem('token', jsonData.result.token);
             AsyncStorage.setItem('userId', jsonData.result.userId);
@@ -431,6 +465,7 @@ export const signInUser = (userId, userPw) => async dispatch => {
 
 export const checkUserId = (userId) => async dispatch => {
     const userIdCheck = await fetch(`${ROOT_URL}/userValidation/userId/${userId}`);
+
     const jsonData = await userIdCheck.json();
     console.log('check dup id : ', jsonData.statusCode);
     if (jsonData.statusCode == 200) {
@@ -441,6 +476,7 @@ export const checkUserId = (userId) => async dispatch => {
 };
 
 export const checkUserNickName = (nickname) => async dispatch => {
+    console.log(nickname);
     const userNickNameCheck = await fetch(`${ROOT_URL}/userValidation/userNickName/${nickname}`);
     const jsonData = await userNickNameCheck.json();
     console.log('check dup nickname : ', jsonData.statusCode);
@@ -522,7 +558,38 @@ export const sendFindPwd = (userId) => async dispatch => {
         return false;
     }
 };
+export const  trackList = ()=> async dispatch =>{
 
+    const track = await fetch(`${ROOT_URL}/track`);
+    const jsonData =await track.json();
+    if(jsonData.statusCode == 200){
+        for(let i=0;i<jsonData.result.length;i++) {
+            dispatch({type: TRACK_LIST, payload:{value:jsonData.result[i].trackName}});
+        }
+    }
+    else{
+        dispatch({type: TRACK_LIST, payload: ''});
+    }
+};
+export const  AdmissionYear = ()=> async dispatch =>{
+
+    // console.log('in');
+    const year = await fetch(`${ROOT_URL}/admissionYear`);
+    const jsonData =await year.json();
+    if(jsonData.statusCode == 200){
+        // console.log(jsonData.result);
+
+        for(let i=0;i<jsonData.result.length;i++) {
+            // console.log(jsonData.result[i].admissionYear);
+
+            dispatch({type: ADMISSION_YEAR, payload: {value:''+ jsonData.result[i].admissionYear}});
+
+        }
+    }
+    else{
+        dispatch({type: ADMISSION_YEAR, payload: ''});
+    }
+};
 
 export default handleActions({
     // ... state, sample : action.payload.date
@@ -626,7 +693,8 @@ export default handleActions({
     [SIGN_UP_MAJOR]: (state, action) => {
         return {
             ...state,
-            major: action.payload
+            major: action.payload,
+
         }
     },
     [SIGN_UP_MINOR]: (state, action) => {
@@ -647,12 +715,7 @@ export default handleActions({
             connectedMajor: action.payload
         }
     },
-    [SIGN_UP_ADMISSION_YEAR]: (state, action) => {
-        return {
-            ...state,
-            admissionYear: action.payload
-        }
-    },
+
     [SIGN_UP_CHECK_ID_NO]: (state, action) => {
         return {
             ...state,
@@ -858,4 +921,55 @@ export default handleActions({
             signInCheck: action.payload,
         }
     },
+
+    [SIGN_IN_SCREEN1_BUTTON]:(state,action)=>{
+
+        return{
+            ...state,
+            signInScreen1Button:action.payload,
+        }
+    },
+    [SIGN_IN_SCREEN1_BUTTON2]:(state,action)=>{
+        return {
+            ...state,
+            signInScreen1Button2:action.payload
+        }
+    },
+
+    [TRACK_LIST]:(state,action)=>{
+        return {
+            ...state,
+            track:[
+                ...state.track,
+                action.payload
+            ]
+        }
+    },
+    [ADMISSION_YEAR]:(state,action)=>{
+        return{
+            ...state,
+            year:[
+                ...state.year,
+                action.payload
+            ]
+        }
+    },
+    [SIGN_IN_SCREEN2_BUTTON]:(state,action)=>{
+        return{
+            ...state,
+            signInScreen2Button:action.payload
+        }
+    },
+    [SIGN_UP_ADMISSION_YEAR]:(state,action)=>{
+        return{
+            ...state,
+            admissionYear:action.payload
+        }
+    },
+    [SIGN_IN_SCREEN3_BUTTON]:(state,action)=>{
+        return{
+            ...state,
+            signInScreen3Button:action.payload
+        }
+    }
 }, initialState);

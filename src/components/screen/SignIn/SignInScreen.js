@@ -19,7 +19,7 @@ import Toast, {DURATION} from 'react-native-easy-toast';
 import {validation} from "../../../utils/validations";
 import {WarningModal} from "../../ui/WarningModal";
 import {TermsListItem} from "../../ui/TermsListItem";
-import {SignUpIndicator} from "./ui/SignUpIndicator";
+import {SignUpIndicator} from "../SignUp/ui/SignUpIndicator";
 
 import {SignUpTextInput} from "../../ui/SignUpTextInput";
 import {FindPwdModal} from "../../ui/FindPwdModal";
@@ -155,9 +155,11 @@ class SignInScreen extends React.Component {
     };
     //회원가입 클릭 시 동의화면 이동
     handleSignUpModal = () => {
-        const {SignIn} = this.props;
-        SignIn.initSignUpState();
-        SignIn.handleSignUpModal();
+        // const {SignIn} = this.props;
+        // SignIn.initSignUpState();
+        // SignIn.handleSignUpModal();
+        this.props.navigation.navigate('SignUpOne');
+
     };
 
     //비밀번호 찾기
