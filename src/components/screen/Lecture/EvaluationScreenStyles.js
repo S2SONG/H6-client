@@ -64,6 +64,8 @@ export default StyleSheet.create({
         margin:10,
         marginTop:10,
         marginBottom:10,
+        width:315,
+        height:130
     }
 
 });

@@ -10,11 +10,14 @@ export default StyleSheet.create({
         height: StatusBar.currentHeight
     },
     renderHeader: {
-        height: 200,
+        height: 180,
         backgroundColor: 'white',
         //justifyContent: 'space-between',
         alignItems: 'flex-start',
         flexDirection: 'column',
+        marginBottom:10,
+        // borderBottomWidth:1,
+        // borderColor:'gray'
     },
     arrow: {
         flexDirection: 'row',

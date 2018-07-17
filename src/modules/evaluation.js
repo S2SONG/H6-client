@@ -22,9 +22,9 @@ const initialState = {
     userIndex: undefined,
     semester: undefined,
     homework: undefined,
-    homeworkType: 0,
-    testCount: 0,
-    receivedGrade: 0,
+    homeworkType: undefined,
+    testCount: undefined,
+    receivedGrade: undefined,
     review: undefined,
     score: 0,
     saveModal:false,
@@ -82,10 +82,10 @@ export const saveModal = (modal) => dispatch => {
 export const removeReplyModal = (modal) => dispatch=> {
     dispatch({type:REMOVE_REPLY_MODAL, payload:modal});
 };
-
-export const updateNewReply = (updateReply) => dispatch=>{
-    dispatch({type: UPDATE_NEW_REPLY, payload: updateReply });
-};
+//
+// export const updateNewReply = (updateReply) => dispatch=>{
+//     dispatch({type: UPDATE_NEW_REPLY, payload: updateReply });
+// };
 
 export const postReply = (semester, homework, homeworkType, testCount, receivedGrade, review, score, lectureInfoIndex) => async dispatch=> {
     //const lectureIndex = await AsyncStorage.getItem('lectureInfoIndex');
@@ -170,7 +170,6 @@ export const checkGetLectureReply = (lectureInfoIndex) => async dispatch => {
 };
 export const updateLectureReply = (semester, homework, homeworkType, testCount, receivedGrade, review, score, lectureInfoIndex, lectureReplyIndex) => async dispatch=> {
     const userIndex = await AsyncStorage.getItem('userIndex');
-    //const lectureReplyIndex = await AsyncStorage.getItem('lectureReplyIndex');
     let lectureReplyData = {
         semester: semester,
         homework: homework,
@@ -199,7 +198,7 @@ export const updateLectureReply = (semester, homework, homeworkType, testCount, 
     const jsonData = await saveCheck.json();
     console.log(jsonData);
     if (jsonData.statusCode == 200) {
-        //dispatch({type: UPDATE_NEW_REPLY, payload: jsonData.result});
+        dispatch({type: UPDATE_NEW_REPLY, payload: jsonData.result });
         return true;
     } else {
         return false;
