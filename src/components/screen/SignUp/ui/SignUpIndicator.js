@@ -15,7 +15,7 @@ export class SignUpIndicator extends React.Component {
                     height: 2,
                     width: 30,
                     borderRadius: 2,
-                    backgroundColor: 'rgb(216,216,216)'
+                    backgroundColor: '#000000'
                 }}>
                 </View>
             )
@@ -32,19 +32,19 @@ export class SignUpIndicator extends React.Component {
                     return (
                         <View key={i} style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                             <View style={{
-                                height: 20,
-                                width: 20,
+                                height: 16,
+                                width: 16,
                                 borderRadius: 10,
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                backgroundColor: i==this.props.position?'#989898':'rgb(246,246,246)',
+                                backgroundColor: i==this.props.position?'#4a4a4a':'white',
                                 margin: 10,
                             }}>
                                 <View style={{
-                                    height:8,
-                                    width:8,
+                                    height:4,
+                                    width:4,
                                     borderRadius:4,
-                                    backgroundColor:'black',
+                                    backgroundColor:'#4a4a4a',
 
                                 }}>
                                 </View>

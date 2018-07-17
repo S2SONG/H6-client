@@ -7,7 +7,7 @@ export class SignUpTextInput extends React.Component {
 
     constructor (props) {
         super(props);
-        this.state = {hasFocus: false,color:''};
+        this.state = {hasFocus: false,color:'',fontSize:16};
     }
 
     renderLabel = () => {
@@ -16,7 +16,7 @@ export class SignUpTextInput extends React.Component {
 
                 <View style={{alignSelf:'flex-start',marginLeft:10}}>
                     {this.renderCheck()}
-                    <Text style={{color:this.state.color}}>{this.props.label}</Text>
+                    <Text style={{color:this.state.color,fontSize:11}}>{this.props.label}</Text>
                 </View>
             )
         }
@@ -39,8 +39,8 @@ export class SignUpTextInput extends React.Component {
         }
     };
 
-    setFocus (hasFocus,color) {
-        this.setState({hasFocus,color});
+    setFocus (hasFocus) {
+        this.setState({hasFocus});
     };
     render() {
         // console.log(this.props.checkNo);
@@ -49,7 +49,7 @@ export class SignUpTextInput extends React.Component {
                 {this.renderLabel()}
                 <View style = {this.state.hasFocus &&this.state.color ? {flexDirection: 'row',
                     height: 35,
-                    width: '90%',
+                    width: 311,
                     backgroundColor: 'transparent',
                     paddingLeft: 10,
                     borderRadius:3,
@@ -60,15 +60,18 @@ export class SignUpTextInput extends React.Component {
                      <Icon type = "font-awesome" name = { this.props.icon }/>
                      </View>**/}
                     <TextInput
-                        // onBlur = {this.props.blur}
+                        onBlur = {this.props.blur}
                         onChangeText = { this.props.handle }
                         value = { this.props.value }
                         secureTextEntry = { this.props.secureText }
-                        style = { styles.input }
+                        style = {{
+                            width: '100%',
+                            fontSize:this.props.inputFontSize
+                        }}
                         underlineColorAndroid = "transparent"
                         placeholder = { this.state.hasFocus ? this.props.changePlaceholder : this.props.placeholder }
                         onFocus={this.setFocus.bind(this, true)}
-                        onBlur={this.setFocus.bind(this, true)}
+                        // onBlur={this.setFocus.bind(this, true)}
                     />
                 </View>
             </View>
@@ -89,7 +92,8 @@ SignUpTextInput.propTypes = {
     blur: PropTypes.func,
     focus:PropTypes.func,
     changePlaceholder:PropTypes.string,
-    colorChange:PropTypes.string
+    colorChange:PropTypes.string,
+    inputFontSize:PropTypes.number
 
 };
 
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
     inputLayout: {
         flexDirection: 'row',
         height: 50,
-        width: '90%',
+        width: 311,
         backgroundColor: 'transparent',
         paddingLeft: 10,
         borderRadius:3,
@@ -113,9 +117,7 @@ const styles = StyleSheet.create({
     placeholderColor:{
         color:'black'
     },
-    input: {
-        width: '100%',
-    },
+
     inputIcon: {
         marginRight: 10,
         alignItems:'center',
