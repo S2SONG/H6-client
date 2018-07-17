@@ -154,7 +154,7 @@ export const initSignInState = () => dispatch => {
     dispatch({type: SIGN_IN_ID, payload: ''});
     dispatch({type: SIGN_IN_PWD, payload: ''});
     dispatch({type: SIGN_IN_CHECK, payload: false});
-    dispatch({type: SIGN_IN_BUTTON, payload: true});
+    dispatch({type: SIGN_IN_BUTTON, payload: false});
 
 };
 
