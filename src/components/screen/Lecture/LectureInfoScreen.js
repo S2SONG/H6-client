@@ -15,6 +15,7 @@ import {CustomModal} from "../../ui/CustomModal";
 import * as evaluation from "../../../modules/evaluation";
 import ActionSheet from 'react-native-actionsheet-native';
 import {BoxShadow} from 'react-native-shadow';
+import {LinkText} from "../../ui/LinkText";
 
 class LectureInfoScreen extends React.Component {
 
@@ -51,8 +52,10 @@ class LectureInfoScreen extends React.Component {
         return (
             <View style={{marginBottom: 20}}>
                 {(this.props.lectureReplyListLength < this.props.total ?
-                        <Button title='더보기'
-                                onPress={() => LectureInfo.getLectureReplyList(this.props.lecture.lectureInfoIndex, this.props.currentPage, this.props.lectureReplyListLength)}/>
+                        <LinkText value='더보기'
+                              handle={() => LectureInfo.getLectureReplyList(this.props.lecture.lectureInfoIndex, this.props.currentPage, this.props.lectureReplyListLength)}
+                              link_style={{color:'black',textAlign:'center', fontSize:12, paddingTop:20}}
+                        />
                         : null)}
             </View>
         )

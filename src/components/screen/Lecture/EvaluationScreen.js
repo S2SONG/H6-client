@@ -160,7 +160,7 @@ class EvaluationScreen extends React.Component {
                         <SemesterPicker handle={this.handleSemester}
                                         value={this.props.semester}
                                         placeholder={"수강학기 선택"}
-                                        defaultValue={"수강학기 선택"}/>
+                                        defaultValue={"수강학기 선택                   ▼ "}/>
 
                         <Text style={styles.item}>과제</Text>
                         <EvaluateButton buttonData={['없음','적음','보통','많음']}
@@ -192,7 +192,7 @@ class EvaluationScreen extends React.Component {
                                 placeholderStyle = {{ textAlign:'center'}}
                                 multiline = {true}
                                 onChangeText = { this.handleReview}
-                                maxLength={200}
+                                // maxLength={200}
                             />
                         </View>
                     </View>

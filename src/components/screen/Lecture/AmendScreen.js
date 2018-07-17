@@ -26,6 +26,7 @@ class AmendScreen extends React.Component {
             review:this.props.reply.review,
             score:this.props.reply.score
         };
+        console.log(this.props.reply.semester);
         const {Evaluation} = this.props;
         Evaluation.getReplyIndex(this.props.lecture.lectureInfoIndex);
         this.testCountChangeType(this.state.testCount);
@@ -189,7 +190,7 @@ class AmendScreen extends React.Component {
                                     multiline = {true}
                                     defaultValue = {this.state.review}
                                     onChangeText = {this.handleReview}
-                                    maxLength={200}
+                                    // maxLength={200}
                                 />
                             </View>
                         </View>
