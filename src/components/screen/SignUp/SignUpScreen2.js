@@ -20,7 +20,6 @@ import { KeyboardAvoidingView } from 'react-native';
 
 class SignUpScreen2 extends React.Component{
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -30,6 +29,7 @@ class SignUpScreen2 extends React.Component{
             nickName:false,
             checkId:true,
             checkNic:true,
+            changePage:false
         };
     }
     navigationGoBack = () => {
@@ -51,7 +51,7 @@ class SignUpScreen2 extends React.Component{
                 SignInTwo.handleSignUpCheckUserIdClient(false);
                 SignInTwo.handleSignUpCheckUserIdNo(0);
                 SignInTwo.handleSignUpCheckUserIdLabel('');
-
+                this.state.id=false;
             } else {
                 SignInTwo.handleSignUpCheckUserIdClient(true);
                 SignInTwo.handleSignUpCheckUserIdNo(0);
@@ -190,15 +190,20 @@ class SignUpScreen2 extends React.Component{
         const {SignInTwo} = this.props;
         let checkNickname;
         console.log(this.props.checkNickNameClient);
-        if (this.props.checkNickNameClient) {
+        if(validation.checkEmail(userId)){
             checkNickname = await SignInTwo.checkUserNickName(userId);
             if (!checkNickname) {
                 SignInTwo.handleSignUpCheckUserNickNameNo(1);
                 this.state.checkNic = false;
+                this.state.changePage=false;
+
             }
             else {
                 this.state.checkNic = true;
             }
+        }
+        else{
+
         }
     };
     handleCheckUserId = async() =>{
@@ -212,9 +217,13 @@ class SignUpScreen2 extends React.Component{
             if (!checkId){
                 SignInTwo.handleSignUpCheckUserIdNo(1);
                 this.state.checkId=false;
+                this.state.changePage=false;
+
             }
             else{
                 this.state.checkId=true;
+                this.state.changePage=true;
+
             }
         }
     };
@@ -257,17 +266,15 @@ class SignUpScreen2 extends React.Component{
     };
     basicChecked = async () => {
         const {SignInTwo} = this.props;
-        if (!this.props.checkIdClient){
-            console.log('hell');
-        }
-        // return this.handleCheckUserIdModal();
-        let checkid = await SignInTwo.checkUserId(this.props.userId);
-        if (!checkid) return this.handleCheckUserIdModal();
 
-        if (!this.props.checkNickNameClient)
-            return this.handleCheckUserNickNameModal();
-        let checknickname = await SignInTwo.checkUserNickName(this.props.userNickName);
-        if (!checknickname) return this.handleCheckUserNickNameModal();
+        // return this.handleCheckUserIdModal();
+        // let checkid = await SignInTwo.checkUserId(this.props.userId);
+        // if (!checkid) return this.handleCheckUserIdModal();
+        //
+        // if (!this.props.checkNickNameClient)
+        //     return this.handleCheckUserNickNameModal();
+        // let checknickname = await SignInTwo.checkUserNickName(this.props.userNickName);
+        // if (!checknickname) return this.handleCheckUserNickNameModal();
 
         // if (this.props.userEmail.length > 0) {
         //     if (!this.props.checkEmailClient)
@@ -275,15 +282,17 @@ class SignUpScreen2 extends React.Component{
         //     let checkemail = await SignIn.checkUserEmail(this.props.userEmail);
         //     if (!checkemail) return this.handleCheckUserEmailModal();
         // }
+        console.log(this.state.changePage);
         if (!(this.props.checkPassword && this.props.checkRePassword))
             return this.handleCheckUserPasswordModal();
         // 3번째 page
         SignInTwo.trackList();
         SignInTwo.AdmissionYear();
-        this.nextTerms();
+        if(this.state.changePage) {
+            this.nextTerms();
+        }
 
     };
-
 
     render() {
 
@@ -310,7 +319,7 @@ class SignUpScreen2 extends React.Component{
 
                     </View>
                     <View style={{marginTop:15,marginLeft:10}}>
-                        <Text style={{fontSize:17,alignSelf:'flex-start'}}> 회원가입 </Text>
+                        <Text style={{fontSize:17,alignSelf:'flex-start',fontWeight: 'bold'}}> 회원가입 </Text>
                     </View>
 
 
@@ -339,6 +348,7 @@ class SignUpScreen2 extends React.Component{
                                              checkLabel={this.props.checkIdLabel}
                                              blur={this.handleCheckUserId}
                                              changePlaceholder={'정확한 이메일 형태를 입력'}
+                                             inputFontSize={this.props.inputFontSize}
                             />
 
 
@@ -383,8 +393,8 @@ class SignUpScreen2 extends React.Component{
                                 width: 289,
                                 height:53,
                                 alignSelf: 'center',
-                                marginTop:10
-                            }} onPress={this.basicChecked} title="계속하기"/>
+                                marginTop:16
+                            }} onPress={this.basicChecked} title="계속 진행하기"/>
                             {/*<WarningModal*/}
                             {/*visible={this.props.userIdCheckModal}*/}
                             {/*title={'경고'}*/}
@@ -471,7 +481,8 @@ export default connect((state) => ({
         findPwdUserId: state.signin.findPwdUserId,
         findPwdCheckNo: state.signin.findPwdCheckNo,
         findPwdCheckLabel: state.signin.findPwdCheckLabel,
-        signInScreen2Button:state.signin.signInScreen2Button
+        signInScreen2Button:state.signin.signInScreen2Button,
+        inputFontSize:state.signin.inputFontSize
 
     }),
     (dispatch) => ({
