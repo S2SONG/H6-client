@@ -38,7 +38,9 @@ export class SignUpTextInput extends React.Component {
             this.state.color='black';
         }
     };
-
+    clear = () => {
+        this.textInputRef.clear();
+    };
     setFocus (hasFocus) {
         this.setState({hasFocus});
     };
@@ -54,7 +56,9 @@ export class SignUpTextInput extends React.Component {
                     paddingLeft: 10,
                     borderRadius:3,
                     borderBottomColor: this.state.color,
-                    borderBottomWidth:2,} : styles.inputLayout }>
+                    borderBottomWidth:2,} : styles.inputLayout }
+                      onPress={this.clear}
+                >
                     {/*{this.renderLabel()}*/}
                     {/**<View style = { styles.inputIcon }>
                      <Icon type = "font-awesome" name = { this.props.icon }/>
@@ -68,6 +72,7 @@ export class SignUpTextInput extends React.Component {
                             width: '100%',
                             fontSize:this.props.inputFontSize
                         }}
+                        // ref={ref => this.textInputRef = ref}
                         underlineColorAndroid = "transparent"
                         placeholder = { this.state.hasFocus ? this.props.changePlaceholder : this.props.placeholder }
                         onFocus={this.setFocus.bind(this, true)}

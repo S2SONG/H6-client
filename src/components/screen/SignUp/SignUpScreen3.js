@@ -20,7 +20,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 
 
-class SignUpScreen3 extends React.Component{
+class SignInScreen3 extends React.Component{
 
 
     constructor(props) {
@@ -39,19 +39,31 @@ class SignUpScreen3 extends React.Component{
         this.props.navigation.goBack();
     };
     xButton = () => {
-        // const {SignIn} = this.props;
-        // SignIn.initSignUpState();
-        // SignIn.handleSignUpModal();
+        const {SignInThree} = this.props;
+
+        SignInThree.handleTermsAll(false);
+        SignInThree.handleSignInScreen1Button('#ffffff');
+        SignInThree.handleSignInScreen1Button2('#c5c4c4');
+        SignInThree.handleChangeFontColor('#000000');
+        SignInThree.handleSignUpUserId('');
+        SignInThree.handleSignUpUserPwd('');
+        SignInThree.handleSignUpUserRePwd('');
+        SignInThree.handleSignUpUserNickName('');
         this.props.navigation.navigate('SignIn');
 
     };
-    handleSignUpModal = () => {
-        // const {SignIn} = this.props;
-        // SignIn.initSignUpState();
-        // SignIn.handleSignUpModal();
-        this.props.navigation.navigate('SignIn');
-
-    };
+    // handleSignUpModal = () => {
+    //     const {SignInThree} = this.props;
+    //     SignInThree.handleTermsAll(false);
+    //     SignInThree.handleSignInScreen1Button('#ffffff');
+    //     SignInThree.handleSignInScreen1Button2('#c5c4c4');
+    //     SignInThree.handleChangeFontColor('#000000');
+    //     SignInThree.handleSignUpUserId('');
+    //     SignInThree.handleSignUpUserPwd('');
+    //     SignInThree.handleSignUpUserRePwd('');
+    //     SignInThree.handleSignUpUserNickName('');
+    //     this.props.navigation.navigate('SignIn');
+    // };
     handleStateMajor = (major) => {
         const {SignInThree} = this.props;
         SignInThree.handleSignUpMajor(major);
@@ -115,10 +127,13 @@ class SignUpScreen3 extends React.Component{
             console.log('회원가입');
             let signUpCheck = await SignInThree.signUpUser(userId, userPw, userNickName, major, minor, doubleMajor, connectedMajor, admissionYear);
             if (signUpCheck) {
-                this.handleSignUpModal();
+                this.xButton();
+
+
 
             }
         }
+
 
     };
 
@@ -132,7 +147,7 @@ class SignUpScreen3 extends React.Component{
                 <Toast ref="toast"/>
                 <KeyboardAwareScrollView>
 
-                    <View style={{flex: 1, justifyContent: 'center',marginTop:20}}>
+                    <View style={{flex: 1, justifyContent: 'center',marginTop:19}}>
                         <View style ={{flexDirection:'row',justifyContent: 'space-between'}}>
                             <View style={{marginLeft:10}}>
                                 <Icon name={'ios-arrow-back-outline'} type='ionicon' size={40} color={'black'} style={{alignSelf:'flex-first'}}  onPress={this.navigationGoBack}/>
@@ -144,13 +159,13 @@ class SignUpScreen3 extends React.Component{
                         </View>
 
                     </View>
-                    <View style={{}}>
-                        <Text style={{fontSize:17,alignSelf:'center'}}> 회원가입 </Text>
+                    <View style={{marginTop:15,marginLeft:10}}>
+                        <Text style={{fontSize:17,alignSelf:'flex-start',fontWeight: 'bold'}}> 회원가입 </Text>
                     </View>
 
 
                     <View style={{flex:4, alignItems: 'center'}}>
-                        <View style ={{marginBottom:50}}>
+                        <View style ={{marginBottom:50,marginTop:20}}>
                             <SignUpIndicator max={3} position={2} />
                         </View>
 
@@ -233,4 +248,4 @@ export default connect((state) => ({
     (dispatch) => ({
         SignInThree: bindActionCreators(signin, dispatch)
     })
-)(SignUpScreen3);
+)(SignInScreen3);

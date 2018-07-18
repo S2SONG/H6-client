@@ -227,8 +227,18 @@ class SignUpScreen1 extends React.Component{
     };
 
     xButton = () => {
+        this.props.navigation.goBack();
+        // this.props.navigation.navigate('SignIn');
+        const {SignIn} = this.props;
 
-        this.props.navigation.navigate('SignIn');
+        SignIn.handleTermsAll(false);
+        SignIn.handleSignInScreen1Button('#ffffff');
+        SignIn.handleSignInScreen1Button2('#c5c4c4');
+        SignIn.handleChangeFontColor('#000000');
+        SignIn.handleSignUpUserId('');
+        SignIn.handleSignUpUserPwd('');
+        SignIn.handleSignUpUserRePwd('');
+        SignIn.handleSignUpUserNickName('');
 
     };
     nextTerms = () => {
