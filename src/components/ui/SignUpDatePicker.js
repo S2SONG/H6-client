@@ -6,7 +6,6 @@ import {Dropdown} from 'react-native-material-dropdown';
 export class SignUpDatePicker extends React.Component {
 
     render() {
-        console.log(this.props.year);
         return (
             <View style={styles.container}>
                 <Dropdown
@@ -34,6 +33,6 @@ SignUpDatePicker.propTypes = {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ffffff',
-        width: '90%'
+        width: '70%'
     },
 });

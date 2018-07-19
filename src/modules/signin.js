@@ -487,7 +487,7 @@ export const checkUserNickName = (nickname) => async dispatch => {
     // console.log(nickname);
     const userNickNameCheck = await fetch(`${ROOT_URL}/userValidation/userNickName/${nickname}`);
     const jsonData = await userNickNameCheck.json();
-    console.log('check dup nickname : ', jsonData.statusCode);
+    // console.log('check dup nickname : ', jsonData.statusCode);
     if (jsonData.statusCode == 200) {
         return true;
     } else {
@@ -559,7 +559,6 @@ export const signUpTerm2 = () => async dispatch => {
 export const sendFindPwd = (userId) => async dispatch => {
     const result = await fetch(`${ROOT_URL}/userValidation/sendPasswordMail/${userId}`);
     const jsonData = await result.json();
-    console.log(jsonData);
     if (jsonData.statusCode == 200) {
         return true;
     } else {

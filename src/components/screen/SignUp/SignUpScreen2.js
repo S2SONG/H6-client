@@ -29,18 +29,36 @@ class SignUpScreen2 extends React.Component{
             nickName:false,
             checkId:true,
             checkNic:true,
-            changePage:false
+            changePage:false,
+            changePage2:false
         };
     }
     navigationGoBack = () => {
+        const {SignInTwo} = this.props;
+
+        // this.props.navigation.goBack();
         this.props.navigation.goBack();
+
+
     };
     xButton = () => {
         // const {SignIn} = this.props;
         // SignIn.initSignUpState();
         // SignIn.handleSignUpModal();
-        this.props.navigation.navigate('SignIn');
+        const {SignInTwo} = this.props;
 
+        SignInTwo.handleTermsAll(false);
+        SignInTwo.handleSignInScreen1Button('#ffffff');
+        SignInTwo.handleSignInScreen1Button2('#c5c4c4');
+        SignInTwo.handleChangeFontColor('#000000');
+        SignInTwo.handleSignUpUserId('');
+        SignInTwo.handleSignUpUserPwd('');
+        SignInTwo.handleSignUpUserRePwd('');
+        SignInTwo.handleSignUpUserNickName('');
+        SignInTwo.handleSignInScreen2Button('#c5c4c4');
+
+        this.props.navigation.navigate('SignIn');
+        // this.attendee.setNativeProps({ text: '' })
     };
     handleStateUserId = async (userId) => {
         const {SignInTwo} = this.props;
@@ -118,13 +136,14 @@ class SignUpScreen2 extends React.Component{
             // SignInTwo.handleSignUpCheckUserRePasswordLabel('비밀번호가 불일치 합니다');
         }
         if(this.state.id&&this.state.pwd&&this.state.rePwd&&this.state.nickName&&this.state.checkId&&this.state.checkNic){
-            console.log('버튼 색 바꾸자');
+            // console.log('버튼 색 바꾸자');
             SignInTwo.handleSignInScreen2Button('#4a4a4a');
         }
         else{
             SignInTwo.handleSignInScreen2Button('#c5c4c4');
 
         }
+
     };
     handleStateUserRePw = (userRePw) => {
         const {SignInTwo} = this.props;
@@ -185,34 +204,42 @@ class SignUpScreen2 extends React.Component{
         }
         SignInTwo.handleSignUpUserNickName(userNickName);
     };
-    handleCheckUserNickName = async (userId) => {
-        console.log('jepp');
+    handleCheckUserNickName = async () => {
         const {SignInTwo} = this.props;
         let checkNickname;
-        console.log(this.props.checkNickNameClient);
-        if(validation.checkEmail(userId)){
-            checkNickname = await SignInTwo.checkUserNickName(userId);
+        // console.log(userNickName);
+        if(validation.checkNickNameLength(this.props.userNickName)){
+            checkNickname = await SignInTwo.checkUserNickName(this.props.userNickName);
+            console.log('checkNick='+checkNickname);
             if (!checkNickname) {
                 SignInTwo.handleSignUpCheckUserNickNameNo(1);
                 this.state.checkNic = false;
-                this.state.changePage=false;
+                this.state.changePage2=false;
+
 
             }
             else {
                 this.state.checkNic = true;
+                this.state.changePage2=true;
+
             }
-        }
-        else{
 
         }
+        if(this.state.id&&this.state.pwd&&this.state.rePwd&&this.state.nickName&&this.state.checkId&&this.state.checkNic){
+            SignInTwo.handleSignInScreen2Button('#4a4a4a');
+        }
+        else{
+            SignInTwo.handleSignInScreen2Button('#c5c4c4');
+
+        }
+
     };
     handleCheckUserId = async() =>{
-        console.log('checkuserid');
         let checkId;
         const {SignInTwo} = this.props;
-        console.log(this.props.checkNickNameClient);
-        if (this.props.checkIdClient){
-            console.log(this.props.checkIdClient);
+        console.log(this.props.userId);
+        if(validation.checkEmail(this.props.userId)){
+            // console.log(this.props.checkIdClient);
             checkId = await SignInTwo.checkUserId(this.props.userId);
             if (!checkId){
                 SignInTwo.handleSignUpCheckUserIdNo(1);
@@ -226,6 +253,14 @@ class SignUpScreen2 extends React.Component{
 
             }
         }
+        if(this.state.id&&this.state.pwd&&this.state.rePwd&&this.state.nickName&&this.state.checkId&&this.state.checkNic){
+            SignInTwo.handleSignInScreen2Button('#4a4a4a');
+        }
+        else{
+            SignInTwo.handleSignInScreen2Button('#c5c4c4');
+
+        }
+
     };
     //     if (this.props.checkNickNameClient && this.props.userNickName.length > 0) {
     //         const result = await SignIn.checkUserNickName(this.props.userNickName);
@@ -283,12 +318,14 @@ class SignUpScreen2 extends React.Component{
         //     if (!checkemail) return this.handleCheckUserEmailModal();
         // }
         console.log(this.state.changePage);
+        console.log(this.state.changePage2);
+
         if (!(this.props.checkPassword && this.props.checkRePassword))
             return this.handleCheckUserPasswordModal();
         // 3번째 page
         SignInTwo.trackList();
         SignInTwo.AdmissionYear();
-        if(this.state.changePage) {
+        if(this.state.changePage&&this.state.changePage2) {
             this.nextTerms();
         }
 
@@ -306,7 +343,7 @@ class SignUpScreen2 extends React.Component{
                 />
                 <KeyboardAwareScrollView>
 
-                    <View style={{flex: 1, justifyContent: 'center',marginTop:30}}>
+                    <View style={{flex: 1, justifyContent: 'center',marginTop:19}}>
                         <View style ={{flexDirection:'row',justifyContent: 'space-between'}}>
                             <View style={{marginLeft:10}}>
                                 <Icon name={'ios-arrow-back-outline'} type='ionicon' size={40} color={'black'} style={{alignSelf:'flex-first'}}  onPress={this.navigationGoBack}/>
