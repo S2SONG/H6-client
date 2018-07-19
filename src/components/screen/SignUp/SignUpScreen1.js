@@ -244,6 +244,7 @@ class SignUpScreen1 extends React.Component{
     nextTerms = () => {
         if (this.returnChecked()) {
             this.props.navigation.navigate('SignUpTwo');
+
             return;
         }
         this.handleTerms();
@@ -258,7 +259,7 @@ class SignUpScreen1 extends React.Component{
                                translucent={true}
                     />
                     {/*<Toast ref="toast"/>*/}
-                    <View style={{flex: 1, justifyContent: 'center',marginTop:30}}>
+                    <View style={{flex: 1, justifyContent: 'center',marginTop:19}}>
                         <View style ={{flexDirection:'row',justifyContent: 'space-between'}}>
                             <View style={{marginLeft:10}}>
                             </View>
@@ -431,7 +432,10 @@ export default connect((state) => ({
         term2: state.signin.term2,
         findPwd: state.signin.findPwd, //비번찾기
         fontColor:state.signin.fontColor,
-
+        userId: state.signin.userId,
+        userPw: state.signin.userPw,
+        userRePw: state.signin.userRePw,
+        userNickName: state.signin.userNickName,
 
     }),
     (dispatch) => ({

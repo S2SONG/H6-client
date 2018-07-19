@@ -33,6 +33,6 @@ SignUpDatePicker.propTypes = {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ffffff',
-        width: '90%'
+        width: '70%'
     },
 });

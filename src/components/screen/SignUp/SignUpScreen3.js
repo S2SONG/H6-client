@@ -36,7 +36,9 @@ class SignInScreen3 extends React.Component{
         };
     }
     navigationGoBack = () => {
+
         this.props.navigation.goBack();
+
     };
     xButton = () => {
         const {SignInThree} = this.props;
@@ -49,6 +51,8 @@ class SignInScreen3 extends React.Component{
         SignInThree.handleSignUpUserPwd('');
         SignInThree.handleSignUpUserRePwd('');
         SignInThree.handleSignUpUserNickName('');
+        SignInThree.handleSignInScreen2Button('#c5c4c4');
+
         this.props.navigation.navigate('SignIn');
 
     };
@@ -165,7 +169,7 @@ class SignInScreen3 extends React.Component{
 
 
                     <View style={{flex:4, alignItems: 'center'}}>
-                        <View style ={{marginBottom:50,marginTop:20}}>
+                        <View style ={{marginBottom:30,marginTop:20}}>
                             <SignUpIndicator max={3} position={2} />
                         </View>
 

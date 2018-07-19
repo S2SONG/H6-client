@@ -34,8 +34,11 @@ class SignUpScreen2 extends React.Component{
         };
     }
     navigationGoBack = () => {
+        const {SignInTwo} = this.props;
+
         // this.props.navigation.goBack();
-        this.props.navigation.navigate('SignUpOne');
+        this.props.navigation.goBack();
+
 
     };
     xButton = () => {
@@ -52,6 +55,8 @@ class SignUpScreen2 extends React.Component{
         SignInTwo.handleSignUpUserPwd('');
         SignInTwo.handleSignUpUserRePwd('');
         SignInTwo.handleSignUpUserNickName('');
+        SignInTwo.handleSignInScreen2Button('#c5c4c4');
+
         this.props.navigation.navigate('SignIn');
         // this.attendee.setNativeProps({ text: '' })
     };
@@ -218,22 +223,23 @@ class SignUpScreen2 extends React.Component{
                 this.state.changePage2=true;
 
             }
-            if(this.state.id&&this.state.pwd&&this.state.rePwd&&this.state.nickName&&this.state.checkId&&this.state.checkNic){
-                SignInTwo.handleSignInScreen2Button('#4a4a4a');
-            }
-            else{
-                SignInTwo.handleSignInScreen2Button('#c5c4c4');
 
-            }
+        }
+        if(this.state.id&&this.state.pwd&&this.state.rePwd&&this.state.nickName&&this.state.checkId&&this.state.checkNic){
+            SignInTwo.handleSignInScreen2Button('#4a4a4a');
+        }
+        else{
+            SignInTwo.handleSignInScreen2Button('#c5c4c4');
+
         }
 
     };
     handleCheckUserId = async() =>{
         let checkId;
         const {SignInTwo} = this.props;
-        console.log(this.props.checkNickNameClient);
-        if (this.props.checkIdClient){
-            console.log(this.props.checkIdClient);
+        console.log(this.props.userId);
+        if(validation.checkEmail(this.props.userId)){
+            // console.log(this.props.checkIdClient);
             checkId = await SignInTwo.checkUserId(this.props.userId);
             if (!checkId){
                 SignInTwo.handleSignUpCheckUserIdNo(1);
@@ -247,7 +253,14 @@ class SignUpScreen2 extends React.Component{
 
             }
         }
-        
+        if(this.state.id&&this.state.pwd&&this.state.rePwd&&this.state.nickName&&this.state.checkId&&this.state.checkNic){
+            SignInTwo.handleSignInScreen2Button('#4a4a4a');
+        }
+        else{
+            SignInTwo.handleSignInScreen2Button('#c5c4c4');
+
+        }
+
     };
     //     if (this.props.checkNickNameClient && this.props.userNickName.length > 0) {
     //         const result = await SignIn.checkUserNickName(this.props.userNickName);
