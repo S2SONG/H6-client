@@ -169,7 +169,7 @@ class SignInScreen3 extends React.Component{
 
 
                     <View style={{flex:4, alignItems: 'center'}}>
-                        <View style ={{marginBottom:30,marginTop:20}}>
+                        <View style ={{marginBottom:20,marginTop:10}}>
                             <SignUpIndicator max={3} position={2} />
                         </View>
 
@@ -177,16 +177,16 @@ class SignInScreen3 extends React.Component{
                         <SignUpMajor handle={this.handleStateMajor}
                                      track={this.props.track}
                                      value={this.props.major}
-                                     placeholder={'전공'}
+                                     placeholder={'전공(1트랙)'}
                         />
                         <SignUpMajor handle={this.handleStateMinor}
                                      track={this.props.track}
                                      value={this.props.minor}
-                                     placeholder={'부전공'}/>
+                                     placeholder={'복수전공(2트랙)'}/>
                         <SignUpMajor handle={this.handleStateDoubleMajor}
                                      track={this.props.track}
                                      value={this.props.doubleMajor}
-                                     placeholder={'복수전공'}/>
+                                     placeholder={'부전공'}/>
                         <SignUpMajor handle={this.handleStateConnectedMajor}
                                      track={this.props.track}
                                      value={this.props.connectedMajor}
@@ -201,7 +201,7 @@ class SignInScreen3 extends React.Component{
                             width: 289,
                             height:53,
                             alignSelf: 'center',
-                            marginTop:35
+                            marginTop:25
                         }} onPress={this.signUpUser} title="한담 시작하기"/>
                     </View>
                 </KeyboardAwareScrollView>
