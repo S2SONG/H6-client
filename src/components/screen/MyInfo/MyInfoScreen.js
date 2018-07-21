@@ -143,6 +143,7 @@ class MyInfoScreen extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
+                <MajorPickerModal visible={true}/>
                 <TitleView title={'마이페이지'}/>
                 <ScrollView >
                 <View style={styles.profile}>
