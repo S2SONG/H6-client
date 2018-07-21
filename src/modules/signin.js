@@ -77,6 +77,8 @@ const MAJOR_CHECK='MAJOR_CHECK';
 const CHANGE_FONT_COLOR='CHANGE_FONT_COLOR';
 const CHECK_ALL='CHECK_ALL';
 
+const APP_VERSION = 'APP_VERSION';
+
 const initialState = {
     sample: "",
     auto: false,
@@ -148,8 +150,9 @@ const initialState = {
 
     track:[],
     year:[],
-    fontColor:'#000000'
+    fontColor:'#000000',
 
+    appVersion: {},
 };
 
 export const initSignInState = () => dispatch => {
@@ -157,7 +160,7 @@ export const initSignInState = () => dispatch => {
     dispatch({type: SIGN_IN_PWD, payload: ''});
     dispatch({type: SIGN_IN_CHECK, payload: false});
     dispatch({type: SIGN_IN_BUTTON, payload: false});
-
+    dispatch({type: APP_VERSION, payload: {}});
 };
 
 export const initSignUpState = () => dispatch => {
@@ -468,6 +471,24 @@ export const signInUser = (userId, userPw) => async dispatch => {
         console.log(err);
     }
 
+};
+
+export const appVersion = () => async dispatch => {
+    const result = await fetch(`${ROOT_URL}/version`,{
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+    });
+
+    const jsonData = await result.json();
+    console.log(jsonData);
+    if(jsonData.statusCode == 200){
+        dispatch({type:APP_VERSION, payload: jsonData.result});
+    } else {
+
+    }
 };
 
 export const checkUserId = (userId) => async dispatch => {
@@ -983,6 +1004,12 @@ export default handleActions({
         return {
             ...state,
             fontColor:action.payload
+        }
+    },
+    [APP_VERSION]: (state, action) => {
+        return {
+            ...state,
+            appVersion: action.payload,
         }
     }
 

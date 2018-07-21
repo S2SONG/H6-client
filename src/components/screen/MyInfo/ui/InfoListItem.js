@@ -30,22 +30,20 @@ InfoListItem.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        height: 34,
-        paddingTop: 9,
-        paddingBottom: 9,
-        paddingLeft: 0,
+        height: 40,
         backgroundColor: 'white',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     text: {
-        fontSize: 13,
-        alignSelf: 'flex-start'
+        fontSize: 14,
+        alignSelf: 'center'
     },
     rightText: {
-        fontSize: 13,
-        alignSelf: 'flex-end'
+        fontSize: 14,
+        color: '#d8d8d8',
+        alignSelf: 'center'
     },
     rightIcon: {
-        alignSelf: 'flex-end'
+        alignSelf: 'center'
     }
 });

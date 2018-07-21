@@ -29,30 +29,17 @@ export class TitleView extends React.Component {
 
 
     render() {
-        const shadowOpt = {
-            width:Dimensions.get('window').width,
-            height:104,
-            color:"#000",
-            border:2,
-            radius:3,
-            opacity:0.1,
-            x:0,
-            y:2,
-            style:{marginVertical:5}
-        };
         return (
             <View>
                 <View style={styles.statusBar}></View>
-                <BoxShadow setting={shadowOpt}>
-                    <View style={styles.titleBarIconView}>
-                        {this.renderLeftIcon()}
-                        <View style={styles.titleBarBlank}></View>
-                        {this.renderRightIcon()}
-                    </View>
-                    <View style={styles.titleBar}>
-                        <Text style={styles.titleBarText}>{this.props.title}</Text>
-                    </View>
-                </BoxShadow>
+                <View style={styles.titleBarIconView}>
+                    {this.renderLeftIcon()}
+                    <View style={styles.titleBarBlank}></View>
+                    {this.renderRightIcon()}
+                </View>
+                <View style={styles.titleBar}>
+                    <Text style={styles.titleBarText}>{this.props.title}</Text>
+                </View>
             </View>
         )
     }

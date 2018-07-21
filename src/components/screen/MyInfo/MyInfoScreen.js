@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, AsyncStorage, SafeAreaView, Alert} from 'react-native';
+import {View, Text, ScrollView, AsyncStorage, SafeAreaView, Alert, Platform} from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from "./MyInfoStyles";
 import {InfoListItem} from "./ui/InfoListItem";
@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import * as myinfo from "../../../modules/myinfo";
 import config from '../../../../config';
 import {TitleView} from "../../ui/TitleView";
+import {util} from '../../../utils/util';
 
 class MyInfoScreen extends React.Component {
 
@@ -21,9 +22,9 @@ class MyInfoScreen extends React.Component {
                 {title: '한성인 인증', handle: this.navigationMainAuthScreen},
             ],
             appInfo: [
-                {title: '개인정보처리방침', handle:()=>this.navigationTermScreen('개인정보처리방침', this.props.term2)},
-                {title: '이용약관', handle:()=>this.navigationTermScreen('이용약관', this.props.term1)},
-                {title: '앱 버전', right:`${config.appVersion}(${config.appVersionDate})`}
+                {title: '개인정보처리방침', handle: () => this.navigationTermScreen('개인정보처리방침', this.props.term2)},
+                {title: '이용약관', handle: () => this.navigationTermScreen('이용약관', this.props.term1)},
+                {title: '앱 버전', right: `${Platform.OS==='ios'?this.props.appVersion.ios:this.props.appVersion.android}(${util.timeToFormat(this.props.appVersion.createdAt, 'YYYYMMDD')})`}
             ],
             contact: [
                 {title: '팀 정보'},
@@ -33,7 +34,7 @@ class MyInfoScreen extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const {MyInfo} = this.props;
         MyInfo.setProfile();
     }
@@ -43,19 +44,18 @@ class MyInfoScreen extends React.Component {
     };
 
     navigationMainAuthScreen = () => {
-        if(this.props.isValidation == 0)
+        if (this.props.isValidation == 0)
             this.props.navigation.navigate('mail');
         else
             return Alert.alert(
                 '경고',
                 '이미 메일을 인증하셨습니다.',
                 [
-                    {text:'확인'}
+                    {text: '확인'}
                 ],
                 {cancelable: false}
             )
     };
-
 
 
     navigationLeaveScreen = () => {
@@ -63,7 +63,7 @@ class MyInfoScreen extends React.Component {
     };
 
     navigationTermScreen = (title, content) => {
-        this.props.navigation.navigate('terms',{title:title, content:content});
+        this.props.navigation.navigate('terms', {title: title, content: content});
     };
 
     renderAccount = () => {
@@ -73,8 +73,7 @@ class MyInfoScreen extends React.Component {
                     return (
                         <View key={i}>
                             <InfoListItem title={data.title} handle={data.handle} right={data.right}/>
-                            {i < this.state.account.length - 1 ?
-                                <View style={styles.infoContentLine}/> : null}
+                            <View style={styles.infoContentLine}/>
                         </View>)
                 })}
             </View>
@@ -88,8 +87,7 @@ class MyInfoScreen extends React.Component {
                     return (
                         <View key={i}>
                             <InfoListItem title={data.title} handle={data.handle} right={data.right}/>
-                            {i < this.state.appInfo.length - 1 ?
-                                <View style={styles.infoContentLine}/> : null}
+                            <View style={styles.infoContentLine}/>
                         </View>)
                 })}
             </View>
@@ -102,8 +100,7 @@ class MyInfoScreen extends React.Component {
                     return (
                         <View key={i}>
                             <InfoListItem title={data.title} handle={data.handle} right={data.right}/>
-                            {i < this.state.appInfo.length - 1 ?
-                                <View style={styles.infoContentLine}/> : null}
+                            <View style={styles.infoContentLine}/>
                         </View>)
                 })}
             </View>
@@ -111,15 +108,15 @@ class MyInfoScreen extends React.Component {
     };
 
     handleLeave = () => {
-      return Alert.alert(
-          '탈퇴 확인',
-          '탈퇴 시 모든 정보가 즉시 삭제되며 복구할 수 없습니다. 모든 정보 삭제에 동의하시면 탈퇴를 진행하세요.',
-          [
-              {text: '취소'},
-              {text: '계속하기', onPress:this.navigationLeaveScreen}
-          ],
-          {cancelable: false}
-      )
+        return Alert.alert(
+            '탈퇴 확인',
+            '탈퇴 시 모든 정보가 즉시 삭제되며 복구할 수 없습니다. 모든 정보 삭제에 동의하시면 탈퇴를 진행하세요.',
+            [
+                {text: '취소'},
+                {text: '계속하기', onPress: this.navigationLeaveScreen}
+            ],
+            {cancelable: false}
+        )
     };
 
     handleLogout = () => {
@@ -143,14 +140,15 @@ class MyInfoScreen extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <MajorPickerModal visible={true}/>
                 <TitleView title={'마이페이지'}/>
-                <ScrollView >
-                <View style={styles.profile}>
-                    <Icon type='ionicon' name='ios-contact' size={60}/>
-                    <Text style={styles.profileNickName}>{this.props.userId}</Text>
-                    <Text style={styles.profileId}>{this.props.userNickName}</Text>
-                </View>
+                <ScrollView>
+                    <View style={styles.profile}>
+                        <Icon type='ionicon' name='ios-contact' size={60}/>
+                        <View style={{marginLeft:20,}}>
+                            <Text style={styles.profileNickName}>{this.props.userNickName}</Text>
+                            <Text style={styles.profileId}>{this.props.userId}</Text>
+                        </View>
+                    </View>
                     <View style={styles.contentContainer}>
                         <View style={styles.subject}><Text style={styles.baseText}> Account </Text></View>
                         {this.renderAccount()}
@@ -166,11 +164,12 @@ class MyInfoScreen extends React.Component {
 }
 
 export default connect((state) => ({
-    term1: state.signin.term1,
-    term2: state.signin.term2,
-    userId: state.myinfo.userId,
-    userNickName: state.myinfo.userNickName,
-    isValidation: state.myinfo.isValidation
+        term1: state.signin.term1,
+        term2: state.signin.term2,
+        userId: state.myinfo.userId,
+        userNickName: state.myinfo.userNickName,
+        isValidation: state.myinfo.isValidation,
+        appVersion: state.signin.appVersion,
     }),
     (dispatch) => ({
         MyInfo: bindActionCreators(myinfo, dispatch)
