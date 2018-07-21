@@ -483,7 +483,6 @@ export const appVersion = () => async dispatch => {
     });
 
     const jsonData = await result.json();
-    console.log(jsonData);
     if(jsonData.statusCode == 200){
         dispatch({type:APP_VERSION, payload: jsonData.result});
     } else {

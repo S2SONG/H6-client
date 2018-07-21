@@ -5,13 +5,14 @@ import {Alert, AsyncStorage} from "react-native";
 const ROOT_URL = config.server;
 
 const LEAVE_PASSWORD = 'LEAVE_PASSWORD';
+const LEAVE_INIT = 'LEAVE_INIT';
 
 const initialState = {
     password: '',
 };
 
 export const initState = () => dispatch => {
-
+    dispatch({type:LEAVE_INIT})
 };
 
 export const handlePassword = (password) => dispatch => {
@@ -73,6 +74,11 @@ export const handleLeaveUser = () => async dispatch => {
 };
 
 export default handleActions({
+    [LEAVE_INIT]: (state, action) => {
+        return {
+            password: '',
+        };
+    },
     [LEAVE_PASSWORD]: (state, action) => {
         return {
             ...state,
