@@ -9,14 +9,16 @@ export class SignUpDatePicker extends React.Component {
         return (
             <View style={styles.container}>
                 <Dropdown
-                    containerStyle={{ marginLeft:10}}
+                    // containerStyle={{alignSelf:'center'}}
                     rippleOpacity={0}
+                    // itemTextStyle={{alignItems:'center'}}
                     shadeOpacity={0}
                     baseColor={'black'}
                     value={this.props.placeholder}
                     data={this.props.year}
                     onChangeText={this.props.handle}
-                    onFocus={this.props.focus}
+                    pickerStyle ={{borderRadius:20}}
+                    // overlayStyle={{marginBottom:100}}
                 />
             </View>
         )
@@ -33,6 +35,6 @@ SignUpDatePicker.propTypes = {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ffffff',
-        width: '70%'
+        width: '70%',
     },
 });

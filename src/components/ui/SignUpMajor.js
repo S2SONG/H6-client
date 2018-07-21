@@ -13,20 +13,19 @@ export class SignUpMajor extends React.Component {
     }
 
     render() {
-        // console.log(this.props.visible);
 
         return (
 
             <View style={styles.container}>
 
                 <Dropdown
-                    containerStyle={{ marginLeft:10}}
                     rippleOpacity={0}
                     shadeOpacity={0}
                     baseColor={'black'}
                     value={this.props.placeholder}
                     data={this.props.track}
                     onChangeText={this.props.handle}
+                    pickerStyle ={{borderRadius:20}}
 
                     // isFocused={this.props.focus}
                     // onChangeText={this.props.check}
