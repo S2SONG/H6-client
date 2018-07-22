@@ -42,7 +42,7 @@ class SignUpScreen1 extends React.Component{
     }
     //약관동의 처리
     handleTerms = () => {
-        console.log(this.props.SignInScreen1Button);
+        // console.log(this.props.SignInScreen1Button);
 
         this.setState({
             termsModal: !this.state.termsModal
@@ -89,38 +89,35 @@ class SignUpScreen1 extends React.Component{
     handleTerms =() =>{
         const {SignIn} = this.props;
 
-        if( this.props.isFirstChecked && this.props.isSecondChecked){
+        if(this.props.isFirstChecked && this.props.isSecondChecked){
             SignIn.handleSignInScreen1Button('#4a4a4a');
             SignIn.handleSignInScreen1Button2('#4a4a4a');
             SignIn.handleChangeFontColor('#000000');
             this.state.iconColor=false;
         }
-        else if(!this.props.isFirstChecked&&!this.props.isSecondChecked){
+
+        else if(this.props.isFirstChecked&&!this.props.isSecondChecked){
             SignIn.handleSignInScreen1Button('#ffffff');
             SignIn.handleSignInScreen1Button2('#c5c4c4');
             SignIn.handleChangeFontColor('#000000');
             this.state.iconColor=false;
-
         }
-        else if(!this.state.check1 &&!this.state.check2){
+        else if(!this.props.isFirstChecked&&this.props.isSecondChecked){
             SignIn.handleSignInScreen1Button('#ffffff');
             SignIn.handleSignInScreen1Button2('#c5c4c4');
             SignIn.handleChangeFontColor('#000000');
             this.state.iconColor=false;
-
         }
         else {
             SignIn.handleSignInScreen1Button('#ffffff');
             SignIn.handleSignInScreen1Button2('#c5c4c4');
             // SignIn.handleChangeFontColor('#ffffff');
             this.state.iconColor=true;
-
-
         }
     };
     handleModal =() =>{
-        console.log(this.state.modalCheck1);
-        console.log(this.state.modalCheck2);
+        // console.log(this.state.modalCheck1);
+        // console.log(this.state.modalCheck2);
         const {SignIn} = this.props;
         if(this.state.modalCheck1 && this.state.modalCheck2){
             SignIn.handleSignInScreen1Button('#4a4a4a');
@@ -142,7 +139,7 @@ class SignUpScreen1 extends React.Component{
     handleTermsAllTrue = () => {
         const {SignIn} = this.props;
         // SignIn.handleSignInScreen1Button('black');
-        console.log(this.props.SignInScreen1Button);
+        // console.log(this.props.SignInScreen1Button);
         if (this.returnChecked()) {
             // SignIn.handleisAllChecked(false);
             SignIn.handleTermsAll(false);
