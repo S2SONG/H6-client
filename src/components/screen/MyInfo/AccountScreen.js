@@ -28,7 +28,7 @@ class AccountScreen extends React.Component {
         const {Account} = this.props;
         await Account.initState();
         await Account.getAddInfo();
-        await this.setState({
+        this.setState({
             addInfo: [
                 {title: '전공', handle:this.navigationBack, right:this.props.major, rightTextColor:'black'},
                 {title: '부전공', handle:this.navigationBack, right:this.props.minor, rightTextColor:'black'},

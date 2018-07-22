@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, AsyncStorage, SafeAreaView, Alert} from 'react-native';
+import {View, Text, ScrollView, AsyncStorage, SafeAreaView, Alert, KeyboardAvoidingView} from 'react-native';
 import {Button} from 'react-native-elements';
 import {TitleView} from "../../ui/TitleView";
 import {bindActionCreators} from "redux";
@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {MailInputText} from "./ui/MailInputText";
 import * as mailauth from "../../../modules/mailauth";
 import styles from "./MailAuthStyles";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 class MailAuthScreen extends React.Component {
 
@@ -52,16 +53,30 @@ class MailAuthScreen extends React.Component {
         }
     };
 
+    renderButton = () => {
+        if(this.props.mail === ''){
+            return(
+                <View style={styles.disableButton}>
+                    <Text style={styles.buttonText}>인증메일 요청하기</Text>
+                </View>
+            )
+        } else {
+            return (<Button buttonStyle={styles.contentButton} title={'인증메일 요청하기'} fontSize={16} onPress={this.sendAuthMail}></Button>)
+        }
+    };
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <TitleView title={'한성인인증'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
-                <ScrollView style={styles.contentContainer}>
+                <TitleView title={'한성인 인증'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
+                <KeyboardAvoidingView style={{flex:1}} behavior="padding" enabled>
+                <ScrollView contentContainerStyle={styles.contentContainer}>
                     <Text style={styles.contentText}>강의평가를 위해서는</Text>
                     <Text style={styles.contentText}>학교 이메일 계정을 통한 인증절차가 필요합니다.</Text>
                     <MailInputText handle={this.onChangeEmail} email={this.props.mail}/>
-                    <Button buttonStyle={styles.contentButton} title={'인증메일 요청(발송)'} onPress={this.sendAuthMail}></Button>
+                    {this.renderButton()}
                 </ScrollView>
+                </KeyboardAvoidingView>
             </SafeAreaView>
         )
     }

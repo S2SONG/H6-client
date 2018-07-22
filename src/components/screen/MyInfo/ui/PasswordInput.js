@@ -8,7 +8,7 @@ export class PasswordInput extends React.Component {
     renderLabel = () => {
         if(this.props.label!==undefined){
             return(
-                <View style={{width:240, marginBottom:5}}>
+                <View style={{width:240, marginBottom:10, alignItems:'center'}}>
                     <Text>{this.props.label}</Text>
                 </View>
             )
@@ -75,9 +75,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderColor: '#979797',
         borderWidth: 1,
+        borderRadius: 20,
     },
     input: {
         width: '100%',
+        textAlign: 'center'
     },
     inputIcon: {
         marginRight: 10,

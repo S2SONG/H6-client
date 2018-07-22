@@ -439,7 +439,6 @@ export const signInUser = (userId, userPw) => async dispatch => {
             body: JSON.stringify(userData)
         });
         const jsonData = await signInCheck.json();
-        console.log(jsonData);
         if (jsonData.statusCode == 200) {
             dispatch({type: SIGN_IN, payload: true});
             AsyncStorage.setItem('admissionYear', jsonData.result.admissionYear==null||jsonData.result.admissionYear===undefined ?'':jsonData.result.admissionYear + '');
