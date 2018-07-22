@@ -28,7 +28,7 @@ export class TermScreen extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <TitleView title={this.state.title} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
+                <TitleView title={this.state.title} rightIcon={'md-close'} rightIconHandler={this.navigationBack}/>
                 <ScrollView style={styles.contentContainer}>
                     <HTML html={this.state.content}/>
                 </ScrollView>

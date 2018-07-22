@@ -74,6 +74,10 @@ const ADMISSION_YEAR='ADMISSION_YEAR';
 
 const TRACK_LIST='TRACK_LIST';
 const MAJOR_CHECK='MAJOR_CHECK';
+const CHANGE_FONT_COLOR='CHANGE_FONT_COLOR';
+const CHECK_ALL='CHECK_ALL';
+
+const APP_VERSION = 'APP_VERSION';
 
 const initialState = {
     sample: "",
@@ -146,8 +150,9 @@ const initialState = {
 
     track:[],
     year:[],
-    majorCheck:true
+    fontColor:'#000000',
 
+    appVersion: {},
 };
 
 export const initSignInState = () => dispatch => {
@@ -155,7 +160,7 @@ export const initSignInState = () => dispatch => {
     dispatch({type: SIGN_IN_PWD, payload: ''});
     dispatch({type: SIGN_IN_CHECK, payload: false});
     dispatch({type: SIGN_IN_BUTTON, payload: false});
-
+    dispatch({type: APP_VERSION, payload: {}});
 };
 
 export const initSignUpState = () => dispatch => {
@@ -411,6 +416,11 @@ export const handleMajorCheck =(check)=>dispatch =>{
 export const handleSignInScreen3Button =(color) => dispatch =>{
     dispatch({type:SIGN_IN_SCREEN3_BUTTON, payload:color})
 };
+export  const handleChangeFontColor =(color)=> dispatch =>{
+    dispatch({type:CHANGE_FONT_COLOR,payload:color  })
+};
+
+
 export const signInUser = (userId, userPw) => async dispatch => {
     console.log('start');
     var userData = {
@@ -463,7 +473,25 @@ export const signInUser = (userId, userPw) => async dispatch => {
 
 };
 
+export const appVersion = () => async dispatch => {
+    const result = await fetch(`${ROOT_URL}/version`,{
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+    });
+
+    const jsonData = await result.json();
+    if(jsonData.statusCode == 200){
+        dispatch({type:APP_VERSION, payload: jsonData.result});
+    } else {
+
+    }
+};
+
 export const checkUserId = (userId) => async dispatch => {
+    console.log(userId);
     const userIdCheck = await fetch(`${ROOT_URL}/userValidation/userId/${userId}`);
 
     const jsonData = await userIdCheck.json();
@@ -476,10 +504,10 @@ export const checkUserId = (userId) => async dispatch => {
 };
 
 export const checkUserNickName = (nickname) => async dispatch => {
-    console.log(nickname);
+    // console.log(nickname);
     const userNickNameCheck = await fetch(`${ROOT_URL}/userValidation/userNickName/${nickname}`);
     const jsonData = await userNickNameCheck.json();
-    console.log('check dup nickname : ', jsonData.statusCode);
+    // console.log('check dup nickname : ', jsonData.statusCode);
     if (jsonData.statusCode == 200) {
         return true;
     } else {
@@ -551,7 +579,6 @@ export const signUpTerm2 = () => async dispatch => {
 export const sendFindPwd = (userId) => async dispatch => {
     const result = await fetch(`${ROOT_URL}/userValidation/sendPasswordMail/${userId}`);
     const jsonData = await result.json();
-    console.log(jsonData);
     if (jsonData.statusCode == 200) {
         return true;
     } else {
@@ -573,11 +600,9 @@ export const  trackList = ()=> async dispatch =>{
 };
 export const  AdmissionYear = ()=> async dispatch =>{
 
-    // console.log('in');
     const year = await fetch(`${ROOT_URL}/admissionYear`);
     const jsonData =await year.json();
     if(jsonData.statusCode == 200){
-        // console.log(jsonData.result);
 
         for(let i=0;i<jsonData.result.length;i++) {
             // console.log(jsonData.result[i].admissionYear);
@@ -876,9 +901,11 @@ export default handleActions({
         return {
             ...state,
             isFirstChecked: action.payload,
-            isSecondChecked: action.payload
+            isSecondChecked: action.payload,
+            // isAllChecked:action.payload,
         }
     },
+
     [FIND_PWD_USER_ID]: (state, action) => {
         return {
             ...state,
@@ -971,5 +998,18 @@ export default handleActions({
             ...state,
             signInScreen3Button:action.payload
         }
+    },
+    [CHANGE_FONT_COLOR]:(state,action)=> {
+        return {
+            ...state,
+            fontColor:action.payload
+        }
+    },
+    [APP_VERSION]: (state, action) => {
+        return {
+            ...state,
+            appVersion: action.payload,
+        }
     }
+
 }, initialState);

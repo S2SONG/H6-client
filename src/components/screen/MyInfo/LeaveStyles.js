@@ -3,7 +3,7 @@ import {StyleSheet} from "react-native";
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'white'
+        backgroundColor: 'white'
     },
     contentContainer: {
         flexGrow: 1,
@@ -14,15 +14,30 @@ export default StyleSheet.create({
         fontSize: 14,
         alignSelf: 'center',
         textAlign: 'center',
-        color: '#d0021b'
     },
     contentButton: {
-        width: 224,
-        height: 58,
-        alignSelf:'center',
-        marginTop: 31,
+        width: 193,
+        height: 46,
+        alignSelf: 'center',
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop: 70,
         backgroundColor: 'rgb(124,130,140)',
         borderRadius: 29
+    },
+    disableButton: {
+        width: 193,
+        height: 46,
+        alignSelf: 'center',
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop: 70,
+        backgroundColor: '#304a4a4a',
+        borderRadius: 29
+    },
+    buttonText: {
+        fontSize: 16,
+        color: 'white'
     }
 
 });

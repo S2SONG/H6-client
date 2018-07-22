@@ -20,7 +20,6 @@ import { KeyboardAvoidingView } from 'react-native';
 
 class SignUpScreen2 extends React.Component{
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -29,18 +28,37 @@ class SignUpScreen2 extends React.Component{
             rePwd:false,
             nickName:false,
             checkId:true,
-            checkNic:true
+            checkNic:true,
+            changePage:false,
+            changePage2:false
         };
     }
     navigationGoBack = () => {
+        const {SignInTwo} = this.props;
+
+        // this.props.navigation.goBack();
         this.props.navigation.goBack();
+
+
     };
     xButton = () => {
         // const {SignIn} = this.props;
         // SignIn.initSignUpState();
         // SignIn.handleSignUpModal();
-        this.props.navigation.navigate('SignIn');
+        const {SignInTwo} = this.props;
 
+        SignInTwo.handleTermsAll(false);
+        SignInTwo.handleSignInScreen1Button('#ffffff');
+        SignInTwo.handleSignInScreen1Button2('#c5c4c4');
+        SignInTwo.handleChangeFontColor('#000000');
+        SignInTwo.handleSignUpUserId('');
+        SignInTwo.handleSignUpUserPwd('');
+        SignInTwo.handleSignUpUserRePwd('');
+        SignInTwo.handleSignUpUserNickName('');
+        SignInTwo.handleSignInScreen2Button('#c5c4c4');
+
+        this.props.navigation.navigate('SignIn');
+        // this.attendee.setNativeProps({ text: '' })
     };
     handleStateUserId = async (userId) => {
         const {SignInTwo} = this.props;
@@ -51,24 +69,25 @@ class SignUpScreen2 extends React.Component{
                 SignInTwo.handleSignUpCheckUserIdClient(false);
                 SignInTwo.handleSignUpCheckUserIdNo(0);
                 SignInTwo.handleSignUpCheckUserIdLabel('');
-
+                this.state.id=false;
             } else {
                 SignInTwo.handleSignUpCheckUserIdClient(true);
                 SignInTwo.handleSignUpCheckUserIdNo(0);
                 SignInTwo.handleSignUpCheckUserIdLabel('');
                 this.state.id=true;
             }
-            if (this.props.checkIdClient){
-                console.log(this.props.checkIdClient);
-                checkId = await SignInTwo.checkUserId(userId);
-                if (!checkId){
-                    SignInTwo.handleSignUpCheckUserIdNo(1);
-                    this.state.checkId=false;
-                }
-                else{
-                    this.state.checkId=true;
-                }
-            }
+            // console.log(this.props.checkNickNameClient);
+            // if (this.props.checkIdClient){
+            //     console.log(this.props.checkIdClient);
+            //     checkId = await SignInTwo.checkUserId(userId);
+            //     if (!checkId){
+            //         SignInTwo.handleSignUpCheckUserIdNo(1);
+            //         this.state.checkId=false;
+            //     }
+            //     else{
+            //         this.state.checkId=true;
+            //     }
+            // }
         }
         else {
             SignInTwo.handleSignUpCheckUserIdClient(false);
@@ -117,13 +136,14 @@ class SignUpScreen2 extends React.Component{
             // SignInTwo.handleSignUpCheckUserRePasswordLabel('비밀번호가 불일치 합니다');
         }
         if(this.state.id&&this.state.pwd&&this.state.rePwd&&this.state.nickName&&this.state.checkId&&this.state.checkNic){
-            console.log('버튼 색 바꾸자');
+            // console.log('버튼 색 바꾸자');
             SignInTwo.handleSignInScreen2Button('#4a4a4a');
         }
         else{
             SignInTwo.handleSignInScreen2Button('#c5c4c4');
 
         }
+
     };
     handleStateUserRePw = (userRePw) => {
         const {SignInTwo} = this.props;
@@ -147,7 +167,6 @@ class SignUpScreen2 extends React.Component{
         }
         else{
             SignInTwo.handleSignInScreen2Button('#c5c4c4');
-
         }
     };
     handleStateUserNickName = async (userNickName) => {
@@ -159,23 +178,13 @@ class SignUpScreen2 extends React.Component{
                 SignInTwo.handleSignUpCheckUserNickNameClient(false);
                 SignInTwo.handleSignUpCheckUserNickNameNo(0);
                 SignInTwo.handleSignUpCheckUserNickNameLabel('');
-                this.state.nickName = false;
 
             }
             else {
                 SignInTwo.handleSignUpCheckUserNickNameClient(true);
                 SignInTwo.handleSignUpCheckUserNickNameNo(0);
                 SignInTwo.handleSignUpCheckUserNickNameLabel('');
-
-                this.state.nickName = true;
-                checkNickname = await SignInTwo.checkUserNickName(userNickName);
-                if (!checkNickname) {
-                    SignInTwo.handleSignUpCheckUserNickNameNo(1);
-                    this.state.checkNic = false;
-                }
-                else {
-                    this.state.checkNic = true;
-                }
+                this.state.nickName=true;
             }
 
         }
@@ -197,22 +206,77 @@ class SignUpScreen2 extends React.Component{
     };
     handleCheckUserNickName = async () => {
         const {SignInTwo} = this.props;
-
-        if (this.props.checkNickNameClient && this.props.userNickName.length > 0) {
-            const result = await SignIn.checkUserNickName(this.props.userNickName);
-            if (result) {
-                SignInTwo.handleSignUpCheckUserNickNameServer(true);
-                SignInTwo.handleSignUpCheckUserNickNameNo(2);
-                SignInTwo.handleSignUpCheckUserNickNameLabel('사용 가능한 닉네임 입니다.');
-            } else {
-                SignInTwo.handleSignUpCheckUserNickNameServer(false);
+        let checkNickname;
+        // console.log(userNickName);
+        if(validation.checkNickNameLength(this.props.userNickName)){
+            checkNickname = await SignInTwo.checkUserNickName(this.props.userNickName);
+            console.log('checkNick='+checkNickname);
+            if (!checkNickname) {
                 SignInTwo.handleSignUpCheckUserNickNameNo(1);
-                SignInTwo.handleSignUpCheckUserNickNameLabel('사용 불가능한 닉네임 입니다.');
+                this.state.checkNic = false;
+                this.state.changePage2=false;
+
+
             }
-        } else {
-            SignInTwo.handleSignUpCheckUserNickNameServer(false);
+            else {
+                this.state.checkNic = true;
+                this.state.changePage2=true;
+
+            }
+
         }
+        if(this.state.id&&this.state.pwd&&this.state.rePwd&&this.state.nickName&&this.state.checkId&&this.state.checkNic){
+            SignInTwo.handleSignInScreen2Button('#4a4a4a');
+        }
+        else{
+            SignInTwo.handleSignInScreen2Button('#c5c4c4');
+
+        }
+
     };
+    handleCheckUserId = async() =>{
+        let checkId;
+        const {SignInTwo} = this.props;
+        console.log(this.props.userId);
+        if(validation.checkEmail(this.props.userId)){
+            // console.log(this.props.checkIdClient);
+            checkId = await SignInTwo.checkUserId(this.props.userId);
+            if (!checkId){
+                SignInTwo.handleSignUpCheckUserIdNo(1);
+                this.state.checkId=false;
+                this.state.changePage=false;
+
+            }
+            else{
+                this.state.checkId=true;
+                this.state.changePage=true;
+
+            }
+        }
+        if(this.state.id&&this.state.pwd&&this.state.rePwd&&this.state.nickName&&this.state.checkId&&this.state.checkNic){
+            SignInTwo.handleSignInScreen2Button('#4a4a4a');
+        }
+        else{
+            SignInTwo.handleSignInScreen2Button('#c5c4c4');
+
+        }
+
+    };
+    //     if (this.props.checkNickNameClient && this.props.userNickName.length > 0) {
+    //         const result = await SignIn.checkUserNickName(this.props.userNickName);
+    //         if (result) {
+    //             SignInTwo.handleSignUpCheckUserNickNameServer(true);
+    //             SignInTwo.handleSignUpCheckUserNickNameNo(2);
+    //             SignInTwo.handleSignUpCheckUserNickNameLabel('사용 가능한 닉네임 입니다.');
+    //         } else {
+    //             SignInTwo.handleSignUpCheckUserNickNameServer(false);
+    //             SignInTwo.handleSignUpCheckUserNickNameNo(1);
+    //             SignInTwo.handleSignUpCheckUserNickNameLabel('사용 불가능한 닉네임 입니다.');
+    //         }
+    //     } else {
+    //         SignInTwo.handleSignUpCheckUserNickNameServer(false);
+    //     }
+    // };
     nextTerms = () =>{
         this.props.navigation.navigate('SignUpThree');
 
@@ -237,17 +301,15 @@ class SignUpScreen2 extends React.Component{
     };
     basicChecked = async () => {
         const {SignInTwo} = this.props;
-        if (!this.props.checkIdClient){
-            console.log('hell');
-        }
-        // return this.handleCheckUserIdModal();
-        let checkid = await SignInTwo.checkUserId(this.props.userId);
-        if (!checkid) return this.handleCheckUserIdModal();
 
-        if (!this.props.checkNickNameClient)
-            return this.handleCheckUserNickNameModal();
-        let checknickname = await SignInTwo.checkUserNickName(this.props.userNickName);
-        if (!checknickname) return this.handleCheckUserNickNameModal();
+        // return this.handleCheckUserIdModal();
+        // let checkid = await SignInTwo.checkUserId(this.props.userId);
+        // if (!checkid) return this.handleCheckUserIdModal();
+        //
+        // if (!this.props.checkNickNameClient)
+        //     return this.handleCheckUserNickNameModal();
+        // let checknickname = await SignInTwo.checkUserNickName(this.props.userNickName);
+        // if (!checknickname) return this.handleCheckUserNickNameModal();
 
         // if (this.props.userEmail.length > 0) {
         //     if (!this.props.checkEmailClient)
@@ -255,15 +317,19 @@ class SignUpScreen2 extends React.Component{
         //     let checkemail = await SignIn.checkUserEmail(this.props.userEmail);
         //     if (!checkemail) return this.handleCheckUserEmailModal();
         // }
+        console.log(this.state.changePage);
+        console.log(this.state.changePage2);
+
         if (!(this.props.checkPassword && this.props.checkRePassword))
             return this.handleCheckUserPasswordModal();
         // 3번째 page
         SignInTwo.trackList();
         SignInTwo.AdmissionYear();
-        this.nextTerms();
+        if(this.state.changePage&&this.state.changePage2) {
+            this.nextTerms();
+        }
 
     };
-
 
     render() {
 
@@ -277,7 +343,7 @@ class SignUpScreen2 extends React.Component{
                 />
                 <KeyboardAwareScrollView>
 
-                    <View style={{flex: 1, justifyContent: 'center',marginTop:30}}>
+                    <View style={{flex: 1, justifyContent: 'center',marginTop:19}}>
                         <View style ={{flexDirection:'row',justifyContent: 'space-between'}}>
                             <View style={{marginLeft:10}}>
                                 <Icon name={'ios-arrow-back-outline'} type='ionicon' size={40} color={'black'} style={{alignSelf:'flex-first'}}  onPress={this.navigationGoBack}/>
@@ -290,7 +356,7 @@ class SignUpScreen2 extends React.Component{
 
                     </View>
                     <View style={{marginTop:15,marginLeft:10}}>
-                        <Text style={{fontSize:17,alignSelf:'flex-start'}}> 회원가입 </Text>
+                        <Text style={{fontSize:17,alignSelf:'flex-start',fontWeight: 'bold'}}> 회원가입 </Text>
                     </View>
 
 
@@ -319,6 +385,7 @@ class SignUpScreen2 extends React.Component{
                                              checkLabel={this.props.checkIdLabel}
                                              blur={this.handleCheckUserId}
                                              changePlaceholder={'정확한 이메일 형태를 입력'}
+                                             inputFontSize={this.props.inputFontSize}
                             />
 
 
@@ -363,8 +430,8 @@ class SignUpScreen2 extends React.Component{
                                 width: 289,
                                 height:53,
                                 alignSelf: 'center',
-                                marginTop:10
-                            }} onPress={this.basicChecked} title="계속하기"/>
+                                marginTop:16
+                            }} onPress={this.basicChecked} title="계속 진행하기"/>
                             {/*<WarningModal*/}
                             {/*visible={this.props.userIdCheckModal}*/}
                             {/*title={'경고'}*/}
@@ -451,7 +518,8 @@ export default connect((state) => ({
         findPwdUserId: state.signin.findPwdUserId,
         findPwdCheckNo: state.signin.findPwdCheckNo,
         findPwdCheckLabel: state.signin.findPwdCheckLabel,
-        signInScreen2Button:state.signin.signInScreen2Button
+        signInScreen2Button:state.signin.signInScreen2Button,
+        inputFontSize:state.signin.inputFontSize
 
     }),
     (dispatch) => ({

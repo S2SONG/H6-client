@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, AsyncStorage, SafeAreaView, Alert} from 'react-native';
+import {View, Text, ScrollView, AsyncStorage, SafeAreaView, Alert, TouchableOpacity} from 'react-native';
 import {Button} from 'react-native-elements';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -14,7 +14,9 @@ class LeaveScreen extends React.Component {
         super(props);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const {Leave} = this.props;
+        await Leave.initState();
     }
 
     navigationBack = () => {
@@ -68,11 +70,20 @@ class LeaveScreen extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <TitleView title={'회원탈퇴'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
+                <TitleView title={'회원탈퇴'} rightIcon={'md-close'} rightIconHandler={this.navigationBack}/>
                 <ScrollView style={styles.contentContainer}>
                     <Text style={styles.contentText}>본인확인을 위해 비밀번호를 확인합니다.</Text>
                     <LeavePasswordInput handle={this.handlePassword} value={this.props.password}/>
-                    <Button buttonStyle={styles.contentButton} title={'한담 탈퇴'} onPress={this.handleLeaveUser}></Button>
+                    {/*<Button buttonStyle={styles.contentButton} title={'한담 탈퇴'} onPress={this.handleLeaveUser}></Button>*/}
+                    {this.props.password===''?
+                    <View style={styles.disableButton}>
+                        <Text style={styles.buttonText}>한담 탈퇴</Text>
+                    </View>:
+                    <TouchableOpacity onPress={this.handleLeaveUser}>
+                        <View style={styles.contentButton}>
+                            <Text style={styles.buttonText}>한담 탈퇴</Text>
+                        </View>
+                    </TouchableOpacity>}
                 </ScrollView>
             </SafeAreaView>
         )

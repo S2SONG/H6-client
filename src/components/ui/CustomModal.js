@@ -69,7 +69,12 @@ export class CustomModal extends React.Component {
                     {this.renderClose()}
                     <View style={{height: this.props.height, width: this.props.width, backgroundColor: this.props.background, borderRadius: 5}}>
                         {this.renderTitle()}
-                        <View style={styles.body}>
+                        <View style={{
+                            flex:1,
+                            width: '100%',
+                            padding: this.props.padding,
+                            alignSelf: 'center',
+                        }}>
                             {this.renderBody()}
                         </View>
                         {this.renderFooter()}
@@ -92,6 +97,7 @@ CustomModal.propTypes = {
     footer: PropTypes.bool,
     footerText: PropTypes.string,
     footerHandle: PropTypes.func,
+    padding: PropTypes.number
 };
 
 CustomModal.defaultProps = {
@@ -100,6 +106,7 @@ CustomModal.defaultProps = {
     background: '#ffffff',
     visible: false,
     footer: false,
+    padding:10,
 };
 
 const styles = StyleSheet.create({

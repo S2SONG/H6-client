@@ -70,7 +70,6 @@ export const getPastVote = (index) => async dispatch => {
     });
 
     const jsonData = await result.json();
-    console.log(jsonData);
     if(jsonData.statusCode == 200){
         const data = jsonData.result.voteTopic;
         const voteItem = jsonData.result.voteItem;

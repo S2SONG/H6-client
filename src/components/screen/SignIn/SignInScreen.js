@@ -81,10 +81,10 @@ class SignInScreen extends React.Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {SignIn} = this.props;
-        SignIn.initSignInState();
-        SignIn.initSignUpState();
+        await SignIn.initSignInState();
+        await SignIn.initSignUpState();
         SignIn.signUpTerm1();
         SignIn.signUpTerm2();
         //로그인화면 애니메이션 효과
@@ -97,6 +97,7 @@ class SignInScreen extends React.Component {
                 delay: 1000,
             }            // Configuration
         ).start();                // Don't forget start!
+        SignIn.appVersion();
         this.autoLogin();
 
     }
