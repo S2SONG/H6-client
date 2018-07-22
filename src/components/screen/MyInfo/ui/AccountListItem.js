@@ -12,15 +12,15 @@ export class AccountListItem extends React.Component {
     returnTextStyle = (color) => {
         if(color === undefined){
             return {
-                    fontSize: 13,
-                    color: '#d8d8d8',
+                    fontSize: 14,
+                    color: '#00000040',
                     alignSelf:'center',
                     alignItems:'center',
                     justifyContent:'center',
             }
         } else {
             return {
-                    fontSize: 13,
+                    fontSize: 14,
                     color: color,
                     alignSelf:'center',
                     alignItems:'center',
@@ -40,8 +40,8 @@ export class AccountListItem extends React.Component {
                     <View style={styles.right}>
                         {this.props.right === undefined ? null:
                             <Text style={this.returnTextStyle(this.props.rightTextColor)}>{this.props.right}</Text>}
-                        {this.props.handle === undefined ? <View style={styles.rightIcon}></View>:
-                            <Icon style={styles.rightIcon} name='ios-arrow-forward' type='ionicon' color={'#d8d8d8'}/>}
+                        {this.props.handle === undefined ? null:
+                            <Icon containerStyle={styles.rightIcon} name='ios-arrow-forward' type='ionicon' color={'#d8d8d8'}/>}
                     </View>
                 </View>
             </TouchableHighlight>
@@ -58,14 +58,14 @@ AccountListItem.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        height: 34,
-        paddingLeft: 14,
-        paddingRight: 15,
-        backgroundColor: 'white',
+        height: 40,
+        paddingLeft:5,
+        paddingRight:11,
+        backgroundColor: 'transparent',
         justifyContent: 'center',
     },
     text: {
-        fontSize: 13,
+        fontSize: 14,
         alignSelf: 'center',
         justifyContent:'center',
     },
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     },
     rightIcon: {
         width:25,
+        marginLeft:11,
         alignSelf:'center',
     }
 });

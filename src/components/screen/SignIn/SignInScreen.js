@@ -677,7 +677,7 @@ class SignInScreen extends React.Component {
         if(this.props.signInButton)
             return <SignInButton title={'시작하기'} handle={this.signInUser} iconColor={'white'} textColor={'white'} backgroundColor={'#4a4a4a'}/>
         else
-            return <SignInButton title={'시작하기'} iconColor={'#9b9b9b'} textColor={'black'} backgroundColor={'white'}/>
+            return <SignInButton title={'시작하기'} iconColor={'#9b9b9b'} textColor={'white'} backgroundColor={'#4a4a4a30'}/>
     };
 
     basicChecked = async () => {

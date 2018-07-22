@@ -10,6 +10,7 @@ import leave from './leave';
 import home from './home';
 import currentVote from './currentVote';
 import pastVote from './pastVote';
+import account from './account';
 
 export default combineReducers({
     signin,
@@ -22,5 +23,6 @@ export default combineReducers({
     leave,
     home,
     currentVote,
-    pastVote
+    pastVote,
+    account
 });

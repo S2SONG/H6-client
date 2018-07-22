@@ -439,15 +439,15 @@ export const signInUser = (userId, userPw) => async dispatch => {
             body: JSON.stringify(userData)
         });
         const jsonData = await signInCheck.json();
-
+        console.log(jsonData);
         if (jsonData.statusCode == 200) {
             dispatch({type: SIGN_IN, payload: true});
-            AsyncStorage.setItem('admissionYear', jsonData.result.admissionYear ? jsonData.result.admissionYear + '' : '');
-            AsyncStorage.setItem('connectedMajor', jsonData.result.connectedMajor ? jsonData.result.connectedMajor : '');
-            AsyncStorage.setItem('doubleMajor', jsonData.result.doubleMajor ? jsonData.result.doubleMajor : '');
+            AsyncStorage.setItem('admissionYear', jsonData.result.admissionYear==null||jsonData.result.admissionYear===undefined ?'':jsonData.result.admissionYear + '');
+            AsyncStorage.setItem('connectedMajor', jsonData.result.connectedMajor==null||jsonData.result.connectedMajor===undefined?'':jsonData.result.connectedMajor);
+            AsyncStorage.setItem('doubleMajor', jsonData.result.doubleMajor==null||jsonData.result.doubleMajor===undefined? '':jsonData.result.doubleMajor);
             AsyncStorage.setItem('isValidation', jsonData.result.isValidation + '');
-            AsyncStorage.setItem(   'major', jsonData.result.major ? jsonData.result.major : '');
-            AsyncStorage.setItem('minor', jsonData.result.minor ? jsonData.result.minor : '');
+            AsyncStorage.setItem('major', jsonData.result.major==null||jsonData.result.major===undefined? '':jsonData.result.major);
+            AsyncStorage.setItem('minor', jsonData.result.minor==null||jsonData.result.minor===undefined ? '':jsonData.result.minor);
             AsyncStorage.setItem('token', jsonData.result.token);
             AsyncStorage.setItem('userId', jsonData.result.userId);
             AsyncStorage.setItem('userIndex', jsonData.result.userIndex + '');

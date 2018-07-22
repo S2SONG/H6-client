@@ -101,7 +101,7 @@ class LectureInfoScreen extends React.Component {
     };
 
     renderCheck =() => {
-        if(this.props.reply==""){
+        if(this.props.reply===undefined){
             return null;
         } else {
             return (
