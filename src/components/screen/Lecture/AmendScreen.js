@@ -11,6 +11,7 @@ import StarRating from 'react-native-star-rating';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {CustomModal} from "../../ui/CustomModal";
 import {EvaluateScore} from "./ui/EvaluateScore";
+import * as lectureInfo from "../../../modules/lectureInfo";
 
 class AmendScreen extends React.Component {
 
@@ -34,7 +35,7 @@ class AmendScreen extends React.Component {
 
     componentDidMount() {
         this.evaluationInit();
-        if(this.props.review==="") this.handleReview(this.state.review);
+        // if(this.props.review==="") this.handleReview(this.state.review);
     };
     evaluationInit = async () =>{
         const {Evaluation} = this.props;
@@ -42,6 +43,7 @@ class AmendScreen extends React.Component {
     };
 
     navigationGoBack = () => {
+        // this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList,reply: this.props.updateReply});
         this.props.navigation.goBack();
     };
 
@@ -101,19 +103,23 @@ class AmendScreen extends React.Component {
         }
     };
 
+    replyList = async () =>{
+        const {LectureInfo} = this.props;
+        await LectureInfo.lectureReplyInit();
+        await LectureInfo.getLectureReplyList(this.props.lecture.lectureInfoIndex, this.props.currentPage, this.props.lectureReplyListLength);
+    };
+
     replyModalOpen=()=>{
         const {Evaluation} = this.props;
         Evaluation.saveModal(true);
     };
-    replyModalClose=()=>{
+    replyModalClose = async ()=>{
         const {Evaluation} = this.props;
         Evaluation.saveModal(false);
-        // this.props.navigation.navigate('LectureInfo',{lecture: this.props.lecture});
-        console.log('update>>',this.props.updateReply);
-        this.props.navigation.navigate('lecture',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList,});
-        this.props.navigation.goBack();
-        this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList, reply: this.props.updateReply});
-        // this.props.navigation.navigate('LectureInfo',{lecture: this.props.lecture, lectureReplyList: this.props.lectureReplyList, reply: this.props.updateReply});
+        await this.replyList();
+        // this.props.navigation.navigate('lecture',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList});
+        this.navigationGoBack();
+        // this.props.navigation.navigate('lectureInfo',{lecture: this.props.lecture, lectureReplyList: this.props.lectureReplyList, updateReply: this.props.updateReply});
     };
 
     testCountChangeType = (testCount) => {
@@ -249,9 +255,13 @@ export default connect((state) => ({
         visible:state.evaluation.visible,
         currentReply:state.evaluation.currentReply,
         reply:state.evaluation.reply,
-        updateReply:state.evaluation.updateReply
+        updateReply:state.evaluation.updateReply,
+        lectureReplyList: state.lecture.lectureReplyList,
+        currentPage: state.lectureInfo.currentPage,
+        lectureInfoReplyList: state.lectureInfo.lectureReplyList,
     }),
     (dispatch) => ({
+        LectureInfo: bindActionCreators(lectureInfo, dispatch),
         Evaluation: bindActionCreators(evaluation, dispatch)
     })
 )(AmendScreen)

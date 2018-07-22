@@ -100,7 +100,7 @@ class LectureInfoScreen extends React.Component {
         )
     };
 
-    renderCheck =() => {
+    renderCheck = () => {
         if(this.props.reply===undefined){
             return null;
         } else {
@@ -156,9 +156,10 @@ class LectureInfoScreen extends React.Component {
     removeReplyModalClose = () => {
         const {Evaluation} = this.props;
         Evaluation.removeReplyModal(false);
+        // this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList});
+        this.lectureReplyInit();
+        // this.props.navigation.goBack();
         this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList});
-        this.props.navigation.goBack();
-        this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList}); //
     };
 
     onChangeHeaderTitle = (check) => {
