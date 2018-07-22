@@ -138,7 +138,7 @@ export const getReplyIndex = (lectureInfoIndex) => async dispatch => {
     if (jsonData.statusCode == 200) {
         dispatch({type: REPLY_INDEX, payload: jsonData.result});
     } else {
-        dispatch({type: REPLY_INDEX, payload:""});
+        dispatch({type: REPLY_INDEX, payload:undefined});
     }
 };
 

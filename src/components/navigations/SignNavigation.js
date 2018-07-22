@@ -12,6 +12,7 @@ import AmendScreen from "../screen/Lecture/AmendScreen";
 import SignUpScreen1 from "../screen/SignUp/SignUpScreen1";
 import SignUpScreen2 from "../screen/SignUp/SignUpScreen2";
 import SignUpScreen3 from "../screen/SignUp/SignUpScreen3";
+import LectureScreen from "../screen/Lecture/LectureScreen";
 //StackNavigation 사용
 // 로그인, 동의화면, 회원가입, 홈 네비게이션
 const SignNav = createStackNavigator({
@@ -67,6 +68,13 @@ const SignNav = createStackNavigator({
         screen: AmendScreen,
         navigationOptions: {
             header: null,
+            gesturesEnabled: false
+        }
+    },
+    LectureScreen:{
+        screen: LectureScreen,
+        navigationOptions:{
+            header:null,
             gesturesEnabled: false
         }
     }
