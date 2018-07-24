@@ -19,7 +19,7 @@ export class LectureReplyListItem extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row', paddingTop:5}}>
                     <View style={styles.leftContainer}>
                         <Text style={styles.replyNickName}>{this.props.lectureReply.userNickName}</Text>
                     </View>
@@ -43,7 +43,7 @@ export class LectureReplyListItem extends React.Component {
                         {/*/>*/}
                     </View>
                 </View>
-                <View style={{flexDirection: 'row',paddingLeft:15, paddingTop:15}}>
+                <View style={{flexDirection: 'row',paddingLeft:15, paddingTop:12}}>
                     <View style ={{width:'20%',paddingTop:5}}>
                         <Text style={styles.replyIndex}>수강학기</Text>
                         <Text style={styles.replyIndex}>과제 </Text>
@@ -52,7 +52,7 @@ export class LectureReplyListItem extends React.Component {
                         <Text style={styles.replyIndex}>학점 </Text>
                      </View>
 
-                    <View style={{width:'80%',paddingLeft:-10}}>
+                    <View style={{width:'80%', paddingTop:5, paddingLeft:-10}}>
                         <Text style={styles.replyContents}>{this.props.lectureReply.semester}</Text>
                         <Text style={styles.replyContents}>{this.props.lectureReply.homework}</Text>
                         <Text style={styles.replyContents}>{this.props.lectureReply.homeworkType}</Text>
@@ -60,8 +60,8 @@ export class LectureReplyListItem extends React.Component {
                         <Text style={styles.replyContents}>{this.props.lectureReply.receivedGrade}</Text>
                     </View>
                 </View>
-                <View style={{paddingLeft:15, paddingTop:40}}>
-                    <Text style={styles.replyContents}>{this.props.lectureReply.review}</Text>
+                <View style={{paddingLeft:15, paddingTop:20}}>
+                    <Text style={styles.review}>{this.props.lectureReply.review}</Text>
                 </View>
 
             </View>
@@ -127,8 +127,18 @@ const styles = StyleSheet.create({
     },
     replyContents:{
         fontSize:12,
+        height:20,
         //margin:-3,
         color:'black',
         textAlign:'left',
+        margin:-3
+    },
+    review:{
+        fontSize:12,
+        height:230,
+        //margin:-3,
+        color:'black',
+        textAlign:'left',
+        margin:-3
     }
 });

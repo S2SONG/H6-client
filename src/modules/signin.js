@@ -77,6 +77,8 @@ const MAJOR_CHECK='MAJOR_CHECK';
 const CHANGE_FONT_COLOR='CHANGE_FONT_COLOR';
 const CHECK_ALL='CHECK_ALL';
 
+const APP_VERSION = 'APP_VERSION';
+
 const initialState = {
     sample: "",
     auto: false,
@@ -148,16 +150,17 @@ const initialState = {
 
     track:[],
     year:[],
-    fontColor:'#000000'
+    fontColor:'#000000',
 
+    appVersion: {},
 };
 
 export const initSignInState = () => dispatch => {
     dispatch({type: SIGN_IN_ID, payload: ''});
     dispatch({type: SIGN_IN_PWD, payload: ''});
     dispatch({type: SIGN_IN_CHECK, payload: false});
-    dispatch({type: SIGN_IN_BUTTON, payload: true});
-
+    dispatch({type: SIGN_IN_BUTTON, payload: false});
+    dispatch({type: APP_VERSION, payload: {}});
 };
 
 export const initSignUpState = () => dispatch => {
@@ -436,15 +439,14 @@ export const signInUser = (userId, userPw) => async dispatch => {
             body: JSON.stringify(userData)
         });
         const jsonData = await signInCheck.json();
-
         if (jsonData.statusCode == 200) {
             dispatch({type: SIGN_IN, payload: true});
-            AsyncStorage.setItem('admissionYear', jsonData.result.admissionYear ? jsonData.result.admissionYear + '' : '');
-            AsyncStorage.setItem('connectedMajor', jsonData.result.connectedMajor ? jsonData.result.connectedMajor : '');
-            AsyncStorage.setItem('doubleMajor', jsonData.result.doubleMajor ? jsonData.result.doubleMajor : '');
+            AsyncStorage.setItem('admissionYear', jsonData.result.admissionYear==null||jsonData.result.admissionYear===undefined ?'':jsonData.result.admissionYear + '');
+            AsyncStorage.setItem('connectedMajor', jsonData.result.connectedMajor==null||jsonData.result.connectedMajor===undefined?'':jsonData.result.connectedMajor);
+            AsyncStorage.setItem('doubleMajor', jsonData.result.doubleMajor==null||jsonData.result.doubleMajor===undefined? '':jsonData.result.doubleMajor);
             AsyncStorage.setItem('isValidation', jsonData.result.isValidation + '');
-            AsyncStorage.setItem(   'major', jsonData.result.major ? jsonData.result.major : '');
-            AsyncStorage.setItem('minor', jsonData.result.minor ? jsonData.result.minor : '');
+            AsyncStorage.setItem('major', jsonData.result.major==null||jsonData.result.major===undefined? '':jsonData.result.major);
+            AsyncStorage.setItem('minor', jsonData.result.minor==null||jsonData.result.minor===undefined ? '':jsonData.result.minor);
             AsyncStorage.setItem('token', jsonData.result.token);
             AsyncStorage.setItem('userId', jsonData.result.userId);
             AsyncStorage.setItem('userIndex', jsonData.result.userIndex + '');
@@ -468,6 +470,23 @@ export const signInUser = (userId, userPw) => async dispatch => {
         console.log(err);
     }
 
+};
+
+export const appVersion = () => async dispatch => {
+    const result = await fetch(`${ROOT_URL}/version`,{
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+    });
+
+    const jsonData = await result.json();
+    if(jsonData.statusCode == 200){
+        dispatch({type:APP_VERSION, payload: jsonData.result});
+    } else {
+
+    }
 };
 
 export const checkUserId = (userId) => async dispatch => {
@@ -983,6 +1002,12 @@ export default handleActions({
         return {
             ...state,
             fontColor:action.payload
+        }
+    },
+    [APP_VERSION]: (state, action) => {
+        return {
+            ...state,
+            appVersion: action.payload,
         }
     }
 

@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         justifyContent: 'center',
         borderWidth: 1,
-        borderColor: 'rgb(151,151,151)'
+        borderColor: 'rgb(151,151,151)',
+        borderRadius: 20
     },
     inputText: {
         fontSize: 14,

@@ -17,8 +17,8 @@ export class SignInButton extends React.Component {
                 width: 289,
                 height: 53,
                 borderRadius: 26.5,
-                borderWidth: 1,
-                borderColor: '#9b9b9b',
+                // borderWidth: 1,
+                // borderColor: '#9b9b9b',
                 alignItems: 'center',
                 alignSelf: 'center',
                 backgroundColor: this.props.backgroundColor

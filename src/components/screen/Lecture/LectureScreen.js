@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {LectureListItem} from "./ui/LectureListItem";
 import {TitleView} from "../../ui/TitleView";
 import {LectureSearchBar} from "./ui/LectureSearchBar";
+import {LinkText} from "../../ui/LinkText";
 
 class LectureScreen extends React.Component {
 
@@ -26,8 +27,10 @@ class LectureScreen extends React.Component {
             <View style={{marginBottom: 20}}>
                 {this.props.loading ? <ActivityIndicator size="large" animating/> :
                     (this.props.lectureListLength < this.props.total ?
-                        <Button title='더보기'
-                                onPress={() => Lecture.getLectureList(this.props.searchText, this.props.currentPage, this.props.lectureListLength)}/>
+                        <LinkText value='더보기'
+                                  handle={() => Lecture.getLectureList(this.props.searchText, this.props.currentPage, this.props.lectureListLength)}
+                                  link_style={{color:'black',textAlign:'center', fontSize:12, paddingTop:20}}
+                        />
                         : null)}
             </View>
         )

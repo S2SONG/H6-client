@@ -8,6 +8,7 @@ import styles from "./AccountStyles";
 import {InfoListItem} from "./ui/InfoListItem";
 import {AccountListItem} from "./ui/AccountListItem";
 import config from "../../../../config";
+import * as account from "../../../modules/account";
 
 class AccountScreen extends React.Component {
 
@@ -15,16 +16,33 @@ class AccountScreen extends React.Component {
         super(props);
         this.state = {
             addInfo: [
-                {title: '전공', handle:this.navigationBack, right:'', rightTextColor:'black'},
-                {title: '부전공', handle:this.navigationBack, right:'', rightTextColor:'black'},
-                {title: '복수전공',handle:this.navigationBack, right:'', rightTextColor:'black'},
-                {title: '연계전공',handle:this.navigationBack, right:'', rightTextColor:'black'},
-                {title: '입학년도',handle:this.navigationBack, right:'', rightTextColor:'black'},
-            ],
+                {title: '전공', handle:this.navigationBack, right:this.props.major, rightTextColor:'black'},
+                {title: '부전공', handle:this.navigationBack, right:this.props.minor, rightTextColor:'black'},
+                {title: '복수전공',handle:this.navigationBack, right:this.props.doubleMajor, rightTextColor:'black'},
+                {title: '연계전공',handle:this.navigationBack, right:this.props.connectedMajor, rightTextColor:'black'},
+                {title: '입학년도',handle:this.navigationBack, right:this.props.admissionYear, rightTextColor:'black'},
+            ]
         }
     }
+    async componentWillMount(){
+        const {Account} = this.props;
+        await Account.initState();
+        await Account.getAddInfo();
+        this.setState({
+            addInfo: [
+                {title: '전공', handle:this.navigationBack, right:this.props.major, rightTextColor:'black'},
+                {title: '부전공', handle:this.navigationBack, right:this.props.minor, rightTextColor:'black'},
+                {title: '복수전공',handle:this.navigationBack, right:this.props.doubleMajor, rightTextColor:'black'},
+                {title: '연계전공',handle:this.navigationBack, right:this.props.connectedMajor, rightTextColor:'black'},
+                {title: '입학년도',handle:this.navigationBack, right:this.props.admissionYear, rightTextColor:'black'},
+            ]
+        })
+    }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const {Account} = this.props;
+        await Account.getTrack();
+        await Account.getYear();
     }
 
     navigationBack = () => {
@@ -37,16 +55,14 @@ class AccountScreen extends React.Component {
 
     renderAddInfo = () => {
         return (
-            <View>
-            {this.state.addInfo.map((data, i) => {
+            this.state.addInfo.map((data, i) => {
             return (
                 <View key={i}>
-                    <AccountListItem title={data.title} handle={data.handle} right={data.right} rightTextColor={data.rightTextColor}/>
+                    <AccountListItem title={data.title} handle={data.handle} right={data.right==null?'없음':data.right} rightTextColor={data.rightTextColor}/>
                     {i < this.state.addInfo.length - 1 ?
                         <View style={styles.infoContentLine}/> : null}
                 </View>)
-        })}
-        </View>)
+        }))
     };
 
     render() {
@@ -57,15 +73,12 @@ class AccountScreen extends React.Component {
                     <View style={styles.profileContainer}>
                         <View style={styles.profile}>
                             <Icon type='ionicon' name='ios-contact' size={85}/>
-                        </View>
                         <AccountListItem title={'이메일'} right={this.props.userId}/>
                         <View style={styles.infoContentLine}/>
                         <AccountListItem title={'닉네임'} right={this.props.userNickName}/>
                         <View style={styles.infoContentLine}/>
                         <AccountListItem title={'비밀번호 변경'} handle={this.navigationPassword}/>
-                    </View>
-                    <View style={styles.addInfoTitle}>
-                        <Text>추가정보</Text>
+                        </View>
                     </View>
                     <View style={styles.addInfoContainer}>
                         {this.renderAddInfo()}
@@ -80,6 +93,15 @@ class AccountScreen extends React.Component {
 export default connect((state) => ({
         userId: state.myinfo.userId,
         userNickName: state.myinfo.userNickName,
+        major: state.account.major,
+        minor: state.account.minor,
+        doubleMajor: state.account.doubleMajor,
+        connectedMajor: state.account.connectedMajor,
+        admissionYear: state.account.admissionYear,
+        trackList: state.account.trackList,
+        yearList: state.account.yearList,
     }),
-    (dispatch) => ({})
+    (dispatch) => ({
+        Account: bindActionCreators(account, dispatch)
+    })
 )(AccountScreen);

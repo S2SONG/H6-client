@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
     textInput: {
         width: 240,
         height: 40,
-        paddingLeft: 10,
+        paddingLeft: 15,
         justifyContent: 'center',
-        textAlign: 'center',
         borderColor: '#979797',
         borderWidth: 1,
+        borderRadius:20,
     },
 });

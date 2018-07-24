@@ -13,6 +13,9 @@ import styles from "./LectureInfoStyles";
 import {ScoreIndicator} from "./ui/ScoreIndicator";
 import {CustomModal} from "../../ui/CustomModal";
 import * as evaluation from "../../../modules/evaluation";
+import ActionSheet from 'react-native-actionsheet-native';
+import {BoxShadow} from 'react-native-shadow';
+import {LinkText} from "../../ui/LinkText";
 
 class LectureInfoScreen extends React.Component {
 
@@ -49,8 +52,10 @@ class LectureInfoScreen extends React.Component {
         return (
             <View style={{marginBottom: 20}}>
                 {(this.props.lectureReplyListLength < this.props.total ?
-                        <Button title='더보기'
-                                onPress={() => LectureInfo.getLectureReplyList(this.props.lecture.lectureInfoIndex, this.props.currentPage, this.props.lectureReplyListLength)}/>
+                        <LinkText value='더보기'
+                              handle={() => LectureInfo.getLectureReplyList(this.props.lecture.lectureInfoIndex, this.props.currentPage, this.props.lectureReplyListLength)}
+                              link_style={{color:'black',textAlign:'center', fontSize:12, paddingTop:20}}
+                        />
                         : null)}
             </View>
         )
@@ -95,8 +100,8 @@ class LectureInfoScreen extends React.Component {
         )
     };
 
-    renderCheck =() => {
-        if(this.props.reply==""){
+    renderCheck = () => {
+        if(this.props.reply===undefined){
             return null;
         } else {
             return (
@@ -105,7 +110,7 @@ class LectureInfoScreen extends React.Component {
                             name='kebab-horizontal'
                             type='octicon'
                             color='black'
-                            onPress={this.renderModalPicker}/>
+                            onPress={this.renderActionSheet}/>
                     </View>
             );
         }
@@ -131,11 +136,10 @@ class LectureInfoScreen extends React.Component {
             )
     };
 
-    renderModalPicker = () => {
-        ActionSheetIOS.showActionSheetWithOptions({
-                options: ['취소', '내 강의평 수정하기','내 강의평 삭제하기'],
-                //destructiveButtonIndex: 1,
-                cancelButtonIndex: 0,
+    renderActionSheet = () => {
+        ActionSheet.showActionSheetWithOptions({
+                options: ['취소', '내 강의평 수정하기','내 강의평 삭제'],
+                cancelButtonIndex: 0
             },
             (buttonIndex) => {
                 if (buttonIndex === 0) { console.log('취소') }
@@ -152,7 +156,10 @@ class LectureInfoScreen extends React.Component {
     removeReplyModalClose = () => {
         const {Evaluation} = this.props;
         Evaluation.removeReplyModal(false);
-        this.props.navigation.navigate('lecture'); //
+        // this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList});
+        this.lectureReplyInit();
+        // this.props.navigation.goBack();
+        this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList});
     };
 
     onChangeHeaderTitle = (check) => {
@@ -169,6 +176,22 @@ class LectureInfoScreen extends React.Component {
         // Evaluation.removeReplyModal(false);
     };
 
+    renderShadow = () => {
+        const shadowOpt = {
+            color:"#000",
+            borderTop:1,
+            radius:3,
+            opacity:0.2,
+            x:0,
+            y:3,
+        }
+        return(
+            <BoxShadow setting={shadowOpt}>
+                <View />
+            </BoxShadow>
+        )
+    };
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -180,7 +203,10 @@ class LectureInfoScreen extends React.Component {
                             {this.renderArrow()}
                             {this.renderHeader()}
                             </View>
-                <ScrollView backgroundColor={"white"}>
+                <ScrollView
+                    backgroundColor={"white"}
+                    //onScroll={this.renderShadow}
+                >
                     <FlatList
                         data={this.props.lectureReplyList}
                         keyExtractor={(x,i)=>i}

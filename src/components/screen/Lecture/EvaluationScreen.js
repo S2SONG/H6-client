@@ -122,7 +122,10 @@ class EvaluationScreen extends React.Component {
     replyModalClose=()=>{
         const {Evaluation} = this.props;
         Evaluation.saveModal(false);
-        this.props.navigation.navigate('LectureInfo',{lecture: this.props.lecture});
+        this.props.navigation.navigate('lecture',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList});
+        this.props.navigation.goBack();
+        this.props.navigation.navigate('lectureInfo',{lecture: this.props.lecture, lectureReplyList: this.props.lectureReplyList});
+        // this.props.navigation.navigate('LectureInfo',{lecture: this.props.lecture}); //
     };
 
     render() {
@@ -157,7 +160,7 @@ class EvaluationScreen extends React.Component {
                         <SemesterPicker handle={this.handleSemester}
                                         value={this.props.semester}
                                         placeholder={"수강학기 선택"}
-                                        defaultValue={"수강학기 선택"}/>
+                                        defaultValue={"수강학기 선택                   ▼ "}/>
 
                         <Text style={styles.item}>과제</Text>
                         <EvaluateButton buttonData={['없음','적음','보통','많음']}
@@ -189,7 +192,7 @@ class EvaluationScreen extends React.Component {
                                 placeholderStyle = {{ textAlign:'center'}}
                                 multiline = {true}
                                 onChangeText = { this.handleReview}
-                                maxLength={200}
+                                // maxLength={200}
                             />
                         </View>
                     </View>
@@ -200,32 +203,27 @@ class EvaluationScreen extends React.Component {
                                 rating = {this.state.starCount}
                                 handleGetScore={(rating)=>this.onStarRatingPress(rating)}
                             />
-                            {/*<StarRating*/}
-                                {/*disabled={false}*/}
-                                {/*emptyStar={'ios-star'}*/}
-                                {/*fullStar={'ios-star'}*/}
-                                {/*halfStar={'ios-star-half'}*/}
-                                {/*iconSet={'Ionicons'}*/}
-                                {/*maxStars={5}*/}
-                                {/*fullStarColor={'#f8fa00'}*/}
-                                {/*halfStarColor={'#f8fa00'}*/}
-                                {/*halfStarEnabled={true}*/}
-                                {/*emptyStarColor={'#cfcfcf'}*/}
-                                {/*starSize={30}*/}
-                                {/*starStyle={{margin:5}}*/}
-                                {/*rating={this.state.starCount}*/}
-                                {/*selectedStar={(rating) => this.onStarRatingPress(rating)}*/}
-                            {/*/>*/}
                         </View>
                     </View>
                     <View style ={{paddingTop:38,}}>
-                        <Button buttonStyle={{
-                            backgroundColor: '#8f96a0',
-                            borderRadius: 30,
-                            width: 224,
-                            height:58,
-                            alignSelf: 'center'
-                        }} onPress={this.saveReply} title="작성하기"/>
+                        <Button buttonStyle={
+                            this.props.semester!=undefined && this.props.homework!=undefined && this.props.homeworkType!=undefined
+                                && this.props.testCount!=undefined && this.props.receivedGrade!=undefined && this.state.starCount!=0
+                             ?
+                            {
+                                backgroundColor: '#4a4a4a',
+                                borderRadius: 30,
+                                width: 224,
+                                height:58,
+                                alignSelf: 'center'
+                            }:
+                                {
+                                    backgroundColor: '#8f96a0',
+                                    borderRadius: 30,
+                                    width: 224,
+                                    height:58,
+                                    alignSelf: 'center'
+                                }} onPress={this.saveReply} title="작성하기"/>
                     </View>
                 </ScrollView>
                 </KeyboardAwareScrollView>

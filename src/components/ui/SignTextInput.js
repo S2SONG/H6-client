@@ -99,9 +99,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 53,
         width: 289,
-        backgroundColor: 'rgb(236,236,236)',
+        backgroundColor: 'white',
         paddingLeft: 10,
         borderRadius: 26.5,
+        borderWidth: 1,
+        borderColor: '#4a4a4a',
     },
     input: {
         paddingLeft: 28,

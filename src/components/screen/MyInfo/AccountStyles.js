@@ -11,16 +11,14 @@ export default StyleSheet.create({
     profileContainer: {
         height: 288,
         backgroundColor: 'white',
-        paddingLeft: 23,
-        paddingRight: 22,
     },
     profile: {
-        height: 153,
-        paddingTop: 20,
-        paddingBottom: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
+        height: 247,
+        paddingTop: 18,
+        paddingBottom: 21,
+        paddingLeft: 24,
+        paddingRight: 24,
+        backgroundColor: '#f5f5f5',
     },
     infoContentLine: {
         width: '100%',
@@ -33,10 +31,11 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     addInfoContainer: {
-        flex: 1,
-        backgroundColor: 'white',
+        height:220,
+        backgroundColor: '#f5f5f5',
         paddingLeft: 23,
         paddingRight: 22,
-        paddingTop: 15,
+        paddingTop: 8,
+        paddingBottom: 8,
     }
 });

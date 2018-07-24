@@ -84,7 +84,6 @@ export const getPastVote = (page, count) => async dispatch => {
         }
     });
     const jsonData = await result.json();
-    console.log(jsonData);
     if(jsonData.statusCode == 200) {
         const past = jsonData.result;
         dispatch({type: HOME_PAST_VOTE, payload: past});

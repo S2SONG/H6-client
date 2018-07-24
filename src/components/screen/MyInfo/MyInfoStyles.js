@@ -6,26 +6,26 @@ export default StyleSheet.create({
         backgroundColor:'white'
     },
     profile: {
-        height: 150,
-        paddingTop: 20,
-        paddingBottom: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
+        height: 83,
+        marginBottom: 35,
+        paddingLeft: 30,
+        flexDirection:'row',
+        alignItems:'center',
+        backgroundColor: 'rgb(246, 246, 246)',
     },
     profileId: {
-        margin: 2,
         color: '#8f96a0',
-        fontSize: 10
+        fontSize: 12
     },
     profileNickName: {
-        margin: 2,
-        color: '#8f96a0',
-        fontSize: 15
+        marginBottom: 6,
+        color: 'black',
+        fontSize: 14
     },
     subject: {
         marginTop: 10,
         marginBottom: 10,
+        marginLeft:13,
         justifyContent: 'center',
     },
     baseText: {
@@ -37,20 +37,11 @@ export default StyleSheet.create({
     },
     infoContainer: {
         backgroundColor: 'white',
-        marginBottom: 20,
+        marginBottom: 35,
         paddingLeft: 15,
         paddingRight: 15,
         paddingTop: 5,
         paddingBottom: 5,
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-        borderTopColor: '#dddce0',
-        borderBottomColor: '#dddce0',
-        borderRightColor: '#dddce0',
-        borderLeftColor: '#dddce0',
-        borderRadius: 3,
     },
     infoContentLine: {
         width: '100%',
