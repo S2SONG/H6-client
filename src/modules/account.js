@@ -12,6 +12,12 @@ const ACCOUNT_CONNECTED_MAJOR = 'ACCOUNT_CONNECTED_MAJOR';
 const ACCOUNT_ADMISSION_YEAR = 'ACCOUNT_ADMISSION_YEAR';
 const ACCOUNT_TRACK_LIST = 'ACCOUNT_TRACK_LIST';
 const ACCOUNT_YEAR_LIST = 'ACCOUNT_YEAR_LIST';
+const ACCOUNT_ADD_INFO = 'ACCOUNT_ADD_INFO';
+const ACCOUNT_MAJOR_MODAL = 'ACCOUNT_MAJOR_MODAL';
+const ACCOUNT_MINOR_MODAL = 'ACCOUNT_MINOR_MODAL';
+const ACCOUNT_DOUBLE_MAJOR_MODAL = 'ACCOUNT_DOUBLE_MAJOR_MODAL';
+const ACCOUNT_CONNECTED_MAJOR_MODAL = 'ACCOUNT_CONNECTED_MAJOR_MODAL';
+const ACCOUNT_ADMISSION_YEAR_MODAL = 'ACCOUNT_ADMISSION_YEAR_MODAL';
 
 const initialState = {
     major: null,
@@ -21,10 +27,16 @@ const initialState = {
     admissionYear: null,
     trackList: [],
     yearList: [],
+    addInfo: [],
+    majorModal: false,
+    minorModal: false,
+    doubleMajorModal: false,
+    connectedMajorModal: false,
+    admissionYearModal: false,
 };
 
-export const initState = () => async dispatch => {
-    await dispatch({type:ACCOUNT_INIT});
+export const initState = () => dispatch => {
+    dispatch({type:ACCOUNT_INIT});
 };
 
 export const getAddInfo = () => async dispatch => {
@@ -33,13 +45,36 @@ export const getAddInfo = () => async dispatch => {
     const doubleMajor = await AsyncStorage.getItem('doubleMajor');
     const connectedMajor = await AsyncStorage.getItem('connectedMajor');
     const admissionYear = await AsyncStorage.getItem('admissionYear');
-    await dispatch({type:ACCOUNT_MAJOR, payload: major});
-    await dispatch({type:ACCOUNT_MINOR, payload: minor});
-    await dispatch({type:ACCOUNT_DOUBLE_MAJOR, payload: doubleMajor});
-    await dispatch({type:ACCOUNT_CONNECTED_MAJOR, payload: connectedMajor});
-    await dispatch({type:ACCOUNT_ADMISSION_YEAR, payload: admissionYear});
+    dispatch({type:ACCOUNT_MAJOR, payload: major});
+    dispatch({type:ACCOUNT_MINOR, payload: minor});
+    dispatch({type:ACCOUNT_DOUBLE_MAJOR, payload: doubleMajor});
+    dispatch({type:ACCOUNT_CONNECTED_MAJOR, payload: connectedMajor});
+    dispatch({type:ACCOUNT_ADMISSION_YEAR, payload: admissionYear});
 };
 
+export const handleAddInfo = (info) => dispatch => {
+  dispatch({type:ACCOUNT_ADD_INFO, payload: info});
+};
+
+export const handleMajorModal = (modal) => dispatch => {
+  dispatch({type:ACCOUNT_MAJOR_MODAL, payload:modal});
+};
+
+export const handleMinorModal = (modal) => dispatch => {
+    dispatch({type:ACCOUNT_MINOR_MODAL, payload:modal});
+};
+
+export const handleDoubleMajorModal = (modal) => dispatch => {
+    dispatch({type:ACCOUNT_DOUBLE_MAJOR_MODAL, payload:modal});
+};
+
+export const handleConnectedMajorModal = (modal) => dispatch => {
+    dispatch({type:ACCOUNT_CONNECTED_MAJOR_MODAL, payload:modal});
+};
+
+export const handleAdmissionYearModal = (modal) => dispatch => {
+    dispatch({type:ACCOUNT_ADMISSION_YEAR_MODAL, payload:modal});
+};
 export const getTrack = () => async dispatch => {
     const result = await fetch(`${ROOT_URL}/track`, {
         method: "GET",
@@ -84,6 +119,12 @@ export default handleActions({
             admissionYear: null,
             trackList: [],
             yearList: [],
+            addInfo: [],
+            majorModal: false,
+            minorModal: false,
+            doubleMajorModal: false,
+            connectedMajorModal: false,
+            admissionYearModal: false,
         }
     },
     [ACCOUNT_MAJOR]: (state, action) => {
@@ -132,6 +173,42 @@ export default handleActions({
                 ...state.trackList,
                 action.payload
             ]
+        }
+    },
+    [ACCOUNT_ADD_INFO]: (state, action) => {
+        return {
+            ...state,
+            addInfo: action.payload,
+        }
+    },
+    [ACCOUNT_MAJOR_MODAL]: (state, action) => {
+        return {
+            ...state,
+            majorModal: action.payload,
+        }
+    },
+    [ACCOUNT_MINOR_MODAL]: (state, action) => {
+        return {
+            ...state,
+            minorModal: action.payload,
+        }
+    },
+    [ACCOUNT_DOUBLE_MAJOR_MODAL]: (state, action) => {
+        return {
+            ...state,
+            doubleMajorModal: action.payload,
+        }
+    },
+    [ACCOUNT_CONNECTED_MAJOR_MODAL]: (state, action) => {
+        return {
+            ...state,
+            connectedMajorModal: action.payload,
+        }
+    },
+    [ACCOUNT_ADMISSION_YEAR_MODAL]: (state, action) => {
+        return {
+            ...state,
+            admissionYearModal: action.payload,
         }
     }
 }, initialState)

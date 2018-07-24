@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Modal} from 'react-native';
 import PropTypes from 'prop-types';
+import RoundCheckbox from 'rn-round-checkbox';
 
 export class MajorPickerModal extends React.Component {
 
@@ -11,6 +12,17 @@ export class MajorPickerModal extends React.Component {
                    visible={this.props.visible}>
                 <View style={styles.modal}>
                     <View style={styles.container}>
+                        <View style={styles.wheelPicker}>
+
+                        </View>
+                        <View style={styles.footerContainer}>
+                            <RoundCheckbox
+                                size={35}
+                                checked={this.props.checked}
+                                onValueChange={this.props.closeModal}
+                                backgroundColor={'#4a4a4a'}
+                            />
+                        </View>
                     </View>
                 </View>
             </Modal>
@@ -20,18 +32,13 @@ export class MajorPickerModal extends React.Component {
 
 MajorPickerModal.propTypes = {
     visible: PropTypes.bool,
-    title: PropTypes.string,
-    body: PropTypes.string,
     closeModal: PropTypes.func,
-    handle: PropTypes.func,
-    checkNo: PropTypes.number,
-    checkLabel: PropTypes.string,
-    sendPwd: PropTypes.func,
-    footerText: PropTypes.string,
+    checked: PropTypes.bool,
 };
 
 MajorPickerModal.defaultProps = {
-  visible: true
+    visible: true,
+    checked: true,
 };
 
 const styles = StyleSheet.create({
@@ -50,7 +57,14 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     wheelPicker: {
-        width: 200,
-        height: 150
+        flex:1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    footerContainer: {
+        width: '100%',
+        height: 87,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
