@@ -95,14 +95,14 @@ class SignUpScreen1 extends React.Component{
             SignIn.handleChangeFontColor('#000000');
             this.state.iconColor=false;
         }
-        else if(!this.props.isFirstChecked&&!this.props.isSecondChecked){
+        else if(this.props.isFirstChecked&&!this.props.isSecondChecked){
             SignIn.handleSignInScreen1Button('#ffffff');
             SignIn.handleSignInScreen1Button2('#c5c4c4');
             SignIn.handleChangeFontColor('#000000');
             this.state.iconColor=false;
 
         }
-        else if(!this.state.check1 &&!this.state.check2){
+        else if(this.props.isFirstChecked&&this.props.isSecondChecked){
             SignIn.handleSignInScreen1Button('#ffffff');
             SignIn.handleSignInScreen1Button2('#c5c4c4');
             SignIn.handleChangeFontColor('#000000');
