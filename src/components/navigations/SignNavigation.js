@@ -1,5 +1,5 @@
 import React from "react";
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet, AppRegistry} from 'react-native';
 import {StackNavigator, createStackNavigator} from 'react-navigation';
 import SignInScreen from "../screen/SignIn/SignInScreen";
 import SignUpScreen from "../screen/SignUp/SignUpScreen";
@@ -13,6 +13,9 @@ import SignUpScreen1 from "../screen/SignUp/SignUpScreen1";
 import SignUpScreen2 from "../screen/SignUp/SignUpScreen2";
 import SignUpScreen3 from "../screen/SignUp/SignUpScreen3";
 import LectureScreen from "../screen/Lecture/LectureScreen";
+
+import NavigatorService from '../../utils/navigator';
+
 //StackNavigation 사용
 // 로그인, 동의화면, 회원가입, 홈 네비게이션
 const SignNav = createStackNavigator({
@@ -88,7 +91,9 @@ const SignNav = createStackNavigator({
 export class SignNavigation extends React.Component {
     render() {
         return (
-            <SignNav/>
+            <SignNav ref={navigatorRef => {
+                NavigatorService.setContainer(navigatorRef);
+            }}/>
         )
     }
 }

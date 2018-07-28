@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, BackHandler, StatusBar} from 'react-native';
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, bindActionCreators} from 'redux';
 import {Provider} from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import {SignNavigation} from "./src/components/navigations/SignNavigation";
@@ -29,6 +29,7 @@ export default class App extends React.Component {
         );
     }
 }
+
 
 //사용안함
 const styles = StyleSheet.create({

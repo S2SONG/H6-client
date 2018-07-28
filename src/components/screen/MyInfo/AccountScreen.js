@@ -15,29 +15,12 @@ class AccountScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            addInfo: [
-                {title: '전공', handle:this.navigationBack, right:this.props.major, rightTextColor:'black'},
-                {title: '부전공', handle:this.navigationBack, right:this.props.minor, rightTextColor:'black'},
-                {title: '복수전공',handle:this.navigationBack, right:this.props.doubleMajor, rightTextColor:'black'},
-                {title: '연계전공',handle:this.navigationBack, right:this.props.connectedMajor, rightTextColor:'black'},
-                {title: '입학년도',handle:this.navigationBack, right:this.props.admissionYear, rightTextColor:'black'},
-            ]
-        }
     }
 
     async componentDidMount() {
         const {Account} = this.props;
         await Account.initState();
         await Account.getAddInfo();
-        const addInfo =  [
-            {title: '전공', handle:()=>this.handleMajorModal(true), right:this.props.major, rightTextColor:'black'},
-            {title: '부전공', handle:()=>this.handleMinorModal(true), right:this.props.minor, rightTextColor:'black'},
-            {title: '복수전공',handle:()=>this.handleDoubleMajorModal(true), right:this.props.doubleMajor, rightTextColor:'black'},
-            {title: '연계전공',handle:()=>this.handleConnectedMajorModal(true), right:this.props.connectedMajor, rightTextColor:'black'},
-            {title: '입학년도',handle:()=>this.handleAdmissionYearModal(true), right:this.props.admissionYear, rightTextColor:'black'},
-        ];
-        await Account.handleAddInfo(addInfo);
         Account.getTrack();
         Account.getYear();
     }
@@ -48,6 +31,28 @@ class AccountScreen extends React.Component {
 
     navigationPassword = () => {
         this.props.navigation.navigate('password');
+    };
+
+    handleMajor = (major) => {
+        const {Account} = this.props;
+        Account.handleMajor(major);
+    };
+
+    handleMinor = (minor) => {
+        const {Account} = this.props;
+        Account.handleMinor(minor);
+    };
+    handleDoubleMajor = (minor) => {
+        const {Account} = this.props;
+        Account.handleDoubleMajor(minor);
+    };
+    handleConnectedMajor = (minor) => {
+        const {Account} = this.props;
+        Account.handleConnectedMajor(minor);
+    };
+    handleAdmissionYear = (year) => {
+        const {Account} = this.props;
+        Account.handleAdmissionYear(year);
     };
 
     handleMajorModal = (modal) => {
@@ -73,34 +78,50 @@ class AccountScreen extends React.Component {
 
     renderAddInfo = () => {
         return (
-            this.props.addInfo.map((data, i) => {
-            return (
-                <View key={i}>
-                    <AccountListItem title={data.title} handle={data.handle} right={data.right==null?'없음':data.right} rightTextColor={data.rightTextColor}/>
-                    {i < this.state.addInfo.length - 1 ?
-                        <View style={styles.infoContentLine}/> : null}
-                </View>)
-        }))
+            <View>
+                <AccountListItem title={'전공'} handle={() => this.handleMajorModal(true)}
+                                 right={this.props.major == null ? '없음' : this.props.major}/>
+                <View style={styles.infoContentLine}/>
+                <AccountListItem title={'부전공'} handle={() => this.handleMinorModal(true)}
+                                 right={this.props.minor == null ? '없음' : this.props.minor}/>
+                <View style={styles.infoContentLine}/>
+                <AccountListItem title={'복수전공'} handle={() => this.handleDoubleMajorModal(true)}
+                                 right={this.props.doubleMajor == null ? '없음' : this.props.doubleMajor}/>
+                <View style={styles.infoContentLine}/>
+                <AccountListItem title={'연계전공'} handle={() => this.handleConnectedMajorModal(true)}
+                                 right={this.props.connectedMajor == null ? '없음' : this.props.connectedMajor}/>
+                <View style={styles.infoContentLine}/>
+                <AccountListItem title={'입학년도'} handle={() => this.handleAdmissionYearModal(true)}
+                                 right={this.props.admissionYear == null ? '없음' : this.props.admissionYear}/>
+            </View>)
     };
 
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <MajorPickerModal visible={this.props.majorModal} closeModal={()=>this.handleMajorModal(false)}/>
-                <MajorPickerModal visible={this.props.minorModal} closeModal={()=>this.handleMinorModal(false)}/>
-                <MajorPickerModal visible={this.props.doubleMajorModal} closeModal={()=>this.handleDoubleMajorModal(false)}/>
-                <MajorPickerModal visible={this.props.connectedMajorModal} closeModal={()=>this.handleConnectedMajorModal(false)}/>
-                <MajorPickerModal visible={this.props.admissionYearModal} closeModal={()=>this.handleAdmissionYearModal(false)}/>
+                <MajorPickerModal visible={this.props.majorModal} closeModal={() => this.handleMajorModal(false)}
+                                  data={this.props.trackList} value={this.props.major} handle={this.handleMajor}/>
+                <MajorPickerModal visible={this.props.minorModal} closeModal={() => this.handleMinorModal(false)}
+                                  data={this.props.trackList} value={this.props.minor} handle={this.handleMinor}/>
+                <MajorPickerModal visible={this.props.doubleMajorModal}
+                                  closeModal={() => this.handleDoubleMajorModal(false)} data={this.props.trackList}
+                                  value={this.props.doubleMajor} handle={this.handleDoubleMajor}/>
+                <MajorPickerModal visible={this.props.connectedMajorModal}
+                                  closeModal={() => this.handleConnectedMajorModal(false)} data={this.props.trackList}
+                                  value={this.props.connectedMajor} handle={this.handleConnectedMajor}/>
+                <MajorPickerModal visible={this.props.admissionYearModal}
+                                   closeModal={() => this.handleAdmissionYearModal(false)} data={this.props.yearList}
+                                   value={this.props.admissionYear} handle={this.handleAdmissionYear}/>
                 <TitleView title={'계정정보'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
                 <ScrollView contentContainerStyle={styles.contentContainer}>
                     <View style={styles.profileContainer}>
                         <View style={styles.profile}>
                             <Icon type='ionicon' name='ios-contact' size={85}/>
-                        <AccountListItem title={'이메일'} right={this.props.userId}/>
-                        <View style={styles.infoContentLine}/>
-                        <AccountListItem title={'닉네임'} right={this.props.userNickName}/>
-                        <View style={styles.infoContentLine}/>
-                        <AccountListItem title={'비밀번호 변경'} handle={this.navigationPassword}/>
+                            <AccountListItem title={'이메일'} right={this.props.userId}/>
+                            <View style={styles.infoContentLine}/>
+                            <AccountListItem title={'닉네임'} right={this.props.userNickName}/>
+                            <View style={styles.infoContentLine}/>
+                            <AccountListItem title={'비밀번호 변경'} handle={this.navigationPassword}/>
                         </View>
                     </View>
                     <View style={styles.addInfoContainer}>

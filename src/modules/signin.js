@@ -1,6 +1,10 @@
 import {AsyncStorage} from 'react-native';
 import {handleActions} from 'redux-actions';
+import { NavigationActions } from 'react-navigation'
 import config from "../../config";
+import {util} from "../utils/util";
+import NavigatorService from '../utils/navigator';
+import { Actions } from 'react-native-navigation-actions';
 
 
 const ROOT_URL = config.server;
@@ -453,23 +457,36 @@ export const signInUser = (userId, userPw) => async dispatch => {
             AsyncStorage.setItem('userNickName', jsonData.result.userNickName);
         } else {
             dispatch({type: SIGN_IN, payload: false});
-            AsyncStorage.removeItem('token');
-            AsyncStorage.removeItem('admissionYear');
-            AsyncStorage.removeItem('connectedMajor');
-            AsyncStorage.removeItem('doubleMajor');
-            AsyncStorage.removeItem('isValidation');
-            AsyncStorage.removeItem('major');
-            AsyncStorage.removeItem('minor');
-            AsyncStorage.removeItem('token');
-            AsyncStorage.removeItem('userId');
-            AsyncStorage.removeItem('userIndex');
-            AsyncStorage.removeItem('userNickName');
+            util.removeStorageAll();
         }
     } catch (err) {
         dispatch({type: SIGN_IN, payload: false});
         console.log(err);
     }
+};
 
+export const checkToken = () => async dispatch => {
+    const token = await AsyncStorage.getItem('token');
+    if(token === null || token === undefined)
+        return false;
+    const userId = await AsyncStorage.getItem('userId');
+    const userIdCheck = await fetch(`${ROOT_URL}/users/userId/${userId}`,{
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-access-token': token
+        }
+    });
+
+    const jsonData = await userIdCheck.json();
+    if (jsonData.statusCode == 403) {
+        util.removeStorageAll();
+        return false;
+    } else {
+        NavigatorService.navigate('home');
+        return true;
+    }
 };
 
 export const appVersion = () => async dispatch => {
@@ -498,6 +515,7 @@ export const checkUserId = (userId) => async dispatch => {
     if (jsonData.statusCode == 200) {
         return true;
     } else {
+        // Actions.navigate({ routeName: 'home'})
         return false;
     }
 };

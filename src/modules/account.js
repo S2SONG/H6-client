@@ -56,6 +56,109 @@ export const handleAddInfo = (info) => dispatch => {
   dispatch({type:ACCOUNT_ADD_INFO, payload: info});
 };
 
+export const handleMajor = (major) => async dispatch => {
+    console.log(major);
+    const token = await AsyncStorage.getItem('token');
+    const userId = await AsyncStorage.getItem('userId');
+
+    const data = {
+        major: major
+    };
+    const result = await fetch(`${ROOT_URL}/users/userId/${userId}`,{
+        method: "PUT",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-access-token': token
+        },
+        body: JSON.stringify(data)
+    });
+    const jsonData = await result.json();
+    AsyncStorage.setItem('major', major);
+    dispatch({type:ACCOUNT_MAJOR, payload: major});
+};
+
+export const handleMinor = (minor) => async dispatch => {
+    const token = await AsyncStorage.getItem('token');
+    const userId = await AsyncStorage.getItem('userId');
+
+    const data = {
+        minor: minor
+    };
+    const result = await fetch(`${ROOT_URL}/users/userId/${userId}`,{
+        method: "PUT",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-access-token': token
+        },
+        body: JSON.stringify(data)
+    });
+    const jsonData = await result.json();
+    AsyncStorage.setItem('minor', minor);
+    dispatch({type:ACCOUNT_MINOR, payload: minor});
+};
+export const handleDoubleMajor = (major) => async dispatch => {
+    const token = await AsyncStorage.getItem('token');
+    const userId = await AsyncStorage.getItem('userId');
+
+    const data = {
+        doubleMajor: major
+    };
+    const result = await fetch(`${ROOT_URL}/users/userId/${userId}`,{
+        method: "PUT",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-access-token': token
+        },
+        body: JSON.stringify(data)
+    });
+    const jsonData = await result.json();
+    AsyncStorage.setItem('doubleMajor', major);
+    dispatch({type:ACCOUNT_DOUBLE_MAJOR, payload: major});
+};
+export const handleConnectedMajor = (major) => async dispatch => {
+    const token = await AsyncStorage.getItem('token');
+    const userId = await AsyncStorage.getItem('userId');
+
+    const data = {
+        connectedMajor: major
+    };
+    const result = await fetch(`${ROOT_URL}/users/userId/${userId}`,{
+        method: "PUT",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-access-token': token
+        },
+        body: JSON.stringify(data)
+    });
+    const jsonData = await result.json();
+    AsyncStorage.setItem('connectedMajor', major);
+    dispatch({type:ACCOUNT_CONNECTED_MAJOR, payload: major});
+};
+export const handleAdmissionYear = (year) => async dispatch => {
+    const token = await AsyncStorage.getItem('token');
+    const userId = await AsyncStorage.getItem('userId');
+
+    const data = {
+        admissionYear: year
+    };
+    const result = await fetch(`${ROOT_URL}/users/userId/${userId}`,{
+        method: "PUT",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-access-token': token
+        },
+        body: JSON.stringify(data)
+    });
+    const jsonData = await result.json();
+    AsyncStorage.setItem('admissionYear', year);
+    dispatch({type:ACCOUNT_ADMISSION_YEAR, payload: year});
+};
+
 export const handleMajorModal = (modal) => dispatch => {
   dispatch({type:ACCOUNT_MAJOR_MODAL, payload:modal});
 };

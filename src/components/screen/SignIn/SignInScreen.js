@@ -716,9 +716,9 @@ class SignInScreen extends React.Component {
 
     autoLogin = async () => {
         const {SignIn} = this.props;
-        const token = await AsyncStorage.getItem('token');
-        if (token !== null) {
-            this.props.navigation.navigate('Home');
+        const token = await SignIn.checkToken();
+        if (token) {
+            // this.props.navigation.navigate('Home');
         }
         SignIn.handleAuto(true);
     };

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import {AsyncStorage} from 'react-native';
 export const util = {};
 
 util.timeSince = (date) => {
@@ -39,4 +40,18 @@ util.timeToFormat = (date, format) => {
 util.getTimerSecond = (date) => {
     let seconds = Math.floor(new Date(date) - new Date(moment().utc(moment().format())));
     return seconds;
+};
+
+util.removeStorageAll = () => {
+    AsyncStorage.removeItem('token');
+    AsyncStorage.removeItem('admissionYear');
+    AsyncStorage.removeItem('connectedMajor');
+    AsyncStorage.removeItem('doubleMajor');
+    AsyncStorage.removeItem('isValidation');
+    AsyncStorage.removeItem('major');
+    AsyncStorage.removeItem('minor');
+    AsyncStorage.removeItem('token');
+    AsyncStorage.removeItem('userId');
+    AsyncStorage.removeItem('userIndex');
+    AsyncStorage.removeItem('userNickName');
 };

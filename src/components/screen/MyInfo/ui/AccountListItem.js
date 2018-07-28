@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
+import {MajorPickerModal} from "./MajorPickerModal";
 
 export class AccountListItem extends React.Component {
 
@@ -54,6 +55,10 @@ AccountListItem.propTypes = {
     title: PropTypes.string,
     right: PropTypes.string,
     rightTextColor: PropTypes.string
+};
+
+AccountListItem.defaultProps = {
+    rightTextColor: 'black'
 };
 
 const styles = StyleSheet.create({
