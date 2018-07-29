@@ -677,7 +677,7 @@ class SignInScreen extends React.Component {
         if(this.props.signInButton)
             return <SignInButton title={'시작하기'} handle={this.signInUser} iconColor={'white'} textColor={'white'} backgroundColor={'#4a4a4a'}/>
         else
-            return <SignInButton title={'시작하기'} iconColor={'#9b9b9b'} textColor={'white'} backgroundColor={'#4a4a4a30'}/>
+            return <SignInButton title={'시작하기'} iconColor={'#fff'} textColor={'white'} backgroundColor={'#4a4a4a4D'}/>
     };
 
     basicChecked = async () => {
@@ -725,49 +725,22 @@ class SignInScreen extends React.Component {
 
     renderUnderLabel = () => {
         if (this.props.findPwdCheckNo == 0) {
-            return null;
+            return <Text style={styles.findPwdModalTextInputLabel}>   </Text>;
         } else if (this.props.findPwdCheckNo == 1) {
-            return (<Text style={{
-                width: '100%',
-                marginTop: 5,
-                textAlign: 'center',
-                color: 'rgb(208,2,27)',
-                fontSize:12,
-            }}>{this.props.findPwdCheckLabel}</Text>)
+            return (<Text style={styles.findPwdModalTextInputLabel}>{this.props.findPwdCheckLabel}</Text>)
         } else {
-            return (<Text style={{
-                width: '100%',
-                marginTop: 5,
-                textAlign: 'center',
-                color: '#4085d5',
-                fontSize:12,
-            }}>{this.props.findPwdCheckLabel}</Text>)
+            return (<Text style={styles.findPwdModalTextInputLabelTrue}>{this.props.findPwdCheckLabel}</Text>)
         }
     };
     renderFindPwdModalBody = () => {
       return(
           <View>
-            <Text style={{
-                fontSize: 15,
-                color: 'black',
-                alignSelf: 'center',
-                textAlign: 'center',
-                marginBottom: 30,
-            }}>{'가입시 입력한 이메일로\n임시 비밀번호를 전송합니다.'}</Text>
-            <View style={{
-                flexDirection: 'row',
-                height: 44,
-                width: 250,
-                backgroundColor: 'white',
-                paddingLeft: 10,
-                borderColor:'#979797',
-                borderWidth:1,
-                alignSelf: 'center',
-            }}>
+            <Text style={styles.findPwdModalText}>{'가입시 입력한 이메일로\n임시 비밀번호를 전송합니다.'}</Text>
+            <View style={styles.findPwdModalTextInput}>
                 <TextInput
                     onChangeText={this.handleFindPwdUserId}
                     value={this.props.findPwdUserId}
-                    style={{flex: 1}}
+                    style={styles.findPwdModalTextInputText}
                     underlineColorAndroid="transparent"
                     placeholder={'이메일을 입력해주세요.'}
                 />
@@ -775,6 +748,13 @@ class SignInScreen extends React.Component {
             {this.renderUnderLabel()}
           </View>
       )
+    };
+    renderFindPwdResultModalBody = () => {
+        return(
+            <View>
+                <Text style={styles.findPwdModalResultText}>{this.props.findPwdResultTitle}</Text>
+            </View>
+        )
     };
 
     render() {
@@ -792,11 +772,13 @@ class SignInScreen extends React.Component {
                 behavior="padding" enabled>
 
                 <CustomModal
-                    visible={this.props.findPwd}
+                    visible={this.props.findPwd} ratio={'75%'}
+                    width={280} height={291}
                     close={this.handleFindPwdModalClose} title={'비밀번호 찾기'} body={this.renderFindPwdModalBody} footerText={'이메일 전송'} footerHandle={this.sendFindPwd} footer={this.props.findPwdCheckNo==2?true:false}/>
                 <CustomModal
-                    height={156}
-                    visible={this.props.findPwdResult} title={this.props.findPwdResultTitle} footerText={'확인'} footerHandle={this.handleFindPwdResultClose} footer={true}/>
+                    width={280} height={156} ratio={'75%'}
+                    visible={this.props.findPwdResult} body={this.renderFindPwdResultModalBody}
+                    footerText={'확인'} footerHandle={this.handleFindPwdResultClose} footer={true}/>
 
                 <SafeAreaView style={{flex: 1}}>
                     <Toast ref="toast"/>
@@ -880,6 +862,7 @@ class SignInScreen extends React.Component {
                                         width: '100%',
                                         justifyContent: 'center',
                                         alignItems: 'center',
+                                        backgroundColor:'transparent',
                                     },
                                     {
                                         transform: [
@@ -908,9 +891,8 @@ class SignInScreen extends React.Component {
                                         secureText={true}
                                         bounce={this.props.signInCheck}
                                     />
+                                    <View style={{height:40,}}></View>
                                     {this.renderSignInButton()}
-
-
                                 </View>
                                 <View style={styles.linkView}>
                                     <LinkText

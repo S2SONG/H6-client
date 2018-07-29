@@ -1,166 +1,54 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    KeyboardAvoidingView,
-    SafeAreaView,
-    TouchableHighlight,
-    TouchableOpacity,
-    StatusBar
-} from 'react-native';
-import {Icon,Button} from 'react-native-elements';
-import RoundCheckbox from 'rn-round-checkbox';
+import {View, ScrollView, Text, SafeAreaView, TouchableHighlight, TouchableOpacity} from 'react-native';
 import {connect} from "react-redux";
 import * as signin from "../../../modules/signin";
 import {bindActionCreators} from 'redux';
 import {SignUpIndicator} from "./ui/SignUpIndicator";
-import styles from "../Lecture/EvaluationScreenStyles";
-import {WarningModal} from "../../ui/WarningModal";
-import {TermsModal} from "../../ui/TermsModal";
-import Toast, {DURATION} from 'react-native-easy-toast';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {SignUpScreen1Icon1} from "./ui/SignUpScreen1Icon1";
-import{SignUpScreen1Icon2} from "./ui/SignUpScreen1Icon2";
+import {SignUpScreen1Icon2} from "./ui/SignUpScreen1Icon2";
+import {TitleView} from "../../ui/TitleView";
+import EStyleSheet from 'react-native-extended-stylesheet';
+import {CustomModal} from "../../ui/CustomModal";
+import HTML from 'react-native-render-html';
 
-class SignUpScreen1 extends React.Component{
+class SignUpScreen1 extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            id: '',
-            pwd: '',
-            register: false,
-            termsModal: false,
-            keyboardSpace: 0,
-            findPwd: false,
-            check1:false,
-            check2:false,
-            modalCheck1:false,
-            modalCheck2:false,
-            iconColor:false,
+            iconColor: false,
+            touch1: false,
+            touch2: false,
         };
     }
-    //약관동의 처리
-    handleTerms = () => {
-        console.log(this.props.SignInScreen1Button);
 
-        this.setState({
-            termsModal: !this.state.termsModal
-        })
-    };
     //첫번째 동의 체크박스
     handleTermsFirstCheck = () => {
         const {SignIn} = this.props;
-        if(this.returnFirstCheck()) {
+        if (this.returnFirstCheck())
             SignIn.handleTermsFirstCheck(false);
-            this.state.check1=false;
-            this.state.modalCheck1=false;
-
-            this.handleTerms()
-
-
-        }else {
+        else
             SignIn.handleTermsFirstCheck(true);
-            this.state.check1=true;
-            this.state.modalCheck1=true;
-
-            this.handleTerms()
-        }
     };
 
     //두번째 동의 체크박스
     handleTermsSecondCheck = () => {
         const {SignIn} = this.props;
-        if(this.returnSecondCheck()){
+        if (this.returnSecondCheck())
             SignIn.handleTermsSecondCheck(false);
-            this.state.check2=false;
-            this.state.modalCheck2=false;
-            this.handleTerms()
-
-        }
-        else{
+        else
             SignIn.handleTermsSecondCheck(true);
-            this.state.check2=true;
-            this.state.modalCheck2=true;
-            this.handleTerms()
-
-        }
-    };
-    handleTerms =() =>{
-        const {SignIn} = this.props;
-
-        if( this.props.isFirstChecked && this.props.isSecondChecked){
-            SignIn.handleSignInScreen1Button('#4a4a4a');
-            SignIn.handleSignInScreen1Button2('#4a4a4a');
-            SignIn.handleChangeFontColor('#000000');
-            this.state.iconColor=false;
-        }
-        else if(this.props.isFirstChecked&&!this.props.isSecondChecked){
-            SignIn.handleSignInScreen1Button('#ffffff');
-            SignIn.handleSignInScreen1Button2('#c5c4c4');
-            SignIn.handleChangeFontColor('#000000');
-            this.state.iconColor=false;
-
-        }
-        else if(this.props.isFirstChecked&&this.props.isSecondChecked){
-            SignIn.handleSignInScreen1Button('#ffffff');
-            SignIn.handleSignInScreen1Button2('#c5c4c4');
-            SignIn.handleChangeFontColor('#000000');
-            this.state.iconColor=false;
-
-        }
-        else {
-            SignIn.handleSignInScreen1Button('#ffffff');
-            SignIn.handleSignInScreen1Button2('#c5c4c4');
-            // SignIn.handleChangeFontColor('#ffffff');
-            this.state.iconColor=true;
-
-
-        }
-    };
-    handleModal =() =>{
-        console.log(this.state.modalCheck1);
-        console.log(this.state.modalCheck2);
-        const {SignIn} = this.props;
-        if(this.state.modalCheck1 && this.state.modalCheck2){
-            SignIn.handleSignInScreen1Button('#4a4a4a');
-            SignIn.handleSignInScreen1Button2('#4a4a4a');
-            SignIn.handleChangeFontColor('#ffffff');
-            this.state.iconColor=true;
-
-
-        }
-        else{
-            SignIn.handleSignInScreen1Button('#ffffff');
-            SignIn.handleSignInScreen1Button2('#c5c4c4');
-            SignIn.handleChangeFontColor('#000000');
-            this.state.iconColor=false;
-
-        }
     };
     //모두 동의
     handleTermsAllTrue = () => {
         const {SignIn} = this.props;
-        // SignIn.handleSignInScreen1Button('black');
-        console.log(this.props.SignInScreen1Button);
         if (this.returnChecked()) {
-            // SignIn.handleisAllChecked(false);
             SignIn.handleTermsAll(false);
-            SignIn.handleSignInScreen1Button('#ffffff');
-            SignIn.handleSignInScreen1Button2('#c5c4c4');
-            SignIn.handleChangeFontColor('#000000');
-            this.state.iconColor=false;
+            this.state.iconColor = false;
 
         } else {
-            // SignIn.handleisAllChecked(true);
-
             SignIn.handleTermsAll(true);
-            SignIn.handleSignInScreen1Button('#4a4a4a');
-            SignIn.handleSignInScreen1Button2('#4a4a4a');
-            SignIn.handleChangeFontColor('#ffffff');
-            // SignIn.handleisAllChecked(false);
-            this.state.iconColor=true;
-
+            this.state.iconColor = true;
         }
     };
 
@@ -169,35 +57,21 @@ class SignUpScreen1 extends React.Component{
         return this.props.isFirstChecked && this.props.isSecondChecked;
     };
     //첫번째 동의 체크
-    returnFirstCheck = () =>{
+    returnFirstCheck = () => {
         return this.props.isFirstChecked;
     };
     //두번째 동의 체크
-    returnSecondCheck = () =>{
+    returnSecondCheck = () => {
         return this.props.isSecondChecked;
     };
 
     //첫번째 동의 모달 열기, 닫기
     handleTermsFirstModalOpen = () => {
-
         const {SignIn} = this.props;
-        SignIn.handleTermsFirstCheck(true);
         SignIn.handleTermsFirstModal(true);
-        // console.log(this.state.modalCheck1);
-
-        if(!this.state.modalCheck1){
-            this.state.check1=true;
-            this.state.modalCheck1=true;
-            this.handleModal();}
-        else {
-            this.state.check1=false;
-            this.state.modalCheck1=false;
-            this.handleModal();
-        }
     };
 
     handleTermsFirstModalClose = () => {
-
         const {SignIn} = this.props;
         SignIn.handleTermsFirstModal(false);
     };
@@ -205,221 +79,265 @@ class SignUpScreen1 extends React.Component{
     //두번째 동의 모달 열기, 닫기
     handleTermsSecondModalOpen = () => {
         const {SignIn} = this.props;
-        // console.log(this.state.modalCheck2);
-
-        SignIn.handleTermsSecondCheck(true);
         SignIn.handleTermsSecondModal(true);
-        if(!this.state.modalCheck2){
-            this.state.modalCheck2=true;
-            this.state.check2=true;
-            this.handleModal();}
-        else {
-            this.state.modalCheck2=false;
-            this.state.check2=false;
-            this.handleModal();
-        }
-
     };
     handleTermsSecondModalClose = () => {
         const {SignIn} = this.props;
         SignIn.handleTermsSecondModal(false);
-
     };
 
     xButton = () => {
         this.props.navigation.goBack();
-        // this.props.navigation.navigate('SignIn');
         const {SignIn} = this.props;
-
         SignIn.handleTermsAll(false);
-        SignIn.handleSignInScreen1Button('#ffffff');
-        SignIn.handleSignInScreen1Button2('#c5c4c4');
-        SignIn.handleChangeFontColor('#000000');
         SignIn.handleSignUpUserId('');
         SignIn.handleSignUpUserPwd('');
         SignIn.handleSignUpUserRePwd('');
         SignIn.handleSignUpUserNickName('');
-
     };
     nextTerms = () => {
         if (this.returnChecked()) {
             this.props.navigation.navigate('SignUpTwo');
-
             return;
         }
-        this.handleTerms();
+    };
+
+    renderNextButton = () => {
+        if (this.props.isFirstChecked && this.props.isSecondChecked) {
+            return (
+                <TouchableOpacity style={styles.nextButtonTrue} onPress={this.nextTerms}>
+                    <Text style={styles.nextButtonText}>계속 진행하기</Text>
+                </TouchableOpacity>
+            )
+        } else {
+            return (
+                <View style={styles.nextButton}>
+                    <Text style={styles.nextButtonText}>계속 진행하기</Text>
+                </View>
+            )
+        }
+    };
+
+    renderFirstModalBody = () => {
+        return(
+            <ScrollView style = {styles.modalBody} >
+                <HTML html={this.props.term1}/>
+            </ScrollView>
+        )
+    };
+
+    renderSecondModalBody = () => {
+        return (
+            <ScrollView style = {styles.modalBody} >
+                <HTML html={this.props.term2}/>
+            </ScrollView>
+        )
     };
 
     render() {
+        const dataStyle = EStyleSheet.create({
+            allButton: {
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '77%',
+                aspectRatio: 289 / 53,
+                borderRadius: 26.5,
+                borderWidth: this.props.isFirstChecked && this.props.isSecondChecked ? 0 : 1,
+                borderColor: '#9b9b9b',
+                backgroundColor: this.props.isFirstChecked && this.props.isSecondChecked ? '#4a4a4a' : '#ffffff',
+            },
+            allButtonText: {
+                fontSize: '1rem',
+                color: this.props.isFirstChecked && this.props.isSecondChecked ? '#ffffff' : '#000000'
+            },
+            firstTermIcon: {
+                marginRight: '0.643rem',
+                alignSelf: 'flex-end'
+            },
+            firstTermButtonTitle: {
+                marginLeft: '0.357rem',
+                fontSize: '1rem',
+            },
+            firstTermButtonContent: {
+                fontSize: '0.714rem',
+                color: '#0000004D'
+            }
+        });
         return (
             <SafeAreaView style={styles.container}>
-
-                <KeyboardAwareScrollView>
-                    <StatusBar backgroundColor="#717882"
-                               translucent={true}
-                    />
-                    {/*<Toast ref="toast"/>*/}
-                    <View style={{flex: 1, justifyContent: 'center',marginTop:19}}>
-                        <View style ={{flexDirection:'row',justifyContent: 'space-between'}}>
-                            <View style={{marginLeft:10}}>
-                            </View>
-                            <View style={{marginRight:10}}>
-                                <Icon name="md-close" type="ionicon" size={40} color={'black'} style={{alignSelf:'flex-end'}} onPress ={this.xButton} />
-                            </View>
-                        </View>
-
-                    </View>
-                    <View style={{marginTop:10,marginLeft:10}}>
-                        <Text style={{fontSize:17,alignSelf:'flex-start',fontWeight: 'bold'}}> 회원가입 </Text>
+                {/*<StatusBar backgroundColor="#717882"*/}
+                {/*translucent={true}*/}
+                {/*/>*/}
+                <TitleView title={'회원가입'} rightIcon={'md-close'} rightIconHandler={this.xButton}/>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <View style={styles.indicatorContainer}>
+                        <SignUpIndicator max={3} position={0}/>
                     </View>
 
-                    <View style={{flex:4, alignItems: 'center'}}>
-                        <View style ={{marginBottom:32,marginTop:20}}>
-                            <SignUpIndicator max={3} position={0} />
-                        </View>
-
-                        <View style={{alignItems: 'center',justifyContent: 'center',marginLeft:20}}>
-                            <View style={{width:320,marginBottom:50}}>
-
-                                <TouchableOpacity  onPress={this.handleTermsAllTrue}>
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        // justifyContent: 'space-between',
-                                        marginTop: 40,
-                                        paddingLeft:15.9,
-                                        // paddingRight:35.9,
-                                        width: 298,
-                                        height: 53,
-                                        borderRadius: 26.5,
-                                        borderWidth: 1,
-                                        borderColor: '#9b9b9b',
-                                        // alignItems: 'center',
-                                        // alignSelf: 'center',
-                                        backgroundColor: this.props.SignInScreen1Button
-                                    }}>
-                                        <View>
-
-                                            <View style={{marginTop:15}}>
-                                                <SignUpScreen1Icon1
-                                                iconHandle={this.state.iconColor}
-                                                />
-                                            </View>
-                                        </View>
-                                        <View style={{marginLeft:10,backgroundColor:'red'}}/>
-                                        <Text style={{fontSize:14,marginLeft:15,marginTop:17,color:this.props.fontColor}}>회원가입 약관에 모두 동의합니다.</Text>
-                                    </View>
-                                </TouchableOpacity>
+                    <View style={{flex: 1, alignItems: 'center'}}>
+                        <TouchableOpacity onPress={this.handleTermsAllTrue}>
+                            <View style={dataStyle.allButton}>
+                                <SignUpScreen1Icon1
+                                    iconHandle={this.props.isFirstChecked && this.props.isSecondChecked}/>
+                                <View style={styles.allButtonSpace}/>
+                                <Text style={dataStyle.allButtonText}>회원가입 약관에 모두 동의합니다.</Text>
                             </View>
+                        </TouchableOpacity>
+                        <View style={styles.allBottomMarginBottom}/>
 
-
-                            <TouchableHighlight  underlayColor= '#d8d8d8' onPress={this.handleTermsFirstModalOpen} style={{alignItems: 'center'}}>
-                                <View style={{alignItems: 'center'}}>
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        height: 71,
-                                        width: 500,
-                                        marginBottom: 5,
-                                        padding: 10,
-                                        marginLeft:170
-
-                                        // paddingLeft: 20,
-                                        // alignItems: 'center',
-                                        // justifyContent: 'center'
-                                    }}
-                                    >
-                                        <View  style={{flexDirection:'column'}}>
-                                            <View style={{flexDirection:'row'}}>
-                                                {/*<RoundCheckbox*/}
-                                                    {/*size={24}*/}
-                                                    {/*checked={this.returnFirstCheck()}*/}
-                                                    {/*backgroundColor="#989898"*/}
-                                                    {/*onValueChange={this.handleTermsFirstCheck}*/}
-                                                {/*/>*/}
-                                            <SignUpScreen1Icon2 iconHandle={this.props.isFirstChecked}/>
-
-                                                <Text style={{width: 190, marginLeft: 15 ,fontSize:14,marginBottom:5}}>
-                                                    개인정보 수집 및 이용 (필수)
-                                                </Text>
-                                            </View>
-                                            <Text style={{fontSize:10,opacity:0.3,marginLeft:38}}>본 약관은 H6(이하 "소모임"이 제공하는 한성대학교 커뮤니 </Text>
-                                            <Text style={{fontSize:10,opacity:0.3,marginLeft:38}}>티 서비스 한담(이하 "서비스")의 야용에 관한 전반사항을...</Text>
-                                        </View>
+                        <View style={{flexDirection: 'column', backgroundColor: this.state.touch1 ? '#d8d8d84d' : '#ffffff'}}>
+                            <View style={{width: '100%', flexDirection: 'row', justifyContent: 'center'}}>
+                                <TouchableHighlight style={{flex: 80}} underlayColor={'transparent'}
+                                                    onPress={this.handleTermsFirstCheck}
+                                                    onPressIn={() => this.setState({touch1: true})}
+                                                    onPressOut={() => this.setState({touch1: false})}>
+                                    <View style={dataStyle.firstTermIcon}>
+                                        <SignUpScreen1Icon2 iconHandle={this.props.isFirstChecked}/>
                                     </View>
-                                </View>
-                            </TouchableHighlight>
-                            <TouchableHighlight  underlayColor= '#d8d8d8' onPress={this.handleTermsSecondModalOpen} style={{alignItems: 'center'}}>
-                                <View style={{alignItems: 'center'}}>
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        height: 71,
-                                        width: 500,
-                                        marginBottom: 5,
-                                        padding: 10,
-                                        marginLeft:170
-
-                                        // paddingLeft: 20,
-                                        // alignItems: 'center',
-                                        // justifyContent: 'center'
-                                    }}
-                                    >
-                                        <View  style={{flexDirection:'column'}}>
-                                            <View style={{flexDirection:'row'}}>
-                                                {/*<RoundCheckbox*/}
-                                                    {/*size={24}*/}
-                                                    {/*checked={this.returnSecondCheck()}*/}
-                                                    {/*backgroundColor="#989898"*/}
-                                                    {/*onValueChange={this.handleTermsSecondCheck}*/}
-                                                {/*/>*/}
-                                                <SignUpScreen1Icon2 iconHandle={this.props.isSecondChecked}/>
-
-                                                <Text style={{width: 190, marginLeft: 15 ,fontSize:14,marginBottom:5}}>
-                                                    한담 서비스 이용 약관 (필수)
-                                                </Text>
-                                            </View>
-                                            <Text style={{fontSize:10,opacity:0.3,marginLeft:38}}>제 1조 목적 및 효력의 변경</Text>
-                                            <Text style={{fontSize:10,opacity:0.3,marginLeft:38}}>1)본 약관은 한담에서 제공하는 서비스의 이용조건 및...</Text>
-                                        </View>
+                                </TouchableHighlight>
+                                <TouchableHighlight underlayColor={'transparent'}
+                                                    style={{flex: 295, justifyContent: 'center'}}
+                                                    onPress={this.handleTermsFirstModalOpen}
+                                                    onPressIn={() => this.setState({touch1: true})}
+                                                    onPressOut={() => this.setState({touch1: false})}>
+                                    <Text style={dataStyle.firstTermButtonTitle}>개인정보 수집 및 이용 (필수)</Text>
+                                </TouchableHighlight>
+                            </View>
+                            <View style={{width: '100%', flexDirection: 'row', justifyContent: 'center'}}>
+                                <TouchableHighlight style={{flex: 80}} underlayColor={'transparent'}
+                                                    onPress={this.handleTermsFirstCheck}
+                                                    onPressIn={() => this.setState({touch1: true})}
+                                                    onPressOut={() => this.setState({touch1: false})}>
+                                    <View></View>
+                                </TouchableHighlight>
+                                <TouchableHighlight underlayColor={'transparent'}
+                                                    style={{flex: 295, justifyContent: 'center'}}
+                                                    onPress={this.handleTermsFirstModalOpen}
+                                                    onPressIn={() => this.setState({touch1: true})}
+                                                    onPressOut={() => this.setState({touch1: false})}>
+                                    <Text style={dataStyle.firstTermButtonContent}>{'본 약관은 H6(이하 "소모임"이 제공하는 한성대학교 커뮤니\n티 서비스 한담(이하 "서비스")의 용에 관한 전반사항을...'}</Text>
+                                </TouchableHighlight>
+                            </View>
+                        </View>
+                        <View style={styles.termsButtonMargin}/>
+                        <View style={{flexDirection: 'column', backgroundColor: this.state.touch2 ? '#d8d8d84d' : '#ffffff'}}>
+                            <View style={{width: '100%', flexDirection: 'row', justifyContent: 'center'}}>
+                                <TouchableHighlight style={{flex: 80}} underlayColor={'transparent'}
+                                                    onPress={this.handleTermsSecondCheck}
+                                                    onPressIn={() => this.setState({touch2: true})}
+                                                    onPressOut={() => this.setState({touch2: false})}>
+                                    <View style={dataStyle.firstTermIcon}>
+                                        <SignUpScreen1Icon2 iconHandle={this.props.isSecondChecked}/>
                                     </View>
-                                </View>
-                            </TouchableHighlight>
+                                </TouchableHighlight>
+                                <TouchableHighlight underlayColor={'transparent'}
+                                                    style={{flex: 295, justifyContent: 'center'}}
+                                                    onPress={this.handleTermsSecondModalOpen}
+                                                    onPressIn={() => this.setState({touch2: true})}
+                                                    onPressOut={() => this.setState({touch2: false})}>
+                                    <Text style={dataStyle.firstTermButtonTitle}>한담 서비스 이용 약관 (필수)</Text>
+                                </TouchableHighlight>
+                            </View>
+                            <View style={{width: '100%', flexDirection: 'row', justifyContent: 'center'}}>
+                                <TouchableHighlight style={{flex: 80}} underlayColor={'transparent'}
+                                                    onPress={this.handleTermsSecondCheck}
+                                                    onPressIn={() => this.setState({touch2: true})}
+                                                    onPressOut={() => this.setState({touch2: false})}>
+                                    <View></View>
+                                </TouchableHighlight>
+                                <TouchableHighlight underlayColor={'transparent'}
+                                                    style={{flex: 295, justifyContent: 'center'}}
+                                                    onPress={this.handleTermsSecondModalOpen}
+                                                    onPressIn={() => this.setState({touch2: true})}
+                                                    onPressOut={() => this.setState({touch2: false})}>
+                                    <Text style={dataStyle.firstTermButtonContent}>{'제 1조 목적 및 효력의 변경\n1)본 약관은 한담에서 제공하는 서비스의 이용조건 및...'}</Text>
+                                </TouchableHighlight>
+                            </View>
                         </View>
-                        <TermsModal
-                            closeModal={this.handleTermsFirstModalClose}
-                            modalVisible={this.props.firstVisible}
-                            title='개인정보 수집 및 이용'
-                            htmlContent={this.props.term1}
-                        />
-                        <TermsModal
-                            closeModal={this.handleTermsSecondModalClose}
-                            modalVisible={this.props.secondVisible}
-                            title='한담 서비스 이용 약관'
-                            htmlContent={this.props.term2}
-                        />
-                        <WarningModal
-                            visible={this.state.termsModal}
-                            title={'경고'}
-                            body={'약관에 동의 해주세요.'}
-                            handle={this.handleTerms}
-                        />
-                        <View>
-                            <Button buttonStyle={{
-                                backgroundColor: this.props.SignInScreen1Button2,
-                                borderRadius: 30,
-                                width: 289,
-                                height:53,
-                                alignSelf: 'center',
-                                marginTop:60
-                            }} onPress={this.nextTerms} title="계속 진행하기"/>
-                        </View>
+                        <View style={styles.nextButtonMargin}/>
+                        {this.renderNextButton()}
                     </View>
-                </KeyboardAwareScrollView>
+                    <CustomModal
+                        title={'개인정보 처리방침'} ratio={'93%'} width={349} height={559} body={this.renderFirstModalBody}
+                        close={this.handleTermsFirstModalClose} visible={this.props.firstVisible} renderFooter={false}/>
+                    <CustomModal title={'한담 서비스 이용약관'} ratio={'93%'} width={349} height={559} body={this.renderSecondModalBody}
+                                 close={this.handleTermsSecondModalClose} visible={this.props.secondVisible} renderFooter={false}/>
+                    {/*<TermsModal*/}
+                        {/*closeModal={this.handleTermsFirstModalClose}*/}
+                        {/*modalVisible={this.props.firstVisible}*/}
+                        {/*title='개인정보 수집 및 이용'*/}
+                        {/*htmlContent={this.props.term1}*/}
+                    {/*/>*/}
+                    {/*<TermsModal*/}
+                        {/*closeModal={this.handleTermsSecondModalClose}*/}
+                        {/*modalVisible={this.props.secondVisible}*/}
+                        {/*title='한담 서비스 이용 약관'*/}
+                        {/*htmlContent={this.props.term2}*/}
+                    {/*/>*/}
+                </View>
             </SafeAreaView>
         );
     }
 }
+
+const styles = EStyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+    },
+    indicatorContainer: {
+        marginBottom: '5.357rem',
+        marginTop: '2rem',
+    },
+    allButtonSpace: {
+        width: '1.214rem'
+    },
+    allBottomMarginBottom: {
+        height: '3.93rem'
+    },
+    nextButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '77%',
+        aspectRatio: 289 / 53,
+        borderRadius: 26.5,
+        backgroundColor: '#4a4a4a4d',
+    },
+    nextButtonTrue: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '77%',
+        aspectRatio: 289 / 53,
+        borderRadius: 26.5,
+        backgroundColor: '#4a4a4a',
+    },
+    nextButtonText: {
+        fontSize: '1.143rem',
+        color: '#ffffff'
+    },
+    termsButton: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    termsButtonMargin: {
+        height: '1.714rem'
+    },
+    nextButtonMargin:{
+        height: '4.5rem'
+    },
+    modalBody:{
+        flex:1,
+        paddingLeft: '1.214rem',
+        paddingRight: '1.214rem',
+        paddingBottom: '1.357rem',
+    }
+});
+
 export default connect((state) => ({
-        SignInScreen1Button:state.signin.signInScreen1Button,
-        SignInScreen1Button2:state.signin.signInScreen1Button2,
         register: state.signin.register,
         currentPosition: state.signin.currentPosition,
         termsModal: state.signin.termsModal,
@@ -430,13 +348,10 @@ export default connect((state) => ({
         secondVisible: state.signin.secondVisible,
         term1: state.signin.term1,
         term2: state.signin.term2,
-        findPwd: state.signin.findPwd, //비번찾기
-        fontColor:state.signin.fontColor,
         userId: state.signin.userId,
         userPw: state.signin.userPw,
         userRePw: state.signin.userRePw,
         userNickName: state.signin.userNickName,
-
     }),
     (dispatch) => ({
         SignIn: bindActionCreators(signin, dispatch)

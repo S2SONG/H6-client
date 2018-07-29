@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 export class SignUpScreen1Icon2 extends React.Component {
 
     handleIcon=()=>{
-        console.log(this.props.iconHandle);
         if(!this.props.iconHandle){
             return(
                 <Icon
                     name='check-circle'
                     color='#c5c4c4'
-                    size={26}
+                    size={21}
+                    onPress={this.props.handle}
                 />
             )
         }
@@ -21,14 +21,15 @@ export class SignUpScreen1Icon2 extends React.Component {
                 <Icon
                     name='check-circle'
                     color='#4a4a4a'
-                    size={26}
+                    size={21}
+                    onPress={this.props.handle}
                 />
             )
         }
     };
     render() {
         return (
-            <View style={styles.container}>
+            <View>
                 {this.handleIcon()}
             </View>
         )
@@ -36,21 +37,12 @@ export class SignUpScreen1Icon2 extends React.Component {
 }
 
 SignUpScreen1Icon2.propTypes = {
-    iconHandle :PropTypes.bool
+    iconHandle :PropTypes.bool,
+    handle: PropTypes.func,
 };
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingLeft:10
-    },
-    inputStyle: {
-        flex:1,
-        fontSize:12,
-        paddingLeft:5
-    },
-    iconStyle: {
-        width:30,
-        margin:10
     }
 });

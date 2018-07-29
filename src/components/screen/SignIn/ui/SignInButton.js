@@ -2,45 +2,41 @@ import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export class SignInButton extends React.Component {
 
     render() {
-        const styles = StyleSheet.create({
+        const styles = EStyleSheet.create({
             button: {
                 flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginTop: 40,
-                marginBottom: 10,
-                paddingLeft:35.9,
-                paddingRight:35.9,
-                width: 289,
-                height: 53,
+                width: '77%',
+                aspectRatio: 289/53,
                 borderRadius: 26.5,
-                // borderWidth: 1,
-                // borderColor: '#9b9b9b',
                 alignItems: 'center',
                 alignSelf: 'center',
                 backgroundColor: this.props.backgroundColor
             },
             left:{
+                marginLeft: '2.07rem',
                 alignSelf: 'flex-start',
-                width:20,
+                width:30,
             },
             buttonText: {
-                fontSize: 16,
+                fontSize: '1.15rem',
                 color: this.props.textColor,
                 fontWeight: 'bold',
                 alignSelf: 'center'
             },
             rightIcon: {
+                marginRight: '2.07rem',
                 alignSelf: 'flex-end',
-                width:20,
+                width:30,
             }
         });
         return (
-            <TouchableOpacity onPress={this.props.handle}>
-                <View style={styles.button}>
+            <TouchableOpacity onPress={this.props.handle} style={styles.button}>
+                <View style={{flex:1, flexDirection:'row', justifyContent: 'space-between'}}>
                     <View style={styles.left}/>
                     <Text style={styles.buttonText}>{this.props.title}</Text>
                     <Icon iconStyle={styles.rightIcon} name={'md-arrow-forward'} type='ionicon' color={this.props.iconColor}/>
@@ -48,8 +44,6 @@ export class SignInButton extends React.Component {
             </TouchableOpacity>
         )
     }
-
-    const
 }
 
 SignInButton.propTypes = {
@@ -58,5 +52,9 @@ SignInButton.propTypes = {
     iconColor: PropTypes.string,
     textColor: PropTypes.string,
     backgroundColor: PropTypes.string,
+};
+
+SignInButton.defaultProps = {
+    iconColor: '#fff'
 };
 

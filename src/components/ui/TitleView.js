@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Dimensions} from 'r
 import {Icon} from 'react-native-elements';
 import {BoxShadow} from 'react-native-shadow';
 import PropTypes from 'prop-types';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export class TitleView extends React.Component {
 
@@ -22,8 +23,14 @@ export class TitleView extends React.Component {
 
     renderRightIcon = () => {
         if (this.props.rightIcon)
-            return (<Icon style={styles.rightIcon} name={this.props.rightIcon} type='ionicon' size={24} color={'black'}
-                          onPress={this.props.rightIconHandler}/>);
+            return(
+                <Icon
+                    iconStyle={styles.rightIcon}
+                    onPress={this.props.rightIconHandler}
+                    name={this.props.rightIcon}
+                    type='ionicon'
+                    size={24} color={'black'}
+                    underlayColor={'#7c828c00'}/>);
         return (<View style={styles.rightIcon}></View>);
     };
 
@@ -55,39 +62,39 @@ TitleView.propTypes = {
 };
 
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     statusBar: {
-        backgroundColor: '#ffffff',
+        backgroundColor: 'transparent',
         height: StatusBar.currentHeight
     },
     titleBar: {
-        height: 52,
+        height: '3.7rem',
         justifyContent: 'flex-end',
-        paddingLeft: 20,
-        paddingBottom: 20,
+        paddingLeft: '1.43rem',
+        paddingBottom: '1.43rem',
         backgroundColor: 'white',
     },
     titleBarIconView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: 'white',
-        height: 52,
-        paddingLeft: 20,
-        paddingRight: 20,
+        height: '3.7rem',
+        paddingLeft: '1.43rem',
+        paddingRight: '1.43rem',
     },
     titleBarBlank: {
-        width: 10,
+        width: '0.71rem',
     },
     titleBarText: {
         color: 'black',
-        fontSize: 18,
+        fontSize: '1.21rem',
     },
     leftIcon: {
         alignSelf: 'flex-start',
-        width: 50,
+        width: '3.57rem',
     },
     rightIcon: {
         alignSelf: 'flex-end',
-        width: 50,
+        width: '3.57rem',
     }
 });

@@ -398,7 +398,6 @@ export const handleSignInButton = (value) => dispatch => {
 };
 
 export const handleFindPwdResult = (value) => dispatch => {
-    console.log('findpwdresult', value);
     dispatch({type:FIND_PWD_RESULT, payload: value});
 };
 
@@ -426,7 +425,6 @@ export  const handleChangeFontColor =(color)=> dispatch =>{
 
 
 export const signInUser = (userId, userPw) => async dispatch => {
-    console.log('start');
     var userData = {
         userId: userId,
         userPw: userPw
@@ -919,7 +917,6 @@ export default handleActions({
             ...state,
             isFirstChecked: action.payload,
             isSecondChecked: action.payload,
-            // isAllChecked:action.payload,
         }
     },
 

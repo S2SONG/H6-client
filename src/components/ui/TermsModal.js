@@ -40,13 +40,6 @@ export class TermsModal extends React.Component{
                                     <HTML html={this.props.htmlContent}/>
                                 </ScrollView>
                             </View>
-
-                            {/*<View style = { styles.buttonContainer }>*/}
-                            {/*<Button*/}
-                            {/*onPress = { this.props.closeModal }*/}
-                            {/*title = "닫기"*/}
-                            {/*/>*/}
-                            {/*</View>*/}
                         </View>
                     </View>
                 </View>

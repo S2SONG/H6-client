@@ -5,19 +5,18 @@ import PropTypes from 'prop-types';
 
 export class SignUpScreen1Icon1 extends React.Component {
 
-    handleIcon=()=>{
-        console.log(this.props.iconHandle);
-        if(!this.props.iconHandle){
-        return(
-          <Icon
-              name='check'
-              color='black'
-              size={20}
-          />
-        )
+    handleIcon = () => {
+        if (!this.props.iconHandle) {
+            return (
+                <Icon
+                    name='check'
+                    color='black'
+                    size={20}
+                />
+            )
         }
-        else{
-            return(
+        else {
+            return (
                 <Icon
                     name='check'
                     color='white'
@@ -26,6 +25,7 @@ export class SignUpScreen1Icon1 extends React.Component {
             )
         }
     };
+
     render() {
         return (
             <View style={styles.container}>
@@ -36,21 +36,11 @@ export class SignUpScreen1Icon1 extends React.Component {
 }
 
 SignUpScreen1Icon1.propTypes = {
-    iconHandle :PropTypes.bool
+    iconHandle: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingLeft:10
-    },
-    inputStyle: {
-        flex:1,
-        fontSize:12,
-        paddingLeft:5
-    },
-    iconStyle: {
-        width:30,
-        margin:10
     }
 });

@@ -1,14 +1,19 @@
 import React from 'react'
-import {View, Modal, Text, StyleSheet, TouchableOpacity} from 'react-native';
-// import Modal from 'react-native-modal';
+import {View, Modal, Text, StyleSheet, TouchableOpacity,StatusBar} from 'react-native';
 import PropTypes from 'prop-types';
 import {Icon} from 'react-native-elements';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export class CustomModal extends React.Component {
+
+    componentDidMount(){
+        // StatusBar.setHidden(true);
+    }
+
     renderClose = () => {
         if(this.props.close){
             return(
-                <View style={{height: 42, width: this.props.width, alignItems: 'flex-end'}}>
+                <View style={{height: 42, width: this.props.ratio, alignItems: 'flex-end'}}>
                     <Icon name={'ios-close-circle-outline'}
                           type='ionicon'
                           color='#ffffff'
@@ -48,31 +53,34 @@ export class CustomModal extends React.Component {
     };
 
     renderFooter = () => {
-        if(this.props.footer){
-            return(
-                <TouchableOpacity onPress={this.props.footerHandle}>
-                    <View style={styles.footerSelect}>
-                        <Text style={styles.footerSelectText}>{this.props.footerText}</Text>
-                    </View>
-                </TouchableOpacity>)
+        if(this.props.renderFooter) {
+            if (this.props.footer) {
+                return (
+                    <TouchableOpacity onPress={this.props.footerHandle}>
+                        <View style={styles.footerSelect}>
+                            <Text style={styles.footerSelectText}>{this.props.footerText}</Text>
+                        </View>
+                    </TouchableOpacity>)
+            } else {
+                return (<View style={styles.footer}>
+                    <Text style={styles.footerText}>{this.props.footerText}</Text>
+                </View>)
+            }
         } else {
-            return(<View style={styles.footer}>
-                <Text style={styles.footerText}>{this.props.footerText}</Text>
-            </View>)
+            return null;
         }
     };
 
     render() {
         return (
-            <Modal visible={this.props.visible} animationType = { 'slide' } transparent={false} onRequestClose={() => {}}>
-                <View style={{flex: 1, backgroundColor:'#31313187', justifyContent: 'center', alignItems: 'center'}}>
+            <Modal visible={this.props.visible} transparent={true} onRequestClose={() => {}}>
+                <View style={{flex: 1, backgroundColor:'#313131DE', justifyContent: 'center', alignItems: 'center'}}>
                     {this.renderClose()}
-                    <View style={{height: this.props.height, width: this.props.width, backgroundColor: this.props.background, borderRadius: 5}}>
+                    <View style={{width: this.props.ratio, aspectRatio: this.props.width/this.props.height, backgroundColor: this.props.background, borderRadius: 5}}>
                         {this.renderTitle()}
                         <View style={{
                             flex:1,
                             width: '100%',
-                            padding: this.props.padding,
                             alignSelf: 'center',
                         }}>
                             {this.renderBody()}
@@ -97,7 +105,9 @@ CustomModal.propTypes = {
     footer: PropTypes.bool,
     footerText: PropTypes.string,
     footerHandle: PropTypes.func,
-    padding: PropTypes.number
+    padding: PropTypes.number,
+    ratio: PropTypes.string,
+    renderFooter: PropTypes.bool,
 };
 
 CustomModal.defaultProps = {
@@ -107,17 +117,19 @@ CustomModal.defaultProps = {
     visible: false,
     footer: false,
     padding:10,
+    ratio: '90%',
+    renderFooter: true
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     title: {
         width: '100%',
-        paddingTop: 36,
-        paddingBottom: 20,
-        alignSelf: 'center'
+        paddingTop: '2.57rem',
+        paddingBottom: '2.57rem',
+        alignSelf: 'center',
     },
     titleText: {
-        fontSize: 16,
+        fontSize: '1.15rem',
         color: 'black',
         fontWeight: 'bold',
         alignSelf: 'center',
@@ -126,7 +138,6 @@ const styles = StyleSheet.create({
     body: {
         flex:1,
         width: '100%',
-        padding: 10,
         alignSelf: 'center',
     },
     footer: {
@@ -143,16 +154,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 61,
         width: '100%',
-        backgroundColor: '#7c828c',
+        backgroundColor: '#4a4a4a99',
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5
     },
     footerText:{
-        fontSize:16,
+        fontSize:'1.15rem',
         color:'black'
     },
     footerSelectText:{
-        fontSize:16,
+        fontSize:'1.15rem',
         color:'white'
     },
 });

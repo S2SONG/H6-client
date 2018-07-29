@@ -1,5 +1,5 @@
 import React from "react";
-import {SafeAreaView, StyleSheet, AppRegistry} from 'react-native';
+import {View, StatusBar} from 'react-native';
 import {StackNavigator, createStackNavigator} from 'react-navigation';
 import SignInScreen from "../screen/SignIn/SignInScreen";
 import SignUpScreen from "../screen/SignUp/SignUpScreen";
@@ -33,14 +33,14 @@ const SignNav = createStackNavigator({
             gesturesEnabled: false
         }
     },
-    SignUpTwo :{
+    SignUpTwo: {
         screen: SignUpScreen2,
         navigationOptions: {
             header: null,
             gesturesEnabled: false
         }
     },
-    SignUpThree:{
+    SignUpThree: {
         screen: SignUpScreen3,
         navigationOptions: {
             header: null,
@@ -59,25 +59,25 @@ const SignNav = createStackNavigator({
             header: null,
             gesturesEnabled: false
         }
-        },
-    Evaluation:{
+    },
+    Evaluation: {
         screen: EvaluationScreen,
         navigationOptions: {
             header: null,
             gesturesEnabled: false
         }
     },
-    Amend:{
+    Amend: {
         screen: AmendScreen,
         navigationOptions: {
             header: null,
             gesturesEnabled: false
         }
     },
-    LectureScreen:{
+    LectureScreen: {
         screen: LectureScreen,
-        navigationOptions:{
-            header:null,
+        navigationOptions: {
+            header: null,
             gesturesEnabled: false
         }
     }
@@ -91,9 +91,11 @@ const SignNav = createStackNavigator({
 export class SignNavigation extends React.Component {
     render() {
         return (
-            <SignNav ref={navigatorRef => {
-                NavigatorService.setContainer(navigatorRef);
-            }}/>
+            <View style={{flex:1}}>
+                <SignNav ref={navigatorRef => {
+                    NavigatorService.setContainer(navigatorRef);
+                }}/>
+            </View>
         )
     }
 }

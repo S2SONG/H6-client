@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-export default StyleSheet.create({
+export default EStyleSheet.create({
     container: {
         flex: 1,
         backgroundColor:'white'
@@ -47,5 +48,16 @@ export default StyleSheet.create({
         width: '100%',
         height: 1,
         backgroundColor: 'rgb(216,216,216)'
+    },
+    userOutModalBody:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    userOutModalText:{
+        fontSize: '0.9rem'
+    },
+    logoutModalText:{
+        fontSize: '1rem'
     }
 });

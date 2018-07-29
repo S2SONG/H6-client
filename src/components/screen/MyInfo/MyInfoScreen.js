@@ -25,7 +25,10 @@ class MyInfoScreen extends React.Component {
             appInfo: [
                 {title: '개인정보처리방침', handle: () => this.navigationTermScreen('개인정보처리방침', this.props.term2)},
                 {title: '이용약관', handle: () => this.navigationTermScreen('이용약관', this.props.term1)},
-                {title: '앱 버전', right: `${Platform.OS==='ios'?this.props.appVersion.ios:this.props.appVersion.android}(${util.timeToFormat(this.props.appVersion.createdAt, 'YYYYMMDD')})`}
+                {
+                    title: '앱 버전',
+                    right: `${Platform.OS === 'ios' ? this.props.appVersion.ios : this.props.appVersion.android}(${util.timeToFormat(this.props.appVersion.createdAt, 'YYYYMMDD')})`
+                }
             ],
             contact: [
                 {title: '팀 정보'},
@@ -120,12 +123,13 @@ class MyInfoScreen extends React.Component {
 
     deleteItem = async () => {
         await AsyncStorage.removeItem('token');
+        await this.handleLogoutModal(false);
         this.props.navigation.navigate('SignIn');
     };
 
     handleLogoutModal = (modal) => {
-      const {MyInfo} = this.props;
-      MyInfo.handleLogoutModal(modal);
+        const {MyInfo} = this.props;
+        MyInfo.handleLogoutModal(modal);
     };
 
     handleUserOutModal = (modal) => {
@@ -135,17 +139,23 @@ class MyInfoScreen extends React.Component {
 
     renderLogoutModal = () => {
         return (
-            <View>
-                <Text style={{alignSelf:'center'}}>로그아웃하시겠습니까?</Text>
+            <View style={styles.userOutModalBody}>
+                <View style={styles.userOutModalBody}></View>
+                <Text style={styles.logoutModalText}>로그아웃하시겠습니까?</Text>
+                <View style={styles.userOutModalBody}></View>
             </View>
         )
     };
 
     renderUserOutModal = () => {
         return (
-            <View style={{alignItems:'center', justifyContent:'center'}}>
-                <Text style={{fontSize:13}}>탈퇴 시 모든 정보가 즉시 삭제되며 복구할 수 없습니다.</Text>
-                    <Text style={{fontSize:13}}>모든 정보 삭제에 동의하시면 탈퇴를 진행하세요.</Text>
+            <View style={styles.userOutModalBody}>
+                <View style={styles.userOutModalBody}></View>
+                <View style={styles.userOutModalBody}>
+                    <Text style={styles.userOutModalText}>탈퇴 시 모든 정보가 즉시 삭제되며 복구할 수 없습니다.</Text>
+                    <Text style={styles.userOutModalText}>모든 정보 삭제에 동의하시면 탈퇴를 진행하세요.</Text>
+                </View>
+                <View style={styles.userOutModalBody}></View>
             </View>
         )
     };
@@ -153,15 +163,19 @@ class MyInfoScreen extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <CustomModal width={285} height={195}  visible={this.props.logoutModal} close={()=>this.handleLogoutModal(false)}
-                             title={'로그아웃 확인'} footer={true} footerText={'확인'} body={this.renderLogoutModal} footerHandle={this.deleteItem}/>
-                <CustomModal width={315} height={207} padding={7} visible={this.props.userOutModal} close={()=>this.handleUserOutModal(false)}
-                             title={'탈퇴확인'} footer={true} footerHandle={this.navigationLeaveScreen} body={this.renderUserOutModal} footerText={'계속하기'}/>
+                <CustomModal width={280} height={156} visible={this.props.logoutModal}
+                             close={() => this.handleLogoutModal(false)}
+                             footer={true} footerText={'확인'} body={this.renderLogoutModal}
+                             footerHandle={this.deleteItem} ratio={'75%'}/>
+                <CustomModal width={315} height={168} padding={7} visible={this.props.userOutModal}
+                             close={() => this.handleUserOutModal(false)}
+                             footer={true} footerHandle={this.navigationLeaveScreen} body={this.renderUserOutModal}
+                             footerText={'계속하기'}/>
                 <TitleView title={'마이페이지'}/>
                 <ScrollView>
                     <View style={styles.profile}>
                         <Icon type='ionicon' name='ios-contact' size={60}/>
-                        <View style={{marginLeft:20,}}>
+                        <View style={{marginLeft: 20,}}>
                             <Text style={styles.profileNickName}>{this.props.userNickName}</Text>
                             <Text style={styles.profileId}>{this.props.userId}</Text>
                         </View>

@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, BackHandler, StatusBar} from 'react-native';
+import {View, StyleSheet, BackHandler, StatusBar, Dimensions} from 'react-native';
 import {createStore, applyMiddleware, bindActionCreators} from 'redux';
 import {Provider} from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import {SignNavigation} from "./src/components/navigations/SignNavigation";
 import reducer from "./src/modules";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const store = createStore(reducer, applyMiddleware(ReduxThunk));
 
@@ -17,7 +18,11 @@ export default class App extends React.Component {
             // Typically you would use the navigator here to go to the last state.
             return true;
         });
-        StatusBar.setBarStyle('light-content',true);
+        StatusBar.setBarStyle('dark-content',true);
+        let {height, width} = Dimensions.get('window');
+        EStyleSheet.build({
+            $rem: width > 340 ? 14 : 13
+        });
     }
 
     render() {
