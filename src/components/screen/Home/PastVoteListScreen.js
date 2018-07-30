@@ -9,6 +9,7 @@ import {VoteListItem} from "./ui/VoteListItem";
 import * as pastVote from "../../../modules/pastVote";
 
 
+
 class PastVoteListScreen extends React.Component {
 
     constructor(props) {
@@ -35,10 +36,14 @@ class PastVoteListScreen extends React.Component {
                 <TitleView title={'지난 투표'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
                 <ScrollView contentContainerStyle={styles.contentContainer}>
                     <FlatList
-                        style={{flexGrow: 1, backgroundColor: 'white'}}
+                        style={{flexGrow: 1, backgroundColor: 'white', width:'100%'}}
                         data={this.props.pastVoteList}
                         keyExtractor={(x, i) => i}
-                        renderItem={({item}) => <View><View style={{height:12}}/><VoteListItem topic={item.topicName} handle={()=>this.navigationPastVote(item.voteTopicIndex)}/></View>}
+                        renderItem={({item}) =>
+                            <View style={{width:'100%', alignItems:'center'}}>
+                                <View style={styles.listSpace}/>
+                                <VoteListItem topic={item.topicName} handle={()=>this.navigationPastVote(item.voteTopicIndex)}/>
+                            </View>}
                     />
                 </ScrollView>
             </SafeAreaView>

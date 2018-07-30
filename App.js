@@ -21,7 +21,7 @@ export default class App extends React.Component {
         StatusBar.setBarStyle('dark-content',true);
         let {height, width} = Dimensions.get('window');
         EStyleSheet.build({
-            $rem: width > 340 ? 14 : 13
+            $rem: width >= 375 ? 14 : 13
         });
     }
 

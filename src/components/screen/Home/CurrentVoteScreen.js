@@ -10,6 +10,8 @@ import {BoxShadow} from 'react-native-shadow';
 import {CurrentVoteButton} from "./ui/CurrentVoteButton";
 import TimerCountdown from 'react-native-timer-countdown';
 import {util} from "../../../utils/util";
+import config from "../../../../config";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 
 class CurrentVoteScreen extends React.Component {
@@ -64,7 +66,7 @@ class CurrentVoteScreen extends React.Component {
                             handle={() => this.handleSelectIndex(item.voteItemIndex)}
                             enable={this.props.enable}
                             selected={this.props.selectIndex == item.voteItemIndex ? true : false}/>
-                        {i == 0 ? <View style={{width: 61, height: 111}}/> : null}
+                        {i == 0 ? <View style={styles.selectButtonSpace}/> : null}
                     </View>
                 )
             })
@@ -72,6 +74,40 @@ class CurrentVoteScreen extends React.Component {
     };
 
     renderFooter = () => {
+        const dataStyle = EStyleSheet.create({
+            totalCount:{
+               fontSize: '0.7857rem',
+               color: 'rgba(0,0,0,0.3)',
+               marginBottom: '0.4286rem',
+               marginTop: '2.0714rem'
+            },
+            percent1: {
+                width: `${this.props.percent1 * 0.7}%`,
+                height: '0.857rem',
+                backgroundColor: this.props.selectIndex == this.props.voteItemList[0].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
+                alignSelf: 'center',
+                borderBottomLeftRadius: '3.57rem',
+                borderTopLeftRadius: '3.57rem'
+            },
+            percent2: {
+                width: `${this.props.percent2 * 0.7}%`,
+                height: '0.857rem',
+                backgroundColor: this.props.selectIndex == this.props.voteItemList[1].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
+                alignSelf: 'center',
+                borderBottomRightRadius: '3.57rem',
+                borderTopRightRadius: '3.57rem'
+            },
+            percent1Text:{
+                fontSize:'1rem',
+                marginRight: '0.5rem',
+                alignSelf:'center',
+            },
+            percent2Text:{
+                fontSize:'1rem',
+                marginLeft:'0.5rem',
+                alignSelf:'center',
+            }
+        });
         if (this.props.enable) {
             if (this.props.select) {
                 return (
@@ -91,42 +127,19 @@ class CurrentVoteScreen extends React.Component {
         } else {
             return (
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{
-                        fontSize: 11,
-                        color: 'rgba(0,0,0,0.3)',
-                        marginBottom: 6,
-                        marginTop: 29
-                    }}>총 {this.props.voteTopic.totalCount}명 참여</Text>
-                    <View style={{flexDirection: 'row'}}>
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            width: '50%',
-                            alignItems: 'center'
-                        }}>
+                    <Text style={dataStyle.totalCount}>총 {this.props.voteTopic.totalCount}명 참여</Text>
+                    <View style={{flexDirection: 'row', width:'100%'}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '50%'}}>
                             <View/>
                             <View/>
-                            <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
-                                <Text style={{marginRight: 7}}>{this.props.percent1}%</Text>
-                                <View style={{
-                                    width: this.props.percent1 * 1.5,
-                                    height: 12,
-                                    backgroundColor: this.props.selectIndex == this.props.voteItemList[0].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
-                                    borderBottomLeftRadius: 50,
-                                    borderTopLeftRadius: 50
-                                }}/>
+                            <View style={{flexDirection: 'row', alignSelf: 'flex-end',justifyContent:'flex-end'}}>
+                                <Text style={dataStyle.percent1Text}>{this.props.percent1}%</Text>
+                                <View style={dataStyle.percent1}/>
                             </View>
                         </View>
-                        <View style={{flexDirection: 'row', width: '50%', alignItems: 'center'}}>
-                            <View style={{
-                                width: this.props.percent2 * 1.5,
-                                height: 12,
-                                backgroundColor: this.props.selectIndex == this.props.voteItemList[1].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
-                                alignSelf: 'flex-start',
-                                borderBottomRightRadius: 50,
-                                borderTopRightRadius: 50
-                            }}/>
-                            <Text style={{alignSelf: 'flex-start', marginLeft: 7}}>{this.props.percent2}%</Text>
+                        <View style={{flexDirection: 'row', width: '50%'}}>
+                                <View style={dataStyle.percent2}/>
+                                <Text style={dataStyle.percent2Text}>{this.props.percent2}%</Text>
                         </View>
                     </View>
                 </View>
@@ -137,7 +150,7 @@ class CurrentVoteScreen extends React.Component {
     render() {
 
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={[styles.container, config.shadow]}>
                 <TitleView title={'진행중 투표'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
                 <ScrollView contentContainerStyle={styles.contentContainer}>
                     <View style={styles.mainContainer}>
@@ -149,7 +162,7 @@ class CurrentVoteScreen extends React.Component {
                                 onTick={secondsRemaining => {}}
                                 onTimeElapsed={() => console.log('complete')}
                                 allowFontScaling={true}
-                                style={{fontSize: 11}}
+                                style={styles.countDownText}
                             />
                         </View>
                         <Text style={styles.warnText}>제출된 선택은 수정이 안됩니다. 신중히 선택해주세요.</Text>

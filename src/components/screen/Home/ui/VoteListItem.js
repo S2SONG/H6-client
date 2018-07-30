@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export class VoteListItem extends React.Component {
 
@@ -11,13 +12,9 @@ export class VoteListItem extends React.Component {
     render() {
 
         return (
-            <View>
-                <TouchableOpacity onPress={this.props.handle}>
-                    <View style={styles.container}>
-                        <Text style={styles.voteTopic}>{this.props.topic}</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={styles.container} onPress={this.props.handle}>
+                <Text style={styles.voteTopic}>{this.props.topic}</Text>
+            </TouchableOpacity>
         )
     }
 }
@@ -27,16 +24,16 @@ VoteListItem.propTypes = {
     handle: PropTypes.func,
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: 330,
-        height: 68,
+        width: '91%',
+        aspectRatio: 330 / 68,
         backgroundColor: '#f5f5f5',
-        borderRadius: 5
+        borderRadius: '0.357rem'
     },
     voteTopic: {
-        fontSize: 13,
+        fontSize: '0.93rem',
     },
 });

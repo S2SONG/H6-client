@@ -1,7 +1,9 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, Dimensions, Platform} from 'react-native';
 import PropTypes from 'prop-types';
 import {BoxShadow, BorderShadow} from 'react-native-shadow';
+import config from "../../../../../config";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export class HomeVote extends React.Component {
 
@@ -23,16 +25,10 @@ export class HomeVote extends React.Component {
         };
 
         return (
-            <View>
-                <BoxShadow setting={shadowOpt}>
-                    <TouchableOpacity onPress={this.props.handle}>
-                        <View style={styles.container}>
-                            <Text style={styles.voteTopic}>{this.props.topic}</Text>
-                            <Text>{this.props.start_date} - {this.props.end_date}</Text>
-                        </View>
-                    </TouchableOpacity>
-                </BoxShadow>
-            </View>
+            <TouchableOpacity style={[styles.container, config.shadow]} onPress={this.props.handle}>
+                    <Text style={styles.voteTopic}>{this.props.topic}</Text>
+                    <Text style={styles.voteDate}>{this.props.start_date} - {this.props.end_date}</Text>
+            </TouchableOpacity>
         )
     }
 }
@@ -44,18 +40,20 @@ HomeVote.propTypes = {
     handle: PropTypes.func,
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: 330,
-        height: 166,
+        width: '91%',
+        aspectRatio: 330 / 166,
         backgroundColor: '#f5f5f5',
-        borderRadius: 5
+        borderRadius: 5,
     },
     voteTopic: {
-        fontSize: 17,
-        marginBottom: 15
+        fontSize: '1.43rem',
+        marginBottom: '1.07rem'
     },
-    voteDate: {}
+    voteDate: {
+        fontSize:'0.786rem'
+    }
 });

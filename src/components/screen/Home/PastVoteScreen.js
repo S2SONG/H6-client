@@ -8,6 +8,7 @@ import * as pastVote from "../../../modules/pastVote";
 import {connect} from "react-redux";
 import {BoxShadow} from 'react-native-shadow';
 import {CurrentVoteButton} from "./ui/CurrentVoteButton";
+import EStyleSheet from "react-native-extended-stylesheet";
 
 class PastVoteScreen extends React.Component {
 
@@ -43,7 +44,7 @@ class PastVoteScreen extends React.Component {
                             voteItemIndex={item.voteItemIndex}
                             enable={false}
                             selected={this.props.selectIndex == item.voteItemIndex ? true : false}/>
-                        {i == 0 ? <View style={{width: 61, height: 111}}/> : null}
+                        {i == 0 ? <View style={styles.selectButtonSpace}/> : null}
                     </View>
                 )
             })
@@ -51,45 +52,61 @@ class PastVoteScreen extends React.Component {
     };
 
     renderFooter = () => {
+
         if(this.props.voteItemList.length != 0) {
+            const dataStyle = EStyleSheet.create({
+                totalCount:{
+                    fontSize: '0.7857rem',
+                    color: 'rgba(0,0,0,0.3)',
+                    marginBottom: '0.4286rem',
+                    marginTop: '2.0714rem'
+                },
+                percent1: {
+                    width: `${this.props.percent1 * 0.7}%`,
+                    height: '0.857rem',
+                    backgroundColor: this.props.selectIndex == this.props.voteItemList[0].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
+                    alignSelf: 'center',
+                    borderBottomLeftRadius: '3.57rem',
+                    borderTopLeftRadius: '3.57rem'
+                },
+                percent2: {
+                    width: `${this.props.percent2 * 0.7}%`,
+                    height: '0.857rem',
+                    backgroundColor: this.props.selectIndex == this.props.voteItemList[1].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
+                    alignSelf: 'center',
+                    borderBottomRightRadius: '3.57rem',
+                    borderTopRightRadius: '3.57rem'
+                },
+                percent1Text:{
+                    fontSize:'1rem',
+                    marginRight: '0.5rem',
+                    alignSelf:'center',
+                },
+                percent2Text:{
+                    fontSize:'1rem',
+                    marginLeft:'0.5rem',
+                    alignSelf:'center',
+                }
+            });
             return (
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{
-                        fontSize: 11,
-                        color: 'rgba(0,0,0,0.3)',
-                        marginBottom: 6,
-                        marginTop: 29
-                    }}>총 {this.props.voteTopic.totalCount}명 참여</Text>
-                    <View style={{flexDirection: 'row'}}>
+                    <Text style={dataStyle.totalCount}>총 {this.props.voteTopic.totalCount}명 참여</Text>
+                    <View style={{flexDirection: 'row', width:'100%'}}>
                         <View style={{
                             flexDirection: 'row',
                             justifyContent: 'space-between',
                             width: '50%',
-                            alignItems: 'center'
                         }}>
                             <View/>
                             <View/>
-                            <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
-                                <Text style={{marginRight: 7}}>{this.props.percent1}%</Text>
-                                <View style={{
-                                    width: this.props.percent1 * 1.5,
-                                    height: 12,
-                                    backgroundColor: this.props.selectIndex == this.props.voteItemList[0].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
-                                    borderBottomLeftRadius: 50,
-                                    borderTopLeftRadius: 50
-                                }}/>
+                            <View style={{flexDirection: 'row', alignSelf: 'flex-end', justifyContent:'flex-end'}}>
+                                <Text style={dataStyle.percent1Text}>{this.props.percent1}%</Text>
+                                <View style={dataStyle.percent1}/>
                             </View>
                         </View>
-                        <View style={{flexDirection: 'row', width: '50%', alignItems: 'center'}}>
-                            <View style={{
-                                width: this.props.percent2 * 1.5,
-                                height: 12,
-                                backgroundColor: this.props.selectIndex == this.props.voteItemList[1].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
-                                alignSelf: 'flex-start',
-                                borderBottomRightRadius: 50,
-                                borderTopRightRadius: 50
-                            }}/>
-                            <Text style={{alignSelf: 'flex-start', marginLeft: 7}}>{this.props.percent2}%</Text>
+                        <View style={{flexDirection: 'row', width: '50%'}}>
+                            <View style={dataStyle.percent2}/>
+                            <Text style={dataStyle.percent2Text}>{this.props.percent2}%</Text>
                         </View>
                     </View>
                 </View>

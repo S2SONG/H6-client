@@ -1,8 +1,10 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, Dimensions} from 'react-native';
 import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {BoxShadow, BorderShadow} from 'react-native-shadow';
+import EStyleSheet from 'react-native-extended-stylesheet';
+import config from "../../../../../config";
 
 export class CurrentVoteButton extends React.Component {
 
@@ -37,26 +39,22 @@ export class CurrentVoteButton extends React.Component {
         };
 
         return (
-            <View style={{alignItems: 'center'}}>
-                <BoxShadow setting={shadowOpt}>
+            <View style={[{alignItems: 'center'}]}>
                     {this.props.enable ?
-                        <TouchableOpacity onPress={this.props.handle}>
-                            <View style={this.props.selected ? styles.selectContainer : styles.container}>
+                        <TouchableOpacity style={[this.props.selected ? styles.selectContainer : styles.container, config.shadow]} onPress={this.props.handle}>
                                 <Text
                                     style={this.props.selected ? styles.selectTitleText : styles.titleText}>{this.props.title}</Text>
                                 <Text
                                     style={this.props.selected ? styles.selectBodyText : styles.bodyText}>{this.props.itemOrder == 1 ? 'O' : 'X'}</Text>
-                            </View>
                         </TouchableOpacity>
                         :
-                        <View style={this.props.selected ? styles.selectContainer : styles.container}>
+                        <View style={[this.props.selected ? styles.selectContainer : styles.container, config.shadow]}>
                             <Text
                                 style={this.props.selected ? styles.selectTitleText : styles.titleText}>{this.props.title}</Text>
                             <Text
                                 style={this.props.selected ? styles.selectBodyText : styles.bodyText}>{this.props.itemOrder == 1 ? 'O' : 'X'}</Text>
                         </View>
                     }
-                </BoxShadow>
                 {this.renderSelected()}
             </View>
         )
@@ -77,60 +75,67 @@ CurrentVoteButton.defaultProps = {
     enable: true,
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     container: {
         alignItems: 'center',
         position: 'relative',
-        width: 107,
-        height: 111,
-        marginBottom: 7,
+        // width:'7.643rem',
+        width: Dimensions.get('window').width*0.285,
+        aspectRatio: 107/111,
+        marginBottom: '0.5rem',
         backgroundColor: '#ffffff',
-        borderRadius: 5
+        borderRadius: '0.5rem'
     },
     selectContainer: {
         alignItems: 'center',
         position: 'relative',
-        width: 107,
-        height: 111,
-        marginBottom: 7,
+        // width:'7.643rem',
+        width: Dimensions.get('window').width*0.285,
+        aspectRatio: 107/111,
+        marginBottom: '0.5rem',
         backgroundColor: '#4a4a4a',
-        borderRadius: 5
+        borderRadius: '0.5rem'
     },
     titleText: {
         position: 'absolute',
-        fontSize: 11,
+        fontSize: '0.7857rem',
         color: 'black',
-        marginTop: 17,
-        marginBottom: 5,
+        marginTop: '1.214rem',
+        marginBottom: '0.357rem',
     },
     selectTitleText: {
         position: 'absolute',
-        fontSize: 11,
+        fontSize: '0.7857rem',
         color: 'white',
-        marginTop: 17,
-        marginBottom: 5,
+        marginTop: '1.214rem',
+        marginBottom: '0.357rem',
     },
     bodyText: {
-        marginTop: 15,
-        fontSize: 80,
+        position: 'absolute',
+        marginTop: '1.07rem',
+        // marginTop:'0.7857rem',
+        fontSize: '5.714rem',
         color: 'black',
     },
     selectBodyText: {
-        marginTop: 15,
-        fontSize: 80,
+        position: 'absolute',
+        marginTop: '1.07rem',
+        // marginTop:'0.7857rem',
+        fontSize: '5.714rem',
         color: 'white',
     },
     selectBottom: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 63,
-        height: 22,
+        // width: '4.5rem',
+        width: Dimensions.get('window').width*0.168,
+        aspectRatio:63/22,
         backgroundColor: '#9b9b9b',
     },
     selectBottomText: {
-        fontSize: 11,
-        marginLeft: 3,
+        fontSize: '0.7857rem',
+        marginLeft: '0.213rem',
         color: 'white',
     },
 

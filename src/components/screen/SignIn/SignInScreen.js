@@ -767,7 +767,7 @@ class SignInScreen extends React.Component {
         }
         return (
 
-            <KeyboardAvoidingView
+            <SafeAreaView
                 style={styles.container}
                 behavior="padding" enabled>
 
@@ -780,7 +780,7 @@ class SignInScreen extends React.Component {
                     visible={this.props.findPwdResult} body={this.renderFindPwdResultModalBody}
                     footerText={'확인'} footerHandle={this.handleFindPwdResultClose} footer={true}/>
 
-                <SafeAreaView style={{flex: 1}}>
+                <KeyboardAvoidingView style={{flex: 1}} behavior="padding" enabled>
                     <Toast ref="toast"/>
                     <Modal isVisible={this.props.register} transparent={false}>
 
@@ -894,23 +894,26 @@ class SignInScreen extends React.Component {
                                     <View style={{height:40,}}></View>
                                     {this.renderSignInButton()}
                                 </View>
-                                <View style={styles.linkView}>
-                                    <LinkText
-                                        value={'비밀번호 찾기'}
-                                        handle={this.handleFindPwdModal}
-                                        link_style={{alignSelf:'flex-start', fontSize:14, color: 'black'}}/>
-                                    <View style={{alignSelf:'center', width:10}}/>
-                                    <LinkText
-                                        value={'가입하기'}
-                                        handle={this.handleSignUpModal}
-                                        link_style={{alignSelf:'flex-end', fontSize:14, color: 'black'}}/>
-                                </View>
+
 
                             </Animated.View>
                         </View>
                     </ScrollView>
-                </SafeAreaView>
-            </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
+                <Animated.View style={{opacity: animation}}>
+                    <View style={styles.linkView}>
+                        <LinkText
+                            value={'비밀번호 찾기'}
+                            handle={this.handleFindPwdModal}
+                            link_style={{alignSelf:'flex-start', fontSize:14, color: 'black'}}/>
+                        <View style={{alignSelf:'center', width:10}}/>
+                        <LinkText
+                            value={'가입하기'}
+                            handle={this.handleSignUpModal}
+                            link_style={{alignSelf:'flex-end', fontSize:14, color: 'black'}}/>
+                    </View>
+                </Animated.View>
+            </SafeAreaView>
         );
     }
 }

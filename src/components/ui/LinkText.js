@@ -17,5 +17,5 @@ export class LinkText extends React.Component {
 LinkText.propTypes = {
     handle: PropTypes.func,
     value: PropTypes.string,
-    link_style: PropTypes.object
+    link_style: PropTypes.any
 };

@@ -17,11 +17,11 @@ class HomeScreen extends React.Component {
         super(props);
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         const {Home} = this.props;
         await Home.initState();
         this.getVote();
-        this.getPastVote(this.props.pastVote.length/3+1, 3);
+        this.getPastVote(this.props.pastVote.length / 3 + 1, 3);
     }
 
     getVote = () => {
@@ -35,7 +35,7 @@ class HomeScreen extends React.Component {
     };
 
     navigationCurrentVote = () => {
-        this.props.navigation.navigate('currentVote', {getVote:this.getVote});
+        this.props.navigation.navigate('currentVote', {getVote: this.getVote});
     };
 
     navigationPastVoteList = () => {
@@ -43,7 +43,7 @@ class HomeScreen extends React.Component {
     };
 
     navigationPastVote = (index) => {
-        this.props.navigation.navigate('pastVote', {voteTopicIndex:index});
+        this.props.navigation.navigate('pastVote', {voteTopicIndex: index});
     };
 
     render() {
@@ -56,19 +56,23 @@ class HomeScreen extends React.Component {
                         start_date={this.props.voteTopic.createdAt}
                         end_date={this.props.voteTopic.dueDate}
                         handle={this.navigationCurrentVote}/>
-                    <View style={{height:47}}/>
-                    <View style={{width:330, flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={{alignSelf:'flex-start'}}>지난 투표</Text>
-                        <LinkText value={'더 보기'} link_style={{alignSelf:'flex-end'}} handle={this.navigationPastVoteList}/>
+                    <View style={styles.homeVoteBottom}/>
+                    <View style={styles.pastVoteLine}>
+                        <Text style={styles.pastVoteText1}>지난 투표</Text>
+                        <LinkText value={'더 보기'} link_style={styles.pastVoteText2}
+                                  handle={this.navigationPastVoteList}/>
                     </View>
-                    <View style={{width:330}}>
-                        <FlatList
-                            style={{flexGrow: 1, backgroundColor: 'white'}}
-                            data={this.props.pastVote}
-                            keyExtractor={(x, i) => i}
-                            renderItem={({item}) => <View><View style={{height:12}}/><VoteListItem topic={item.topicName} handle={()=>this.navigationPastVote(item.voteTopicIndex)}/></View>}
-                        />
-                    </View>
+                    <FlatList
+                        style={{flex: 1, backgroundColor: 'white', width:'100%'}}
+                        data={this.props.pastVote}
+                        keyExtractor={(x, i) => i}
+                        renderItem={({item}) =>
+                            <View style={{width:'100%', alignItems:'center'}}>
+                                <View style={styles.pastVoteSpace}/>
+                                <VoteListItem topic={item.topicName}
+                                              handle={() => this.navigationPastVote(item.voteTopicIndex)}/>
+                            </View>}
+                    />
                 </ScrollView>
             </SafeAreaView>
         )
@@ -77,9 +81,9 @@ class HomeScreen extends React.Component {
 
 
 export default connect((state) => ({
-    voteItemList: state.home.voteItemList,
-    voteTopic: state.home.voteTopic,
-    pastVote: state.home.pastVote,
+        voteItemList: state.home.voteItemList,
+        voteTopic: state.home.voteTopic,
+        pastVote: state.home.pastVote,
     }),
     (dispatch) => ({
         Home: bindActionCreators(home, dispatch)
