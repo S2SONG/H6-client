@@ -4,11 +4,17 @@ import {Alert, AsyncStorage} from "react-native";
 
 const ROOT_URL = config.server;
 
-const LEAVE_PASSWORD = 'LEAVE_PASSWORD';
 const LEAVE_INIT = 'LEAVE_INIT';
+const LEAVE_PASSWORD = 'LEAVE_PASSWORD';
+const LEAVE_PASSWORD_MODAL = 'LEAVE_PASSWORD_MODAL';
+const LEAVE_RESULT_MODAL = 'LEAVE_RESULT_MODAL';
+const LEAVE_RESULT_FAIL_MODAL = 'LEAVE_RESULT_FAIL_MODAL';
 
 const initialState = {
     password: '',
+    passwordModal:false,
+    resultModal:false,
+    resultFailModal:false,
 };
 
 export const initState = () => dispatch => {
@@ -19,8 +25,20 @@ export const handlePassword = (password) => dispatch => {
     dispatch({type:LEAVE_PASSWORD, payload:password});
 };
 
+export const handlePasswordModal = (modal) => dispatch => {
+    dispatch({type:LEAVE_PASSWORD_MODAL, payload:modal});
+};
+
+export const handleResultModal = (modal) => dispatch => {
+    dispatch({type:LEAVE_RESULT_MODAL, payload:modal});
+};
+export const handleResultFailModal = (modal) => dispatch => {
+    dispatch({type:LEAVE_RESULT_FAIL_MODAL, payload:modal});
+};
+
 export const checkPassword = (password) => async dispatch => {
     const userId = await AsyncStorage.getItem('userId');
+    console.log(userId);
     var userData = {
         userPw: password
     };
@@ -34,6 +52,7 @@ export const checkPassword = (password) => async dispatch => {
     });
 
     const passData = await passCheck.json();
+    console.log(passData);
     if(passData.statusCode == 200){
         return true;
     } else {
@@ -76,7 +95,11 @@ export const handleLeaveUser = () => async dispatch => {
 export default handleActions({
     [LEAVE_INIT]: (state, action) => {
         return {
+            ...state,
             password: '',
+            passwordModal:false,
+            resultModal:false,
+            resultFailModal:false,
         };
     },
     [LEAVE_PASSWORD]: (state, action) => {
@@ -85,4 +108,22 @@ export default handleActions({
             password: action.payload,
         }
     },
+    [LEAVE_RESULT_MODAL]: (state, action) => {
+        return {
+            ...state,
+            resultModal: action.payload,
+        }
+    },
+    [LEAVE_RESULT_FAIL_MODAL]: (state, action) => {
+        return {
+            ...state,
+            resultFailModal: action.payload,
+        }
+    },
+    [LEAVE_PASSWORD_MODAL]: (state, action) => {
+        return {
+            ...state,
+            passwordModal: action.payload,
+        }
+    }
 }, initialState)

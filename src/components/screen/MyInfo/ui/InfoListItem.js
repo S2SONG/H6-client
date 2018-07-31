@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export class InfoListItem extends React.Component {
 
@@ -28,18 +29,21 @@ InfoListItem.propTypes = {
     right: PropTypes.string,
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     container: {
-        height: 40,
+        width:'87.2%',
+        aspectRatio:327/40,
         backgroundColor: 'white',
+        paddingLeft:'0.357rem',
+        paddingRight:'0.57rem',
         justifyContent: 'center',
     },
     text: {
-        fontSize: 14,
+        fontSize: '1rem',
         alignSelf: 'center'
     },
     rightText: {
-        fontSize: 14,
+        fontSize: '1rem',
         color: '#d8d8d8',
         alignSelf: 'center'
     },

@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export class LeavePasswordInput extends React.Component {
     constructor(props) {
@@ -34,19 +35,19 @@ LeavePasswordInput.propTypes = {
     value: PropTypes.string,
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     container: {
-        flex: 1,
+        width:'100%',
+        alignItems:'center',
         justifyContent: 'center',
-        alignItems: 'center',
     },
     textInput: {
-        width: 240,
-        height: 40,
-        paddingLeft: 15,
+        width:'64%',
+        aspectRatio:240/40,
+        paddingLeft: '1.07rem',
         justifyContent: 'center',
         borderColor: '#979797',
         borderWidth: 1,
-        borderRadius:20,
+        borderRadius:'1.4286rem',
     },
 });

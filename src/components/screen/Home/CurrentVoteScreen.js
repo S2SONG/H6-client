@@ -74,40 +74,7 @@ class CurrentVoteScreen extends React.Component {
     };
 
     renderFooter = () => {
-        const dataStyle = EStyleSheet.create({
-            totalCount:{
-               fontSize: '0.7857rem',
-               color: 'rgba(0,0,0,0.3)',
-               marginBottom: '0.4286rem',
-               marginTop: '2.0714rem'
-            },
-            percent1: {
-                width: `${this.props.percent1 * 0.7}%`,
-                height: '0.857rem',
-                backgroundColor: this.props.selectIndex == this.props.voteItemList[0].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
-                alignSelf: 'center',
-                borderBottomLeftRadius: '3.57rem',
-                borderTopLeftRadius: '3.57rem'
-            },
-            percent2: {
-                width: `${this.props.percent2 * 0.7}%`,
-                height: '0.857rem',
-                backgroundColor: this.props.selectIndex == this.props.voteItemList[1].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
-                alignSelf: 'center',
-                borderBottomRightRadius: '3.57rem',
-                borderTopRightRadius: '3.57rem'
-            },
-            percent1Text:{
-                fontSize:'1rem',
-                marginRight: '0.5rem',
-                alignSelf:'center',
-            },
-            percent2Text:{
-                fontSize:'1rem',
-                marginLeft:'0.5rem',
-                alignSelf:'center',
-            }
-        });
+
         if (this.props.enable) {
             if (this.props.select) {
                 return (
@@ -125,6 +92,40 @@ class CurrentVoteScreen extends React.Component {
                 )
             }
         } else {
+            const dataStyle = EStyleSheet.create({
+                totalCount:{
+                    fontSize: '0.7857rem',
+                    color: 'rgba(0,0,0,0.3)',
+                    marginBottom: '0.4286rem',
+                    marginTop: '2.0714rem'
+                },
+                percent1: {
+                    width: `${this.props.percent1 * 0.7}%`,
+                    height: '0.857rem',
+                    backgroundColor: this.props.selectIndex == this.props.voteItemList[0].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
+                    alignSelf: 'center',
+                    borderBottomLeftRadius: '3.57rem',
+                    borderTopLeftRadius: '3.57rem'
+                },
+                percent2: {
+                    width: `${this.props.percent2 * 0.7}%`,
+                    height: '0.857rem',
+                    backgroundColor: this.props.selectIndex == this.props.voteItemList[1].voteItemIndex ? '#4a4a4a' : '#d8d8d8',
+                    alignSelf: 'center',
+                    borderBottomRightRadius: '3.57rem',
+                    borderTopRightRadius: '3.57rem'
+                },
+                percent1Text:{
+                    fontSize:'1rem',
+                    marginRight: '0.5rem',
+                    alignSelf:'center',
+                },
+                percent2Text:{
+                    fontSize:'1rem',
+                    marginLeft:'0.5rem',
+                    alignSelf:'center',
+                }
+            });
             return (
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={dataStyle.totalCount}>총 {this.props.voteTopic.totalCount}명 참여</Text>

@@ -1,43 +1,56 @@
 import {StyleSheet} from "react-native";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-export default StyleSheet.create({
+export default EStyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white'
     },
     contentContainer: {
         flexGrow: 1,
-        paddingTop: 191,
+        // paddingTop: 191,
+        alignItems:'center',
+        justifyContent:'center',
     },
     contentText: {
-        marginBottom: 43,
-        fontSize: 14,
+        marginBottom: '2.357rem',
+        fontSize: '1rem',
         alignSelf: 'center',
         textAlign: 'center',
     },
+    buttonSpace:{
+        height:'5rem'
+    },
     contentButton: {
-        width: 193,
-        height: 46,
+        width:'51.47%',
+        aspectRatio:193/46,
         alignSelf: 'center',
         justifyContent:'center',
         alignItems:'center',
-        marginTop: 70,
-        backgroundColor: 'rgb(124,130,140)',
-        borderRadius: 29
+        // marginTop: '5rem',
+        backgroundColor: '#4a4a4a',
+        borderRadius: '1.643rem'
     },
     disableButton: {
-        width: 193,
-        height: 46,
+        width:'51.47%',
+        aspectRatio:193/46,
         alignSelf: 'center',
         justifyContent:'center',
         alignItems:'center',
-        marginTop: 70,
-        backgroundColor: '#304a4a4a',
-        borderRadius: 29
+        backgroundColor: '#4a4a4a4d',
+        borderRadius: '1.643rem'
     },
     buttonText: {
-        fontSize: 16,
+        fontSize: '1.143rem',
         color: 'white'
+    },
+    resultModalBody:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    resultModalBodyText:{
+        fontSize:'1rem'
     }
 
 });

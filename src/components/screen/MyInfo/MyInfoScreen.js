@@ -170,9 +170,9 @@ class MyInfoScreen extends React.Component {
                 <CustomModal width={315} height={168} padding={7} visible={this.props.userOutModal}
                              close={() => this.handleUserOutModal(false)}
                              footer={true} footerHandle={this.navigationLeaveScreen} body={this.renderUserOutModal}
-                             footerText={'계속하기'}/>
+                             footerText={'계속하기'} ratio={'84%'}/>
                 <TitleView title={'마이페이지'}/>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{flexGrow:1}}>
                     <View style={styles.profile}>
                         <Icon type='ionicon' name='ios-contact' size={60}/>
                         <View style={{marginLeft: 20,}}>
@@ -181,11 +181,11 @@ class MyInfoScreen extends React.Component {
                         </View>
                     </View>
                     <View style={styles.contentContainer}>
-                        <View style={styles.subject}><Text style={styles.baseText}> Account </Text></View>
+                        <View style={styles.subject}><Text style={styles.baseText}>Account</Text></View>
                         {this.renderAccount()}
-                        <View style={styles.subject}><Text> Settings </Text></View>
+                        <View style={styles.subject}><Text>Settings</Text></View>
                         {this.renderAppInfo()}
-                        <View style={styles.subject}><Text> Contact us </Text></View>
+                        <View style={styles.subject}><Text>Contact us</Text></View>
                         {this.renderContact()}
                     </View>
                 </ScrollView>

@@ -24,13 +24,16 @@ export class TitleView extends React.Component {
     renderRightIcon = () => {
         if (this.props.rightIcon)
             return(
-                <Icon
-                    iconStyle={styles.rightIcon}
-                    onPress={this.props.rightIconHandler}
-                    name={this.props.rightIcon}
-                    type='ionicon'
-                    size={24} color={'black'}
-                    underlayColor={'#7c828c00'}/>);
+                <TouchableOpacity style={styles.rightIcon} onPress={this.props.rightIconHandler}>
+                    <Icon
+                        containerStyle={{alignItems:'flex-end'}}
+                        // iconStyle={styles.rightIcon}
+                        name={this.props.rightIcon}
+                        type='ionicon'
+                        size={24} color={'black'}
+                        underlayColor={'#7c828c00'}/>
+                </TouchableOpacity>
+                );
         return (<View style={styles.rightIcon}></View>);
     };
 
@@ -94,7 +97,9 @@ const styles = EStyleSheet.create({
         width: '3.57rem',
     },
     rightIcon: {
+        justifyContent:'flex-end',
         alignSelf: 'flex-end',
         width: '3.57rem',
-    }
+        backgroundColor:'transparent'
+    },
 });

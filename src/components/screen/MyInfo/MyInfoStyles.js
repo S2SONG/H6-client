@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default EStyleSheet.create({
@@ -7,26 +7,28 @@ export default EStyleSheet.create({
         backgroundColor:'white'
     },
     profile: {
-        height: 83,
-        marginBottom: 35,
-        paddingLeft: 30,
+        width:'100%',
+        aspectRatio:375/83,
+        paddingLeft: '2.143rem',
         flexDirection:'row',
         alignItems:'center',
         backgroundColor: 'rgb(246, 246, 246)',
     },
     profileId: {
         color: '#8f96a0',
-        fontSize: 12
+        fontSize: '0.857rem'
     },
     profileNickName: {
-        marginBottom: 6,
+        marginBottom: '0.4286rem',
         color: 'black',
-        fontSize: 14
+        fontSize: '1rem'
     },
     subject: {
-        marginTop: 10,
-        marginBottom: 10,
-        marginLeft:13,
+        width:'87.2%',
+        marginTop: '2.5rem',
+        paddingLeft:'0.286rem',
+        marginBottom: '0.57rem',
+        // marginLeft:13,
         justifyContent: 'center',
     },
     baseText: {
@@ -34,19 +36,23 @@ export default EStyleSheet.create({
     },
     contentContainer: {
         flex: 1,
-        padding: 14,
+        alignItems:'center',
+        // padding: '1rem',
     },
     infoContainer: {
+        width:'100%',
         backgroundColor: 'white',
-        marginBottom: 35,
-        paddingLeft: 15,
-        paddingRight: 15,
-        paddingTop: 5,
-        paddingBottom: 5,
+        alignItems:'center',
+        // marginBottom: 35,
+        // paddingLeft: 15,
+        // paddingRight: 15,
+        // paddingTop: 5,
+        // paddingBottom: 5,
     },
     infoContentLine: {
-        width: '100%',
-        height: 1,
+        width: '87.2%',
+        aspectRatio:327/1,
+        // height: 1,
         backgroundColor: 'rgb(216,216,216)'
     },
     userOutModalBody:{
