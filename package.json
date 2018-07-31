@@ -42,7 +42,7 @@
     "react-native-modal": "^5.4.0",
     "react-native-navigation-actions": "^1.0.4",
     "react-native-picker": "^4.3.6",
-    "react-native-picker-android": "^1.0.3",
+    "react-native-picker-android": "git://github.com/Guyclops/react-native-picker-android.git#master",
     "react-native-picker-js": "^1.1.2",
     "react-native-render-html": "^3.9.3",
     "react-native-shadow": "^1.2.2",
