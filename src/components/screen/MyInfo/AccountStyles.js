@@ -1,6 +1,7 @@
 import {StyleSheet} from "react-native";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-export default StyleSheet.create({
+export default EStyleSheet.create({
     container: {
         flex: 1,
         backgroundColor:'white'
@@ -9,33 +10,31 @@ export default StyleSheet.create({
         flexGrow: 1,
     },
     profileContainer: {
-        height: 288,
+        width:'100%',
+        aspectRatio:375/247,
         backgroundColor: 'white',
     },
     profile: {
-        height: 247,
-        paddingTop: 18,
-        paddingBottom: 21,
-        paddingLeft: 24,
-        paddingRight: 24,
+        width:'100%',
+        aspectRatio:375/247,
+        paddingTop: '1.2857rem',
+        alignItems:'center',
         backgroundColor: '#f5f5f5',
+    },
+    containerSpace:{
+      height:'1.5rem'
     },
     infoContentLine: {
-        width: '100%',
-        height: 1,
+        width: '87.2%',
+        aspectRatio:327/1,
         backgroundColor: '#d8d8d8'
     },
-    addInfoTitle: {
-        height: 27,
-        paddingLeft: 23,
-        justifyContent: 'center'
-    },
     addInfoContainer: {
-        height:220,
+        width:'100%',
+        aspectRatio:375/220,
         backgroundColor: '#f5f5f5',
-        paddingLeft: 23,
-        paddingRight: 22,
-        paddingTop: 8,
-        paddingBottom: 8,
+        paddingTop: '0.57rem',
+        paddingBottom: '0.57rem',
+        alignItems:'center',
     }
 });

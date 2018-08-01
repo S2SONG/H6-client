@@ -1,8 +1,11 @@
 import React from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Modal, Platform, PickerIOS} from 'react-native';
+import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import RoundCheckbox from 'rn-round-checkbox';
 import PickerAndroid from 'react-native-picker-android';
+import EStyleSheet from 'react-native-extended-stylesheet';
+import config from "../../../../../config";
 
 let Picker = Platform.OS === 'ios' ? PickerIOS : PickerAndroid;
 let PickerItem = Picker.Item;
@@ -30,19 +33,40 @@ export class MajorPickerModal extends React.Component {
         this.props.closeModal();
     };
 
+    renderClose = () => {
+        const dataStyle = EStyleSheet.create({
+            close : {
+                height: '3rem',
+                width: '85.87%',
+                alignItems: 'flex-end'
+            }
+        });
+        return (
+            <View style={dataStyle.close}>
+                <Icon name={'ios-close-circle-outline'}
+                      type='ionicon'
+                      color='#ffffff'
+                      style={{alignSelf: 'flex-end'}}
+                      size={35}
+                      underlayColor={'#7c828c00'}
+                      onPress={this.props.closeModal}/>
+            </View>
+        )
+    };
+
     render() {
         return (
             <Modal animationType="slide"
-                   transparent={false}
                    onRequestClose={() => {
                    }}
                    visible={this.props.visible}>
                 <View style={styles.modal}>
-                    <View style={styles.container}>
+                    {this.renderClose()}
+                    <View style={[styles.container, config.shadow]}>
                         <View style={styles.wheelPicker}>
                             <Picker
                                 style={{width: 300}}
-                                selectedValue={this.state.value===null?this.props.value:this.state.value}
+                                selectedValue={this.state.value === null ? this.props.value : this.state.value}
                                 onValueChange={(value) => this.setState({value})}>
                                 {this.props.data.map((item, i) => (
                                     <PickerItem
@@ -84,7 +108,7 @@ MajorPickerModal.defaultProps = {
     data: [],
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     modal: {
         flex: 1,
         backgroundColor: '#31313187',
@@ -92,10 +116,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     container: {
-        height: 294,
-        width: 322,
+        width: '85.87%',
+        aspectRatio: 322 / 294,
         backgroundColor: '#ffffff',
-        borderRadius: 12,
+        borderRadius: '0.857rem',
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -106,7 +130,7 @@ const styles = StyleSheet.create({
     },
     footerContainer: {
         width: '100%',
-        height: 87,
+        aspectRatio: 322 / 87,
         justifyContent: 'center',
         alignItems: 'center'
     }

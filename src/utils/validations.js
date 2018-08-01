@@ -23,7 +23,7 @@ validation.checkEmail = (email) => {
 };
 
 validation.checkPassLength = (pass) => {
-    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{7,16}$/;
     if (reg.test(pass))
         return true;
     else

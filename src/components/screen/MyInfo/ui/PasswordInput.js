@@ -1,43 +1,74 @@
 import React from 'react';
 import {StyleSheet, View, TextInput, Text} from 'react-native';
-import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export class PasswordInput extends React.Component {
 
     renderLabel = () => {
+        const dataStyle = EStyleSheet.create({
+            label:{
+                width:'64%',
+                alignItems:'center',
+                textAlign:'center',
+                fontSize:'1rem'
+            }
+        });
         if(this.props.label!==undefined){
             return(
-                <View style={{width:240, marginBottom:10, alignItems:'center'}}>
-                    <Text>{this.props.label}</Text>
-                </View>
+                <Text style={dataStyle.label}>{this.props.label}</Text>
             )
         }
     };
     renderCheckLabel = () => {
+        const dataStyle = EStyleSheet.create({
+            label:{
+                width:'64%',
+                alignItems:'center'
+                // marginTop:'0.357rem'
+            }
+        });
         if(this.props.checkNo!==undefined){
             return(
-                <View style={{height:10, width:240, marginTop:5}}>
+                <View style={dataStyle.label}>
                     {this.renderCheck()}
                 </View>
             )
         }
     };
     renderCheck = () => {
+        const dataStyle = EStyleSheet.create({
+            checkNo1:{
+                width:'100%',
+                color:'red',
+                fontSize:'0.714rem',
+                textAlign:'center'
+            },
+            checkNo2:{
+                width:'100%',
+                color:'green',
+                fontSize:'0.714rem',
+                textAlign:'center'
+            }
+        });
+
         if (this.props.checkNo==1) {
             return(
-                <Text style={{color:'red', fontSize:10}}>{this.props.checkLabel}</Text>
+                <Text style={dataStyle.checkNo1}>{this.props.checkLabel}</Text>
             )
         } else if (this.props.checkNo==2) {
             return(
-                <Text style={{color:'green', fontSize:10}}>{this.props.checkLabel}</Text>
+                <Text style={dataStyle.checkNo2}>{this.props.checkLabel}</Text>
             )
+        } else {
+            return (<Text style={dataStyle.checkNo2}>{' '}</Text>)
         }
     };
     render() {
         return (
-            <View style = { { marginBottom: 7, alignItems: 'center' } }>
+            <View style = { {width:'100%',alignItems: 'center', justifyContent:'center' } }>
                 {this.renderLabel()}
+                <View style={styles.labelSpace}/>
                 <View style = { styles.inputLayout }>
                     <TextInput
                         onBlur = {this.props.blur}
@@ -46,6 +77,7 @@ export class PasswordInput extends React.Component {
                         secureTextEntry = { this.props.secureText }
                         style = { styles.input }
                         underlineColorAndroid = "transparent"
+                        maxLength={16}
                         placeholder = { this.props.placeholder }
                     />
                 </View>
@@ -67,23 +99,21 @@ PasswordInput.propTypes = {
     blur: PropTypes.func
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     inputLayout: {
         flexDirection: 'row',
-        height: 40,
-        width: 240,
+        width:'64%',
+        aspectRatio:240/40,
         backgroundColor: 'white',
         borderColor: '#979797',
         borderWidth: 1,
-        borderRadius: 20,
+        borderRadius: '1.42857rem',
     },
     input: {
         width: '100%',
         textAlign: 'center'
     },
-    inputIcon: {
-        marginRight: 10,
-        alignItems:'center',
-        justifyContent:'center',
+    labelSpace:{
+        height:'0.7143rem'
     }
 });

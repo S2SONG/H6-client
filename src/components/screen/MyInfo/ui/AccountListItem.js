@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
-import {MajorPickerModal} from "./MajorPickerModal";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export class AccountListItem extends React.Component {
 
@@ -12,21 +12,27 @@ export class AccountListItem extends React.Component {
 
     returnTextStyle = (color) => {
         if(color === undefined){
-            return {
-                    fontSize: 14,
-                    color: '#00000040',
+            const dataStyle = EStyleSheet.create({
+                text:{
+                    fontSize: '1rem',
+                    color: '#00000066',
                     alignSelf:'center',
                     alignItems:'center',
                     justifyContent:'center',
-            }
+                }
+            });
+            return dataStyle.text;
         } else {
-            return {
-                    fontSize: 14,
+            const dataStyle = EStyleSheet.create({
+                text:{
+                    fontSize: '1rem',
                     color: color,
                     alignSelf:'center',
                     alignItems:'center',
                     justifyContent:'center',
-            }
+                }
+            });
+            return dataStyle.text;
         }
     };
     render() {
@@ -58,19 +64,19 @@ AccountListItem.propTypes = {
 };
 
 AccountListItem.defaultProps = {
-    rightTextColor: 'black'
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     container: {
-        height: 40,
-        paddingLeft:5,
-        paddingRight:11,
+        width:'87.2%',
+        aspectRatio:327/40,
+        paddingLeft:'0.357rem',
+        paddingRight:'0.7857rem',
         backgroundColor: 'transparent',
         justifyContent: 'center',
     },
     text: {
-        fontSize: 14,
+        fontSize: '1rem',
         alignSelf: 'center',
         justifyContent:'center',
     },
@@ -80,8 +86,8 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     rightIcon: {
-        width:25,
-        marginLeft:11,
+        marginLeft:'0.7857rem',
         alignSelf:'center',
+        alignItems:'flex-end',
     }
 });

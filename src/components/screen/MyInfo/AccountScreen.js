@@ -80,19 +80,19 @@ class AccountScreen extends React.Component {
         return (
             <View>
                 <AccountListItem title={'전공'} handle={() => this.handleMajorModal(true)}
-                                 right={this.props.major == null ? '없음' : this.props.major}/>
+                                 right={this.props.major == null ? '없음' : this.props.major} rightTextColor={'black'}/>
                 <View style={styles.infoContentLine}/>
                 <AccountListItem title={'부전공'} handle={() => this.handleMinorModal(true)}
-                                 right={this.props.minor == null ? '없음' : this.props.minor}/>
+                                 right={this.props.minor == null ? '없음' : this.props.minor} rightTextColor={'black'}/>
                 <View style={styles.infoContentLine}/>
                 <AccountListItem title={'복수전공'} handle={() => this.handleDoubleMajorModal(true)}
-                                 right={this.props.doubleMajor == null ? '없음' : this.props.doubleMajor}/>
+                                 right={this.props.doubleMajor == null ? '없음' : this.props.doubleMajor} rightTextColor={'black'}/>
                 <View style={styles.infoContentLine}/>
                 <AccountListItem title={'연계전공'} handle={() => this.handleConnectedMajorModal(true)}
-                                 right={this.props.connectedMajor == null ? '없음' : this.props.connectedMajor}/>
+                                 right={this.props.connectedMajor == null ? '없음' : this.props.connectedMajor} rightTextColor={'black'}/>
                 <View style={styles.infoContentLine}/>
                 <AccountListItem title={'입학년도'} handle={() => this.handleAdmissionYearModal(true)}
-                                 right={this.props.admissionYear == null ? '없음' : this.props.admissionYear}/>
+                                 right={this.props.admissionYear == null ? '없음' : this.props.admissionYear} rightTextColor={'black'}/>
             </View>)
     };
 
@@ -110,20 +110,19 @@ class AccountScreen extends React.Component {
                                   closeModal={() => this.handleConnectedMajorModal(false)} data={this.props.trackList}
                                   value={this.props.connectedMajor} handle={this.handleConnectedMajor}/>
                 <MajorPickerModal visible={this.props.admissionYearModal}
-                                   closeModal={() => this.handleAdmissionYearModal(false)} data={this.props.yearList}
-                                   value={this.props.admissionYear} handle={this.handleAdmissionYear}/>
+                                  closeModal={() => this.handleAdmissionYearModal(false)} data={this.props.yearList}
+                                  value={this.props.admissionYear} handle={this.handleAdmissionYear}/>
                 <TitleView title={'계정정보'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
                 <ScrollView contentContainerStyle={styles.contentContainer}>
-                    <View style={styles.profileContainer}>
-                        <View style={styles.profile}>
-                            <Icon type='ionicon' name='ios-contact' size={85}/>
-                            <AccountListItem title={'이메일'} right={this.props.userId}/>
-                            <View style={styles.infoContentLine}/>
-                            <AccountListItem title={'닉네임'} right={this.props.userNickName}/>
-                            <View style={styles.infoContentLine}/>
-                            <AccountListItem title={'비밀번호 변경'} handle={this.navigationPassword}/>
-                        </View>
+                    <View style={styles.profile}>
+                        <Icon type='ionicon' name='ios-contact' size={85}/>
+                        <AccountListItem title={'이메일'} right={this.props.userId}/>
+                        <View style={styles.infoContentLine}/>
+                        <AccountListItem title={'닉네임'} right={this.props.userNickName}/>
+                        <View style={styles.infoContentLine}/>
+                        <AccountListItem title={'비밀번호 변경'} handle={this.navigationPassword}/>
                     </View>
+                    <View style={styles.containerSpace}/>
                     <View style={styles.addInfoContainer}>
                         {this.renderAddInfo()}
                     </View>

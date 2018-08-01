@@ -11,6 +11,9 @@ const PASSWORD_NEW_PASSWORD_CHECK_NO = 'PASSWORD_NEW_PASSWORD_CHECK_NO';
 const PASSWORD_NEW_PASSWORD_CHECK_LABEL = 'PASSWORD_NEW_PASSWORD_CHECK_LABEL';
 const PASSWORD_RE_NEW_PASSWORD_CHECK_NO = 'PASSWORD_RE_NEW_PASSWORD_CHECK_NO';
 const PASSWORD_RE_NEW_PASSWORD_CHECK_LABEL = 'PASSWORD_RE_NEW_PASSWORD_CHECK_LABEL';
+const PASSWORD_CURRENT_CHANGE_MODAL = 'PASSWORD_CURRENT_CHANGE_MODAL';
+const PASSWORD_CURRENT_FAIL_MODAL = 'PASSWORD_CURRENT_FAIL_MODAL';
+const PASSWORD_SUCCESS_MODAL = 'PASSWORD_SUCCESS_MODAL';
 
 const initialState = {
     currentPassword:'',
@@ -20,6 +23,9 @@ const initialState = {
     newPasswordCheckLabel:'',
     reNewPasswordCheckNo:0,
     reNewPasswordCheckLabel:'',
+    currentChangeModal: false,
+    successModal: false,
+    currentFailModal: false,
 };
 
 export const initState = () => dispatch => {
@@ -30,6 +36,21 @@ export const initState = () => dispatch => {
     dispatch({type:PASSWORD_NEW_PASSWORD_CHECK_LABEL, payload: ''});
     dispatch({type:PASSWORD_RE_NEW_PASSWORD_CHECK_NO, payload: 0});
     dispatch({type:PASSWORD_RE_NEW_PASSWORD_CHECK_LABEL, payload: ''});
+    dispatch({type:PASSWORD_CURRENT_CHANGE_MODAL, payload:false});
+    dispatch({type:PASSWORD_CURRENT_FAIL_MODAL, payload:false});
+    dispatch({type:PASSWORD_SUCCESS_MODAL, payload:false});
+};
+
+export const handleCurrentChangeModal = (modal) => dispatch => {
+    dispatch({type:PASSWORD_CURRENT_CHANGE_MODAL, payload:modal});
+};
+
+export const handleCurrentFailModal = (modal) => dispatch => {
+    dispatch({type:PASSWORD_CURRENT_FAIL_MODAL, payload:modal});
+};
+
+export const handleSuccessModal = (modal) => dispatch => {
+    dispatch({type:PASSWORD_SUCCESS_MODAL, payload:modal});
 };
 
 export const onChangeCurrentPassword = (value) => dispatch => {
@@ -128,6 +149,24 @@ export default handleActions({
         return {
             ...state,
             reNewPasswordCheckLabel: action.payload,
+        }
+    },
+    [PASSWORD_CURRENT_CHANGE_MODAL]: (state, action) => {
+        return {
+            ...state,
+            currentChangeModal: action.payload,
+        }
+    },
+    [PASSWORD_CURRENT_FAIL_MODAL]: (state, action) => {
+        return {
+            ...state,
+            currentFailModal: action.payload,
+        }
+    },
+    [PASSWORD_SUCCESS_MODAL]: (state, action) => {
+        return {
+            ...state,
+            successModal: action.payload,
         }
     },
 }, initialState)

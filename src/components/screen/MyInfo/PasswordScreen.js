@@ -1,14 +1,13 @@
 import React from 'react';
-import {View, Text, ScrollView, AsyncStorage, SafeAreaView, Alert, KeyboardAvoidingView, Keyboard} from 'react-native';
-import {Button} from 'react-native-elements';
+import {View, Text, ScrollView, SafeAreaView, Alert, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import {TitleView} from "../../ui/TitleView";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import styles from "./PasswordStyles";
 import * as password from "../../../modules/password";
-import {SignTextInput} from "../../ui/SignTextInput";
 import {validation} from "../../../utils/validations";
 import {PasswordInput} from "./ui/PasswordInput";
+import {CustomModal} from "../../ui/CustomModal";
 
 class PasswordScreen extends React.Component {
 
@@ -18,24 +17,22 @@ class PasswordScreen extends React.Component {
         this.state = {
           keyboardSpace: 0,
         };
-
-
     }
 
     componentWillUnmount () {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
+        // this.keyboardDidShowListener.remove();
+        // this.keyboardDidHideListener.remove();
     }
 
     componentDidMount() {
         this.props.Password.initState();
-        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (frames) => {
-            if (!frames.endCoordinates) return;
-            this.setState({keyboardSpace: frames.endCoordinates.height});
-        });
-        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', (frames) => {
-            this.setState({keyboardSpace: 0})
-        });
+        // this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (frames) => {
+        //     if (!frames.endCoordinates) return;
+        //     this.setState({keyboardSpace: frames.endCoordinates.height});
+        // });
+        // this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', (frames) => {
+        //     this.setState({keyboardSpace: 0})
+        // });
     }
 
     navigationBack = () => {
@@ -44,57 +41,63 @@ class PasswordScreen extends React.Component {
 
     passwordChange = async () => {
         const {Password} = this.props;
-        if (this.props.currentPassword.length == 0) {
-            return Alert.alert(
-                '경고',
-                '현재 비밀번호를 입력해주세요.',
-                [
-                    {text: '확인'},
-                ],
-                {cancelable: false}
-            )
-        }
-
-
-        if (this.props.newPasswordCheckNo != 2 || this.props.reNewPasswordCheckNo != 2) {
-            return Alert.alert(
-                '경고',
-                '새로운 비밀번호를 확인해 주세요.',
-                [
-                    {text: '확인'},
-                ],
-                {cancelable: false}
-            )
-        }
+        // if (this.props.currentPassword.length == 0) {
+        //     return Alert.alert(
+        //         '경고',
+        //         '현재 비밀번호를 입력해주세요.',
+        //         [
+        //             {text: '확인'},
+        //         ],
+        //         {cancelable: false}
+        //     )
+        // }
+        //
+        //
+        // if (this.props.newPasswordCheckNo != 2 || this.props.reNewPasswordCheckNo != 2) {
+        //     return Alert.alert(
+        //         '경고',
+        //         '새로운 비밀번호를 확인해 주세요.',
+        //         [
+        //             {text: '확인'},
+        //         ],
+        //         {cancelable: false}
+        //     )
+        // }
         if (this.props.currentPassword === this.props.newPassword) {
-            return Alert.alert(
-                '경고',
-                '현재 비밀번호와 새로운 비밀번호가 동일합니다.',
-                [
-                    {text: '확인'},
-                ],
-                {cancelable: false}
-            )
+            // return Alert.alert(
+            //     '경고',
+            //     '현재 비밀번호와 새로운 비밀번호가 동일합니다.',
+            //     [
+            //         {text: '확인'},
+            //     ],
+            //     {cancelable: false}
+            // )
+            this.handleCurrentChangeModal(true);
+            return;
         }
         const returnValue = await Password.passwordChange(this.props.currentPassword, this.props.newPassword);
         if (returnValue) {
-            return Alert.alert(
-                '',
-                '비밀번호가 수정되었습니다.',
-                [
-                    {text: '확인', onPress: () => this.navigationBack()},
-                ],
-                {cancelable: false}
-            )
+            // return Alert.alert(
+            //     '',
+            //     '비밀번호가 수정되었습니다.',
+            //     [
+            //         {text: '확인', onPress: () => this.navigationBack()},
+            //     ],
+            //     {cancelable: false}
+            // )
+            this.handleSuccessModal(true);
+            return;
         } else {
-            return Alert.alert(
-                '경고',
-                '현재 비밀번호가 일치하지 않습니다.',
-                [
-                    {text: '확인'},
-                ],
-                {cancelable: false}
-            )
+            // return Alert.alert(
+            //     '경고',
+            //     '현재 비밀번호가 일치하지 않습니다.',
+            //     [
+            //         {text: '확인'},
+            //     ],
+            //     {cancelable: false}
+            // )
+            this.handleCurrentFailModal(true);
+            return;
         }
     };
 
@@ -124,7 +127,7 @@ class PasswordScreen extends React.Component {
             }
         } else {
             Password.onChangeNewPasswordCheckNo(1);
-            Password.onChangeNewPasswordCheckLabel('8자이상 16자이하의 영문,숫자,특수문자를 포함해야합니다.');
+            Password.onChangeNewPasswordCheckLabel('7자이상 16자이하 영문,숫자,특수문자를 포함해야합니다.');
         }
 
 
@@ -149,6 +152,56 @@ class PasswordScreen extends React.Component {
 
     };
 
+    handleCurrentChangeModal = (modal) => {
+        const {Password} = this.props;
+        Password.handleCurrentChangeModal(modal);
+    };
+
+    handleCurrentFailModal = (modal) => {
+        const {Password} = this.props;
+        Password.handleCurrentFailModal(modal);
+    };
+
+    handleSuccessModal = (modal) => {
+        const {Password} = this.props;
+        Password.handleSuccessModal(modal);
+        if(!modal) this.navigationBack();
+    };
+
+    renderCurrentChangeModalBody = () => {
+        return(
+            <View style={styles.resultModalBody}>
+                <View style={{flex:37}}></View>
+                <View style={{flex:38, alignItems:'center', justifyContent:'center'}}>
+                    <Text style={styles.resultModalBodyText}>현재 비밀번호와 새로운 비밀번호가 동일합니다.</Text>
+                </View>
+                <View style={{flex:36}}></View>
+            </View>
+        )
+    };
+    renderCurrentFailModalBody = () => {
+        return(
+            <View style={styles.resultModalBody}>
+                <View style={{flex:37}}></View>
+                <View style={{flex:38, alignItems:'center', justifyContent:'center'}}>
+                    <Text style={styles.resultModalBodyText}>현재 비밀번호가 일치하지 않습니다.</Text>
+                </View>
+                <View style={{flex:36}}></View>
+            </View>
+        )
+    };
+    renderSuccessModalBody = () => {
+        return(
+            <View style={styles.resultModalBody}>
+                <View style={{flex:37}}></View>
+                <View style={{flex:38, alignItems:'center', justifyContent:'center'}}>
+                    <Text style={styles.resultModalBodyText}>비밀번호가 수정되었습니다.</Text>
+                </View>
+                <View style={{flex:36}}></View>
+            </View>
+        )
+    };
+
     renderButton = () => {
         if(this.props.currentPassword.length == 0 || this.props.newPasswordCheckNo != 2 || this.props.reNewPasswordCheckNo != 2){
             return(
@@ -157,27 +210,36 @@ class PasswordScreen extends React.Component {
                 </View>
             )
         } else {
-            return (<Button buttonStyle={styles.button} title={'저장하기'} fontSize={16} onPress={this.passwordChange}/>);
+            return (
+                <TouchableOpacity style={styles.button} onPress={this.passwordChange}>
+                    <Text style={styles.buttonText}>저장하기</Text>
+                </TouchableOpacity>
+            );
         }
     };
 
     render() {
         return (
             <SafeAreaView style={styles.container}>
+                <CustomModal visible={this.props.currentChangeModal} width={280} height={156} ratio={'75%'}
+                             footer={true} footerText={'확인'} footerHandle={()=>this.handleCurrentChangeModal(false)} body={this.renderCurrentChangeModalBody}/>
+                <CustomModal visible={this.props.currentFailModal} width={280} height={156} ratio={'75%'}
+                             footer={true} footerText={'확인'} footerHandle={()=>this.handleCurrentFailModal(false)} body={this.renderCurrentFailModalBody}/>
+                <CustomModal visible={this.props.successModal} width={280} height={156} ratio={'75%'}
+                             footer={true} footerText={'확인'} footerHandle={()=>this.handleSuccessModal(false)} body={this.renderSuccessModalBody}/>
                 <TitleView title={'비밀번호 변경'} rightIcon={'md-close'} rightIconHandler={this.navigationBack}/>
-                <ScrollView behavior="padding"
-                            enabled
-                            style={styles.contentContainer}
-                            contentContainerStyle={{justifyContent:'center', alignItems:'center', paddingLeft: 17, paddingRight: 15, paddingBottom:this.state.keyboardSpace}}>
+                <KeyboardAvoidingView style={{flex:1}} behavior="padding" enabled>
+                <ScrollView contentContainerStyle={styles.contentContainer}>
                     <View style={styles.currentPassLabel}>
                         <Text>소중한 정보 보호를 위해</Text>
                         <Text>현재 비밀번호를 확인해 주세요.</Text>
                     </View>
+                    <View style={styles.currentPassLabelSpace}/>
                     <PasswordInput
                         secureText={true}
                         value={this.props.currentPassword}
                         handle={this.onChangeCurrentPassword}/>
-                    <View style={{height:66}}></View>
+                    <View style={styles.currentChangeSpace}/>
                     <PasswordInput
                         label={'새로운 비밀번호'}
                         secureText={true}
@@ -185,7 +247,7 @@ class PasswordScreen extends React.Component {
                         handle={this.onChangeNewPassword}
                         checkNo={this.props.newPasswordCheckNo}
                         checkLabel={this.props.newPasswordCheckLabel}/>
-
+                    <View style={styles.changePassSpace}/>
                     <PasswordInput
                         label={'새로운 비밀번호 확인'}
                         secureText={true}
@@ -193,8 +255,10 @@ class PasswordScreen extends React.Component {
                         handle={this.onChangeReNewPassword}
                         checkNo={this.props.reNewPasswordCheckNo}
                         checkLabel={this.props.reNewPasswordCheckLabel}/>
+                    <View style={styles.buttonSpace}/>
                     {this.renderButton()}
                 </ScrollView>
+                </KeyboardAvoidingView>
             </SafeAreaView>
         )
     }
@@ -209,7 +273,9 @@ export default connect((state) => ({
         newPasswordCheckLabel: state.password.newPasswordCheckLabel,
         reNewPasswordCheckNo: state.password.reNewPasswordCheckNo,
         reNewPasswordCheckLabel: state.password.reNewPasswordCheckLabel,
-
+        currentChangeModal: state.password.currentChangeModal,
+        currentFailModal: state.password.currentFailModal,
+        successModal: state.password.successModal
     }),
     (dispatch) => ({
         Password: bindActionCreators(password, dispatch)
