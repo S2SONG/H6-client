@@ -15,18 +15,16 @@ import RoundCheckbox from 'rn-round-checkbox';
 import {TermsModal} from "../../ui/TermsModal";
 import {SignUpMajor} from "../../ui/SignUpMajor";
 import {SignUpDatePicker} from "../../ui/SignUpDatePicker";
-import Toast, {DURATION} from 'react-native-easy-toast';
 import {validation} from "../../../utils/validations";
 import {WarningModal} from "../../ui/WarningModal";
 import {TermsListItem} from "../../ui/TermsListItem";
 import {SignUpIndicator} from "../SignUp/ui/SignUpIndicator";
 
-import {SignUpTextInput} from "../../ui/SignUpTextInput";
-import {FindPwdModal} from "../../ui/FindPwdModal";
+import {SignUpTextInput} from "../SignUp/ui/SignUpTextInput";
 import {handleFindPwdModal} from "../../../modules/signin";
 import {SignInButton} from "./ui/SignInButton";
-import {SignInFindPwdModal} from "./ui/SignInFindPwdModal";
 import {CustomModal} from "../../ui/CustomModal";
+import Toast from 'react-native-root-toast';
 
 const labels = ["가입동의", "기본정보", "부가정보"];
 const customStyles = {
@@ -87,6 +85,8 @@ class SignInScreen extends React.Component {
         await SignIn.initSignUpState();
         SignIn.signUpTerm1();
         SignIn.signUpTerm2();
+        SignIn.trackList();
+        SignIn.admissionYear();
         //로그인화면 애니메이션 효과
         Animated.timing(          // Uses easing functions
             this._opacity,    // The value to drive
@@ -141,26 +141,11 @@ class SignInScreen extends React.Component {
             SignIn.handleSignInCheck(true);
         }
         SignIn.handleSignInCheck(false);
-        // else {
-        //     Alert.alert(
-        //         '로그인 오류',
-        //         '아이디와 비밀번호를 확인해 주세요',
-        //         // ' ',
-        //         // '비밀번호가 일치하지 않습니다.',
-        //         [
-        //             {text: 'OK', onPress: () => console.log('OK Pressed')},
-        //         ],
-        //         {cancelable: false}
-        //     )
-        // }
     };
     //회원가입 클릭 시 동의화면 이동
     handleSignUpModal = () => {
-        // const {SignIn} = this.props;
-        // SignIn.initSignUpState();
-        // SignIn.handleSignUpModal();
         this.props.navigation.navigate('SignUpOne');
-
+        // this.props.navigation.navigate('SignUpThree');
     };
 
     //비밀번호 찾기
@@ -708,7 +693,6 @@ class SignInScreen extends React.Component {
         let signUpCheck = await SignIn.signUpUser(userId, userPw, userNickName, major, minor, doubleMajor, connectedMajor, admissionYear);
         if (signUpCheck) {
             this.handleSignUpModal();
-            this.refs.toast.show('회원가입에 성공했습니다.');
         } else {
 
         }
@@ -758,7 +742,7 @@ class SignInScreen extends React.Component {
     };
 
     render() {
-
+        const {SignIn} = this.props;
         const animation = this._opacity;
         if (!this.props.auto) {
             return (
@@ -779,9 +763,15 @@ class SignInScreen extends React.Component {
                     width={280} height={156} ratio={'75%'}
                     visible={this.props.findPwdResult} body={this.renderFindPwdResultModalBody}
                     footerText={'확인'} footerHandle={this.handleFindPwdResultClose} footer={true}/>
-
+                <Toast
+                    visible={this.props.signUpToast}
+                    position={Toast.positions.BOTTOM}
+                    shadow={false}
+                    animation={true}
+                    hideOnPress={true}
+                    onShown={()=>setTimeout(function () {SignIn.handleSignUpToast(false)}, 1500)}
+                    >회원가입 성공!</Toast>
                 <KeyboardAvoidingView style={{flex: 1}} behavior="padding" enabled>
-                    <Toast ref="toast"/>
                     <Modal isVisible={this.props.register} transparent={false}>
 
                         <TermsModal
@@ -982,6 +972,7 @@ export default connect((state) => ({
         findPwdResultTitle: state.signin.findPwdResultTitle,
 
         signInCheck: state.signin.signInCheck,
+        signUpToast: state.signin.signUpToast
     }),
     (dispatch) => ({
         SignIn: bindActionCreators(signin, dispatch)

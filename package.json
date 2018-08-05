@@ -45,6 +45,7 @@
     "react-native-picker-android": "git://github.com/Guyclops/react-native-picker-android.git#master",
     "react-native-picker-js": "^1.1.2",
     "react-native-render-html": "^3.9.3",
+    "react-native-root-toast": "^3.0.1",
     "react-native-shadow": "^1.2.2",
     "react-native-simple-picker": "^2.0.0",
     "react-native-star-rating": "^1.0.9",

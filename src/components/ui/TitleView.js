@@ -10,14 +10,16 @@ export class TitleView extends React.Component {
     renderLeftIcon = () => {
         if (this.props.leftIcon)
             return (
-                <Icon
-                    iconStyle={styles.leftIcon}
-                    onPress={this.props.leftIconHandler}
-                    name={this.props.leftIcon}
-                    type='ionicon'
-                    size={24} color={'black'}
-                    underlayColor={'#7c828c00'}
-                />);
+                <TouchableOpacity style={styles.leftIcon} onPress={this.props.leftIconHandler}>
+                    <Icon
+                        containerStyle={{alignItems:'flex-start'}}
+                        // iconStyle={styles.rightIcon}
+                        name={this.props.leftIcon}
+                        type='ionicon'
+                        size={24} color={'black'}
+                        underlayColor={'#7c828c00'}/>
+                </TouchableOpacity>
+            )
         return (<View style={styles.leftIcon}></View>);
     };
 
@@ -82,8 +84,8 @@ const styles = EStyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: 'white',
         height: '3.7rem',
-        paddingLeft: '1.43rem',
-        paddingRight: '1.43rem',
+
+
     },
     titleBarBlank: {
         width: '0.71rem',
@@ -94,12 +96,18 @@ const styles = EStyleSheet.create({
     },
     leftIcon: {
         alignSelf: 'flex-start',
+        justifyContent:'center',
         width: '3.57rem',
+        height:'100%',
+        paddingLeft: '1.43rem',
+        backgroundColor:'transparent'
     },
     rightIcon: {
-        justifyContent:'flex-end',
         alignSelf: 'flex-end',
+        justifyContent:'center',
         width: '3.57rem',
-        backgroundColor:'transparent'
+        height:'100%',
+        backgroundColor:'transparent',
+        paddingRight: '1.43rem',
     },
 });

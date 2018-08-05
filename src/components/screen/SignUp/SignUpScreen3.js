@@ -3,24 +3,19 @@ import {
     View,
     Text,
     SafeAreaView,
-
+    TouchableOpacity
 } from 'react-native';
-import {Button,Icon} from 'react-native-elements';
 import {connect} from "react-redux";
 import * as signin from "../../../modules/signin";
 import {bindActionCreators} from 'redux';
 import {SignUpIndicator} from "./ui/SignUpIndicator";
-import {SignUpMajor} from "../../ui/SignUpMajor";
-import {SignUpDatePicker} from "../../ui/SignUpDatePicker";
-import Toast, {DURATION} from 'react-native-easy-toast';
-import config from "../../../../config";
-const ROOT_URL = config.server;
-import {AsyncStorage} from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {TitleView} from "../../ui/TitleView";
+import EStyleSheet from "react-native-extended-stylesheet";
+import {SignUpPicker} from "./ui/SignUpPicker";
+import {SignUpPickerModal} from "./ui/SignUpPickerModal";
 
 
-
-class SignInScreen3 extends React.Component{
+class SignInScreen3 extends React.Component {
 
 
     constructor(props) {
@@ -32,195 +27,239 @@ class SignInScreen3 extends React.Component{
             termsModal: false,
             keyboardSpace: 0,
             findPwd: false,
-            track:' '
+            track: ' '
         };
     }
+
+    componentDidMount() {
+    }
+
     navigationGoBack = () => {
-
         this.props.navigation.goBack();
-
     };
-    xButton = () => {
-        const {SignInThree} = this.props;
 
-        SignInThree.handleTermsAll(false);
-        SignInThree.handleSignInScreen1Button('#ffffff');
-        SignInThree.handleSignInScreen1Button2('#c5c4c4');
-        SignInThree.handleChangeFontColor('#000000');
-        SignInThree.handleSignUpUserId('');
-        SignInThree.handleSignUpUserPwd('');
-        SignInThree.handleSignUpUserRePwd('');
-        SignInThree.handleSignUpUserNickName('');
-        SignInThree.handleSignInScreen2Button('#c5c4c4');
+    xButton = () => {
+        const {SignIn} = this.props;
+
+        SignIn.handleTermsAll(false);
+        SignIn.handleSignUpUserId('');
+        SignIn.handleSignUpUserPwd('');
+        SignIn.handleSignUpUserRePwd('');
+        SignIn.handleSignUpUserNickName('');
+        SignIn.handleMajor(null);
+        SignIn.handleDoubleMajor(null);
+        SignIn.handleMinor(null);
+        SignIn.handleConnectedMajor(null);
+        SignIn.handleAdmissionYear(null);
+        SignIn.handleSignUpCheckUserIdNo(0);
+        SignIn.handleSignUpCheckUserPasswordNo(0);
+        SignIn.handleSignUpCheckUserRePasswordNo(0);
+        SignIn.handleSignUpCheckUserNickNameNo(0);
 
         this.props.navigation.navigate('SignIn');
 
     };
-    // handleSignUpModal = () => {
-    //     const {SignInThree} = this.props;
-    //     SignInThree.handleTermsAll(false);
-    //     SignInThree.handleSignInScreen1Button('#ffffff');
-    //     SignInThree.handleSignInScreen1Button2('#c5c4c4');
-    //     SignInThree.handleChangeFontColor('#000000');
-    //     SignInThree.handleSignUpUserId('');
-    //     SignInThree.handleSignUpUserPwd('');
-    //     SignInThree.handleSignUpUserRePwd('');
-    //     SignInThree.handleSignUpUserNickName('');
-    //     this.props.navigation.navigate('SignIn');
-    // };
+
     handleStateMajor = (major) => {
         const {SignInThree} = this.props;
         SignInThree.handleSignUpMajor(major);
-        if(this.props.major!==undefined &&this.props.admissionYear!==undefined){
+        if (this.props.major !== undefined && this.props.admissionYear !== undefined) {
             SignInThree.handleSignInScreen3Button('#4a4a4a');
         }
     };
     handleStateMinor = (minor) => {
         const {SignInThree} = this.props;
         SignInThree.handleSignUpMinor(minor);
-        if(this.props.major!==undefined &&this.props.admissionYear!==undefined){
+        if (this.props.major !== undefined && this.props.admissionYear !== undefined) {
             SignInThree.handleSignInScreen3Button('#4a4a4a');
         }
     };
     handleStateDoubleMajor = (doubleMajor) => {
         const {SignInThree} = this.props;
         SignInThree.handleSignUpDoubleMajor(doubleMajor);
-        if(this.props.major!==undefined &&this.props.admissionYear!==undefined){
+        if (this.props.major !== undefined && this.props.admissionYear !== undefined) {
             SignInThree.handleSignInScreen3Button('#4a4a4a');
         }
     };
     handleStateConnectedMajor = (connectedMajor) => {
         const {SignInThree} = this.props;
         SignInThree.handleSignUpConnectMajor(connectedMajor);
-        if(this.props.major!==undefined &&this.props.admissionYear!==undefined){
+        if (this.props.major !== undefined && this.props.admissionYear !== undefined) {
             SignInThree.handleSignInScreen3Button('#4a4a4a');
         }
     };
     handleStateAdmissionYear = (admissionYear) => {
         const {SignInThree} = this.props;
         SignInThree.handleSignUpAdmisstionYear(admissionYear);
-        if(this.props.major!==undefined &&this.props.admissionYear!==undefined){
+        if (this.props.major !== undefined && this.props.admissionYear !== undefined) {
             SignInThree.handleSignInScreen3Button('#4a4a4a');
         }
     };
-    handleMajorCheck =()=>{
+    handleMajorCheck = () => {
         console.log('e');
     };
     signUpUser = async () => {
-        const {SignInThree} = this.props;
+        const {SignIn} = this.props;
         const {userId, userPw, userNickName, major, minor, doubleMajor, connectedMajor, admissionYear} = this.props;
-
-        console.log(this.props.major);
-        console.log(this.props.doubleMajor);
-        console.log(this.props.connectedMajor);
-        console.log(this.props.admissionYear);
-        console.log(userId, userPw, userNickName, major, minor, doubleMajor, connectedMajor, admissionYear);
-
-        if( major===undefined&&admissionYear===undefined){
-            console.log('hello');
+        let userData = {
+            userId: userId,
+            userPw: userPw,
+            userNickName: userNickName,
+            major: major,
+            minor: minor,
+            doubleMajor: doubleMajor,
+            connectedMajor: connectedMajor,
+            admissionYear: admissionYear
+        };
+        let result = await SignIn.signUpUser(userData);
+        if(result){
+            this.xButton();
+            SignIn.handleSignUpToast(true);
         }
-        else if( major !== undefined && admissionYear === undefined ) {
-            console.log('hello2');
+    };
 
+    handleMajor = (major) => {
+        const {SignIn} = this.props;
+        SignIn.handleMajor(major);
+    };
+
+    handleDoubleMajor = (major) => {
+        const {SignIn} = this.props;
+        SignIn.handleDoubleMajor(major);
+    };
+
+    handleMinor = (major) => {
+        const {SignIn} = this.props;
+        SignIn.handleMinor(major);
+    };
+
+    handleConnectedMajor = (major) => {
+        const {SignIn} = this.props;
+        SignIn.handleConnectedMajor(major);
+    };
+
+    handleAdmissionYear = (year) => {
+        const {SignIn} = this.props;
+        SignIn.handleAdmissionYear(year);
+    };
+
+    handleMajorModal = (modal) => {
+        const {SignIn} = this.props;
+        SignIn.handleMajorModal(modal);
+    };
+    handleDoubleMajorModal = (modal) => {
+        const {SignIn} = this.props;
+        SignIn.handleDoubleMajorModal(modal);
+    };
+    handleMinorModal = (modal) => {
+        const {SignIn} = this.props;
+        SignIn.handleMinorModal(modal);
+    };
+    handleConnectedMajorModal = (modal) => {
+        const {SignIn} = this.props;
+        SignIn.handleConnectedMajorModal(modal);
+    };
+    handleYearModal = (modal) => {
+        const {SignIn} = this.props;
+        SignIn.handleYearModal(modal);
+    };
+
+    renderButton = () => {
+        if(this.props.major != null && this.props.admissionYear != null){
+            return (
+                <TouchableOpacity style={styles.selectButton} onPress={this.signUpUser}>
+                    <Text style={styles.buttonText}>한담 시작하기</Text>
+                </TouchableOpacity>
+            )
+        } else {
+            return (
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>한담 시작하기</Text>
+                </View>
+            )
         }
-        else if(major === undefined && admissionYear !== undefined ) {
-            console.log('hello3');
-
-        }
-        else{
-            console.log('회원가입');
-            let signUpCheck = await SignInThree.signUpUser(userId, userPw, userNickName, major, minor, doubleMajor, connectedMajor, admissionYear);
-            if (signUpCheck) {
-                this.xButton();
-
-
-
-            }
-        }
-
-
     };
 
     render() {
-        // console.log(this.props.track);
-        //     console.log(this.props.year);
         return (
-            <SafeAreaView style={{
-                flex: 1,
-                backgroundColor:'#FFFFFF'}}>
-                <Toast ref="toast"/>
-                <KeyboardAwareScrollView>
-
-                    <View style={{flex: 1, justifyContent: 'center',marginTop:19}}>
-                        <View style ={{flexDirection:'row',justifyContent: 'space-between'}}>
-                            <View style={{marginLeft:10}}>
-                                <Icon name={'ios-arrow-back-outline'} type='ionicon' size={40} color={'black'} style={{alignSelf:'flex-first'}}  onPress={this.navigationGoBack}/>
-
-                            </View>
-                            <View style={{marginRight:10}}>
-                                <Icon name="md-close" type="ionicon" size={40} color={'black'} style={{alignSelf:'flex-end'}} onPress ={this.xButton} />
-                            </View>
-                        </View>
-
+            <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
+                <SignUpPickerModal visible={this.props.majorModal}
+                                   closeModal={() => this.handleMajorModal(false)}
+                                   data={this.props.track} value={this.props.major} handle={this.handleMajor}/>
+                <SignUpPickerModal visible={this.props.doubleMajorModal}
+                                   closeModal={() => this.handleDoubleMajorModal(false)}
+                                   data={this.props.track} value={this.props.doubleMajor} handle={this.handleDoubleMajor}/>
+                <SignUpPickerModal visible={this.props.minorModal} closeModal={() => this.handleMinorModal(false)}
+                                   data={this.props.track} value={this.props.minor} handle={this.handleMinor}/>
+                <SignUpPickerModal visible={this.props.connectedMajorModal}
+                                   closeModal={() => this.handleConnectedMajorModal(false)}
+                                   data={this.props.track} value={this.props.connectedMajor} handle={this.handleConnectedMajor}/>
+                <SignUpPickerModal visible={this.props.yearModal}
+                                   closeModal={() => this.handleYearModal(false)}
+                                   data={this.props.year} value={this.props.admissionYear} handle={this.handleAdmissionYear}/>
+                <TitleView title={'회원가입'} leftIconHandler={this.navigationGoBack} leftIcon={'ios-arrow-back-outline'}
+                           rightIconHandler={this.xButton} rightIcon={'md-close'}/>
+                <View style={{flex: 1}}>
+                    <View style={styles.indicatorContainer}>
+                        <SignUpIndicator max={3} position={2}/>
                     </View>
-                    <View style={{marginTop:15,marginLeft:10}}>
-                        <Text style={{fontSize:17,alignSelf:'flex-start',fontWeight: 'bold'}}> 회원가입 </Text>
+                    <View style={{flex: 1, alignItems: 'center'}}>
+                        <SignUpPicker label={'전공(1트랙) - 필수'} handle={() => this.handleMajorModal(true)} value={this.props.major}/>
+                        <View style={styles.pickerSpace}/>
+                        <SignUpPicker label={'복수전공(2트랙)'} handle={() => this.handleDoubleMajorModal(true)} value={this.props.doubleMajor}/>
+                        <View style={styles.pickerSpace}/>
+                        <SignUpPicker label={'부전공'} handle={() => this.handleMinorModal(true)} value={this.props.minor}/>
+                        <View style={styles.pickerSpace}/>
+                        <SignUpPicker label={'연계전공'} handle={() => this.handleConnectedMajorModal(true)} value={this.props.connectedMajor}/>
+                        <View style={styles.pickerSpace}/>
+                        <SignUpPicker label={'입학년도 - 필수'} handle={() => this.handleYearModal(true)} value={this.props.admissionYear}/>
+                        <View style={styles.buttonSpace}/>
+                        {this.renderButton()}
                     </View>
-
-
-                    <View style={{flex:4, alignItems: 'center'}}>
-                        <View style ={{marginBottom:20,marginTop:10}}>
-                            <SignUpIndicator max={3} position={2} />
-                        </View>
-
-                        {/*<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 10}}>*/}
-                        <SignUpMajor handle={this.handleStateMajor}
-                                     track={this.props.track}
-                                     value={this.props.major}
-                                     placeholder={'전공(1트랙)'}
-                        />
-                        <SignUpMajor handle={this.handleStateMinor}
-                                     track={this.props.track}
-                                     value={this.props.minor}
-                                     placeholder={'복수전공(2트랙)'}/>
-                        <SignUpMajor handle={this.handleStateDoubleMajor}
-                                     track={this.props.track}
-                                     value={this.props.doubleMajor}
-                                     placeholder={'부전공'}/>
-                        <SignUpMajor handle={this.handleStateConnectedMajor}
-                                     track={this.props.track}
-                                     value={this.props.connectedMajor}
-                                     placeholder={'연계전공'}/>
-                        <SignUpDatePicker handle={this.handleStateAdmissionYear}
-                                          year={this.props.year}
-                                          value={this.props.admissionYear}
-                                          placeholder={'입학년도'}/>
-                        <Button buttonStyle={{
-                            backgroundColor: this.props.signInScreen3Button,
-                            borderRadius: 30,
-                            width: 289,
-                            height:53,
-                            alignSelf: 'center',
-                            marginTop:25
-                        }} onPress={this.signUpUser} title="한담 시작하기"/>
-                    </View>
-                </KeyboardAwareScrollView>
+                </View>
             </SafeAreaView>
         );
     }
 }
+
+const styles = EStyleSheet.create({
+    indicatorContainer: {
+        marginBottom: '3.92857rem',
+        marginTop: '2rem',
+    },
+    pickerSpace: {
+        height: '0.2143rem'
+    },
+    buttonSpace: {
+        height: '3.7857rem'
+    },
+    button: {
+        width:'77.067%',
+        aspectRatio:289/53,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'#4a4a4a4d',
+        borderRadius:'1.893rem'
+    },
+    selectButton:{
+        width:'77.067%',
+        aspectRatio:289/53,
+        backgroundColor:'#4a4a4a',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius:'1.893rem'
+    },
+    buttonText:{
+        fontSize:'1.143rem',
+        color:'white'
+    }
+});
 export default connect((state) => ({
-        login: state.signin.login,
-        id: state.signin.id,
-        pwd: state.signin.pwd,
-        auto: state.signin.auto,
-        signInButton: state.signin.signInButton,
 
         userId: state.signin.userId,
         userPw: state.signin.userPw,
         userRePw: state.signin.userRePw,
         userNickName: state.signin.userNickName,
-        userEmail: state.signin.userEmail,
 
         major: state.signin.major,
         minor: state.signin.minor,
@@ -228,28 +267,26 @@ export default connect((state) => ({
         connectedMajor: state.signin.connectedMajor,
         admissionYear: state.signin.admissionYear,
         checkIdNo: state.signin.checkIdNo,
-        checkIdLabel: state.signin.checkIdLabel,
-        checkIdClient: state.signin.checkIdClient,
-        checkIdServer: state.signin.checkIdServer,
+
+        checkPasswordNo: state.signin.checkPasswordNo,
+        checkPassRe: state.signin.checkPassRe,
 
         checkNickNameNo: state.signin.checkNickNameNo,
-        checkNickNameLabel: state.signin.checkNickNameLabel,
-        checkNickNameClient: state.signin.checkNickNameClient,
-        checkNickNameServer: state.signin.checkNickNameServer,
 
-        checkEmailNo: state.signin.checkEmailNo,
-        checkEmailLabel: state.signin.checkEmailLabel,
-        checkEmailClient: state.signin.checkEmailClient,
-        checkEmailServer: state.signin.checkEmailServer,
+        track: state.signin.track,
+        year: state.signin.year,
+        signInScreen3Button: state.signin.signInScreen3Button,
 
+        majorModal: state.signin.majorModal,
+        doubleMajorModal: state.signin.doubleMajorModal,
+        minorModal: state.signin.minorModal,
+        connectedMajorModal: state.signin.connectedMajorModal,
+        yearModal: state.signin.yearModal,
 
-        findPwd: state.signin.findPwd, //비번찾기
-        track:state.signin.track,
-        year:state.signin.year,
-        signInScreen3Button:state.signin.signInScreen3Button
+        signUpToast: state.signin.signUpToast
 
     }),
     (dispatch) => ({
-        SignInThree: bindActionCreators(signin, dispatch)
+        SignIn: bindActionCreators(signin, dispatch)
     })
 )(SignInScreen3);

@@ -1,13 +1,18 @@
 import React from 'react';
 import {StyleSheet, View, TextInput, Text} from 'react-native';
 import {Icon} from 'react-native-elements';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import PropTypes from 'prop-types';
 
 export class SignUpTextInput extends React.Component {
 
     constructor (props) {
         super(props);
-        this.state = {hasFocus: false,color:'',fontSize:16};
+        this.state = {
+            hasFocus: false,
+            color:'',
+            fontSize:16
+        };
     }
 
     renderLabel = () => {
@@ -27,14 +32,9 @@ export class SignUpTextInput extends React.Component {
             this.state.color='black';
         }
         else if (this.props.checkNo==1) {
-            // return(
-            //     <Text style={{color:'red', fontSize:10}}>{this.props.checkLabel}</Text>
             this.state.color='red' ;
 
         } else if (this.props.checkNo==2) {
-            // return(
-            //     <Text style={{color:'green', fontSize:10}}>{this.props.checkLabel}</Text>
-            // )
             this.state.color='black';
         }
     };
@@ -45,13 +45,16 @@ export class SignUpTextInput extends React.Component {
         this.setState({hasFocus});
     };
     render() {
-        // console.log(this.props.checkNo);
+        const dataStyles = EStyleSheet.create({
+
+        });
         return (
-            <View style = { {alignItems: 'center',marginBottom:30 } }>
+            <View style = {{width:'82.93%', aspectRatio:311/35, alignItems: 'center'}}>
                 {this.renderLabel()}
                 <View style = {this.state.hasFocus &&this.state.color ? {flexDirection: 'row',
+
                     height: 35,
-                    width: 311,
+                    width:'100%',
                     backgroundColor: 'transparent',
                     paddingLeft: 10,
                     borderRadius:3,
@@ -59,10 +62,6 @@ export class SignUpTextInput extends React.Component {
                     borderBottomWidth:2,} : styles.inputLayout }
                       onPress={this.clear}
                 >
-                    {/*{this.renderLabel()}*/}
-                    {/**<View style = { styles.inputIcon }>
-                     <Icon type = "font-awesome" name = { this.props.icon }/>
-                     </View>**/}
                     <TextInput
                         onBlur = {this.props.blur}
                         onChangeText = { this.props.handle }
@@ -72,11 +71,9 @@ export class SignUpTextInput extends React.Component {
                             width: '100%',
                             fontSize:this.props.inputFontSize
                         }}
-                        // ref={ref => this.textInputRef = ref}
                         underlineColorAndroid = "transparent"
                         placeholder = { this.state.hasFocus ? this.props.changePlaceholder : this.props.placeholder }
                         onFocus={this.setFocus.bind(this, true)}
-                        // onBlur={this.setFocus.bind(this, true)}
                     />
                 </View>
             </View>
@@ -102,7 +99,7 @@ SignUpTextInput.propTypes = {
 
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     inputLayout: {
         flexDirection: 'row',
         height: 50,

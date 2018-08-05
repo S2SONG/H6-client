@@ -6,7 +6,6 @@ import {util} from "../utils/util";
 import NavigatorService from '../utils/navigator';
 import { Actions } from 'react-native-navigation-actions';
 
-
 const ROOT_URL = config.server;
 
 const SIGN_IN = 'SIGN_IN';
@@ -83,6 +82,18 @@ const CHECK_ALL='CHECK_ALL';
 
 const APP_VERSION = 'APP_VERSION';
 
+const SIGN_UP2_USER_ID_MODAL = 'SIGN_UP2_USER_ID_MODAL';
+const SIGN_UP2_USER_NICKNAME_MODAL = 'SIGN_UP2_USER_NICKNAME_MODAL';
+
+const SIGN_UP_MAJOR_MODAL = 'SIGN_UP_MAJOR_MODAL';
+const SIGN_UP_DOUBLE_MAJOR_MODAL = 'SIGN_UP_DOUBLE_MAJOR_MODAL';
+const SIGN_UP_MINOR_MODAL = 'SIGN_UP_MINOR_MODAL';
+const SIGN_UP_CONNECTED_MAJOR_MODAL = 'SIGN_UP_CONNECTED_MAJOR_MODAL';
+const SIGN_UP_YEAR_MODAL = 'SIGN_UP_YEAR_MODAL';
+
+const SIGN_UP_TOAST = 'SIGN_UP_TOAST';
+
+
 const initialState = {
     sample: "",
     auto: false,
@@ -105,13 +116,13 @@ const initialState = {
     userId: '',
     userPw: '',
     userRePw: '',
-    userNickName: undefined,
+    userNickName: '',
     userEmail: '',
-    major: undefined,
-    minor: undefined,
-    doubleMajor: undefined,
-    connectedMajor: undefined,
-    admissionYear: undefined,
+    major: null,
+    minor: null,
+    doubleMajor: null,
+    connectedMajor: null,
+    admissionYear: null,
 
     checkIdNo: 0,
     checkIdLabel: '',
@@ -157,6 +168,16 @@ const initialState = {
     fontColor:'#000000',
 
     appVersion: {},
+    userIdModal: false,
+    userNickNameModal: false,
+
+    majorModal: false,
+    doubleMajorModal: false,
+    minorModal: false,
+    connectedMajorModal: false,
+    yearModal: false,
+
+    signUpToast: false,
 };
 
 export const initSignInState = () => dispatch => {
@@ -168,16 +189,16 @@ export const initSignInState = () => dispatch => {
 };
 
 export const initSignUpState = () => dispatch => {
-    dispatch({type: SIGN_UP_USER_ID, payload: undefined});
+    dispatch({type: SIGN_UP_USER_ID, payload: ''});
     dispatch({type: SIGN_UP_USER_PWD, payload: ''});
     dispatch({type: SIGN_UP_USER_RE_PWD, payload: ''});
-    dispatch({type: SIGN_UP_USER_NICKNAME, payload: undefined});
+    dispatch({type: SIGN_UP_USER_NICKNAME, payload: ''});
     dispatch({type: SIGN_UP_USER_EMAIL, payload: ''});
-    dispatch({type: SIGN_UP_MAJOR, payload: undefined});
-    dispatch({type: SIGN_UP_MINOR, payload: undefined});
-    dispatch({type: SIGN_UP_DOUBLE_MAJOR, payload: undefined});
-    dispatch({type: SIGN_UP_CONNECT_MAJOR, payload: undefined});
-    dispatch({type: SIGN_UP_ADMISSION_YEAR, payload: undefined});
+    dispatch({type: SIGN_UP_MAJOR, payload: null});
+    dispatch({type: SIGN_UP_MINOR, payload: null});
+    dispatch({type: SIGN_UP_DOUBLE_MAJOR, payload: null});
+    dispatch({type: SIGN_UP_CONNECT_MAJOR, payload: null});
+    dispatch({type: SIGN_UP_ADMISSION_YEAR, payload: null});
 
     dispatch({type: SIGN_UP_CHECK_ID_NO, payload: 0});
     dispatch({type: SIGN_UP_CHECK_ID_LABEL, payload: ''});
@@ -219,6 +240,64 @@ export const initSignUpState = () => dispatch => {
     dispatch({type:FIND_PWD_RESULT, payload: false});
     dispatch({type:FIND_PWD_RESULT_TITLE, payload: ''});
 
+    dispatch({type:SIGN_UP2_USER_ID_MODAL, payload: false});
+    dispatch({type:SIGN_UP2_USER_NICKNAME_MODAL, payload: false});
+
+    dispatch({type:SIGN_UP_MAJOR_MODAL, payload:false});
+    dispatch({type:SIGN_UP_DOUBLE_MAJOR_MODAL, payload:false});
+    dispatch({type:SIGN_UP_MINOR_MODAL, payload:false});
+    dispatch({type:SIGN_UP_CONNECTED_MAJOR_MODAL, payload:false});
+    dispatch({type:SIGN_UP_YEAR_MODAL, payload:false});
+
+    dispatch({type:SIGN_UP_TOAST, payload:false});
+};
+
+export const handleSignUpToast = (toast) => dispatch => {
+    dispatch({type:SIGN_UP_TOAST, payload: toast});
+};
+
+export const handleMajor = (major) => dispatch => {
+    dispatch({type:SIGN_UP_MAJOR, payload: major});
+};
+
+export const handleDoubleMajor = (major) => dispatch => {
+    dispatch({type:SIGN_UP_DOUBLE_MAJOR, payload: major});
+};
+
+export const handleMinor = (major) => dispatch => {
+    dispatch({type:SIGN_UP_MINOR, payload: major});
+};
+
+export const handleConnectedMajor = (major) => dispatch => {
+    dispatch({type:SIGN_UP_CONNECT_MAJOR, payload: major});
+};
+
+export const handleAdmissionYear = (year) => dispatch => {
+    dispatch({type:SIGN_UP_ADMISSION_YEAR, payload: year});
+};
+
+export const handleMajorModal = (modal) => dispatch => {
+    dispatch({type: SIGN_UP_MAJOR_MODAL, payload: modal});
+};
+export const handleDoubleMajorModal = (modal) => dispatch => {
+    dispatch({type: SIGN_UP_DOUBLE_MAJOR_MODAL, payload: modal});
+};
+export const handleMinorModal = (modal) => dispatch => {
+    dispatch({type: SIGN_UP_MINOR_MODAL, payload: modal});
+};
+export const handleConnectedMajorModal = (modal) => dispatch => {
+    dispatch({type: SIGN_UP_CONNECTED_MAJOR_MODAL, payload: modal});
+};
+export const handleYearModal = (modal) => dispatch => {
+    dispatch({type: SIGN_UP_YEAR_MODAL, payload: modal});
+};
+
+export const handleUserIdModal = (modal) => dispatch => {
+    dispatch({type: SIGN_UP2_USER_ID_MODAL, payload: modal});
+};
+
+export const handleUserNickNameModal = (modal) => dispatch => {
+    dispatch({type: SIGN_UP2_USER_NICKNAME_MODAL, payload: modal});
 };
 
 export const handleSignInCheck = (value) => dispatch => {
@@ -505,24 +584,19 @@ export const appVersion = () => async dispatch => {
 };
 
 export const checkUserId = (userId) => async dispatch => {
-    console.log(userId);
     const userIdCheck = await fetch(`${ROOT_URL}/userValidation/userId/${userId}`);
 
     const jsonData = await userIdCheck.json();
-    console.log('check dup id : ', jsonData.statusCode);
     if (jsonData.statusCode == 200) {
         return true;
     } else {
-        // Actions.navigate({ routeName: 'home'})
         return false;
     }
 };
 
 export const checkUserNickName = (nickname) => async dispatch => {
-    // console.log(nickname);
     const userNickNameCheck = await fetch(`${ROOT_URL}/userValidation/userNickName/${nickname}`);
     const jsonData = await userNickNameCheck.json();
-    // console.log('check dup nickname : ', jsonData.statusCode);
     if (jsonData.statusCode == 200) {
         return true;
     } else {
@@ -541,18 +615,7 @@ export const checkUserEmail = (email) => async dispatch => {
     }
 };
 
-export const signUpUser = (userId, userPw, userNickName, major, minor, doubleMajor, connectedMajor, admissionYear) => async dispatch => {
-    let userData = {
-        userId: userId,
-        userPw: userPw,
-        userNickName: userNickName,
-        major: major,
-        minor: minor,
-        doubleMajor: doubleMajor,
-        connectedMajor: connectedMajor,
-        admissionYear: admissionYear
-    };
-
+export const signUpUser = (userData) => async dispatch => {
     //서버로 전송
     const signUpCheck = await fetch(`${ROOT_URL}/signUp`, {
         method: "POST",
@@ -600,34 +663,30 @@ export const sendFindPwd = (userId) => async dispatch => {
         return false;
     }
 };
-export const  trackList = ()=> async dispatch =>{
-
+export const trackList = ()=> async dispatch =>{
     const track = await fetch(`${ROOT_URL}/track`);
     const jsonData =await track.json();
     if(jsonData.statusCode == 200){
-        for(let i=0;i<jsonData.result.length;i++) {
-            dispatch({type: TRACK_LIST, payload:{value:jsonData.result[i].trackName}});
-        }
+        const data = jsonData.result;
+        data.map((item, i)=>{
+            dispatch({type:TRACK_LIST, payload: item.trackName});
+        });
     }
     else{
-        dispatch({type: TRACK_LIST, payload: ''});
+        dispatch({type: TRACK_LIST, payload: []});
     }
 };
-export const  AdmissionYear = ()=> async dispatch =>{
-
+export const admissionYear = ()=> async dispatch =>{
     const year = await fetch(`${ROOT_URL}/admissionYear`);
     const jsonData =await year.json();
     if(jsonData.statusCode == 200){
-
-        for(let i=0;i<jsonData.result.length;i++) {
-            // console.log(jsonData.result[i].admissionYear);
-
-            dispatch({type: ADMISSION_YEAR, payload: {value:''+ jsonData.result[i].admissionYear}});
-
-        }
+        const data = jsonData.result;
+        data.map((item, i)=>{
+            dispatch({type:ADMISSION_YEAR, payload: item.admissionYear+''});
+        });
     }
     else{
-        dispatch({type: ADMISSION_YEAR, payload: ''});
+        dispatch({type: ADMISSION_YEAR, payload: []});
     }
 };
 
@@ -1023,6 +1082,54 @@ export default handleActions({
         return {
             ...state,
             appVersion: action.payload,
+        }
+    },
+    [SIGN_UP2_USER_ID_MODAL]: (state, action) => {
+        return {
+            ...state,
+            userIdModal: action.payload,
+        }
+    },
+    [SIGN_UP2_USER_NICKNAME_MODAL]: (state, action) => {
+        return {
+            ...state,
+            userNickNameModal: action.payload,
+        }
+    },
+    [SIGN_UP_MAJOR_MODAL]: (state, action) => {
+        return {
+            ...state,
+            majorModal: action.payload,
+        }
+    },
+    [SIGN_UP_DOUBLE_MAJOR_MODAL]: (state, action) => {
+        return {
+            ...state,
+            doubleMajorModal: action.payload,
+        }
+    },
+    [SIGN_UP_MINOR_MODAL]: (state, action) => {
+        return {
+            ...state,
+            minorModal: action.payload,
+        }
+    },
+    [SIGN_UP_CONNECTED_MAJOR_MODAL]: (state, action) => {
+        return {
+            ...state,
+            connectedMajorModal: action.payload,
+        }
+    },
+    [SIGN_UP_YEAR_MODAL]: (state, action) => {
+        return {
+            ...state,
+            yearModal: action.payload,
+        }
+    },
+    [SIGN_UP_TOAST]: (state, action) => {
+        return {
+            ...state,
+            signUpToast: action.payload,
         }
     }
 
