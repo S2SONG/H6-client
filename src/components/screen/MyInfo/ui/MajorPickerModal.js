@@ -15,14 +15,17 @@ export class MajorPickerModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: this.props.value
+            value: this.props.value+''
         }
     }
 
     componentDidMount() {
-        console.log(this.state.value);
-        this.setState({value: this.props.value});
-
+        // this.setState({value: this.props.value});
+        if(this.props.value === null && this.props.data.length > 0){
+            this.setState({
+                value: this.props.data[0]
+            })
+        }
     }
 
     handleChangeValue = async () => {
@@ -30,6 +33,20 @@ export class MajorPickerModal extends React.Component {
             await this.props.handle(this.props.value);
         else
             await this.props.handle(this.state.value);
+        // this.props.closeModal();
+        this.handleCloseModal();
+    };
+
+    handleCloseModal = () => {
+        if(this.props.value === null){
+            this.setState({
+                value:null,
+            })
+        } else {
+            this.setState({
+                value: this.props.value,
+            })
+        }
         this.props.closeModal();
     };
 
@@ -49,7 +66,7 @@ export class MajorPickerModal extends React.Component {
                       style={{alignSelf: 'flex-end'}}
                       size={35}
                       underlayColor={'#7c828c00'}
-                      onPress={this.props.closeModal}/>
+                      onPress={this.handleCloseModal}/>
             </View>
         )
     };
@@ -65,9 +82,9 @@ export class MajorPickerModal extends React.Component {
                     <View style={[styles.container, config.shadow]}>
                         <View style={styles.wheelPicker}>
                             <Picker
-                                style={{width: 300}}
-                                selectedValue={this.state.value === null ? this.props.value : this.state.value}
-                                onValueChange={(value) => this.setState({value})}>
+                                style={styles.picker}
+                                selectedValue={this.state.value}
+                                onValueChange={(value) => this.setState({value:value})}>
                                 {this.props.data.map((item, i) => (
                                     <PickerItem
                                         key={i}
@@ -127,6 +144,9 @@ const styles = EStyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    picker:{
+        width:'23.0357rem'
     },
     footerContainer: {
         width: '100%',

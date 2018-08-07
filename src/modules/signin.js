@@ -1,10 +1,8 @@
 import {AsyncStorage} from 'react-native';
 import {handleActions} from 'redux-actions';
-import { NavigationActions } from 'react-navigation'
 import config from "../../config";
 import {util} from "../utils/util";
 import NavigatorService from '../utils/navigator';
-import { Actions } from 'react-native-navigation-actions';
 
 const ROOT_URL = config.server;
 
@@ -74,8 +72,10 @@ const SIGN_IN_SCREEN2_BUTTON='SIGN_IN_SCREEN2_BUTTON';
 const SIGN_IN_SCREEN3_BUTTON='SIGN_IN_SCREEN3_BUTTON';
 
 const ADMISSION_YEAR='ADMISSION_YEAR';
-
 const TRACK_LIST='TRACK_LIST';
+const TRACK_LIST_INIT = 'TRACK_LIST_INIT';
+const ADMISSION_YEAR_INIT = 'ADMISSION_YEAR_INIT';
+
 const MAJOR_CHECK='MAJOR_CHECK';
 const CHANGE_FONT_COLOR='CHANGE_FONT_COLOR';
 const CHECK_ALL='CHECK_ALL';
@@ -93,6 +93,12 @@ const SIGN_UP_YEAR_MODAL = 'SIGN_UP_YEAR_MODAL';
 
 const SIGN_UP_TOAST = 'SIGN_UP_TOAST';
 
+const USER_MAJOR = 'USER_MAJOR';
+const USER_MINOR = 'USER_MINOR';
+const USER_DOUBLE_MAJOR = 'USER_DOUBLE_MAJOR';
+const USER_CONNECTED_MAJOR = 'USER_CONNECTED_MAJOR';
+const USER_ADMISSION_YEAR = 'USER_ADMISSION_YEAR';
+const IS_VALIDATION = 'IS_VALIDATION';
 
 const initialState = {
     sample: "",
@@ -178,6 +184,13 @@ const initialState = {
     yearModal: false,
 
     signUpToast: false,
+
+    user_major: null,
+    user_minor: null,
+    user_double_major: null,
+    user_connected_major: null,
+    user_admission_year: null,
+    isValidation: 0,
 };
 
 export const initSignInState = () => dispatch => {
@@ -185,7 +198,6 @@ export const initSignInState = () => dispatch => {
     dispatch({type: SIGN_IN_PWD, payload: ''});
     dispatch({type: SIGN_IN_CHECK, payload: false});
     dispatch({type: SIGN_IN_BUTTON, payload: false});
-    dispatch({type: APP_VERSION, payload: {}});
 };
 
 export const initSignUpState = () => dispatch => {
@@ -250,7 +262,35 @@ export const initSignUpState = () => dispatch => {
     dispatch({type:SIGN_UP_YEAR_MODAL, payload:false});
 
     dispatch({type:SIGN_UP_TOAST, payload:false});
+
+    dispatch({type: APP_VERSION, payload: {}});
+    dispatch({type: USER_MAJOR, payload: null});
+    dispatch({type: USER_MINOR, payload: null});
+    dispatch({type: USER_DOUBLE_MAJOR, payload: null});
+    dispatch({type: USER_CONNECTED_MAJOR, payload: null});
+    dispatch({type: USER_ADMISSION_YEAR, payload: null});
+    dispatch({type: IS_VALIDATION, payload: 0});
+
+    dispatch({type: TRACK_LIST_INIT});
+    dispatch({type: ADMISSION_YEAR_INIT});
 };
+
+export const handleUserMajor = (major) => dispatch => {
+    dispatch({type: USER_MAJOR, payload: major});
+};
+export const handleUserDoubleMajor = (major) => dispatch => {
+    dispatch({type: USER_DOUBLE_MAJOR, payload: major});
+};
+export const handleUserMinor = (major) => dispatch => {
+    dispatch({type: USER_MINOR, payload: major});
+};
+export const handleUserConnectedMajor = (major) => dispatch => {
+    dispatch({type: USER_CONNECTED_MAJOR, payload: major});
+};
+export const handleUserAdmissionYear = (year) => dispatch => {
+    dispatch({type: USER_ADMISSION_YEAR, payload: year});
+};
+
 
 export const handleSignUpToast = (toast) => dispatch => {
     dispatch({type:SIGN_UP_TOAST, payload: toast});
@@ -521,17 +561,18 @@ export const signInUser = (userId, userPw) => async dispatch => {
         });
         const jsonData = await signInCheck.json();
         if (jsonData.statusCode == 200) {
-            dispatch({type: SIGN_IN, payload: true});
-            AsyncStorage.setItem('admissionYear', jsonData.result.admissionYear==null||jsonData.result.admissionYear===undefined ?'':jsonData.result.admissionYear + '');
-            AsyncStorage.setItem('connectedMajor', jsonData.result.connectedMajor==null||jsonData.result.connectedMajor===undefined?'':jsonData.result.connectedMajor);
-            AsyncStorage.setItem('doubleMajor', jsonData.result.doubleMajor==null||jsonData.result.doubleMajor===undefined? '':jsonData.result.doubleMajor);
-            AsyncStorage.setItem('isValidation', jsonData.result.isValidation + '');
-            AsyncStorage.setItem('major', jsonData.result.major==null||jsonData.result.major===undefined? '':jsonData.result.major);
-            AsyncStorage.setItem('minor', jsonData.result.minor==null||jsonData.result.minor===undefined ? '':jsonData.result.minor);
+            dispatch({type: SIGN_IN, payload: true});;
             AsyncStorage.setItem('token', jsonData.result.token);
             AsyncStorage.setItem('userId', jsonData.result.userId);
             AsyncStorage.setItem('userIndex', jsonData.result.userIndex + '');
             AsyncStorage.setItem('userNickName', jsonData.result.userNickName);
+
+            dispatch({type:USER_MAJOR, payload:jsonData.result.major});
+            dispatch({type:USER_MINOR, payload:jsonData.result.minor});
+            dispatch({type:USER_DOUBLE_MAJOR, payload:jsonData.result.doubleMajor});
+            dispatch({type:USER_CONNECTED_MAJOR, payload:jsonData.result.connectedMajor});
+            dispatch({type:USER_ADMISSION_YEAR, payload:jsonData.result.admissionYear});
+            dispatch({type:IS_VALIDATION, payload: jsonData.result.isValidation})
         } else {
             dispatch({type: SIGN_IN, payload: false});
             util.removeStorageAll();
@@ -561,17 +602,28 @@ export const checkToken = () => async dispatch => {
         util.removeStorageAll();
         return false;
     } else {
+        AsyncStorage.setItem('userId', jsonData[0].userId);
+        AsyncStorage.setItem('userIndex', jsonData[0].userIndex + '');
+        AsyncStorage.setItem('userNickName', jsonData[0].userNickName);
+        dispatch({type:USER_MAJOR, payload:jsonData[0].major});
+        dispatch({type:USER_MINOR, payload:jsonData[0].minor});
+        dispatch({type:USER_DOUBLE_MAJOR, payload:jsonData[0].doubleMajor});
+        dispatch({type:USER_CONNECTED_MAJOR, payload:jsonData[0].connectedMajor});
+        dispatch({type:USER_ADMISSION_YEAR, payload:jsonData[0].admissionYear});
+        dispatch({type:IS_VALIDATION, payload: jsonData[0].isValidation});
         NavigatorService.navigate('home');
         return true;
     }
 };
 
 export const appVersion = () => async dispatch => {
+    const token = await AsyncStorage.getItem('token');
     const result = await fetch(`${ROOT_URL}/version`,{
         method: "GET",
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'x-access-token': token
         },
     });
 
@@ -1045,6 +1097,12 @@ export default handleActions({
             ]
         }
     },
+    [TRACK_LIST_INIT]:(state, action) => {
+        return {
+            ...state,
+            track:[]
+        }
+    },
     [ADMISSION_YEAR]:(state,action)=>{
         return{
             ...state,
@@ -1052,6 +1110,12 @@ export default handleActions({
                 ...state.year,
                 action.payload
             ]
+        }
+    },
+    [ADMISSION_YEAR_INIT]: (state, action) => {
+        return {
+            ...state,
+            year: []
         }
     },
     [SIGN_IN_SCREEN2_BUTTON]:(state,action)=>{
@@ -1130,6 +1194,42 @@ export default handleActions({
         return {
             ...state,
             signUpToast: action.payload,
+        }
+    },
+    [USER_MAJOR]: (state, action) => {
+        return {
+            ...state,
+            user_major: action.payload,
+        }
+    },
+    [USER_MINOR]: (state, action) => {
+        return {
+            ...state,
+            user_minor: action.payload,
+        }
+    },
+    [USER_DOUBLE_MAJOR]: (state, action) => {
+        return {
+            ...state,
+            user_double_major: action.payload,
+        }
+    },
+    [USER_CONNECTED_MAJOR]: (state, action) => {
+        return {
+            ...state,
+            user_connected_major: action.payload,
+        }
+    },
+    [USER_ADMISSION_YEAR]: (state, action) => {
+        return {
+            ...state,
+            user_admission_year: action.payload,
+        }
+    },
+    [IS_VALIDATION]: (state, action) => {
+        return {
+            ...state,
+            isValidation: action.payload,
         }
     }
 

@@ -144,7 +144,7 @@ const styles = EStyleSheet.create({
         alignItems: 'center',
     },
     picker:{
-      width:'23.0357rem'
+        width:'23.0357rem'
     },
     footerContainer: {
         width: '100%',

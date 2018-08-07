@@ -30,7 +30,6 @@ export const handleUserOutModal = (modal) => dispatch => {
 
 
 export const setProfile = () => async dispatch => {
-    console.log('start');
     const userNickName = await AsyncStorage.getItem("userNickName");
     const userId = await AsyncStorage.getItem("userId");
     const isValidation = await AsyncStorage.getItem('isValidation');
