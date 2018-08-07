@@ -44,7 +44,6 @@ util.getTimerSecond = (date) => {
 
 util.removeStorageAll = () => {
     AsyncStorage.removeItem('token');
-    AsyncStorage.removeItem('token');
     AsyncStorage.removeItem('userId');
     AsyncStorage.removeItem('userIndex');
     AsyncStorage.removeItem('userNickName');

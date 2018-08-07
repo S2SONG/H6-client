@@ -73,7 +73,7 @@ export const getPastVote = (index) => async dispatch => {
     if(jsonData.statusCode == 200){
         const data = jsonData.result.voteTopic;
         const voteItem = jsonData.result.voteItem;
-
+        if(data.totalCount == 0) data.totalCount = 1;
         voteItem.map((item, i)=>{
             switch(item.itemOrder){
                 case 1:
