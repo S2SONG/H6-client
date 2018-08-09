@@ -35,7 +35,8 @@ class AmendScreen extends React.Component {
 
     componentDidMount() {
         this.evaluationInit();
-        // if(this.props.review==="") this.handleReview(this.state.review);
+        console.log(this.state.review);
+        if(this.props.review==="") this.handleReview(this.state.review);
     };
     evaluationInit = async () =>{
         const {Evaluation} = this.props;
@@ -43,8 +44,8 @@ class AmendScreen extends React.Component {
     };
 
     navigationGoBack = () => {
-        // this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList,reply: this.props.updateReply});
-        this.props.navigation.goBack();
+        this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList,reply: this.props.updateReply});
+        // this.props.navigation.goBack();
     };
 
     handleSemester = (semester) => {
@@ -116,10 +117,9 @@ class AmendScreen extends React.Component {
     replyModalClose = async ()=>{
         const {Evaluation} = this.props;
         Evaluation.saveModal(false);
-        await this.replyList();
-        // this.props.navigation.navigate('lecture',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList});
         this.navigationGoBack();
-        // this.props.navigation.navigate('lectureInfo',{lecture: this.props.lecture, lectureReplyList: this.props.lectureReplyList, updateReply: this.props.updateReply});
+        await this.replyList();
+        this.navigationGoBack();
     };
 
     testCountChangeType = (testCount) => {

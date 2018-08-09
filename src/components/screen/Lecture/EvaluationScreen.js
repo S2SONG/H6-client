@@ -7,9 +7,7 @@ import styles from "./EvaluationScreenStyles";
 import {Icon, Button} from 'react-native-elements';
 import {SemesterPicker} from "../../ui/SemesterPicker";
 import {EvaluateButton} from "./ui/EvaluateButton";
-import StarRating from 'react-native-star-rating';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import {ScoreIndicator} from "./ui/ScoreIndicator";
 import {EvaluateScore} from "./ui/EvaluateScore";
 import {CustomModal} from "../../ui/CustomModal";
 
@@ -119,7 +117,7 @@ class EvaluationScreen extends React.Component {
         const {Evaluation} = this.props;
         Evaluation.saveModal(true);
     };
-    replyModalClose=()=>{
+    replyModalClose=async()=>{
         const {Evaluation} = this.props;
         Evaluation.saveModal(false);
         this.props.navigation.navigate('lecture',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList});

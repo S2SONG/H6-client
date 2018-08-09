@@ -41,12 +41,16 @@ class LectureScreen extends React.Component {
     };
 
     renderList = () => {
-        if (this.props.searchText !== '' && this.props.total == 0) {
+        if (this.props.searchText !== '' && this.props.total != 0) {
             return (
                 <View style={styles.listContainer}>
-                    <Icon name='md-images' type='ionicon' size={80}/>
-                    <Text>결과가 없습니다.</Text>
-                    <Text>검색어를 확인해주세요.</Text>
+                    <FlatList
+                        style={{flexGrow: 1, backgroundColor: 'white'}}
+                        data={this.props.lectureList}
+                        keyExtractor={(x, i) => i}
+                        ListFooterComponent={this.renderListFooter}
+                        renderItem={({item}) => <LectureListItem lecture={item} navigation={this.props.navigation}/>}
+                    />
                 </View>
             )
         } else if(this.props.searchText == '') {
@@ -64,16 +68,19 @@ class LectureScreen extends React.Component {
                     />
                 </View>
             )
-        }else {
+        }else if(this.props.searchText !== '' && this.props.total == 0 && this.props.loading){
             return (
+                <View>
+                    <ActivityIndicator size="large" animating/>
+                </View>
+            )
+        }
+        else if(this.props.searchText !== '' && this.props.total == 0 && !this.props.loading){
+            return(
                 <View style={styles.listContainer}>
-                    <FlatList
-                        style={{flexGrow: 1, backgroundColor: 'white'}}
-                        data={this.props.lectureList}
-                        keyExtractor={(x, i) => i}
-                        ListFooterComponent={this.renderListFooter}
-                        renderItem={({item}) => <LectureListItem lecture={item} navigation={this.props.navigation}/>}
-                    />
+                    <Icon name='md-images' type='ionicon' size={80}/>
+                    <Text>결과가 없습니다.</Text>
+                    <Text>검색어를 확인해주세요.</Text>
                 </View>
             )
         }

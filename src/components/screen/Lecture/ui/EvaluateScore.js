@@ -24,7 +24,7 @@ export class EvaluateScore extends React.Component {
         var num;
         for(num=0; num < this.state.count ; num++){
             this.state.press[num] = true;
-            console.log(this.state.count, this.state.press[num])
+            // console.log(this.state.count, this.state.press[num])
         }
         for(num=this.state.count; num<5; num ++){
             this.state.press[num] = false;

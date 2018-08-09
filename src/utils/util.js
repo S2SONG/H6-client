@@ -26,7 +26,7 @@ util.timeSince = (date) => {
         return interval + " 시간전";
     }
     interval = Math.floor(seconds / 60);
-    if (interval > 1) {
+    if (interval > 0.9) {
         return interval + " 분전";
     }
     return Math.floor(seconds) + " 초전";

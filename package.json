@@ -40,6 +40,7 @@
     "react-native-material-bottom-navigation": "^0.9.0",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-modal": "^5.4.0",
+    "react-native-modal-picker": "^0.0.16",
     "react-native-navigation-actions": "^1.0.4",
     "react-native-picker": "^4.3.6",
     "react-native-picker-android": "git://github.com/Guyclops/react-native-picker-android.git#master",

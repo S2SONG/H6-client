@@ -16,6 +16,7 @@ import * as evaluation from "../../../modules/evaluation";
 import ActionSheet from 'react-native-actionsheet-native';
 import {BoxShadow} from 'react-native-shadow';
 import {LinkText} from "../../ui/LinkText";
+import * as lecture from "../../../modules/lecture";
 
 class LectureInfoScreen extends React.Component {
 
@@ -153,7 +154,7 @@ class LectureInfoScreen extends React.Component {
         Evaluation.removeReplyModal(true);
     };
 
-    removeReplyModalClose = () => {
+    removeReplyModalClose =async () => {
         const {Evaluation} = this.props;
         Evaluation.removeReplyModal(false);
         // this.props.navigation.navigate('lectureInfo',{lecture:this.props.lecture, lectureReplyList: this.props.lectureReplyList});
@@ -243,6 +244,7 @@ export default connect((state) => ({
     }),
     (dispatch) => ({
         LectureInfo: bindActionCreators(lectureInfo, dispatch),
-        Evaluation: bindActionCreators(evaluation, dispatch)
+        Evaluation: bindActionCreators(evaluation, dispatch),
+        Lecture: bindActionCreators(lecture,dispatch)
     })
 )(LectureInfoScreen);
