@@ -10,17 +10,16 @@ import config from "../../../../../config";
 let Picker = Platform.OS === 'ios' ? PickerIOS : PickerAndroid;
 let PickerItem = Picker.Item;
 
-export class MajorPickerModal extends React.Component {
+export class SignUpPickerModal extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            value: this.props.value+''
+            value: this.props.value
         }
     }
 
     componentDidMount() {
-        // this.setState({value: this.props.value});
         if(this.props.value === null && this.props.data.length > 0){
             this.setState({
                 value: this.props.data[0]
@@ -33,7 +32,6 @@ export class MajorPickerModal extends React.Component {
             await this.props.handle(this.props.value);
         else
             await this.props.handle(this.state.value);
-        // this.props.closeModal();
         this.handleCloseModal();
     };
 
@@ -109,7 +107,7 @@ export class MajorPickerModal extends React.Component {
     }
 }
 
-MajorPickerModal.propTypes = {
+SignUpPickerModal.propTypes = {
     visible: PropTypes.bool,
     closeModal: PropTypes.func,
     checked: PropTypes.bool,
@@ -118,7 +116,7 @@ MajorPickerModal.propTypes = {
     handle: PropTypes.func,
 };
 
-MajorPickerModal.defaultProps = {
+SignUpPickerModal.defaultProps = {
     value: "",
     visible: true,
     checked: true,

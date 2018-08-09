@@ -13,7 +13,7 @@ export default EStyleSheet.create({
         height:'3.356rem'
     },
     pastVoteLine:{
-        width:'91%',
+        width:'89%',
         flexDirection:'row',
         justifyContent:'space-between'
     },

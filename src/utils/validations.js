@@ -1,10 +1,10 @@
 export const validation = {};
 
 validation.checkNickNameLength = (userNickName) => {
-    if (0 < userNickName.length && userNickName.length < 2 && userNickName.length>15)
-        return false;
-    else
+    if (userNickName.length >= 2 && userNickName.length < 17)
         return true;
+    else
+        return false;
 };
 
 validation.checkIdLength = (userId) => {

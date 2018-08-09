@@ -59,7 +59,7 @@ export class AccountListItem extends React.Component {
 AccountListItem.propTypes = {
     handle: PropTypes.func,
     title: PropTypes.string,
-    right: PropTypes.string,
+    right: PropTypes.any,
     rightTextColor: PropTypes.string
 };
 

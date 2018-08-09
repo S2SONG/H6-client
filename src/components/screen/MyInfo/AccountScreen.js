@@ -10,6 +10,7 @@ import {AccountListItem} from "./ui/AccountListItem";
 import config from "../../../../config";
 import * as account from "../../../modules/account";
 import {MajorPickerModal} from "./ui/MajorPickerModal";
+import * as signin from "../../../modules/signin";
 
 class AccountScreen extends React.Component {
 
@@ -20,9 +21,6 @@ class AccountScreen extends React.Component {
     async componentDidMount() {
         const {Account} = this.props;
         await Account.initState();
-        await Account.getAddInfo();
-        Account.getTrack();
-        Account.getYear();
     }
 
     navigationBack = () => {
@@ -33,26 +31,31 @@ class AccountScreen extends React.Component {
         this.props.navigation.navigate('password');
     };
 
-    handleMajor = (major) => {
-        const {Account} = this.props;
-        Account.handleMajor(major);
+    handleMajor = async (major) => {
+        const {Account, SignIn} = this.props;
+        await Account.handleMajor(major);
+        SignIn.handleUserMajor(major);
     };
 
-    handleMinor = (minor) => {
-        const {Account} = this.props;
-        Account.handleMinor(minor);
+    handleMinor = async (minor) => {
+        const {Account, SignIn} = this.props;
+        await Account.handleMinor(minor);
+        SignIn.handleUserMinor(minor);
     };
-    handleDoubleMajor = (minor) => {
-        const {Account} = this.props;
-        Account.handleDoubleMajor(minor);
+    handleDoubleMajor = async (minor) => {
+        const {Account, SignIn} = this.props;
+        await Account.handleDoubleMajor(minor);
+        SignIn.handleUserDoubleMajor(minor);
     };
-    handleConnectedMajor = (minor) => {
-        const {Account} = this.props;
-        Account.handleConnectedMajor(minor);
+    handleConnectedMajor = async (minor) => {
+        const {Account, SignIn} = this.props;
+        await Account.handleConnectedMajor(minor);
+        SignIn.handleUserConnectedMajor(minor);
     };
-    handleAdmissionYear = (year) => {
-        const {Account} = this.props;
-        Account.handleAdmissionYear(year);
+    handleAdmissionYear = async (year) => {
+        const {Account, SignIn} = this.props;
+        await Account.handleAdmissionYear(year);
+        SignIn.handleUserAdmissionYear(year);
     };
 
     handleMajorModal = (modal) => {
@@ -111,7 +114,7 @@ class AccountScreen extends React.Component {
                                   value={this.props.connectedMajor} handle={this.handleConnectedMajor}/>
                 <MajorPickerModal visible={this.props.admissionYearModal}
                                   closeModal={() => this.handleAdmissionYearModal(false)} data={this.props.yearList}
-                                  value={this.props.admissionYear} handle={this.handleAdmissionYear}/>
+                                  value={this.props.admissionYear+''} handle={this.handleAdmissionYear}/>
                 <TitleView title={'계정정보'} leftIcon={'ios-arrow-back-outline'} leftIconHandler={this.navigationBack}/>
                 <ScrollView contentContainerStyle={styles.contentContainer}>
                     <View style={styles.profile}>
@@ -136,13 +139,22 @@ class AccountScreen extends React.Component {
 export default connect((state) => ({
         userId: state.myinfo.userId,
         userNickName: state.myinfo.userNickName,
-        major: state.account.major,
-        minor: state.account.minor,
-        doubleMajor: state.account.doubleMajor,
-        connectedMajor: state.account.connectedMajor,
-        admissionYear: state.account.admissionYear,
-        trackList: state.account.trackList,
-        yearList: state.account.yearList,
+        // major: state.account.major,
+        // minor: state.account.minor,
+        // doubleMajor: state.account.doubleMajor,
+        // connectedMajor: state.account.connectedMajor,
+        // admissionYear: state.account.admissionYear,
+        major: state.signin.user_major,
+        minor: state.signin.user_minor,
+        doubleMajor: state.signin.user_double_major,
+        connectedMajor: state.signin.user_connected_major,
+        admissionYear: state.signin.user_admission_year,
+
+        // trackList: state.account.trackList,
+        // yearList: state.account.yearList,
+        trackList: state.signin.track,
+        yearList: state.signin.year,
+
         addInfo: state.account.addInfo,
         majorModal: state.account.majorModal,
         minorModal: state.account.minorModal,
@@ -151,6 +163,7 @@ export default connect((state) => ({
         admissionYearModal: state.account.admissionYearModal,
     }),
     (dispatch) => ({
-        Account: bindActionCreators(account, dispatch)
+        Account: bindActionCreators(account, dispatch),
+        SignIn: bindActionCreators(signin, dispatch)
     })
 )(AccountScreen);

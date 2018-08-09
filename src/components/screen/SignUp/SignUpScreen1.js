@@ -94,6 +94,15 @@ class SignUpScreen1 extends React.Component {
         SignIn.handleSignUpUserPwd('');
         SignIn.handleSignUpUserRePwd('');
         SignIn.handleSignUpUserNickName('');
+        SignIn.handleMajor(null);
+        SignIn.handleDoubleMajor(null);
+        SignIn.handleMinor(null);
+        SignIn.handleConnectedMajor(null);
+        SignIn.handleAdmissionYear(null);
+        SignIn.handleSignUpCheckUserIdNo(0);
+        SignIn.handleSignUpCheckUserPasswordNo(0);
+        SignIn.handleSignUpCheckUserRePasswordNo(0);
+        SignIn.handleSignUpCheckUserNickNameNo(0);
     };
     nextTerms = () => {
         if (this.returnChecked()) {
@@ -166,9 +175,6 @@ class SignUpScreen1 extends React.Component {
         });
         return (
             <SafeAreaView style={styles.container}>
-                {/*<StatusBar backgroundColor="#717882"*/}
-                {/*translucent={true}*/}
-                {/*/>*/}
                 <TitleView title={'회원가입'} rightIcon={'md-close'} rightIconHandler={this.xButton}/>
                 <View style={{flex: 1, alignItems: 'center'}}>
                     <View style={styles.indicatorContainer}>
@@ -263,18 +269,6 @@ class SignUpScreen1 extends React.Component {
                         close={this.handleTermsFirstModalClose} visible={this.props.firstVisible} renderFooter={false}/>
                     <CustomModal title={'한담 서비스 이용약관'} ratio={'93%'} width={349} height={559} body={this.renderSecondModalBody}
                                  close={this.handleTermsSecondModalClose} visible={this.props.secondVisible} renderFooter={false}/>
-                    {/*<TermsModal*/}
-                        {/*closeModal={this.handleTermsFirstModalClose}*/}
-                        {/*modalVisible={this.props.firstVisible}*/}
-                        {/*title='개인정보 수집 및 이용'*/}
-                        {/*htmlContent={this.props.term1}*/}
-                    {/*/>*/}
-                    {/*<TermsModal*/}
-                        {/*closeModal={this.handleTermsSecondModalClose}*/}
-                        {/*modalVisible={this.props.secondVisible}*/}
-                        {/*title='한담 서비스 이용 약관'*/}
-                        {/*htmlContent={this.props.term2}*/}
-                    {/*/>*/}
                 </View>
             </SafeAreaView>
         );
